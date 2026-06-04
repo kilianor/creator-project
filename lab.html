@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab · Academy Creator Lab</title>
+  <style>
+    :root { --text:#f8f8f8; --muted:#a5a5ad; --accent:#1df3f2; --line:rgba(255,255,255,.12); --shadow:0 22px 70px rgba(0, 0, 0, 0.62); }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Inter,system-ui,sans-serif; color:var(--text); background:linear-gradient(180deg,#030303 0%,#080808 50%,#030303 100%); min-height:100vh; }
+    main { width:min(1480px,calc(100% - 40px)); margin:0 auto; padding:22px 0 56px; }
+    header { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; margin-bottom:20px; }
+    .logo { width:clamp(176px,18vw,260px); display:block; }
+    .main-nav { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .nav-link { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 14px; color:var(--text); background:rgba(255,255,255,.06); text-decoration:none; font-size:14px; font-weight:800; }
+    .nav-link.active { background:var(--accent); border-color:var(--accent); color:#020202; }
+    #channelSection {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      border-radius: 18px;
+      padding: 8px 0 10px;
+    }
+    .grid {
+      position: relative;
+      z-index: 1;
+    }
+    .comment-background {
+      position: absolute;
+      top: 34px;
+      right: 0;
+      bottom: 0;
+      left: calc(50% + 270px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: .9;
+      filter: saturate(.96);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      padding-top: 8px;
+      padding-right: 0;
+      transform: translateY(0);
+      transition: transform .72s cubic-bezier(.22,1,.36,1), opacity .72s ease;
+      mask-image: linear-gradient(180deg, transparent 0%, #000 7%, #000 86%, transparent 100%);
+    }
+    .comment-background.is-shifting {
+      opacity: .34;
+      transform: translateY(-34px);
+    }
+    .comment-bubble {
+      position: relative;
+      max-width: 100%;
+      padding: 8px 11px;
+      border-radius: 14px;
+      color: rgba(255,255,255,.72);
+      background: rgba(11,11,14,.42);
+      border: 1px solid rgba(255,255,255,.085);
+      box-shadow: 0 16px 44px rgba(0,0,0,.22), 0 0 22px rgba(29,243,242,.05);
+      backdrop-filter: blur(7px);
+      font-size: var(--size, 13px);
+      font-weight: 750;
+      line-height: 1.28;
+      transform: none;
+      white-space: normal;
+      animation: commentSettle .64s cubic-bezier(.22,1,.36,1) both;
+      animation-delay: calc(var(--i, 0) * 18ms);
+    }
+    .comment-bubble:nth-child(n+23) {
+      display: none;
+    }
+    .comment-bubble.accent {
+      border-color: rgba(29,243,242,.24);
+      color: rgba(239,255,255,.82);
+      background: rgba(8,24,25,.42);
+      box-shadow: 0 16px 44px rgba(0,0,0,.24), 0 0 26px rgba(29,243,242,.10);
+    }
+    .comment-bubble.red {
+      border-color: rgba(255,45,69,.18);
+      box-shadow: 0 16px 44px rgba(0,0,0,.24), 0 0 22px rgba(255,45,69,.08);
+    }
+    @keyframes commentSettle {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .meta { color:var(--muted); font-size:13px; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .card { border-radius:8px; overflow:hidden; background:rgba(10,10,12,.92); border:1px solid rgba(255,255,255,.10); cursor:pointer; transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease; padding:18px; text-align:center; }
+    .card:hover { transform:translateY(-4px); border-color:rgba(29,243,242,.48); background:rgba(18,18,22,.98); box-shadow:0 22px 55px rgba(0,0,0,.42); }
+    .lab-text-card {
+      position: relative;
+      grid-row: span 2;
+      overflow: hidden;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-radius: 8px;
+      padding: 28px;
+      background: linear-gradient(145deg, rgba(11, 18, 20, .94), rgba(9, 9, 12, .9));
+      border: 1px solid rgba(29,243,242,.26);
+      box-shadow: 0 22px 55px rgba(0,0,0,.34), inset 0 0 0 1px rgba(255,255,255,.035);
+    }
+    .lab-text-card h2 {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(26px, 2.8vw, 42px);
+      line-height: 1.05;
+      font-weight: 1000;
+    }
+    .lab-text-card .lab-subtitle {
+      margin: 8px 0 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 750;
+    }
+    .lab-copy {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 22px;
+    }
+    .lab-text-card p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: rgba(248,248,248,.86);
+      font-size: clamp(15px, 1.12vw, 18px);
+      line-height: 1.62;
+      font-weight: 650;
+    }
+    .lab-text-neon {
+      position: relative;
+      z-index: 0;
+      pointer-events: none;
+      margin-top: auto;
+      padding-top: clamp(28px, 6vh, 72px);
+      color: var(--accent);
+      text-align: center;
+      white-space: pre-line;
+      font-size: clamp(58px, 8vw, 138px);
+      line-height: 1.34;
+      font-weight: 1000;
+      letter-spacing: .08em;
+      opacity: .62;
+      text-shadow:
+        0 0 8px rgba(29,243,242,.9),
+        0 0 22px rgba(29,243,242,.66),
+        0 0 48px rgba(29,243,242,.38);
+      filter: drop-shadow(0 0 22px rgba(29,243,242,.45));
+      animation: labTextPulse 3.5s ease-in-out infinite;
+    }
+    @keyframes labPulse {
+      0%, 100% {
+        opacity: .055;
+        filter: drop-shadow(0 0 12px rgba(29,243,242,.12));
+      }
+      50% {
+        opacity: .15;
+        filter: drop-shadow(0 0 30px rgba(29,243,242,.34));
+      }
+    }
+    @keyframes labTextPulse {
+      0%, 100% {
+        opacity: .35;
+        text-shadow:
+          0 0 7px rgba(29,243,242,.65),
+          0 0 18px rgba(29,243,242,.44),
+          0 0 36px rgba(29,243,242,.22);
+      }
+      50% {
+        opacity: .9;
+        text-shadow:
+          0 0 10px rgba(29,243,242,1),
+          0 0 30px rgba(29,243,242,.78),
+          0 0 62px rgba(29,243,242,.46);
+      }
+    }
+    .profile-wrap {
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 14px;
+      border-radius: 9999px;
+      padding: 3px;
+      background: linear-gradient(140deg, rgba(29,243,242,.92), rgba(29,243,242,.35));
+      box-shadow: 0 0 18px rgba(29,243,242,.28);
+    }
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 9999px;
+      object-fit: cover;
+      object-position: var(--profile-position, center center);
+      transform: scale(var(--profile-scale, 1));
+      display: block;
+      background: #050507;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .platform-icons {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      flex-wrap: wrap;
+    }
+    .platform-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(29,243,242,.65);
+      box-shadow: 0 0 10px rgba(29,243,242,.25);
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
+      text-decoration: none;
+    }
+    .platform-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .platform-icon.tiktok,
+    .platform-icon.instagram,
+    .platform-icon.youtube,
+    .platform-icon.twitch,
+    .platform-icon.spotify { border-color: rgba(29,243,242,.65); }
+    .card h3 { margin:0 0 8px; line-height:1.25; font-size: 22px; }
+    .card .meta { color: var(--muted); line-height: 1.45; font-size: 14px; }
+    .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(0,0,0,.78); z-index:20; }
+    .modal.open { display:flex; }
+    .modal-card { width:min(920px,100%); max-height:88vh; overflow:auto; border-radius:12px; background:#08080a; border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow); }
+    .modal-preview-wrap {
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: #040406;
+    }
+    .modal-preview {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .modal-content { padding:24px; }
+    .modal-content h2 { margin:0 0 8px; }
+    .modal-content p { color:#d4d4db; line-height:1.6; }
+    .link-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    .link-row a { display:inline-flex; text-decoration:none; color:#020202; background:var(--accent); border-radius:999px; padding:10px 13px; font-size:14px; font-weight:900; }
+    .close { float:right; margin:16px 16px 0 0; border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:10px 14px; background:rgba(255,255,255,.08); color:var(--text); cursor:pointer; font-weight:800; }
+    .showcase-section {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin-top: 44px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(29,243,242,.46);
+    }
+    .showcase-lab-word {
+      position: absolute;
+      top: 26px;
+      bottom: 0;
+      left: 0;
+      width: calc(50% - 270px);
+      z-index: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      opacity: .12;
+      font-size: clamp(118px, 13vw, 240px);
+      line-height: 1.05;
+      font-weight: 1000;
+      letter-spacing: 0;
+      text-align: center;
+      white-space: pre-line;
+      filter: drop-shadow(0 0 28px rgba(29,243,242,.24));
+      animation: labPulse 4.4s ease-in-out infinite;
+    }
+    .showcase-feed {
+      width: min(100%, 480px);
+      height: min(82vh, 780px);
+      margin: 0 auto;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: #050507;
+      box-shadow: 0 24px 70px rgba(0,0,0,.46);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(29,243,242,.56) rgba(255,255,255,.08);
+      position: relative;
+      z-index: 1;
+    }
+    .showcase-item {
+      position: relative;
+      height: 100%;
+      scroll-snap-align: start;
+      background: #000;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .showcase-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+    .showcase-shade {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,.74), rgba(0,0,0,.08) 45%, rgba(0,0,0,.18));
+    }
+    .showcase-creator {
+      position: absolute;
+      left: 16px;
+      bottom: 18px;
+      z-index: 2;
+      max-width: calc(100% - 128px);
+      color: #f6fbfb;
+      font-weight: 900;
+      font-size: 18px;
+      line-height: 1.2;
+      text-shadow: 0 2px 18px rgba(0,0,0,.65);
+    }
+    .reaction-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .reaction-heart {
+      position: absolute;
+      bottom: 20px;
+      left: var(--x, 50%);
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: floatUpFade var(--duration, 3s) ease-out var(--delay, 0s) forwards;
+      will-change: transform, opacity;
+    }
+    .reaction-heart {
+      color: #ff2d45;
+      font-size: var(--size, 30px);
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 0 14px rgba(255,45,69,.72), 0 0 28px rgba(255,45,69,.34);
+    }
+    @keyframes floatUpFade {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translate(0, 28px) scale(.82) rotate(var(--rotate, 0deg));
+      }
+      14% { opacity: 1; }
+      72% { opacity: .86; }
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translate(var(--drift, 0px), -360px) scale(var(--end-scale, 1.12)) rotate(calc(var(--rotate, 0deg) + var(--spin, 8deg)));
+      }
+    }
+    @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-row:auto;} .lab-text-neon{font-size:clamp(52px,12vw,96px); padding-top:34px;} .showcase-section .comment-background,.showcase-lab-word{display:none;} }
+    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-row:auto;} .lab-copy{gap:20px;} .lab-text-neon{font-size:64px; line-height:1.22; padding-top:28px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="index.html"><img class="logo" src="media/as-academy-creator-lab-logo.png" alt="Academy Creator Lab" /></a>
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <a class="nav-link active" href="lab.html">Lab</a>
+        <a class="nav-link" href="stats.html">Stats</a>
+        <a class="nav-link" href="how-to.html">How-To</a>
+      </nav>
+    </header>
+
+    <section id="channelSection">
+      <div id="channelGrid" class="grid"></div>
+    </section>
+
+    <section class="showcase-section" aria-label="Video-Feed">
+      <div class="showcase-lab-word" aria-hidden="true">L
+A
+B</div>
+      <div id="commentBackground" class="comment-background" aria-hidden="true"></div>
+      <div id="showcaseFeed" class="showcase-feed"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" onclick="closeModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="close" type="button" onclick="closeModal()">Schließen</button>
+      <div class="modal-preview-wrap">
+        <img id="modalPreview" class="modal-preview" src="" alt="" />
+      </div>
+      <div class="modal-content">
+        <h2 id="modalTitle"></h2>
+        <p id="modalText"></p>
+        <div id="modalLinks" class="link-row"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const channels = [
+      {title:"markusundvinz",meta:"Markus & Vinzenz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",preview:"media/markusundvinz-tile.png",previewAlt:"markusundvinz Kachel",text:"Markus & Vinz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@markusundvinz"},{label:"YouTube öffnen",url:"https://www.youtube.com/@MarkusundVinz"}]},
+      {title:"berlinmarti",meta:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"media/berlinmarti-modal.png",cardPreview:"media/lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"}]},
+      {title:"philipamarti",meta:"Philipa: Zeitgeist, Mode und Trends",preview:"media/philipamarti-modal.png",cardPreview:"media/lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Kachel",text:"Philipa: Zeitgeist, Mode und Trends",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
+      {title:"lauras.sports",meta:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",preview:"media/laura-sports-tile.png",cardPreview:"media/lab-laura-sports-card.png",previewAlt:"lauras.sports Kachel",profileScale:1,profilePosition:"center center",text:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
+      {title:"moin.lisa",meta:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",preview:"media/moin-lisa-tile.png",cardPreview:"media/lab-moin-lisa-card.jpeg",previewAlt:"moin.lisa Kachel",profileScale:1,profilePosition:"center center",text:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moin.lisa?is_from_webapp=1&sender_device=pc"},{label:"YouTube öffnen",url:"https://www.youtube.com/@moin_lisa"}]},
+      {title:"lauraemelytalks",meta:"Laura Emily: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"media/lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Kachel",text:"Laura Emily: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
+      {title:"apropos_news",meta:"Kilian: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"media/apropos-news-tile.png",previewAlt:"apropos_news Kachel",text:"Apropos News: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
+      {title:"zwischendenpfosten",meta:"Elinor, Simon, Maurus: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",preview:"media/zdp-tile.png",cardPreview:"media/lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Kachel",profileScale:1,profilePosition:"center center",text:"Zwischen den Pfosten: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
+      {title:"alinasophiekatzele",meta:"Alina-Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",preview:"media/alinasophiekatzele-tile.png",cardPreview:"media/lab-alina-card.jpeg",previewAlt:"alinasophiekatzele Kachel",profileScale:1,profilePosition:"center center",text:"Alina Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
+      {title:"moscowplaybook",meta:"Daria: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"media/moscowplaybook-tile.png",previewAlt:"moscowplaybook Kachel",text:"Moscow Playbook: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"}]}
+    ];
+
+    const labIntroText = [
+      "Als Volontäre der Axel Springer Academy sind wir zu einer kleinen Social-Media-Agentur geworden. Ziel: Eigene journalistische Formate, Persönlichkeiten und Kanäle aufzubauen.",
+      "Wir haben Themen entwickelt, Videos produziert, Plattformen getestet und Community-Reaktionen ausgewertet. Entstanden ist ein Konzept, mit dem Creator-Channels gezielt an die Medienmarken des Verlages angebunden werden können."
+    ];
+
+    const showcaseVideos = [
+      {creator:"markusundvinz",src:"media/showcase-markus.mov"},
+      {creator:"markusundvinz",src:"media/showcase-vinzenz.mp4"},
+      {creator:"philipamarti",src:"media/showcase-philipamarti.mov"},
+      {creator:"Berlinmarti",src:"media/showcase-philipa-2.mov"},
+      {creator:"lauras.sports",src:"media/showcase-lauras-sports.mp4"},
+      {creator:"zwischendenpfosten",src:"media/showcase-zdp.mp4"},
+      {creator:"moin.lisa",src:"media/showcase-moin-lisa.mp4"},
+      {creator:"lauraemelytalks",src:"media/showcase-lauraemilytalks.mov"},
+      {creator:"moscowplaybook",src:"media/showcase-moscowplaybook.mp4"}
+    ];
+
+    const decorativeComments = [
+      "Real haste gut beschrieben 🚩",
+      "Ich als Fußballnerd habe geguckt",
+      "danke maus, habe ich gebraucht haha",
+      "darf ich hier bleiben bin auch ein Fußballnerd 🙏🙏",
+      "Nein = Nein ! ✊🏻",
+      "An jeglichen öffentlichen Orten Überwachungskameras, dass man für so’n Aussage gegen Aussage einfach mal Beweise hat. 🙏🏻",
+      "Puh… das darf so nicht sein!",
+      "Schlimm :(",
+      "russia makes me feel sick",
+      "lavrov is a professional liar.",
+      "Cooles Video🔥",
+      "unsere Nummer Eins! 🔥🔥🔥",
+      "Habt vergessen zu erwähnen, dass er und Flo Wirtz Zwillinge sind",
+      "22 Jahre? Kannte mal ein besseren Verein",
+      "Mitleid? Warum und mit wem?",
+      "Genau wie Turbine Potsdam",
+      "Das war eine sehr interessante Information. Dann ist der Abstieg um so mehr Schade.",
+      "die werden leider nie mehr zurückkommen🙁",
+      "tja. Das zeigt wer was kann und wer wen finanziert!",
+      "So leude, forza ist fertig runter geladen",
+      "Ja aber es nur Ausgleichszahlungen. Reaktiv normal bei jedem Unternehmen eigentlich. 😅",
+      "Macht ja 0 Sinn 🤣🤣🤣🤣",
+      "nur Bürokratie, braucht sich keiner wundern wenn keiner mehr Bock auf Selbstständigkeit hat🤟😎",
+      "Das ist kein weder Bürokratie-Wahnsinn noch unsinnig.",
+      "Nur Kostendruck sorgt dafür, dass endlich der Müllberg reduziert wird und Hersteller sich Gedanken um intelligente Verpackung machen.",
+      "Irre!😂😂😂",
+      "500000 Euro für schnellen hässlichen Strom 😂😂😂",
+      "Kann mir jemand erklären, was es bedeutet?",
+      "Nicht so deep",
+      "Aber wer entscheidet wer gut aussieht und wer nicht? Ist das nicht eine Ansichtssache?",
+      "War das nicht schon immer so in der Geschichte der Menschheit",
+      "Berlin lebt",
+      "Stark!",
+      "Toll"
+    ];
+
+    const decorativeCommentLayout = [
+      {size:"12px",tone:"accent"},
+      {size:"13px",tone:""},
+      {size:"12px",tone:"red"},
+      {size:"13px",tone:"accent"},
+      {size:"13px",tone:""},
+      {size:"12px",tone:"accent"},
+      {size:"13px",tone:""},
+      {size:"12px",tone:"red"},
+      {size:"13px",tone:"accent"},
+      {size:"12px",tone:""},
+      {size:"13px",tone:"red"},
+      {size:"12px",tone:""},
+      {size:"12px",tone:"accent"},
+      {size:"13px",tone:""},
+      {size:"12px",tone:"red"},
+      {size:"13px",tone:""},
+      {size:"12px",tone:"accent"},
+      {size:"13px",tone:""},
+      {size:"12px",tone:""},
+      {size:"13px",tone:"red"},
+      {size:"12px",tone:"accent"},
+      {size:"13px",tone:""}
+    ];
+
+    function CommentBackground(commentOffset = 0) {
+      return decorativeCommentLayout.map((item, index) => {
+        const text = decorativeComments[(commentOffset + index) % decorativeComments.length];
+        const toneClass = item.tone ? ` ${item.tone}` : "";
+        return `<span class="comment-bubble${toneClass}" style="--size:${item.size};--i:${index};">${text}</span>`;
+      }).join("");
+    }
+
+    function cardMarkup(item, i) {
+      const seenPlatforms = new Set();
+      const platformIcons = (item.links || []).map(link => {
+        const url = (link.url || "").toLowerCase();
+        let cls = "tiktok";
+        let icon = "media/tiktok-logo.png";
+        let alt = "TikTok";
+        if (url.includes("instagram")) { cls = "instagram"; icon = "media/instagram-logo.png"; alt = "Instagram"; }
+        else if (url.includes("youtube")) { cls = "youtube"; icon = "media/youtube-logo.png"; alt = "YouTube"; }
+        else if (url.includes("twitch")) { cls = "twitch"; icon = "media/twitch-logo.png"; alt = "Twitch"; }
+        else if (url.includes("spotify")) { cls = "spotify"; icon = "media/spotify-logo.png"; alt = "Spotify"; }
+        if (seenPlatforms.has(cls)) return "";
+        seenPlatforms.add(cls);
+        return `<a class="platform-icon ${cls}" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="${alt}" onclick="event.stopPropagation();"><img src="${icon}" alt="${alt}" loading="lazy" /></a>`;
+      }).join("");
+      const profileStyle = `style="--profile-scale:${item.profileScale || 1};--profile-position:${item.profilePosition || "center center"};"`;
+      return `<article class="card" role="button" tabindex="0" onclick="openModal(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal(${i});}">
+        <div class="profile-wrap"><img class="profile-image" ${profileStyle} src="${item.cardPreview || item.preview}" alt="${item.previewAlt}" loading="lazy" /></div>
+        <div class="platform-icons">${platformIcons}</div>
+        <h3>${item.title}</h3>
+        <div class="meta">${item.meta}</div>
+      </article>`;
+    }
+
+    function textCardMarkup() {
+      return `<article class="lab-text-card" aria-label="Projektbeschreibung">
+        <h2>Creator Channels</h2>
+        <div class="lab-subtitle">Alle bestehenden Academy-Creator-Kanäle und wo sie vertreten sind</div>
+        <div class="lab-copy">${labIntroText.map(paragraph => `<p>${paragraph}</p>`).join("")}</div>
+        <div class="lab-text-neon" aria-hidden="true">L
+A
+B</div>
+      </article>`;
+    }
+
+    function labGridMarkup() {
+      const channelByTitle = new Map(channels.map((item, index) => [item.title, { item, index }]));
+      const layout = [
+        "markusundvinz",
+        "berlinmarti",
+        "philipamarti",
+        "lauras.sports",
+        "intro",
+        "moin.lisa",
+        "lauraemelytalks",
+        "apropos_news",
+        "zwischendenpfosten",
+        "alinasophiekatzele",
+        "moscowplaybook"
+      ];
+
+      return layout.map((entry) => {
+        if (entry === "intro") return textCardMarkup();
+        const channel = channelByTitle.get(entry);
+        return channel ? cardMarkup(channel.item, channel.index) : "";
+      }).join("");
+    }
+
+    const commentBackgroundEl = document.getElementById("commentBackground");
+    let commentShiftTimer;
+    function updateCommentBackground(videoIndex, animate = false) {
+      const commentOffset = (videoIndex * 3) % decorativeComments.length;
+      window.clearTimeout(commentShiftTimer);
+
+      if (!animate) {
+        commentBackgroundEl.innerHTML = CommentBackground(commentOffset);
+        return;
+      }
+
+      commentBackgroundEl.classList.add("is-shifting");
+      commentShiftTimer = window.setTimeout(() => {
+        commentBackgroundEl.innerHTML = CommentBackground(commentOffset);
+        commentBackgroundEl.classList.remove("is-shifting");
+      }, 420);
+    }
+
+    updateCommentBackground(0);
+    document.getElementById("channelGrid").innerHTML = labGridMarkup();
+
+    function showcaseMarkup(item, i) {
+      return `<article class="showcase-item" onclick="toggleGlobalMute()">
+        <video id="showcaseVideo${i}" class="showcase-video" src="${item.src}" autoplay muted loop playsinline preload="metadata"></video>
+        <div class="showcase-shade" aria-hidden="true"></div>
+        <div class="reaction-layer" aria-hidden="true"></div>
+        <div class="showcase-creator">${item.creator}</div>
+      </article>`;
+    }
+
+    document.getElementById("showcaseFeed").innerHTML = showcaseVideos.map(showcaseMarkup).join("");
+    const showcaseVideoEls = Array.from(document.querySelectorAll(".showcase-video"));
+    let isMuted = true;
+    let activeVideo = showcaseVideoEls[0] || null;
+    let activeVideoIndex = 0;
+
+    function applyMutedState() {
+      showcaseVideoEls.forEach(video => {
+        video.muted = isMuted;
+      });
+    }
+
+    function playActiveVideo() {
+      showcaseVideoEls.forEach(video => {
+        if (video === activeVideo) {
+          video.muted = isMuted;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }
+
+    function reactionStyle({ x, delay, duration, drift, size, rotate, spin, endScale }) {
+      return `--x:${x}%;--delay:${delay}s;--duration:${duration}s;--drift:${drift}px;--size:${size}px;--rotate:${rotate}deg;--spin:${spin}deg;--end-scale:${endScale};`;
+    }
+
+    function ReactionBurst(videoIndex) {
+      const item = document.querySelectorAll(".showcase-item")[videoIndex];
+      const layer = item?.querySelector(".reaction-layer");
+      if (!layer) return;
+
+      layer.innerHTML = "";
+      const burstItems = [];
+
+      for (let i = 0; i < 8; i += 1) {
+        burstItems.push(`<span class="reaction-heart" style="${reactionStyle({
+          x: 58 + Math.random() * 28,
+          delay: i * .12,
+          duration: 2.35 + Math.random() * 1.15,
+          drift: -54 + Math.random() * 108,
+          size: 22 + Math.random() * 22,
+          rotate: -18 + Math.random() * 36,
+          spin: -16 + Math.random() * 32,
+          endScale: 1.05 + Math.random() * .34
+        })}">&hearts;</span>`);
+      }
+
+      layer.innerHTML = burstItems.join("");
+      window.setTimeout(() => {
+        if (layer) layer.innerHTML = "";
+      }, 4200);
+    }
+
+    const showcaseObserver = new IntersectionObserver(entries => {
+      const visibleEntry = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visibleEntry) return;
+      const nextIndex = showcaseVideoEls.indexOf(visibleEntry.target);
+      if (nextIndex !== activeVideoIndex) {
+        activeVideoIndex = nextIndex;
+        ReactionBurst(activeVideoIndex);
+        updateCommentBackground(activeVideoIndex, true);
+      }
+      activeVideo = visibleEntry.target;
+      playActiveVideo();
+    }, {
+      root: document.getElementById("showcaseFeed"),
+      threshold: [0.55, 0.7, 0.9]
+    });
+
+    showcaseVideoEls.forEach(video => showcaseObserver.observe(video));
+    applyMutedState();
+    playActiveVideo();
+
+    function openModal(i) {
+      const item = channels[i];
+      document.getElementById("modalTitle").textContent = item.title;
+      document.getElementById("modalText").textContent = item.text;
+      const modalPreview = document.getElementById("modalPreview");
+      modalPreview.src = item.preview;
+      modalPreview.alt = item.previewAlt || item.title;
+      document.getElementById("modalLinks").innerHTML = item.links.map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join("");
+      document.getElementById("modal").classList.add("open");
+    }
+    function closeModal(event) { if (!event || event.target.id === "modal") document.getElementById("modal").classList.remove("open"); }
+    function toggleGlobalMute() {
+      isMuted = !isMuted;
+      applyMutedState();
+      playActiveVideo();
+    }
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.toggleGlobalMute = toggleGlobalMute;
+  </script>
+</body>
+</html>

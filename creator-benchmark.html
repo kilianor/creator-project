@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creator Benchmark · Academy Creator Lab</title>
+  <style>
+    :root {
+      --bg: #030303;
+      --surface: #0b0b0d;
+      --surface-2: #141417;
+      --surface-3: #1d1d22;
+      --text: #f8f8f8;
+      --muted: #a5a5ad;
+      --line: rgba(255, 255, 255, 0.12);
+      --accent: #1df3f2;
+      --youtube: #ff0033;
+      --tiktok: #19f7f7;
+      --instagram: #ff4fd8;
+      --warning: #ff4a4a;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.62);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #030303 0%, #080808 50%, #030303 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.82), transparent 80%);
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(1480px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 22px 0 56px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 8;
+      display: grid;
+      grid-template-columns: auto minmax(260px, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      padding: 10px 0 20px;
+      background: linear-gradient(to bottom, rgba(3, 3, 3, 0.96), rgba(3, 3, 3, 0.76), transparent);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-brand {
+      display: inline-flex;
+      align-items: center;
+      width: clamp(176px, 18vw, 260px);
+      min-width: 0;
+      text-decoration: none;
+    }
+    .topbar-logo { display: block; width: 100%; height: auto; object-fit: contain; }
+
+    .nav-note {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(12, 12, 14, 0.86);
+      color: #d7d7de;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-actions { display: flex; gap: 10px; align-items: center; }
+    .btn {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      padding: 12px 16px;
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: filter 140ms ease, transform 140ms ease;
+    }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn.primary { background: var(--accent); color: #020202; border-color: var(--accent); box-shadow: 0 0 28px rgba(29,243,242,.26); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      padding: 34px;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.08), rgba(29,243,242,.07) 46%, rgba(0,0,0,.45)),
+        #080808;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #031013;
+      background: var(--accent);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 14px 0 14px;
+      font-size: clamp(36px, 5vw, 68px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      max-width: 1080px;
+    }
+
+    .hero-sub {
+      margin: 0;
+      font-size: clamp(16px, 2vw, 21px);
+      line-height: 1.55;
+      color: #dde2e5;
+      max-width: 1120px;
+    }
+
+    .takeaways {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .takeaway {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 10px;
+      background: rgba(255,255,255,.05);
+      padding: 16px;
+      min-height: 116px;
+    }
+    .takeaway strong {
+      display: block;
+      font-size: 36px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .takeaway p { margin: 0; color: #ecfcfc; line-height: 1.35; font-size: 15px; font-weight: 700; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 30px 0 14px;
+    }
+    .section-head h2 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: 0; }
+    .section-head p { margin: 6px 0 0; color: var(--muted); max-width: 820px; line-height: 1.45; }
+
+    .count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.05);
+      font-size: 13px;
+      color: #cfd5d9;
+      font-weight: 800;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 10px 0 16px;
+    }
+    .chip {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      padding: 9px 13px;
+      background: rgba(255,255,255,.06);
+      color: #ececf2;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 800;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+    .chip:hover { transform: translateY(-1px); border-color: rgba(29,243,242,.45); }
+    .chip.active { background: var(--accent); color: #020202; border-color: var(--accent); }
+
+    .rail-wrap {
+      margin: 0 0 16px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(29,243,242,.45) rgba(255,255,255,.08);
+    }
+    .rail {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      min-width: 100%;
+    }
+    .mini-pill {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: rgba(255,255,255,.05);
+      color: #dbf8f8;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+    .mini-pill:hover { border-color: rgba(29,243,242,.62); transform: translateY(-1px); }
+
+    .actor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .actor-card {
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 10px;
+      background: rgba(10, 10, 12, 0.9);
+      padding: 14px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
+      cursor: pointer;
+      transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
+      min-height: 178px;
+    }
+    .actor-card:hover { transform: translateY(-3px); border-color: rgba(29,243,242,.52); box-shadow: 0 20px 38px rgba(0,0,0,.42); }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #020202;
+      font-weight: 900;
+      background: linear-gradient(135deg, rgba(29,243,242,1), rgba(29,243,242,.64));
+      box-shadow: 0 0 18px rgba(29,243,242,.35);
+      flex: 0 0 auto;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+    .actor-body { min-width: 0; }
+    .actor-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .actor-card h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    .category-pill {
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #d2d7db;
+      background: rgba(255,255,255,.06);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .actor-card p {
+      margin: 0 0 10px;
+      color: #d7dde0;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .platforms {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .platform-pill {
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.04);
+    }
+    .platform-pill.youtube { border-color: rgba(255,0,51,.5); color: #ffd6df; }
+    .platform-pill.tiktok { border-color: rgba(29,243,242,.5); color: #cbffff; }
+    .platform-pill.instagram { border-color: rgba(255,79,216,.5); color: #ffd8f8; }
+    .platform-pill.multi { border-color: rgba(255,255,255,.34); color: #dfdfdf; }
+
+    .empty {
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 10px;
+      padding: 18px;
+      color: #c2c8cc;
+      background: rgba(255,255,255,.03);
+    }
+
+    .matrix-wrap {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(10,10,12,.9);
+      overflow: hidden;
+      box-shadow: 0 16px 35px rgba(0,0,0,.34);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead th {
+      text-align: left;
+      background: rgba(255,255,255,.06);
+      color: #edf6f7;
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.11);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    tbody td {
+      padding: 11px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      color: #d5dbe0;
+      vertical-align: top;
+      line-height: 1.35;
+    }
+    tbody tr {
+      cursor: pointer;
+      transition: background 120ms ease;
+    }
+    tbody tr:hover { background: rgba(29,243,242,.08); }
+    tbody tr:last-child td { border-bottom: 0; }
+
+    .matrix-cards { display: none; }
+    .matrix-card {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(10,10,12,.9);
+      padding: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .matrix-card h3 { margin: 0 0 8px; font-size: 19px; }
+    .matrix-row { margin: 0 0 7px; font-size: 14px; line-height: 1.35; color: #d1d7db; }
+    .matrix-row strong { color: #f4f7f9; font-size: 12px; text-transform: uppercase; }
+
+    .modules {
+      display: grid;
+      gap: 10px;
+    }
+    .module {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,.04);
+      overflow: hidden;
+    }
+    .module button {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+    }
+    .module button span:last-child {
+      color: var(--accent);
+      font-size: 22px;
+      line-height: 1;
+      transition: transform 120ms ease;
+      flex: 0 0 auto;
+    }
+    .module button[aria-expanded="true"] span:last-child { transform: rotate(45deg); }
+    .module-content {
+      display: none;
+      padding: 0 16px 14px;
+      color: #d3dbe0;
+      line-height: 1.6;
+    }
+    .module-content.open { display: block; }
+
+    .best-rail-wrap {
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(29,243,242,.45) rgba(255,255,255,.08);
+    }
+    .best-rail {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      min-width: 100%;
+    }
+    .best-card {
+      width: min(360px, calc(100vw - 42px));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(11, 11, 14, 0.94);
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+    .best-card h3 { margin: 0 0 9px; font-size: 20px; color: #f2f6f9; }
+    .best-card p { margin: 0; color: #d2d9dd; line-height: 1.5; }
+
+    .risk-zone {
+      margin-top: 30px;
+      border: 1px solid rgba(255, 74, 74, 0.4);
+      border-radius: 10px;
+      background: linear-gradient(140deg, rgba(255,74,74,.08), rgba(255,255,255,.02) 45%, rgba(255,74,74,.05));
+      padding: 18px;
+    }
+    .risk-zone h2 { margin: 0 0 12px; font-size: clamp(24px, 3vw, 32px); }
+    .risk-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #ffd6d6;
+      line-height: 1.6;
+    }
+    .risk-list li + li { margin-top: 6px; }
+
+    .final-cta {
+      margin-top: 30px;
+      border: 1px solid rgba(29,243,242,.44);
+      border-radius: 12px;
+      background: linear-gradient(130deg, rgba(255,255,255,.08), rgba(29,243,242,.12) 45%, rgba(255,255,255,.03));
+      padding: 24px;
+    }
+    .final-cta h2 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.04;
+    }
+    .final-cta p {
+      margin: 0 0 16px;
+      max-width: 1020px;
+      color: #def2f4;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .detail-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.78);
+      z-index: 50;
+    }
+    .detail-modal.open { display: flex; }
+    .detail-card {
+      width: min(980px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: #070709;
+      box-shadow: 0 30px 70px rgba(0,0,0,.6);
+      padding: 18px;
+    }
+    .detail-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .detail-title-wrap h3 { margin: 0; font-size: 31px; line-height: 1.05; }
+    .detail-title-wrap p { margin: 6px 0 0; color: var(--muted); }
+    .detail-close {
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .detail-summary {
+      margin: 0 0 14px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(29,243,242,.35);
+      background: rgba(29,243,242,.08);
+      color: #dffefe;
+      line-height: 1.5;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .detail-box {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+    }
+    .detail-box h4 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      color: #e8feff;
+    }
+    .detail-box p {
+      margin: 0;
+      color: #d3dae0;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1180px) {
+      .actor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .takeaways { grid-template-columns: 1fr; }
+      .top-actions .btn:not(.primary) { display: none; }
+    }
+
+    @media (max-width: 980px) {
+      header { grid-template-columns: 1fr; gap: 10px; }
+      .nav-note { display: none; }
+      .actor-grid { grid-template-columns: 1fr; }
+      .matrix-wrap { display: none; }
+      .matrix-cards { display: block; }
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      main { width: calc(100% - 24px); padding: 12px 0 40px; }
+      .hero { padding: 24px; }
+      .topbar-brand { width: min(235px, 76vw); }
+      .top-actions { justify-content: start; }
+    }
+  </style>
+</head>
+<body>
+  <main id="top">
+    <header>
+      <a class="topbar-brand" href="index.html#top" aria-label="Zurück zur Startseite">
+        <img class="topbar-logo" src="media/as-academy-creator-lab-logo.png" alt="Axel Springer Academy Creator Lab" />
+      </a>
+      <div class="nav-note">Creator Benchmark · Externe Analyse für das Axel-Springer-Playbook</div>
+      <div class="top-actions">
+        <a class="btn" href="#benchmarkGrid">Direkt zur Analyse</a>
+        <a class="btn primary" href="index.html">Zum Creator Playbook</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">Interaktive Unterseite</span>
+      <h1>Was Medienhäuser und unabhängige Creator schon verstanden haben</h1>
+      <p class="hero-sub">Wir haben konkurrierende Medienhäuser, öffentlich-rechtliche Formate, Sport-Creator, Politik-Creator und unabhängige journalistische Persönlichkeiten analysiert. Die Frage: Was können wir daraus für ein journalistisches Creator-System bei Axel Springer lernen?</p>
+      <div class="takeaways">
+        <article class="takeaway">
+          <strong>01</strong>
+          <p>Plattformlogik schlägt Zweitverwertung</p>
+        </article>
+        <article class="takeaway">
+          <strong>02</strong>
+          <p>Menschen schaffen mehr Nähe als Markenlogos</p>
+        </article>
+        <article class="takeaway">
+          <strong>03</strong>
+          <p>Community ist nicht Kommentarspalte, sondern Themenquelle</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-label="Interaktiver Benchmark">
+      <div class="section-head">
+        <div>
+          <h2>Interaktiver Benchmark</h2>
+          <p>Klick auf eine Kachel öffnet die Detailanalyse mit Stärken, Schwächen, Übertragbarkeit, Risiken und Learning für Axel Springer.</p>
+        </div>
+        <span id="actorCount" class="count-badge">0 Einträge</span>
+      </div>
+
+      <div class="filters" role="tablist" aria-label="Benchmark Filter">
+        <button class="chip active" type="button" data-filter="all">Alle</button>
+        <button class="chip" type="button" data-filter="medienhaus">Medienhaus</button>
+        <button class="chip" type="button" data-filter="oerr">ÖRR</button>
+        <button class="chip" type="button" data-filter="creator">Unabhängige Creator</button>
+        <button class="chip" type="button" data-filter="sport">Sport</button>
+        <button class="chip" type="button" data-filter="politik">Politik</button>
+        <button class="chip" type="button" data-filter="wirtschaft">Wirtschaft</button>
+        <button class="chip" type="button" data-filter="community">Community</button>
+        <button class="chip" type="button" data-filter="youtube">YouTube</button>
+        <button class="chip" type="button" data-filter="tiktok">TikTok</button>
+        <button class="chip" type="button" data-filter="instagram">Instagram</button>
+      </div>
+
+      <div class="rail-wrap" aria-label="Horizontaler Schnellzugriff">
+        <div id="quickRail" class="rail"></div>
+      </div>
+
+      <div id="benchmarkGrid" class="actor-grid"></div>
+    </section>
+
+    <section aria-label="Vergleichsmatrix">
+      <div class="section-head">
+        <div>
+          <h2>Vergleichsmatrix</h2>
+          <p>Desktop als Tabelle, mobil als Card-Stapel. Klick auf eine Zeile öffnet den passenden Detailbereich.</p>
+        </div>
+      </div>
+
+      <div class="matrix-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Akteur</th>
+              <th>Plattformen</th>
+              <th>Rolle der Hosts</th>
+              <th>Quellen-Transparenz</th>
+              <th>Community Management</th>
+              <th>Meinung vs. Information</th>
+              <th>Wiedererkennbarkeit</th>
+              <th>Übertragbarkeit für Axel Springer</th>
+            </tr>
+          </thead>
+          <tbody id="matrixBody"></tbody>
+        </table>
+      </div>
+
+      <div id="matrixCards" class="matrix-cards"></div>
+    </section>
+
+    <section aria-label="Was wir daraus lernen">
+      <div class="section-head">
+        <div>
+          <h2>Was wir daraus lernen</h2>
+          <p>Zentrale Learnings als Playbook-Module.</p>
+        </div>
+      </div>
+      <div class="modules">
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 1: Plattformgerecht statt zweitverwertet</span><span>+</span></button>
+          <div class="module-content">Viele Medienhäuser posten zwar auf mehreren Plattformen, aber die erfolgreicheren Ansätze denken TikTok, Instagram Reels, YouTube Shorts und YouTube Longform jeweils eigenständig. Ein TV-Beitrag oder Artikel darf nicht nur gekürzt werden. Er muss für den Feed neu erzählt werden.</div>
+        </article>
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 2: Gesichter vor Logos</span><span>+</span></button>
+          <div class="module-content">Junge Zielgruppen folgen oft eher Menschen als abstrakten Medienmarken. Hosts müssen wiedererkennbar, glaubwürdig und thematisch kompetent sein. Die Marke bleibt wichtig, aber sie braucht Gesichter, die Nähe herstellen.</div>
+        </article>
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 3: Quellen sichtbar machen</span><span>+</span></button>
+          <div class="module-content">Medienhäuser haben einen Vertrauensvorteil, nutzen ihn auf Social Media aber nicht immer konsequent. Quellen, Recherchewege, Unsicherheiten und Korrekturen müssen sichtbarer werden. Das kann ein klarer Vorteil gegenüber unabhängigen Creator-Accounts sein.</div>
+        </article>
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 4: Meinung und Information sauber trennen</span><span>+</span></button>
+          <div class="module-content">Viele unabhängige Creator funktionieren über Meinung, Haltung und Persönlichkeit. Medienhäuser sollten Einordnung und Haltung nicht vermeiden, aber klar kennzeichnen. Genau diese Transparenz kann ein Differenzierungsmerkmal sein.</div>
+        </article>
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 5: Community als Recherchequelle</span><span>+</span></button>
+          <div class="module-content">Starke Creator produzieren nicht nur für ihre Community, sondern mit ihr. Kommentare, Fragen, Kritik und geteilte Beobachtungen können neue Themen liefern. Dafür braucht es echtes Community Management und nicht nur Posting.</div>
+        </article>
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 6: Wiedererkennbarkeit schlägt Perfektion</span><span>+</span></button>
+          <div class="module-content">Erfolgreiche Creator haben oft klare visuelle Codes: feste Kameraperspektive, wiederkehrendes Setting, eigenes Sprachmuster, feste Formate oder charakteristische Hooks. Das ist oft wichtiger als komplett perfekte Produktion.</div>
+        </article>
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 7: YouTube braucht eigene Logik</span><span>+</span></button>
+          <div class="module-content">YouTube ist nicht nur eine Ablage für Shorts. Es braucht Serien, Hosts, Thumbnails, Titel, Suchlogik, Longform-Ideen und Community-Aufbau. Shorts können Einstieg sein, aber Vertrauen entsteht oft über wiedererkennbare Formate.</div>
+        </article>
+        <article class="module">
+          <button type="button" aria-expanded="false"><span>Modul 8: Nicht kopieren, sondern übersetzen</span><span>+</span></button>
+          <div class="module-content">Medienhäuser sollten Creator nicht imitieren. Keine künstliche Jugendsprache, keine Empörung als Selbstzweck, kein Influencer-Theater. Übernommen werden sollten Tempo, Nähe, Verständlichkeit, Formatlogik und Dialogfähigkeit.</div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-label="Best Practices">
+      <div class="section-head">
+        <div>
+          <h2>Best Practices, die wir übernehmen sollten</h2>
+          <p>Kurze, übertragbare Muster aus der Marktanalyse.</p>
+        </div>
+      </div>
+      <div class="best-rail-wrap">
+        <div class="best-rail">
+          <article class="best-card">
+            <h3>Handelsblatt</h3>
+            <p>Seriöse Wirtschaftsmarke mit Creator-Machart. Klare Hosts und klare Nutzwert-Logik.</p>
+          </article>
+          <article class="best-card">
+            <h3>Deutschlandfunk Moment mal</h3>
+            <p>Kontext statt Clickbait als USP. Ruhe und Einordnung funktionieren, wenn die Form klar ist.</p>
+          </article>
+          <article class="best-card">
+            <h3>Zeit auf TikTok</h3>
+            <p>Plattformgerechter als Instagram. Kürzere Hooks, schnellere Einstiege, klarere Feed-Logik.</p>
+          </article>
+          <article class="best-card">
+            <h3>Funk</h3>
+            <p>Junge Ansprache, klare Formate, Social-first. Jede Reihe hat eine erkennbare Handschrift.</p>
+          </article>
+          <article class="best-card">
+            <h3>Eleniwithamic</h3>
+            <p>Persönliche Sporterzählung mit Wiedererkennung. Haltung und Tonalität sind konsistent.</p>
+          </article>
+          <article class="best-card">
+            <h3>dieligalebt</h3>
+            <p>Stärkere Community-Nähe trotz weniger professionellem Look. Nähe schlägt Hochglanz.</p>
+          </article>
+          <article class="best-card">
+            <h3>Manu Thiele</h3>
+            <p>Professionelles YouTube-Studio und tiefgehende Analyse. Serienlogik und Host-Kompetenz greifen.</p>
+          </article>
+          <article class="best-card">
+            <h3>Politfluencer</h3>
+            <p>Starke Personalisierung, klare Haltung, schnelle Reaktion auf Themenlagen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="risk-zone" aria-label="Risiken für Medienhäuser">
+      <h2>Risiken für Medienhäuser</h2>
+      <ul class="risk-list">
+        <li>Zu viel Zweitverwertung wirkt nicht plattformgerecht.</li>
+        <li>Zu wenig Community Management verschenkt Bindung.</li>
+        <li>Künstliche Jugendsprache wirkt anbiedernd.</li>
+        <li>Fehlende Quellen schwächen den journalistischen Vorteil.</li>
+        <li>Unklare Trennung von Meinung und Information gefährdet Vertrauen.</li>
+        <li>Zu starre Markenlogik kann Creator-Persönlichkeit ausbremsen.</li>
+        <li>Zu wenig Schutz für Hosts kann bei Shitstorms problematisch werden.</li>
+      </ul>
+    </section>
+
+    <section class="final-cta" aria-label="Abschluss">
+      <h2>Der Benchmark zeigt: Axel Springer braucht kein Social-Media-Projekt. Axel Springer braucht ein Creator-System.</h2>
+      <p>Die Analyse zeigt, dass erfolgreiche journalistische Creator nicht zufällig entstehen. Sie brauchen klare Rollen, starke Hosts, plattformgerechte Formate, sichtbare Quellen, Community Management, Schutzmechanismen und eine redaktionelle Strategie. Genau daraus entsteht unser Playbook.</p>
+      <a class="btn primary" href="index.html">Zum Creator Playbook</a>
+    </section>
+  </main>
+
+  <div id="detailModal" class="detail-modal" onclick="closeDetail(event)">
+    <div class="detail-card" onclick="event.stopPropagation()">
+      <div class="detail-head">
+        <div class="detail-title-wrap">
+          <h3 id="detailName"></h3>
+          <p id="detailCategory"></p>
+        </div>
+        <button class="detail-close" type="button" onclick="closeDetail()">Schließen</button>
+      </div>
+      <p id="detailSummary" class="detail-summary"></p>
+      <div class="detail-grid">
+        <article class="detail-box">
+          <h4>Was machen sie gut?</h4>
+          <p id="detailGood"></p>
+        </article>
+        <article class="detail-box">
+          <h4>Was funktioniert weniger gut?</h4>
+          <p id="detailLess"></p>
+        </article>
+        <article class="detail-box">
+          <h4>Was ist für uns übertragbar?</h4>
+          <p id="detailTransfer"></p>
+        </article>
+        <article class="detail-box">
+          <h4>Risiko oder Grenze</h4>
+          <p id="detailRisk"></p>
+        </article>
+        <article class="detail-box" style="grid-column: 1 / -1;">
+          <h4>Relevantes Learning für Axel Springer</h4>
+          <p id="detailLearning"></p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const benchmarkItems = [
+      {
+        id: "sz",
+        name: "SZ",
+        category: "Medienhäuser",
+        tags: ["medienhaus", "politik", "instagram", "tiktok", "youtube"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Starke Marke, aber Social-Posts wirken oft wie gekürzte Zweitverwertung.",
+        good: "Verlässliche Themenpriorisierung, klare journalistische Standards, starke Themenkompetenz.",
+        less: "Zu oft artikelzentrierte Dramaturgie statt Feed-zentrierte Hook-Logik.",
+        transferable: "Klare Einordnungskompetenz mit stärkerer Social-Formatlogik kombinieren.",
+        risk: "Ohne host-zentrierte Erzählweise wirkt die Marke distanziert.",
+        learning: "Markenvertrauen reicht nicht allein. Sichtbare Hosts erhöhen Nähe und Wiederkehr.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Eher Information",
+          recognizability: "Mittel",
+          transferability: "Hoch"
+        }
+      },
+      {
+        id: "spiegel",
+        name: "Spiegel",
+        category: "Medienhäuser",
+        tags: ["medienhaus", "politik", "instagram", "youtube", "tiktok"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Starke Markenwucht und klare Haltung, aber Social-Ausspielung nicht immer host-getrieben.",
+        good: "Hohe Relevanz bei politischen und gesellschaftlichen Themen, deutliche Kante.",
+        less: "Teilweise schwerer Einstieg für jüngere Zielgruppen im schnellen Feed.",
+        transferable: "Haltung beibehalten, aber mit knapperen Hooks und host-zentrierten Formaten verbinden.",
+        risk: "Zu lange Vorspänne reduzieren Watchtime im Shortform-Kontext.",
+        learning: "Ein starker Markenkern braucht zusätzlich kurze, präzise Creator-Einstiege.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Mischform",
+          recognizability: "Hoch",
+          transferability: "Hoch"
+        }
+      },
+      {
+        id: "dlf",
+        name: "Deutschlandfunk / Deutschlandfunk Nova / Deutschlandfunk Kultur",
+        category: "Öffentlich-rechtliche Formate",
+        tags: ["oerr", "politik", "community", "instagram", "youtube"],
+        platforms: ["Instagram", "YouTube"],
+        finding: "Hohe Glaubwürdigkeit und Kontextstärke, aber teils zu textlastig für schnelle Feeds.",
+        good: "Saubere Quellenarbeit, klare Einordnung, journalistisch belastbare Herleitung.",
+        less: "Visuell oft zurückhaltend, wodurch Reichweite im Wettbewerb sinkt.",
+        transferable: "Quellen- und Kontextvorteil sichtbar in kurze Creator-Formate übersetzen.",
+        risk: "Überfrachtete Informationsdichte kann Abschlussrate senken.",
+        learning: "Kontext ist ein USP, wenn die Verpackung platformgerecht umgesetzt wird.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Sehr hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Klar Information",
+          recognizability: "Mittel",
+          transferability: "Hoch"
+        }
+      },
+      {
+        id: "funk",
+        name: "Funk",
+        category: "Öffentlich-rechtliche Formate",
+        tags: ["oerr", "community", "instagram", "youtube", "tiktok", "politik"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Social-first mit klaren Formatreihen und deutlicher Zielgruppenorientierung.",
+        good: "Hohe Plattformkompetenz, starke visuelle Codes, klare Serienmechaniken.",
+        less: "Qualitätsniveau schwankt je Format stark, nicht jede Reihe trägt langfristig.",
+        transferable: "Eigene Formatfamilien mit klarer Host-Führung und sichtbarer Struktur aufbauen.",
+        risk: "Zu viele Experimente ohne Priorisierung können Ressourcen binden.",
+        learning: "Konsequente Formatlogik schafft Wiedererkennbarkeit und stabilere Reichweiten.",
+        matrix: {
+          hostRole: "Hoch",
+          sourceTransparency: "Mittel",
+          communityMgmt: "Hoch",
+          opinionInfo: "Mischform",
+          recognizability: "Hoch",
+          transferability: "Sehr hoch"
+        }
+      },
+      {
+        id: "zeit",
+        name: "Zeit",
+        category: "Medienhäuser",
+        tags: ["medienhaus", "politik", "tiktok", "instagram", "youtube"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Auf TikTok deutlich plattformnäher als auf Instagram.",
+        good: "Klares Themensetting, glaubwürdige Redaktion, hohe inhaltliche Substanz.",
+        less: "Nicht alle Plattformen werden in gleicher Tiefe nativ ausgespielt.",
+        transferable: "Plattformspezifische Redaktionsplanung statt 1:1-Verteilung auf Kanäle.",
+        risk: "Gleichförmige Post-Mechanik schwächt plattformspezifische Performance.",
+        learning: "Crossposting spart Zeit, aber kostet Wachstum bei jungen Zielgruppen.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Eher Information",
+          recognizability: "Mittel bis hoch",
+          transferability: "Hoch"
+        }
+      },
+      {
+        id: "ard",
+        name: "ARD / Tagesschau / Sportschau",
+        category: "Öffentlich-rechtliche Formate",
+        tags: ["oerr", "politik", "sport", "tiktok", "instagram", "youtube"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Starke Themenmacht, aber klassischer Nachrichtenstil bremst manchmal Feed-Tempo.",
+        good: "Hohe Reichweite, belastbare Quellen, gute Aktualitätsleistung.",
+        less: "Persönliche Host-Perspektive oft zu schwach für Creator-Logik.",
+        transferable: "Breaking-Kompetenz mit klaren Gesichtern und wiederkehrenden Rubriken koppeln.",
+        risk: "Zu institutionelle Ansprache kann Distanz zur Community verstärken.",
+        learning: "Markenautorität braucht Gesichter, um in Social-Kontext Vertrauen aufzubauen.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Sehr hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Klar Information",
+          recognizability: "Hoch",
+          transferability: "Hoch"
+        }
+      },
+      {
+        id: "zdf",
+        name: "ZDF",
+        category: "Öffentlich-rechtliche Formate",
+        tags: ["oerr", "politik", "instagram", "youtube", "tiktok"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Solide journalistische Basis, aber Creator-Mechaniken uneinheitlich.",
+        good: "Klare Themenautorität und bekannte Formate mit Vertrauensbonus.",
+        less: "Nicht jedes Format ist klar auf Host und Serienlogik ausgerichtet.",
+        transferable: "Klare Formatverantwortung und Wiederholbarkeit pro Reihe verankern.",
+        risk: "Uneinheitliches Tempo zwischen Plattformen erschwert Wiederkehr.",
+        learning: "Stabilität entsteht durch feste Formatroutinen, nicht durch Einzelhits.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Eher Information",
+          recognizability: "Mittel",
+          transferability: "Mittel bis hoch"
+        }
+      },
+      {
+        id: "rbb24",
+        name: "RBB24",
+        category: "Öffentlich-rechtliche Formate",
+        tags: ["oerr", "politik", "community", "instagram", "youtube"],
+        platforms: ["Instagram", "YouTube"],
+        finding: "Regionale Relevanz stark, Social-Produktlogik noch ausbaufähig.",
+        good: "Nähe zu lokalen Themen, glaubwürdiger Regionaljournalismus.",
+        less: "Visuelle und dramaturgische Codes im Feed sind nicht konsequent genug.",
+        transferable: "Lokale Perspektive mit wiederkehrender Creator-Moderation verbinden.",
+        risk: "Zu klassische Nachrichtentonalität reduziert Interaktion.",
+        learning: "Regionale Exklusivität ist ein Vorteil, wenn sie social-first erzählt wird.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Eher Information",
+          recognizability: "Mittel",
+          transferability: "Mittel"
+        }
+      },
+      {
+        id: "handelsblatt",
+        name: "Handelsblatt",
+        category: "Wirtschafts- und Erklärformate",
+        tags: ["medienhaus", "wirtschaft", "instagram", "youtube", "tiktok"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Seriöse Wirtschaftsmarke mit klarer Creator-Machart und hoher Nutzwertdichte.",
+        good: "Komplexe Themen werden verständlich, strukturiert und mit erkennbarem Host erzählt.",
+        less: "Bei einigen Formaten bleibt die visuelle Ansprache zu konservativ.",
+        transferable: "Wirtschafts- und Erklärthemen in feste, kurze Host-Formate übersetzen.",
+        risk: "Zu hohe Komplexität ohne klare Dramaturgie senkt Completion.",
+        learning: "Nutzwert plus Persönlichkeit ist auch bei ernsten Themen skalierbar.",
+        matrix: {
+          hostRole: "Hoch",
+          sourceTransparency: "Hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Mischform",
+          recognizability: "Hoch",
+          transferability: "Sehr hoch"
+        }
+      },
+      {
+        id: "eleni",
+        name: "Eleniwithamic",
+        category: "Sport-Creator",
+        tags: ["creator", "sport", "tiktok", "instagram"],
+        platforms: ["TikTok", "Instagram"],
+        finding: "Persönliche Sporterzählung mit starker Wiedererkennbarkeit und klarer Haltung.",
+        good: "Eigener Ton, klare Perspektive, nah an Community-Fragen und Debatten.",
+        less: "Recherchetiefe schwankt je Thema und Tempo.",
+        transferable: "Sportjournalismus über wiedererkennbare Persönlichkeiten führen.",
+        risk: "Starke Personalisierung kann Debattenpolarisierung erhöhen.",
+        learning: "Wiedererkennbare Hosts bauen Bindung schneller auf als rein markenbasierte Clips.",
+        matrix: {
+          hostRole: "Sehr hoch",
+          sourceTransparency: "Mittel",
+          communityMgmt: "Hoch",
+          opinionInfo: "Meinungsnah",
+          recognizability: "Sehr hoch",
+          transferability: "Hoch"
+        }
+      },
+      {
+        id: "conan",
+        name: "Conan Furlong",
+        category: "Sport-Creator",
+        tags: ["creator", "sport", "youtube", "instagram", "tiktok"],
+        platforms: ["YouTube", "TikTok", "Instagram"],
+        finding: "Schnelle Reaktion auf Sportthemen mit klarer Host-Perspektive.",
+        good: "Tempo, Persönlichkeit und klare Positionierung in aktuellen Debatten.",
+        less: "Nicht jede These ist journalistisch gleich stark hergeleitet.",
+        transferable: "Schnelligkeit mit stärkerer Quellenmarkierung kombinieren.",
+        risk: "Reaktionsdruck kann Differenzierung zugunsten Geschwindigkeit reduzieren.",
+        learning: "Geschwindigkeit wirkt, wenn Quellenklarheit und Einordnung sichtbar bleiben.",
+        matrix: {
+          hostRole: "Sehr hoch",
+          sourceTransparency: "Mittel",
+          communityMgmt: "Hoch",
+          opinionInfo: "Mischform",
+          recognizability: "Hoch",
+          transferability: "Mittel bis hoch"
+        }
+      },
+      {
+        id: "magdalena",
+        name: "Magdalena Austerman",
+        category: "Sport-Creator",
+        tags: ["creator", "sport", "instagram", "tiktok"],
+        platforms: ["TikTok", "Instagram"],
+        finding: "Klare sportliche Themenfokussierung mit persönlichem Zugang.",
+        good: "Nahbare Ansprache, klare Perspektive auf sportliche Alltagsthemen.",
+        less: "Einzelne Formate sind visuell nicht immer trennscharf positioniert.",
+        transferable: "Klar definierte Rubriken mit wiederkehrender Host-Haltung einsetzen.",
+        risk: "Zu breite Themenauswahl schwächt kanalinterne Profilierung.",
+        learning: "Ein klarer Themenkorridor erhöht Wiedererkennung und Loyalität.",
+        matrix: {
+          hostRole: "Hoch",
+          sourceTransparency: "Mittel",
+          communityMgmt: "Mittel bis hoch",
+          opinionInfo: "Mischform",
+          recognizability: "Mittel bis hoch",
+          transferability: "Mittel"
+        }
+      },
+      {
+        id: "manu-thiele",
+        name: "Manu Thiele",
+        category: "Sport-Creator",
+        tags: ["creator", "sport", "youtube", "instagram", "tiktok"],
+        platforms: ["YouTube", "TikTok", "Instagram"],
+        finding: "Professionelles Studio-Setup trifft auf tiefe Analyse und klare Formatlogik.",
+        good: "Serienfähige Formate, hoher Analysegrad, starker Wiedererkennungswert.",
+        less: "Longform erfordert stärkeren Produktionsaufwand und klare Priorisierung.",
+        transferable: "YouTube als eigenes Produkt mit Serienarchitektur behandeln.",
+        risk: "Hohe Produktionsqualität kann ohne klares Team schnell ressourcenintensiv werden.",
+        learning: "YouTube-Qualität lohnt sich, wenn sie an feste Reihen und Host-Stimmen gebunden ist.",
+        matrix: {
+          hostRole: "Sehr hoch",
+          sourceTransparency: "Mittel bis hoch",
+          communityMgmt: "Hoch",
+          opinionInfo: "Mischform",
+          recognizability: "Sehr hoch",
+          transferability: "Sehr hoch"
+        }
+      },
+      {
+        id: "dieligalebt",
+        name: "dieligalebt / Ria",
+        category: "Sport-Creator",
+        tags: ["creator", "sport", "community", "tiktok", "instagram"],
+        platforms: ["TikTok", "Instagram"],
+        finding: "Sehr hohe Community-Nähe trotz weniger perfektem Look.",
+        good: "Direkte Sprache, starke Kommentaranschlüsse, niedrigschwellige Formate.",
+        less: "Visuelle Konstanz und Struktur wirken teils improvisiert.",
+        transferable: "Dialog- und Feedbackmechaniken als festen Produktionsschritt verankern.",
+        risk: "Bei wachsender Größe kann fehlende Struktur Qualität bremsen.",
+        learning: "Nähe schlägt Perfektion, wenn Themenrelevanz und Reaktionsgeschwindigkeit stimmen.",
+        matrix: {
+          hostRole: "Sehr hoch",
+          sourceTransparency: "Mittel",
+          communityMgmt: "Sehr hoch",
+          opinionInfo: "Mischform",
+          recognizability: "Hoch",
+          transferability: "Hoch"
+        }
+      },
+      {
+        id: "politfluencer",
+        name: "Politfluencer allgemein",
+        category: "Politfluencer",
+        tags: ["creator", "politik", "tiktok", "instagram", "youtube"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Starke Personalisierung, klare Haltung, schnelle Reaktion auf Debattenlagen.",
+        good: "Tempo, Positionierung und hoher Wiedererkennungswert einzelner Persönlichkeiten.",
+        less: "Grenze zwischen Meinung und Information wird nicht immer sauber markiert.",
+        transferable: "Haltung zulassen, aber transparent labeln und quellenklar untermauern.",
+        risk: "Überpersonalisierung erhöht Polarisierungs- und Shitstorm-Risiko.",
+        learning: "Journalistische Creator brauchen klare Trennlinien für Einordnung und Meinung.",
+        matrix: {
+          hostRole: "Sehr hoch",
+          sourceTransparency: "Niedrig bis mittel",
+          communityMgmt: "Hoch",
+          opinionInfo: "Stark meinungsgetrieben",
+          recognizability: "Sehr hoch",
+          transferability: "Mittel"
+        }
+      },
+      {
+        id: "republica-legacy",
+        name: "Republica-Learnings zu ARD/ZDF/Zeit",
+        category: "Community- und Creator-Learnings",
+        tags: ["community", "oerr", "medienhaus", "politik", "youtube", "instagram", "tiktok"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Große Marken haben Vertrauen, aber Creator-Praxis ist nicht konsequent standardisiert.",
+        good: "Stabile redaktionelle Prozesse und starke Themenkompetenz.",
+        less: "Zu viel Markenlogik, zu wenig personenzentrierte Formatentwicklung.",
+        transferable: "Rollen, Hosts, Formatverantwortung und Community-Prozesse klar definieren.",
+        risk: "Langsame Freigaben bremsen Relevanzfenster im Feed.",
+        learning: "Institutionelle Stärke wirkt erst dann voll, wenn sie creator-tauglich organisiert ist.",
+        matrix: {
+          hostRole: "Mittel",
+          sourceTransparency: "Hoch",
+          communityMgmt: "Mittel",
+          opinionInfo: "Eher Information",
+          recognizability: "Mittel",
+          transferability: "Sehr hoch"
+        }
+      },
+      {
+        id: "republica-funk",
+        name: "Republica-Learnings zu Funk",
+        category: "Community- und Creator-Learnings",
+        tags: ["community", "oerr", "creator", "youtube", "instagram", "tiktok"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Social-first-Logik, klare Zielgruppenansprache und wiederkehrende Formate als Wachstumstreiber.",
+        good: "Konsequente Plattformdenke, schnelle Iteration, starke Formatidentität.",
+        less: "Hohe Dynamik kann Ressourcen verteilen, wenn Priorisierung fehlt.",
+        transferable: "Iteratives Formatmodell mit messbaren Lernschleifen einsetzen.",
+        risk: "Formatportfolio ohne klare Priorität kann Fokus verlieren.",
+        learning: "Lernzyklen müssen kurz sein und an klare KPI-Signale gekoppelt werden.",
+        matrix: {
+          hostRole: "Hoch",
+          sourceTransparency: "Mittel",
+          communityMgmt: "Hoch",
+          opinionInfo: "Mischform",
+          recognizability: "Hoch",
+          transferability: "Sehr hoch"
+        }
+      },
+      {
+        id: "republica-community",
+        name: "Republica-Learnings zu Community und Creator-Journalismus",
+        category: "Community- und Creator-Learnings",
+        tags: ["community", "creator", "politik", "sport", "wirtschaft", "youtube", "instagram", "tiktok"],
+        platforms: ["TikTok", "Instagram", "YouTube"],
+        finding: "Community wird bei erfolgreichen Formaten als Themenquelle genutzt, nicht nur als Reaktionsraum.",
+        good: "Starke Schleife aus Frage, Reaktion, Folgeformat und sichtbarer Rückkopplung.",
+        less: "Ohne dediziertes Community-Management bleibt Potenzial ungenutzt.",
+        transferable: "Kommentare systematisch clustern und in Themenplanung zurückführen.",
+        risk: "Fehlende Moderationsstruktur kann Eskalation und Qualitätsverlust erzeugen.",
+        learning: "Community-Prozesse sind ein redaktionisches Produkt, kein Nebenkanal.",
+        matrix: {
+          hostRole: "Hoch",
+          sourceTransparency: "Mittel",
+          communityMgmt: "Sehr hoch",
+          opinionInfo: "Mischform",
+          recognizability: "Hoch",
+          transferability: "Sehr hoch"
+        }
+      }
+    ];
+
+    const categoryShort = {
+      "Medienhäuser": "MH",
+      "Öffentlich-rechtliche Formate": "ÖR",
+      "Sport-Creator": "SP",
+      "Politfluencer": "PO",
+      "Wirtschafts- und Erklärformate": "WI",
+      "Community- und Creator-Learnings": "CL"
+    };
+
+    const grid = document.getElementById("benchmarkGrid");
+    const count = document.getElementById("actorCount");
+    const matrixBody = document.getElementById("matrixBody");
+    const matrixCards = document.getElementById("matrixCards");
+    const quickRail = document.getElementById("quickRail");
+    const chips = [...document.querySelectorAll("[data-filter]")];
+
+    let activeFilter = "all";
+
+    function platformClass(name) {
+      const key = name.toLowerCase();
+      if (key.includes("youtube")) return "youtube";
+      if (key.includes("tiktok")) return "tiktok";
+      if (key.includes("instagram")) return "instagram";
+      return "multi";
+    }
+
+    function matchesFilter(item) {
+      if (activeFilter === "all") return true;
+      if (["youtube", "tiktok", "instagram"].includes(activeFilter)) {
+        return item.platforms.some(platform => platform.toLowerCase().includes(activeFilter));
+      }
+      return item.tags.includes(activeFilter);
+    }
+
+    function openDetailById(id) {
+      const item = benchmarkItems.find(entry => entry.id === id);
+      if (!item) return;
+      document.getElementById("detailName").textContent = item.name;
+      document.getElementById("detailCategory").textContent = item.category;
+      document.getElementById("detailSummary").textContent = item.finding;
+      document.getElementById("detailGood").textContent = item.good;
+      document.getElementById("detailLess").textContent = item.less;
+      document.getElementById("detailTransfer").textContent = item.transferable;
+      document.getElementById("detailRisk").textContent = item.risk;
+      document.getElementById("detailLearning").textContent = item.learning;
+      document.getElementById("detailModal").classList.add("open");
+    }
+
+    function closeDetail(event) {
+      if (!event || event.target.id === "detailModal") {
+        document.getElementById("detailModal").classList.remove("open");
+      }
+    }
+
+    window.closeDetail = closeDetail;
+
+    function render() {
+      const visible = benchmarkItems.filter(matchesFilter);
+      count.textContent = `${visible.length} Einträge`;
+
+      if (!visible.length) {
+        grid.innerHTML = `<div class="empty">Für diesen Filter gibt es aktuell keine Einträge.</div>`;
+      } else {
+        grid.innerHTML = visible.map(item => `
+          <article class="actor-card" tabindex="0" role="button" onclick="openDetailById('${item.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetailById('${item.id}')}">
+            <div class="avatar">${categoryShort[item.category] || "CB"}</div>
+            <div class="actor-body">
+              <div class="actor-head">
+                <h3>${item.name}</h3>
+                <span class="category-pill">${item.category}</span>
+              </div>
+              <p>${item.finding}</p>
+              <div class="platforms">
+                ${item.platforms.map(platform => `<span class="platform-pill ${platformClass(platform)}">${platform}</span>`).join("")}
+              </div>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      quickRail.innerHTML = visible.map(item => `
+        <button class="mini-pill" type="button" onclick="openDetailById('${item.id}')">${item.name}</button>
+      `).join("");
+
+      matrixBody.innerHTML = visible.map(item => `
+        <tr tabindex="0" role="button" onclick="openDetailById('${item.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetailById('${item.id}')}">
+          <td><strong>${item.name}</strong></td>
+          <td>${item.platforms.join(", ")}</td>
+          <td>${item.matrix.hostRole}</td>
+          <td>${item.matrix.sourceTransparency}</td>
+          <td>${item.matrix.communityMgmt}</td>
+          <td>${item.matrix.opinionInfo}</td>
+          <td>${item.matrix.recognizability}</td>
+          <td>${item.matrix.transferability}</td>
+        </tr>
+      `).join("");
+
+      matrixCards.innerHTML = visible.map(item => `
+        <article class="matrix-card" tabindex="0" role="button" onclick="openDetailById('${item.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetailById('${item.id}')}">
+          <h3>${item.name}</h3>
+          <p class="matrix-row"><strong>Plattformen:</strong> ${item.platforms.join(", ")}</p>
+          <p class="matrix-row"><strong>Rolle der Hosts:</strong> ${item.matrix.hostRole}</p>
+          <p class="matrix-row"><strong>Quellen-Transparenz:</strong> ${item.matrix.sourceTransparency}</p>
+          <p class="matrix-row"><strong>Community Management:</strong> ${item.matrix.communityMgmt}</p>
+          <p class="matrix-row"><strong>Meinung vs. Information:</strong> ${item.matrix.opinionInfo}</p>
+          <p class="matrix-row"><strong>Wiedererkennbarkeit:</strong> ${item.matrix.recognizability}</p>
+          <p class="matrix-row"><strong>Übertragbarkeit:</strong> ${item.matrix.transferability}</p>
+        </article>
+      `).join("");
+    }
+
+    window.openDetailById = openDetailById;
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        activeFilter = chip.dataset.filter;
+        chips.forEach(entry => entry.classList.toggle("active", entry === chip));
+        render();
+      });
+    });
+
+    document.querySelectorAll(".module button").forEach(button => {
+      button.addEventListener("click", () => {
+        const expanded = button.getAttribute("aria-expanded") === "true";
+        button.setAttribute("aria-expanded", String(!expanded));
+        const content = button.parentElement.querySelector(".module-content");
+        content.classList.toggle("open", !expanded);
+      });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeDetail();
+    });
+
+    render();
+  </script>
+</body>
+</html>
