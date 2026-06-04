@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stats · Academy Creator Lab</title>
+  <style>
+    :root { --text:#f8f8f8; --muted:#a5a5ad; --accent:#1df3f2; --line:rgba(255,255,255,.12); --panel:rgba(10,10,12,.92); --shadow:0 22px 70px rgba(0,0,0,.62); }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Inter,system-ui,sans-serif; color:var(--text); background:linear-gradient(180deg,#030303 0%,#080808 50%,#030303 100%); min-height:100vh; }
+    main { width:min(1480px,calc(100% - 40px)); margin:0 auto; padding:22px 0 56px; }
+    header { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; margin-bottom:20px; }
+    .logo { width:clamp(176px,18vw,260px); display:block; }
+    .main-nav { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .nav-link { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 14px; color:var(--text); background:rgba(255,255,255,.06); text-decoration:none; font-size:14px; font-weight:800; }
+    .nav-link.active { background:var(--accent); border-color:var(--accent); color:#020202; }
+    .stats-shell { display:grid; gap:22px; }
+    .hero { border:1px solid var(--line); border-radius:16px; padding:28px; background:linear-gradient(125deg, rgba(255,255,255,.07), rgba(29,243,242,.08) 42%, rgba(0,0,0,.4)); overflow:hidden; }
+    .eyebrow { color:var(--accent); font-weight:900; font-size:12px; text-transform:uppercase; letter-spacing:0; margin-bottom:10px; }
+    h1 { margin:0 0 12px; font-size:clamp(36px,5vw,72px); line-height:.96; }
+    .hero p { margin:0; color:#d7dde0; line-height:1.6; font-size:18px; max-width:1060px; }
+    .economy-story { display:grid; gap:18px; }
+    .economy-intro { border:1px solid rgba(29,243,242,.24); border-radius:16px; padding:28px; background:linear-gradient(135deg,rgba(10,10,12,.96),rgba(9,28,29,.82)); box-shadow:0 28px 80px rgba(0,0,0,.44),0 0 32px rgba(29,243,242,.08); }
+    .economy-intro h2 { margin:0 0 10px; font-size:clamp(34px,4.6vw,64px); line-height:.98; }
+    .economy-intro > p { margin:0; max-width:1060px; color:#d7dde0; line-height:1.6; font-size:18px; }
+    .thesis-card { margin-top:22px; border:1px solid rgba(255,255,255,.11); border-radius:14px; padding:22px; background:rgba(0,0,0,.35); }
+    .thesis-card strong { display:block; color:var(--accent); text-transform:uppercase; font-size:12px; font-weight:950; margin-bottom:8px; }
+    .thesis-card p { margin:0; color:#f4ffff; font-size:clamp(20px,2.2vw,30px); line-height:1.2; font-weight:900; max-width:1100px; }
+    .key-facts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:16px; }
+    .key-fact { border:1px solid rgba(255,255,255,.1); border-radius:999px; padding:13px 16px; background:rgba(255,255,255,.055); }
+    .key-fact b { display:block; color:#fff; font-size:20px; }
+    .key-fact span { color:#bfc8cc; font-size:13px; font-weight:800; }
+    .case-shell { display:grid; grid-template-columns:minmax(240px,340px) 1fr; gap:16px; align-items:start; }
+    .case-tabs { display:grid; gap:10px; position:sticky; top:18px; }
+    .case-tab { text-align:left; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:16px; color:var(--text); background:rgba(12,12,14,.84); cursor:pointer; transition:border-color .16s ease,background .16s ease,transform .16s ease; }
+    .case-tab:hover, .case-tab.active { border-color:rgba(29,243,242,.62); background:rgba(29,243,242,.1); transform:translateY(-2px); }
+    .case-tab b { display:block; font-size:18px; margin-bottom:6px; }
+    .case-tab span { display:block; color:#cfd6db; line-height:1.4; font-size:13px; }
+    .case-detail { border:1px solid rgba(255,255,255,.11); border-radius:16px; background:var(--panel); padding:22px; box-shadow:0 24px 60px rgba(0,0,0,.34); }
+    .case-detail-head { display:grid; grid-template-columns:1fr auto; gap:18px; align-items:start; margin-bottom:18px; }
+    .case-detail h3 { margin:0 0 8px; font-size:clamp(28px,3vw,44px); line-height:1; }
+    .case-label { display:inline-flex; border:1px solid rgba(29,243,242,.34); border-radius:999px; padding:6px 10px; color:#dfffff; background:rgba(29,243,242,.08); font-size:12px; font-weight:950; margin-bottom:12px; }
+    .case-statement { margin:0; color:#d7dde0; line-height:1.58; font-size:17px; max-width:820px; }
+    .mini-visual { min-width:260px; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:14px; background:rgba(255,255,255,.045); }
+    .metric-stack { display:grid; gap:9px; }
+    .metric-row { display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; color:#dbe4e8; font-size:13px; font-weight:850; }
+    .metric-bar { grid-column:1/-1; height:8px; border-radius:999px; background:rgba(255,255,255,.09); overflow:hidden; }
+    .metric-bar span { display:block; height:100%; width:var(--value); border-radius:999px; background:linear-gradient(90deg,var(--accent),#fff); }
+    .metric-row.danger .metric-bar span { background:linear-gradient(90deg,#fb3f3f,#7d1717); }
+    .big-number { color:var(--accent); font-size:clamp(38px,5vw,62px); line-height:1; font-weight:950; text-shadow:0 0 22px rgba(29,243,242,.18); }
+    .mini-note { color:#aeb8bd; font-size:12px; line-height:1.45; margin-top:8px; }
+    .timeline { display:flex; align-items:center; gap:8px; color:#dff; font-weight:900; }
+    .timeline span { flex:1; height:2px; background:rgba(29,243,242,.38); }
+    .case-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:18px; }
+    .case-box { border:1px solid rgba(255,255,255,.09); border-radius:10px; padding:14px; background:rgba(255,255,255,.045); }
+    .case-box h4 { margin:0 0 8px; color:var(--accent); font-size:12px; text-transform:uppercase; font-weight:950; }
+    .case-box p { margin:0; color:#d7dde0; line-height:1.5; font-size:14px; }
+    .case-source { margin-top:16px; color:#8f98a0; font-size:11px; }
+    .economy-closing { border-top:2px solid var(--accent); padding-top:24px; margin-top:6px; }
+    .economy-closing h2 { margin:0 0 10px; font-size:clamp(30px,4vw,50px); }
+    .economy-closing p { margin:0; max-width:1040px; color:#d7dde0; line-height:1.6; font-size:17px; }
+    .bullet-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:18px; }
+    .bullet-card { border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:16px; background:rgba(255,255,255,.045); }
+    .bullet-card b { display:block; color:#fff; font-size:18px; margin-bottom:7px; }
+    .bullet-card span { color:#cfd6db; line-height:1.5; font-size:14px; }
+    .highlights { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:22px; }
+    .highlight { border:1px solid rgba(255,255,255,.1); border-radius:10px; background:rgba(8,8,10,.82); padding:18px; }
+    .highlight strong { display:block; margin-bottom:8px; color:#fff; font-size:20px; }
+    .highlight p { color:#cfd6db; font-size:14px; line-height:1.5; }
+    .toolbar { border:1px solid var(--line); border-radius:14px; padding:16px; background:rgba(10,10,12,.86); }
+    .filter-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .chip { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:9px 12px; color:var(--text); background:rgba(255,255,255,.055); cursor:pointer; font-weight:850; font-size:13px; transition:border-color .16s ease,background .16s ease,color .16s ease; }
+    .chip:hover, .chip.active { border-color:var(--accent); background:rgba(29,243,242,.15); color:#dfffff; }
+    .benchmark-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .benchmark-card { border:1px solid rgba(255,255,255,.1); border-radius:10px; background:var(--panel); padding:18px; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease; }
+    .benchmark-card:hover { transform:translateY(-4px); border-color:rgba(29,243,242,.55); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 26px rgba(29,243,242,.08); background:rgba(18,18,22,.98); }
+    .benchmark-card.special { border-color:rgba(29,243,242,.30); background:linear-gradient(145deg,rgba(9,24,25,.84),rgba(10,10,12,.94)); }
+    .card-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:12px; }
+    .category { color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; }
+    .select-wrap { display:flex; gap:6px; align-items:center; color:var(--muted); font-size:12px; font-weight:800; }
+    .compare-box { width:18px; height:18px; accent-color:var(--accent); cursor:pointer; }
+    .benchmark-title-row { display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+    .benchmark-logo { width:74px; height:74px; flex:0 0 74px; border-radius:999px; padding:3px; border:1px solid rgba(29,243,242,.48); background:rgba(255,255,255,.08); box-shadow:0 0 22px rgba(29,243,242,.18); overflow:hidden; }
+    .benchmark-logo img { width:100%; height:100%; display:block; border-radius:999px; object-fit:cover; background:#fff; }
+    .benchmark-card h2 { margin:0; font-size:24px; line-height:1.12; }
+    .label { display:inline-flex; border:1px solid rgba(29,243,242,.34); border-radius:999px; padding:5px 9px; color:#dfffff; background:rgba(29,243,242,.08); font-size:12px; font-weight:900; margin-bottom:12px; }
+    .platforms { color:#cfd6db; font-size:13px; font-weight:800; margin-bottom:10px; }
+    .strategy { color:#d7dde0; line-height:1.55; margin:0 0 16px; }
+    .open-btn, .cta, .compare-clear { border:0; border-radius:999px; padding:10px 13px; color:#020202; background:var(--accent); font-weight:950; cursor:pointer; text-decoration:none; display:inline-flex; }
+    .compare-panel { display:none; border:1px solid rgba(29,243,242,.28); border-radius:14px; background:rgba(5,16,17,.78); padding:18px; }
+    .compare-panel.open { display:block; }
+    .compare-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; }
+    .compare-head h2 { margin:0; font-size:24px; }
+    .compare-grid { display:grid; gap:10px; }
+    .compare-row { display:grid; grid-template-columns:170px repeat(var(--cols,2),minmax(0,1fr)); gap:10px; align-items:stretch; }
+    .compare-row > div { border:1px solid rgba(255,255,255,.09); border-radius:8px; padding:10px; background:rgba(255,255,255,.045); color:#dce4e7; line-height:1.45; }
+    .compare-row .criterion { color:var(--accent); font-weight:950; }
+    .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(0,0,0,.78); z-index:50; }
+    .modal.open { display:flex; }
+    .modal-card { width:min(980px,100%); max-height:90vh; overflow:auto; border-radius:14px; background:#08080a; border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow); }
+    .modal-head { position:sticky; top:0; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; padding:20px; background:rgba(8,8,10,.96); border-bottom:1px solid rgba(255,255,255,.1); z-index:1; }
+    .modal-head h2 { margin:0 0 6px; font-size:32px; }
+    .modal-head p { margin:0; color:var(--muted); font-weight:800; }
+    .close { border:1px solid rgba(255,255,255,.14); border-radius:999px; background:rgba(255,255,255,.08); color:var(--text); padding:10px 14px; cursor:pointer; font-weight:900; }
+    .modal-body { padding:22px; display:grid; gap:16px; }
+    .detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .detail-box { border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:15px; background:rgba(255,255,255,.045); }
+    .detail-box h3 { margin:0 0 8px; color:var(--accent); font-size:14px; text-transform:uppercase; }
+    .detail-box p, .detail-box li { color:#d7dde0; line-height:1.55; }
+    .detail-box p { margin:0; }
+    .score-list { display:grid; gap:10px; }
+    .score-row { display:grid; grid-template-columns:170px 1fr 26px; gap:10px; align-items:center; color:#d7dde0; font-size:14px; font-weight:800; }
+    .bar { height:9px; border-radius:999px; background:rgba(255,255,255,.1); overflow:hidden; }
+    .bar span { display:block; height:100%; width:calc(var(--score) * 20%); background:linear-gradient(90deg,var(--accent),#fff); border-radius:999px; }
+    .subcards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+    .subcard { border:1px solid rgba(29,243,242,.18); border-radius:8px; padding:10px; background:rgba(29,243,242,.06); color:#e9ffff; font-weight:900; text-align:center; }
+    .do-dont { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .do-dont ul { margin:0; padding-left:18px; }
+    .closing { border-top:2px solid var(--accent); padding-top:26px; margin-top:12px; display:grid; gap:12px; }
+    .closing h2 { margin:0; font-size:clamp(28px,4vw,44px); }
+    .closing p { margin:0; max-width:980px; color:#d7dde0; line-height:1.6; font-size:17px; }
+    @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards{grid-template-columns:repeat(2,minmax(0,1fr));} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (max-width:760px){
+      main{width:calc(100% - 24px);}
+      header{grid-template-columns:1fr;}
+      .main-nav{justify-content:flex-start;}
+      .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards{grid-template-columns:1fr;}
+      .compare-row{grid-template-columns:1fr;}
+      .score-row{grid-template-columns:1fr 1fr 26px;}
+      .modal{padding:10px;}
+      .modal-head{position:relative;}
+      .economy-intro,.case-detail{padding:18px;}
+      .key-fact{border-radius:12px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="index.html"><img class="logo" src="media/as-academy-creator-lab-logo.png" alt="Academy Creator Lab" /></a>
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <a class="nav-link" href="lab.html">Lab</a>
+        <a class="nav-link active" href="stats.html">Stats</a>
+        <a class="nav-link" href="how-to.html">How-To</a>
+      </nav>
+    </header>
+
+    <section class="stats-shell">
+      <section class="economy-story" aria-label="Creator Economy Analyse">
+        <div class="economy-intro">
+          <div class="eyebrow">Stats · Creator Economy</div>
+          <h2>Wie Creator Economy Medienhäuser verändert</h2>
+          <p>Creator-Strategien sind für Publisher längst mehr als ein Social-Media-Thema. Sie berühren Reichweite, Erlöse, Markenbindung und die Frage, wie Journalismus auf Plattformen sichtbar bleibt.</p>
+          <div class="thesis-card">
+            <strong>These</strong>
+            <p>Medienhäuser verlieren klassische Plattform-Reichweite. Gleichzeitig entstehen neue Erlöse dort, wo journalistische Inhalte an Personen, Communitys und wiedererkennbare Creator gebunden sind.</p>
+          </div>
+          <div class="key-facts" aria-label="Zentrale Kennzahlen">
+            <div class="key-fact"><b>-43 %</b><span>Facebook-Weiterleitungen</span></div>
+            <div class="key-fact"><b>-46 %</b><span>X/Twitter-Weiterleitungen</span></div>
+            <div class="key-fact"><b>37 Mrd. Dollar</b><span>US Creator Ad Spend 2025</span></div>
+          </div>
+        </div>
+
+        <div class="case-shell">
+          <div id="caseTabs" class="case-tabs" aria-label="Creator Economy Cases"></div>
+          <article id="caseDetail" class="case-detail" aria-live="polite"></article>
+        </div>
+
+        <section class="economy-closing">
+          <h2>Was heißt das für Axel Springer?</h2>
+          <p>Die Beispiele zeigen: Creator Economy ist kein Zusatzkanal, sondern ein mögliches neues Betriebssystem für journalistische Marken. Wer Reichweite, Vertrauen und Erlöse künftig sichern will, muss journalistische Persönlichkeiten systematisch identifizieren, entwickeln, schützen und mit Marken, Plattformen und Geschäftsmodellen verbinden.</p>
+          <div class="bullet-cards">
+            <article class="bullet-card"><b>Creator als Reichweitenmotor</b><span>Persönlichkeiten schaffen Nähe, Wiedererkennbarkeit und Community.</span></article>
+            <article class="bullet-card"><b>Creator als Erlösmodell</b><span>Abos, Sponsoring, Events, Merchandise und Plattformdeals können neue Einnahmen schaffen.</span></article>
+            <article class="bullet-card"><b>Creator als Strukturfrage</b><span>Verlage brauchen klare Regeln für Rechte, Brand Safety, Account-Eigentum, Schutz und Monetarisierung.</span></article>
+          </div>
+        </section>
+      </section>
+
+      <div class="hero">
+        <div class="eyebrow">Stats · Marktanalyse</div>
+        <h1>Social-Media-Benchmark</h1>
+        <p>Wir haben analysiert, wie andere Medienhäuser, öffentlich-rechtliche Formate, Sport-Creator und Politfluencer auf TikTok, Instagram und YouTube arbeiten. Die Frage: Was können wir daraus für Axel Springer lernen?</p>
+        <div class="highlights">
+          <article class="highlight"><strong>Marke vor Mensch</strong><p>Viele Medienhäuser setzen weiter stark auf ihre Marke. Hosts kommen vor, stehen aber selten wirklich als eigene Creator im Mittelpunkt.</p></article>
+          <article class="highlight"><strong>Wiedererkennbarkeit gewinnt</strong><p>Erfolgreiche Accounts arbeiten mit festen Gesichtern, wiederkehrenden Settings, klaren Hooks und eigener visueller Sprache.</p></article>
+          <article class="highlight"><strong>Community ist die Lücke</strong><p>Viele Accounts posten regelmäßig, reagieren aber kaum. Genau hier liegt ein großes Potenzial für journalistische Creator.</p></article>
+        </div>
+      </div>
+
+      <div class="toolbar" aria-label="Benchmark Filter">
+        <div id="filterRow" class="filter-row"></div>
+      </div>
+
+      <section id="comparePanel" class="compare-panel" aria-live="polite"></section>
+      <section id="benchmarkGrid" class="benchmark-grid" aria-label="Benchmark Kacheln"></section>
+
+      <section class="closing">
+        <h2>Was Axel Springer daraus lernen kann</h2>
+        <p>Der Benchmark zeigt: Erfolgreicher Creator-Journalismus entsteht nicht durch bloßes Posten auf Social Media. Entscheidend sind klare Hosts, plattformgerechte Formate, sichtbare Quellen, wiedererkennbare Settings, echte Community-Arbeit und eine saubere Trennung von Information, Analyse und Meinung. Axel Springer kann daraus ein eigenes Creator-System entwickeln, das die Stärke etablierter Marken mit der Nähe journalistischer Persönlichkeiten verbindet.</p>
+        <a class="cta" href="index.html">Zum Playbook</a>
+      </section>
+    </section>
+  </main>
+
+  <div id="detailModal" class="modal" onclick="closeDetail(event)">
+    <article class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <div>
+          <h2 id="detailTitle"></h2>
+          <p id="detailMeta"></p>
+        </div>
+        <button class="close" type="button" onclick="closeDetail()">Schließen</button>
+      </div>
+      <div id="detailBody" class="modal-body"></div>
+    </article>
+  </div>
+
+  <script>
+    const filters = ["Alle","Medienhäuser","ÖRR","Private Medienhäuser","Sport","Politik","Wirtschaft","TikTok","Instagram","YouTube","Starke Hosts","Starke Quellen","Starke Community","Wenig Community","Markengetrieben","Creator-getrieben"];
+    const scoreLabels = ["Plattformlogik","Host-Faktor","Quellen-Transparenz","Community Management","Wiedererkennbarkeit","Axel-Springer-Potenzial"];
+    const compareCriteria = ["Plattformen","Host-Rolle","Quellen","Community","Meinung vs. Information","Wiedererkennbarkeit","Übertragbarkeit auf Axel Springer"];
+    const displayOrder = ["Der Spiegel","Deutschlandfunk","Funk","Handelsblatt","Politfluencer","RBB24","Sport Content Creator","Sportschau","SZ","Tagesschau","Zeit","ZDF"];
+    const economyCases = [
+      {
+        name:"Barstool Sports",
+        label:"Vom Wettanbieter-Fokus zur Creator-Monetarisierung",
+        statement:"Barstool zeigt, wie stark ein Medienmodell werden kann, wenn Erlöse nicht nur über klassische Werbung laufen, sondern über Creator-getriebene Community, Live-Events, Abos und Merchandise.",
+        before:"Fokus auf Partnerschaften im Bereich Sportwetten.",
+        change:"Creator-getriebene Monetarisierung über persönliche Bindung, Events, Abos und Fan-Produkte.",
+        result:"Live-Events wachsen stark, Barstool+ Abos und Merchandise werden zu relevanten Umsatzsäulen.",
+        learning:"Creator können mehr sein als Reichweitenkanäle. Sie können eigene Erlöslogiken öffnen, wenn Community, Persönlichkeit und Produkt zusammengedacht werden.",
+        source:"Quelle: FourWeekMBA: How Barstool Makes $100M+ (2026)",
+        visual:"bars",
+        metrics:[
+          {label:"Live-Events",value:"+280 %",width:"100%"},
+          {label:"Barstool+ Abos",value:"45 Mio. Dollar jährlich",width:"72%"},
+          {label:"Merchandise",value:"38 Mio. Dollar jährlich",width:"61%"}
+        ]
+      },
+      {
+        name:"Yahoo Creators",
+        label:"Von Nachrichten-Aggregation zu Creator-Plattform",
+        statement:"Yahoo zeigt, dass Publisher Creator nicht nur auf Social Media nutzen müssen, sondern auch als Teil einer eigenen Publishing-Plattform integrieren können.",
+        before:"Yahoo verdiente vor allem über aggregierte Inhalte, klassische Artikel und Werbeplätze.",
+        change:"Yahoo Creators bindet persönlichkeitsgetriebene Inhalte über ein Revenue-Share-Modell ein.",
+        result:"Seit dem Start steigt das Engagement deutlich, im Juni 2025 erreicht das Modell Rekordwerte bei Umsatz und Interaktion.",
+        learning:"Ein Verlag kann Creator nicht nur posten lassen, sondern systematisch an eigene Plattformen, Marken und Erlösmodelle anbinden.",
+        source:"Quelle: Fast Company / Digiday: Yahoo Creators",
+        visual:"timeline",
+        metrics:[
+          {label:"Start",value:"März 2024"},
+          {label:"Revenue Share",value:"50/50 mit Creatorn"},
+          {label:"Engagement",value:"+200 % seit Start"},
+          {label:"Rekord",value:"Juni 2025"}
+        ]
+      },
+      {
+        name:"ESPN und Pat McAfee",
+        label:"Creator-Shows statt klassischer Studioformate",
+        statement:"ESPN zeigt, dass Creator auch klassische Medienflächen ersetzen oder ergänzen können, wenn sie eine starke Community und ein fertiges Format mitbringen.",
+        before:"Klassische eigenproduzierte Studioformate mit TV-Moderatoren.",
+        change:"Ein erfolgreicher Creator und Podcaster liefert ein fertiges Format mit eigener Fanbindung.",
+        result:"Ein Fünfjahresvertrag über 85 Mio. Dollar bringt rund 230 Shows pro Jahr in die ESPN-Welt.",
+        learning:"Creator-Journalismus kann auch eine Produktionslogik verändern. Nicht jede Sendung, jedes Format und jedes Gesicht muss klassisch aus dem Newsroom entstehen.",
+        source:"Quelle: On3: Pat McAfee ESPN contract",
+        visual:"contract",
+        metrics:[
+          {label:"Vertrag",value:"85 Mio. Dollar"},
+          {label:"Laufzeit",value:"5 Jahre"},
+          {label:"Output",value:"rund 230 Shows pro Jahr"}
+        ]
+      },
+      {
+        name:"Branchenwandel",
+        label:"Traffic bricht weg, Creator-Werbemarkt wächst",
+        statement:"Das alte Modell aus Plattform-Traffic und Display-Werbung wird schwächer. Gleichzeitig wächst der Markt für Creator-Werbung stark.",
+        before:"Publisher waren stark abhängig von Suchmaschinen, Facebook, X und klassischer Display-Werbung.",
+        change:"Verlage bauen eigene Creator- und Podcast-Netzwerke auf, um direkter an Communitys und Werbebudgets zu kommen.",
+        result:"Facebook, X und Google Search verlieren als Traffic-Bringer, während Creator Advertising deutlich schneller wächst als der restliche Werbemarkt.",
+        learning:"Creator-Strategien sind keine Spielerei. Sie sind eine Antwort auf sinkende Plattformabhängigkeit und auf die Frage, wie journalistische Marken neue Erlösmodelle entwickeln können.",
+        source:"Quelle: Reuters Institute / IAB: Traffic decline and Creator Ad Spend",
+        visual:"traffic",
+        metrics:[
+          {label:"Facebook Traffic",value:"-43 %",width:"43%"},
+          {label:"X/Twitter Traffic",value:"-46 %",width:"46%"},
+          {label:"Google Search Traffic",value:"ca. -33 bis -38 %",width:"38%"},
+          {label:"US Creator Ad Spend 2025",value:"37 Mrd. Dollar"}
+        ]
+      }
+    ];
+    const benchmarkData = [
+      {name:"SZ",logo:"media/benchmark-sz.png",category:"Privates Medienhaus",tags:["Medienhäuser","Private Medienhäuser","TikTok","Instagram","Starke Quellen","Markengetrieben"],platforms:"TikTok, Instagram",label:"Marke vor Creator",strategy:"Erklärvideos mit sichtbaren Quellen, aber Hosts stehen nicht als eigene Creator im Mittelpunkt.",profile:"Die SZ nutzt TikTok und Instagram mit ähnlichen Videos. Auf Instagram funktionieren die Inhalte besser als auf TikTok.",good:"Quellen werden oft direkt im Video eingeblendet. Die Videos sind verständlich, zugespitzt und social-media-gerecht. Screenshots, Artikel, Zitate, Memes und Quellenmaterial werden stark eingesetzt.",weak:"Die Hosts erklären und ordnen ein, stehen aber nicht als eigene Creator im Vordergrund. TikTok wirkt nicht stark genug eigenständig gedacht.",learning:"Axel Springer sollte Quellen sichtbar machen, aber Hosts stärker als wiedererkennbare Persönlichkeiten aufbauen.",scores:[3,2,5,3,3,4],compare:["TikTok, Instagram","Erklärende Hosts, aber nicht als eigene Creator aufgebaut","Quellen oft direkt sichtbar","Vorhanden, aber nicht stark im Zentrum","Einordnung dominiert, klare redaktionelle Linie","Solide, aber stärker marken- als personengetrieben","Quellenvorteil übernehmen, Host-Aufbau verstärken"]},
+      {name:"Der Spiegel",logo:"media/benchmark-spiegel.png",category:"Privates Medienhaus",tags:["Medienhäuser","Private Medienhäuser","TikTok","Instagram","Wenig Community","Markengetrieben"],platforms:"Instagram, TikTok",label:"Redaktionell stark, wenig communitynah",strategy:"Professionelles Bildmaterial und klare Trennung von Meinung und Information, aber wenig Creator- und Community-Fokus.",profile:"Der Spiegel arbeitet stark redaktionell und markengetrieben.",good:"Starker Einsatz von Clips, Bildern, O-Tönen, Grafiken und redaktionell geschnittenem Material. Meinung und Information werden grundsätzlich getrennt.",weak:"Wenig persönliche Nähe, kaum aktives Community Management, Inhalte stark markengetrieben.",learning:"Professionelle Redaktion allein reicht nicht. Für Creator-Journalismus braucht es stärkere Personenbindung.",scores:[3,2,3,1,3,3],compare:["Instagram, TikTok","Hosts kaum als Creator erkennbar","Redaktionell solide, aber nicht immer sichtbar ausgespielt","Kaum aktives Community Management","Grundsätzlich sauber getrennt","Starke Marke, schwächere Personenbindung","Redaktionelle Stärke mit mehr Nähe kombinieren"]},
+      {name:"Deutschlandfunk",logo:"media/benchmark-deutschlandfunk.png",category:"ÖRR",tags:["Medienhäuser","ÖRR","TikTok","Instagram","Starke Hosts","Markengetrieben"],platforms:"TikTok, Instagram Reels",label:"Einordnung viraler Themen",strategy:"Wiederkehrende junge Hosts ordnen virale Themen ein, mit klarer Markenbindung und plattformnaher Optik.",profile:"Deutschlandfunk, Deutschlandfunk Nova und Deutschlandfunk Kultur arbeiten mit wiederkehrenden jungen Hosts und plattformnaher Optik.",good:"Wiederkehrende Hosts, klare Einordnung, schnelle Schnitte, Reels-Optik, Memes, Archivclips und Screenshots.",weak:"Wenig aktives Community Management, Marke bleibt stärker als Person.",learning:"Axel Springer braucht klare Formate für virale Themen, aber auch mehr Dialog mit der Community.",scores:[4,4,3,1,4,4],compare:["TikTok, Instagram Reels","Wiederkehrende junge Hosts","Quellen und Kontext vorhanden, aber nicht maximal sichtbar","Wenig Dialog","Einordnung statt laute Meinung","Hohe Wiedererkennbarkeit durch Format und Host","Virale Themen systematisch erklären und dialogischer werden"]},
+      {name:"Funk",logo:"media/benchmark-funk.png",category:"ÖRR / Junges Netzwerk",tags:["Medienhäuser","ÖRR","TikTok","Instagram","YouTube","Starke Quellen","Wenig Community","Creator-getrieben"],platforms:"Instagram, TikTok, YouTube",label:"Social-first und formatgetrieben",strategy:"Junge Sprache, klare Formate, sichtbare Quellen und starke Anpassung an Plattformlogiken.",profile:"Funk arbeitet jung, visuell und stark formatgetrieben.",good:"Quellen werden in Captions und Videos sichtbar gemacht. Funk nutzt Greenscreen, junge Hosts, klare YouTube-Formate und eine lockere, fachliche Sprache.",weak:"Teilweise Zweitverwertung, wenig Interaktion in Kommentaren.",learning:"Klare Formatidentität und transparente Quellen sind stark. Community Management muss konsequenter mitgedacht werden.",scores:[4,3,5,1,4,4],compare:["Instagram, TikTok, YouTube","Junge Hosts, eher format- als personenbezogen","Quellen oft sichtbar","Wenig Interaktion","Fachliche Einordnung mit lockerer Sprache","Starke Formatidentität","Social-first-System übernehmen, Community stärken"]},
+      {name:"Zeit",logo:"media/benchmark-zeit.webp",category:"Privates Medienhaus",tags:["Medienhäuser","Private Medienhäuser","TikTok","Instagram","YouTube","Markengetrieben"],platforms:"TikTok, Instagram, YouTube, Podcast",label:"Plattformen unterschiedlich gedacht",strategy:"TikTok wirkt persönlicher und jünger, YouTube stärker auf Tiefe und seriöse Hosts ausgerichtet.",profile:"Die Zeit unterscheidet stärker zwischen TikTok, Instagram, YouTube und Podcast.",good:"Plattformen werden unterschiedlich gedacht. TikTok ist persönlicher und jünger, Instagram stärker nachrichtlich, YouTube tiefer und seriöser.",weak:"Kaum Kommentarinteraktion, Hosts sind oft eher Gastgeber als Creator.",learning:"Axel Springer sollte Plattformrollen klar trennen: TikTok für Nähe, YouTube für Tiefe, Instagram für Marke und Wiedererkennung.",scores:[4,3,3,1,3,4],compare:["TikTok, Instagram, YouTube, Podcast","Hosts als Gastgeber, selten Creator","Solide, aber nicht Hauptmerkmal","Kaum Kommentarinteraktion","Seriöse Einordnung, klare Plattformrollen","Mittlere Wiedererkennbarkeit","Plattformrollen sauber trennen"]},
+      {name:"Tagesschau",logo:"media/benchmark-tagesschau.png",category:"ÖRR / Nachrichten",tags:["Medienhäuser","ÖRR","TikTok","Instagram","Starke Hosts","Markengetrieben"],platforms:"Instagram, TikTok",label:"Vertrauen durch feste Gesichter",strategy:"Wiederkehrende Hosts vermitteln Nachrichten sachlich und konsistent innerhalb einer starken Marke.",profile:"Sehr starke Nachrichtenmarke mit hoher Reichweite und wiederkehrenden Hosts.",good:"Vertrauen, Konsistenz, klare Trennung von Nachricht und Meinung, hoher Wiedererkennungswert durch feste Hosts.",weak:"Wenig persönliche Tiefe, starke Markenkontrolle, begrenzter Creator-Spielraum.",learning:"Feste Gesichter können Markenvertrauen verstärken, wenn Rollen klar definiert sind.",scores:[4,4,4,2,5,4],compare:["Instagram, TikTok","Feste Gesichter im Rahmen starker Marke","Journalistisch klar","Begrenzt aktiv","Nachricht und Meinung klar getrennt","Sehr hoch","Markenvertrauen mit klaren Host-Rollen verbinden"]},
+      {name:"Sportschau",logo:"media/benchmark-sportschau.jpg",category:"ÖRR / Sport",tags:["Medienhäuser","ÖRR","Sport","TikTok","Instagram","Starke Hosts","Creator-getrieben"],platforms:"Instagram, TikTok",label:"Hostgetriebener Sport",strategy:"Feste Hosts, starke Sportmarke, teilweise Meinungsformate und hohe Engagement-Werte.",profile:"Die Sportschau arbeitet stärker mit Host-Persönlichkeit als die Tagesschau.",good:"Persönlichere Ansprache, höhere Creator-Präsenz, starke Engagement-Werte bei einzelnen Videos.",weak:"Performance abhängig von Thema, Host und Plattform. Meinung erzeugt nicht automatisch Reichweite.",learning:"Sport eignet sich stark für Creator-Formate, braucht aber klare Formatlogik und saubere Kennzeichnung.",scores:[4,5,3,3,4,5],compare:["Instagram, TikTok","Feste Hosts mit stärkerer Persönlichkeit","Quellen solide, aber nicht immer zentral","Mehr Engagement als viele Markenaccounts","Meinung möglich, braucht Kennzeichnung","Hoch durch Sportmarke und Hosts","Sport als Creator-System besonders geeignet"]},
+      {name:"ZDF",logo:"media/benchmark-zdf.png",category:"ÖRR",tags:["Medienhäuser","ÖRR","TikTok","Instagram","YouTube","Wenig Community","Markengetrieben"],platforms:"YouTube, Instagram, TikTok",label:"Kanalstruktur und Zielgruppenlogik",strategy:"Mehrere Kanäle für verschiedene Zielgruppen, von Nachrichten bis jungen Erklärformaten.",profile:"ZDF arbeitet mit mehreren Kanälen und klarer Zielgruppenabgrenzung.",good:"Kanalstruktur, Zielgruppenlogik, viele Formate, viel Bild- und Videomaterial.",weak:"Teilweise Jugendsprache wirkt anbiedernd, wenig Kommentarinteraktion, Hosts nicht immer klar benannt.",learning:"Axel Springer sollte nicht alles auf einen Account legen, sondern klare Kanalarchitektur und Zielgruppenlogik entwickeln.",scores:[4,3,3,2,3,4],compare:["YouTube, Instagram, TikTok","Hosts je nach Kanal unterschiedlich klar","Journalistisches Material vorhanden","Wenig Kommentarinteraktion","Information dominiert","Über Kanalstruktur erkennbar","Kanalarchitektur statt Einheitsaccount"]},
+      {name:"RBB24",logo:"media/benchmark-rbb24.jpg",category:"ÖRR / Regional",tags:["Medienhäuser","ÖRR","Instagram","Wenig Community","Markengetrieben"],platforms:"Instagram, Reels",label:"Regional und informationsorientiert",strategy:"Professionelle regionale Social-News mit starker Marke, aber weniger Personalisierung als private Creator.",profile:"RBB24 ist regionaljournalistisch, informationsorientiert und professionell.",good:"Regionaler Fokus, professionelle Produktion, journalistischer Kontext, starke Marke, mobile Perspektiven, Archivmaterial und Infografiken.",weak:"Quellen selten explizit sichtbar, weniger personalisiert als private Creator.",learning:"Regionale Nähe kann stark sein, braucht aber mehr persönliche Absender und transparentere Quellen.",scores:[3,2,2,3,3,3],compare:["Instagram, Reels","Weniger personalisiert","Quellen selten explizit sichtbar","Regional nah, aber nicht stark creatorhaft","Information im Vordergrund","Regionalmarke stark","Regionale Creator-Hosts denkbar"]},
+      {name:"Handelsblatt",logo:"media/benchmark-handelsblatt.png",category:"Privates Medienhaus / Wirtschaft",tags:["Medienhäuser","Private Medienhäuser","Wirtschaft","Instagram","Starke Hosts","Wenig Community","Creator-getrieben"],platforms:"Instagram, Podcasts",label:"Seriöses Creator-Media",strategy:"Wirtschaftsthemen werden mit Hosts, Hooks, Splitscreen, Untertiteln und Creator-Machart erzählt.",profile:"Handelsblatt ist ein gutes Beispiel für „Publisher becoming creator-media“.",good:"Persönliche Kameraansprache, schneller Hook, Splitscreen, große Untertitel, Jumpcuts, seriöse Sprache, klare Kacheloptik und Gesicht statt Logo.",weak:"Kaum aktives Community Management, Handelsblatt Crime wirkt weniger abgestimmt.",learning:"Auch komplexe Wirtschaftsmarken können creator-nah erzählen, ohne unseriös zu werden.",scores:[5,5,4,1,5,5],compare:["Instagram, Podcasts","Starke Host-Logik","Seriös und ausreichend transparent","Kaum aktiv","Analyse ohne unseriösen Ton","Sehr stark über Optik und Hosts","Wirtschaft kann creator-nah funktionieren"]},
+      {name:"Sport Content Creator",logo:"media/benchmark-sport-content-creator.png",category:"Eigene Rubrik",tags:["Sport","TikTok","Instagram","YouTube","Starke Hosts","Starke Community","Creator-getrieben"],platforms:"TikTok, Instagram, YouTube",label:"Persönlichkeit, Nische, Wiedererkennung",strategy:"Sport-Creator funktionieren über klare Themenfelder, persönliche Ansprache, feste Settings und eigene Formate.",profile:"Analysiert wurden Eleniwithamic, Conan Furlong, Magdalena Austerman, Manu Thiele und dieligalebt/Ria.",good:"Hohe Wiedererkennbarkeit, klare Themenfelder, starke persönliche Bindung, eigene Formate und direkte Ansprache.",weak:"Häufig geringe Quellen-Transparenz, Vermischung von Meinung und Information, teils wenig professionelle Produktion.",learning:"Axel Springer sollte Wiedererkennbarkeit und persönliche Sprache übernehmen, aber Quellen und Kennzeichnung journalistisch sauberer lösen.",scores:[5,5,2,4,5,5],special:"sport",compare:["TikTok, Instagram, YouTube","Sehr starke Personenbindung","Oft zu wenig transparent","Starke Community-Nähe","Meinung und Information oft gemischt","Sehr hoch","Persönlichkeit übernehmen, Standards ergänzen"]},
+      {name:"Politfluencer",logo:"media/benchmark-politfluencer.png",category:"Eigene Rubrik",tags:["Politik","TikTok","Instagram","YouTube","Starke Hosts","Starke Community","Creator-getrieben"],platforms:"TikTok, Instagram, YouTube, Twitch",label:"Tempo, Haltung, Plattformlogik",strategy:"Politfluencer arbeiten schnell, persönlich, meinungsstark und emotional. Medienhäuser sollten diese Logik verstehen, aber journalistisch übersetzen.",profile:"Politfluencer spielen in der politischen Kommunikation eine große Rolle und konkurrieren mit klassischen Medien um Deutung.",good:"Tempo, Klarheit, Haltung, Nähe, Community-Gefühl, starke Thesen und schnelle Reaktion auf Debatten.",weak:"Häufige Vermischung von Meinung und Information, Risiko von Emotionalisierung, Polarisierung und Desinformation.",learning:"Axel Springer sollte Politfluencer nicht kopieren, sondern übersetzen: Tempo, Nähe und Verständlichkeit übernehmen, aber mit Quellen, Faktencheck und klarer Kennzeichnung verbinden.",scores:[5,5,2,5,5,4],special:"politics",compare:["TikTok, Instagram, YouTube, Twitch","Extrem personenzentriert","Oft schwach oder unklar","Sehr stark","Meinung häufig dominant","Sehr hoch","Tempo und Nähe übersetzen, Risiken vermeiden"]}
+    ];
+
+    let activeFilter = "Alle";
+    let selectedCompare = [];
+    let activeEconomyCase = 0;
+
+    function visualMarkup(item) {
+      if (item.visual === "timeline") {
+        return `<div class="timeline"><strong>März 2024</strong><span></span><strong>Juni 2025</strong></div>
+          <div class="metric-stack" style="margin-top:14px;">${item.metrics.map(metric => `<div class="metric-row"><span>${metric.label}</span><b>${metric.value}</b></div>`).join("")}</div>
+          <div class="mini-note">Vom Launch bis zu Rekordwerten bei Umsatz und Engagement.</div>`;
+      }
+      if (item.visual === "contract") {
+        return `<div class="big-number">85 Mio.</div>
+          <div class="mini-note">Dollar für 5 Jahre</div>
+          <div class="metric-stack" style="margin-top:14px;">${item.metrics.map(metric => `<div class="metric-row"><span>${metric.label}</span><b>${metric.value}</b></div>`).join("")}</div>`;
+      }
+      if (item.visual === "traffic") {
+        return `<div class="metric-stack">${item.metrics.slice(0,3).map(metric => `<div class="metric-row danger"><span>${metric.label}</span><b>${metric.value}</b><div class="metric-bar"><span style="--value:${metric.width}"></span></div></div>`).join("")}</div>
+          <div class="big-number" style="margin-top:18px;">37 Mrd.</div>
+          <div class="mini-note">Dollar US Creator Ad Spend 2025, etwa viermal schneller wachsend als der restliche Werbemarkt.</div>`;
+      }
+      return `<div class="metric-stack">${item.metrics.map(metric => `<div class="metric-row"><span>${metric.label}</span><b>${metric.value}</b><div class="metric-bar"><span style="--value:${metric.width}"></span></div></div>`).join("")}</div>`;
+    }
+
+    function renderEconomyCases() {
+      document.getElementById("caseTabs").innerHTML = economyCases.map((item, index) => `<button class="case-tab ${index === activeEconomyCase ? "active" : ""}" type="button" onclick="setEconomyCase(${index})"><b>${item.name}</b><span>${item.label}</span></button>`).join("");
+      const item = economyCases[activeEconomyCase];
+      document.getElementById("caseDetail").innerHTML = `<div class="case-detail-head">
+        <div>
+          <span class="case-label">${item.label}</span>
+          <h3>${item.name}</h3>
+          <p class="case-statement">${item.statement}</p>
+        </div>
+        <div class="mini-visual">${visualMarkup(item)}</div>
+      </div>
+      <div class="case-grid">
+        <div class="case-box"><h4>Vorher</h4><p>${item.before}</p></div>
+        <div class="case-box"><h4>Veränderung</h4><p>${item.change}</p></div>
+        <div class="case-box"><h4>Ergebnis</h4><p>${item.result}</p></div>
+        <div class="case-box"><h4>Learning für Axel Springer</h4><p>${item.learning}</p></div>
+      </div>
+      <div class="case-source">${item.source}</div>`;
+    }
+
+    function setEconomyCase(index) {
+      activeEconomyCase = index;
+      renderEconomyCases();
+    }
+
+    function renderFilters() {
+      document.getElementById("filterRow").innerHTML = filters.map(filter => `<button class="chip ${filter === activeFilter ? "active" : ""}" type="button" onclick="setFilter('${filter}')">${filter}</button>`).join("");
+    }
+
+    function matchesFilter(item) {
+      return activeFilter === "Alle" || item.tags.includes(activeFilter);
+    }
+
+    function renderCards() {
+      document.getElementById("benchmarkGrid").innerHTML = benchmarkData
+        .map((item, index) => ({ item, index }))
+        .filter(({ item }) => matchesFilter(item))
+        .sort((a, b) => displayOrder.indexOf(a.item.name) - displayOrder.indexOf(b.item.name))
+        .map(({ item, index }) => `<article class="benchmark-card ${item.special ? "special" : ""}">
+          <div class="card-top">
+            <div class="category">${item.category}</div>
+            <label class="select-wrap"><input class="compare-box" type="checkbox" ${selectedCompare.includes(index) ? "checked" : ""} onchange="toggleCompare(${index})" /> Vergleich</label>
+          </div>
+          <div class="benchmark-title-row">
+            <div class="benchmark-logo"><img src="${item.logo}" alt="${item.name} Logo" loading="lazy" /></div>
+            <h2>${item.name}</h2>
+          </div>
+          <span class="label">${item.label}</span>
+          <div class="platforms">${item.platforms}</div>
+          <p class="strategy">${item.strategy}</p>
+          <button class="open-btn" type="button" onclick="openDetail(${index})">Analyse öffnen</button>
+        </article>`).join("");
+    }
+
+    function setFilter(filter) {
+      activeFilter = filter;
+      renderFilters();
+      renderCards();
+    }
+
+    function toggleCompare(index) {
+      if (selectedCompare.includes(index)) selectedCompare = selectedCompare.filter(item => item !== index);
+      else if (selectedCompare.length < 3) selectedCompare.push(index);
+      renderCards();
+      renderCompare();
+    }
+
+    function renderCompare() {
+      const panel = document.getElementById("comparePanel");
+      if (selectedCompare.length < 2) {
+        panel.classList.remove("open");
+        panel.innerHTML = "";
+        return;
+      }
+      const items = selectedCompare.map(index => benchmarkData[index]);
+      panel.style.setProperty("--cols", items.length);
+      panel.classList.add("open");
+      panel.innerHTML = `<div class="compare-head"><h2>Vergleichsmodus</h2><button class="compare-clear" type="button" onclick="clearCompare()">Auswahl löschen</button></div>
+        <div class="compare-grid">
+          <div class="compare-row"><div class="criterion">Kriterium</div>${items.map(item => `<div><strong>${item.name}</strong></div>`).join("")}</div>
+          ${compareCriteria.map((criterion, rowIndex) => `<div class="compare-row"><div class="criterion">${criterion}</div>${items.map(item => `<div>${item.compare[rowIndex]}</div>`).join("")}</div>`).join("")}
+        </div>`;
+    }
+
+    function clearCompare() {
+      selectedCompare = [];
+      renderCards();
+      renderCompare();
+    }
+
+    function scoreMarkup(item) {
+      return `<div class="score-list">${scoreLabels.map((label, index) => `<div class="score-row"><span>${label}</span><div class="bar"><span style="--score:${item.scores[index]}"></span></div><strong>${item.scores[index]}</strong></div>`).join("")}</div>`;
+    }
+
+    function specialMarkup(item) {
+      if (item.special === "sport") {
+        return `<div class="detail-box" style="grid-column:1/-1"><h3>Analysierte Sport-Creator</h3><div class="subcards">${["Eleniwithamic","Conan Furlong","Magdalena Austerman","Manu Thiele","dieligalebt / Ria"].map(name => `<div class="subcard">${name}</div>`).join("")}</div></div>`;
+      }
+      if (item.special === "politics") {
+        return `<div class="detail-box" style="grid-column:1/-1"><h3>Politfluencer übersetzen, nicht kopieren</h3><div class="do-dont"><div><strong>Was übernehmen</strong><ul><li>Tempo</li><li>starke Hooks</li><li>persönliche Ansprache</li><li>klare These</li><li>Community-Nähe</li></ul></div><div><strong>Was nicht kopieren</strong><ul><li>Desinformation</li><li>Feindbildlogik</li><li>künstliche Empörung</li><li>unklare Vermischung von Meinung und Information</li><li>fehlende Quellen</li></ul></div></div></div>`;
+      }
+      return "";
+    }
+
+    function openDetail(index) {
+      const item = benchmarkData[index];
+      document.getElementById("detailTitle").textContent = item.name;
+      document.getElementById("detailMeta").textContent = `${item.category} · ${item.platforms}`;
+      document.getElementById("detailBody").innerHTML = `<div class="detail-grid">
+        <div class="detail-box"><h3>Kurzprofil</h3><p>${item.profile}</p></div>
+        <div class="detail-box"><h3>Plattformen</h3><p>${item.platforms}</p></div>
+        <div class="detail-box"><h3>Strategie</h3><p>${item.strategy}</p></div>
+        <div class="detail-box"><h3>Was funktioniert gut?</h3><p>${item.good}</p></div>
+        <div class="detail-box"><h3>Was funktioniert weniger gut?</h3><p>${item.weak}</p></div>
+        <div class="detail-box"><h3>Was Axel Springer daraus lernen kann</h3><p>${item.learning}</p></div>
+        <div class="detail-box" style="grid-column:1/-1"><h3>Scorecard</h3>${scoreMarkup(item)}</div>
+        ${specialMarkup(item)}
+      </div>`;
+      document.getElementById("detailModal").classList.add("open");
+    }
+
+    function closeDetail(event) {
+      if (!event || event.target.id === "detailModal") document.getElementById("detailModal").classList.remove("open");
+    }
+
+    document.addEventListener("keydown", event => { if (event.key === "Escape") closeDetail(); });
+    renderEconomyCases();
+    renderFilters();
+    renderCards();
+    window.setEconomyCase = setEconomyCase;
+    window.setFilter = setFilter;
+    window.toggleCompare = toggleCompare;
+    window.clearCompare = clearCompare;
+    window.openDetail = openDetail;
+    window.closeDetail = closeDetail;
+  </script>
+</body>
+</html>
