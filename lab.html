@@ -20,6 +20,7 @@
       isolation: isolate;
       border-radius: 18px;
       padding: 8px 0 10px;
+      --channel-card-height: clamp(344px, 24vw, 360px);
     }
     .grid {
       position: relative;
@@ -90,17 +91,19 @@
       }
     }
     .meta { color:var(--muted); font-size:13px; }
-    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
-    .card { border-radius:8px; overflow:hidden; background:rgba(10,10,12,.92); border:1px solid rgba(255,255,255,.10); cursor:pointer; transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease; padding:18px; text-align:center; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:var(--channel-card-height); align-items:stretch; gap:18px; }
+    .grid > * { height:100%; min-height:0; }
+    .card { min-height:var(--channel-card-height); height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border-radius:8px; overflow:hidden; background:rgba(10,10,12,.92); border:1px solid rgba(255,255,255,.10); cursor:pointer; transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease; padding:18px; text-align:center; }
     .card:hover { transform:translateY(-4px); border-color:rgba(29,243,242,.48); background:rgba(18,18,22,.98); box-shadow:0 22px 55px rgba(0,0,0,.42); }
     .lab-text-card {
       position: relative;
-      grid-row: auto;
+      grid-column: 2;
+      grid-row: 2 / span 2;
       overflow: hidden;
       min-height: 0;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       border-radius: 8px;
       padding: 28px;
       background: linear-gradient(145deg, rgba(11, 18, 20, .94), rgba(9, 9, 12, .9));
@@ -125,7 +128,7 @@
       position: relative;
       z-index: 1;
       display: grid;
-      gap: 22px;
+      gap: 12px;
     }
     .lab-text-card p {
       position: relative;
@@ -165,7 +168,8 @@
     .profile-wrap {
       width: 132px;
       height: 132px;
-      margin: 0 auto 14px;
+      margin: 0 auto 4px;
+      flex: 0 0 132px;
       border-radius: 9999px;
       padding: 3px;
       background: linear-gradient(140deg, rgba(29,243,242,.92), rgba(29,243,242,.35));
@@ -186,7 +190,9 @@
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin: 0 0 12px;
+      margin: 0;
+      min-height: 28px;
+      align-content: center;
       flex-wrap: wrap;
     }
     .platform-icon {
@@ -213,8 +219,8 @@
     .platform-icon.youtube,
     .platform-icon.twitch,
     .platform-icon.spotify { border-color: rgba(29,243,242,.65); }
-    .card h3 { margin:0 0 8px; line-height:1.25; font-size: 22px; }
-    .card .meta { color: var(--muted); line-height: 1.45; font-size: 14px; }
+    .card h3 { margin:0; min-height:calc(1.25em * 2); max-width:100%; line-height:1.25; font-size: 22px; overflow-wrap:anywhere; display:flex; align-items:center; justify-content:center; }
+    .card .meta { color: var(--muted); line-height: 1.45; font-size: 14px; min-height:calc(1.45em * 3); max-height:calc(1.45em * 3); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
     .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(0,0,0,.78); z-index:20; }
     .modal.open { display:flex; }
     .modal-card { width:min(920px,100%); max-height:88vh; overflow:auto; border-radius:12px; background:#08080a; border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow); }
@@ -352,14 +358,14 @@
         transform: translateX(-50%) translate(var(--drift, 0px), -360px) scale(var(--end-scale, 1.12)) rotate(calc(var(--rotate, 0deg) + var(--spin, 8deg)));
       }
     }
-    @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-row:auto;} .showcase-section .comment-background,.showcase-lab-word{display:none;} }
-    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-row:auto;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} }
+    @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .showcase-section .comment-background,.showcase-lab-word{display:none;} }
+    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} }
   </style>
 </head>
 <body>
   <main>
     <header>
-      <a href="index.html"><img class="logo" src="media/as-academy-creator-lab-logo.png" alt="Academy Creator Lab" /></a>
+      <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo.png" alt="Academy Creator Lab" /></a>
       <nav class="main-nav" aria-label="Hauptnavigation">
         <a class="nav-link active" href="lab.html">Lab</a>
         <a class="nav-link" href="stats.html">Stats</a>
@@ -396,16 +402,16 @@ B</div>
 
   <script>
     const channels = [
-      {title:"markusundvinz",meta:"Markus & Vinzenz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",preview:"media/markusundvinz-tile.png",previewAlt:"markusundvinz Kachel",text:"Markus & Vinz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@markusundvinz"},{label:"YouTube öffnen",url:"https://www.youtube.com/@MarkusundVinz"}]},
-      {title:"berlinmarti",meta:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"media/berlinmarti-modal.png",cardPreview:"media/lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"}]},
-      {title:"philipamarti",meta:"Philipa: Zeitgeist, Mode und Trends",preview:"media/philipamarti-modal.png",cardPreview:"media/lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Kachel",text:"Philipa: Zeitgeist, Mode und Trends",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
-      {title:"lauras.sports",meta:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",preview:"media/laura-sports-tile.png",cardPreview:"media/lab-laura-sports-card.png",previewAlt:"lauras.sports Kachel",profileScale:1,profilePosition:"center center",text:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
-      {title:"moin.lisa",meta:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",preview:"media/moin-lisa-tile.png",cardPreview:"media/lab-moin-lisa-card.jpeg",previewAlt:"moin.lisa Kachel",profileScale:1,profilePosition:"center center",text:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moin.lisa?is_from_webapp=1&sender_device=pc"},{label:"YouTube öffnen",url:"https://www.youtube.com/@moin_lisa"}]},
-      {title:"lauraemelytalks",meta:"Laura Emily: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"media/lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Kachel",text:"Laura Emily: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
-      {title:"apropos_news",meta:"Kilian: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"media/apropos-news-tile.png",previewAlt:"apropos_news Kachel",text:"Apropos News: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
-      {title:"zwischendenpfosten",meta:"Elinor, Simon, Maurus: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",preview:"media/zdp-tile.png",cardPreview:"media/lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Kachel",profileScale:1,profilePosition:"center center",text:"Zwischen den Pfosten: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
-      {title:"alinasophiekatzele",meta:"Alina-Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",preview:"media/alinasophiekatzele-tile.png",cardPreview:"media/lab-alina-card.jpeg",previewAlt:"alinasophiekatzele Kachel",profileScale:1,profilePosition:"center center",text:"Alina Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
-      {title:"moscowplaybook",meta:"Daria: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"media/moscowplaybook-tile.png",previewAlt:"moscowplaybook Kachel",text:"Moscow Playbook: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"}]}
+      {title:"markusundvinz",meta:"Markus & Vinzenz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",preview:"markusundvinz-tile.png",previewAlt:"markusundvinz Kachel",text:"Markus & Vinz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@markusundvinz"},{label:"YouTube öffnen",url:"https://www.youtube.com/@MarkusundVinz"}]},
+      {title:"berlinmarti",meta:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"berlinmarti-modal.png",cardPreview:"lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"}]},
+      {title:"philipamarti",meta:"Philipa: Zeitgeist, Mode und Trends",preview:"philipamarti-modal.png",cardPreview:"lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Kachel",text:"Philipa: Zeitgeist, Mode und Trends",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
+      {title:"lauras.sports",meta:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",preview:"laura-sports-tile.png",cardPreview:"lab-laura-sports-card.png",previewAlt:"lauras.sports Kachel",profileScale:1,profilePosition:"center center",text:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
+      {title:"moin.lisa",meta:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",preview:"moin-lisa-tile.png",cardPreview:"lab-moin-lisa-card.jpeg",previewAlt:"moin.lisa Kachel",profileScale:1,profilePosition:"center center",text:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moin.lisa?is_from_webapp=1&sender_device=pc"},{label:"YouTube öffnen",url:"https://www.youtube.com/@moin_lisa"}]},
+      {title:"lauraemelytalks",meta:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Kachel",text:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
+      {title:"apropos_news",meta:"Kilian: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"apropos-news-tile.png",previewAlt:"apropos_news Kachel",text:"Apropos News: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
+      {title:"zwischendenpfosten",meta:"Elinor, Simon, Maurus: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",preview:"zdp-tile.png",cardPreview:"lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Kachel",profileScale:1,profilePosition:"center center",text:"Zwischen den Pfosten: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
+      {title:"alinasophiekatzele",meta:"Alina-Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",preview:"alinasophiekatzele-tile.png",cardPreview:"alinasophiekatzele-logo.jpeg",previewAlt:"alinasophiekatzele Kachel",profileScale:1,profilePosition:"center center",text:"Alina Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
+      {title:"moscowplaybook",meta:"Daria: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"moscowplaybook-tile.png",previewAlt:"moscowplaybook Kachel",text:"Moscow Playbook: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"}]}
     ];
 
     const labIntroText = [
@@ -414,15 +420,15 @@ B</div>
     ];
 
     const showcaseVideos = [
-      {creator:"markusundvinz",src:"media/showcase-markus.mov"},
-      {creator:"markusundvinz",src:"media/showcase-vinzenz.mp4"},
-      {creator:"philipamarti",src:"media/showcase-philipamarti.mov"},
-      {creator:"Berlinmarti",src:"media/showcase-philipa-2.mov"},
-      {creator:"lauras.sports",src:"media/showcase-lauras-sports.mp4"},
-      {creator:"zwischendenpfosten",src:"media/showcase-zdp.mp4"},
-      {creator:"moin.lisa",src:"media/showcase-moin-lisa.mp4"},
-      {creator:"lauraemelytalks",src:"media/showcase-lauraemilytalks.mov"},
-      {creator:"moscowplaybook",src:"media/showcase-moscowplaybook.mp4"}
+      {creator:"markusundvinz",src:"showcase-markus.mp4"},
+      {creator:"markusundvinz",src:"showcase-vinzenz.mp4"},
+      {creator:"philipamarti",src:"showcase-philipamarti.mp4"},
+      {creator:"Berlinmarti",src:"showcase-philipa-2.mp4"},
+      {creator:"lauras.sports",src:"showcase-lauras-sports.mp4"},
+      {creator:"zwischendenpfosten",src:"showcase-zdp.mp4"},
+      {creator:"moin.lisa",src:"showcase-moin-lisa.mp4"},
+      {creator:"lauraemelytalks",src:"showcase-lauraemilytalks.mp4"},
+      {creator:"moscowplaybook",src:"showcase-moscowplaybook.mp4"}
     ];
 
     const decorativeComments = [
@@ -500,12 +506,12 @@ B</div>
       const platformIcons = (item.links || []).map(link => {
         const url = (link.url || "").toLowerCase();
         let cls = "tiktok";
-        let icon = "media/tiktok-logo.png";
+        let icon = "tiktok-logo.png";
         let alt = "TikTok";
-        if (url.includes("instagram")) { cls = "instagram"; icon = "media/instagram-logo.png"; alt = "Instagram"; }
-        else if (url.includes("youtube")) { cls = "youtube"; icon = "media/youtube-logo.png"; alt = "YouTube"; }
-        else if (url.includes("twitch")) { cls = "twitch"; icon = "media/twitch-logo.png"; alt = "Twitch"; }
-        else if (url.includes("spotify")) { cls = "spotify"; icon = "media/spotify-logo.png"; alt = "Spotify"; }
+        if (url.includes("instagram")) { cls = "instagram"; icon = "instagram-logo.png"; alt = "Instagram"; }
+        else if (url.includes("youtube")) { cls = "youtube"; icon = "youtube-logo.png"; alt = "YouTube"; }
+        else if (url.includes("twitch")) { cls = "twitch"; icon = "twitch-logo.png"; alt = "Twitch"; }
+        else if (url.includes("spotify")) { cls = "spotify"; icon = "spotify-logo.png"; alt = "Spotify"; }
         if (seenPlatforms.has(cls)) return "";
         seenPlatforms.add(cls);
         return `<a class="platform-icon ${cls}" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="${alt}" onclick="event.stopPropagation();"><img src="${icon}" alt="${alt}" loading="lazy" /></a>`;
@@ -537,10 +543,10 @@ B</div>
         "intro",
         "moin.lisa",
         "lauraemelytalks",
-        "apropos_news",
         "zwischendenpfosten",
         "alinasophiekatzele",
-        "moscowplaybook"
+        "moscowplaybook",
+        "apropos_news"
       ];
 
       return layout.map((entry) => {
