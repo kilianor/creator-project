@@ -95,9 +95,9 @@
     .card:hover { transform:translateY(-4px); border-color:rgba(29,243,242,.48); background:rgba(18,18,22,.98); box-shadow:0 22px 55px rgba(0,0,0,.42); }
     .lab-text-card {
       position: relative;
-      grid-row: span 2;
+      grid-row: auto;
       overflow: hidden;
-      min-height: 100%;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -135,27 +135,6 @@
       font-size: clamp(15px, 1.12vw, 18px);
       line-height: 1.62;
       font-weight: 650;
-    }
-    .lab-text-neon {
-      position: relative;
-      z-index: 0;
-      pointer-events: none;
-      margin-top: auto;
-      padding-top: clamp(28px, 6vh, 72px);
-      color: var(--accent);
-      text-align: center;
-      white-space: pre-line;
-      font-size: clamp(58px, 8vw, 138px);
-      line-height: 1.34;
-      font-weight: 1000;
-      letter-spacing: .08em;
-      opacity: .62;
-      text-shadow:
-        0 0 8px rgba(29,243,242,.9),
-        0 0 22px rgba(29,243,242,.66),
-        0 0 48px rgba(29,243,242,.38);
-      filter: drop-shadow(0 0 22px rgba(29,243,242,.45));
-      animation: labTextPulse 3.5s ease-in-out infinite;
     }
     @keyframes labPulse {
       0%, 100% {
@@ -276,15 +255,19 @@
       align-items: center;
       justify-content: center;
       color: var(--accent);
-      opacity: .12;
-      font-size: clamp(118px, 13vw, 240px);
-      line-height: 1.05;
-      font-weight: 1000;
-      letter-spacing: 0;
       text-align: center;
       white-space: pre-line;
-      filter: drop-shadow(0 0 28px rgba(29,243,242,.24));
-      animation: labPulse 4.4s ease-in-out infinite;
+      font-size: clamp(58px, 8vw, 138px);
+      line-height: 1.34;
+      font-weight: 1000;
+      letter-spacing: .08em;
+      opacity: .62;
+      text-shadow:
+        0 0 8px rgba(29,243,242,.9),
+        0 0 22px rgba(29,243,242,.66),
+        0 0 48px rgba(29,243,242,.38);
+      filter: drop-shadow(0 0 22px rgba(29,243,242,.45));
+      animation: labTextPulse 3.5s ease-in-out infinite;
     }
     .showcase-feed {
       width: min(100%, 480px);
@@ -369,8 +352,8 @@
         transform: translateX(-50%) translate(var(--drift, 0px), -360px) scale(var(--end-scale, 1.12)) rotate(calc(var(--rotate, 0deg) + var(--spin, 8deg)));
       }
     }
-    @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-row:auto;} .lab-text-neon{font-size:clamp(52px,12vw,96px); padding-top:34px;} .showcase-section .comment-background,.showcase-lab-word{display:none;} }
-    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-row:auto;} .lab-copy{gap:20px;} .lab-text-neon{font-size:64px; line-height:1.22; padding-top:28px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} }
+    @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-row:auto;} .showcase-section .comment-background,.showcase-lab-word{display:none;} }
+    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-row:auto;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} }
   </style>
 </head>
 <body>
@@ -541,9 +524,6 @@ B</div>
         <h2>Creator Channels</h2>
         <div class="lab-subtitle">Alle bestehenden Academy-Creator-Kanäle und wo sie vertreten sind</div>
         <div class="lab-copy">${labIntroText.map(paragraph => `<p>${paragraph}</p>`).join("")}</div>
-        <div class="lab-text-neon" aria-hidden="true">L
-A
-B</div>
       </article>`;
     }
 
