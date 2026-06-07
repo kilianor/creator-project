@@ -15,6 +15,7 @@
     .nav-link { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 14px; color:var(--text); background:rgba(255,255,255,.06); text-decoration:none; font-size:14px; font-weight:800; }
     .nav-link.active { background:var(--accent); border-color:var(--accent); color:#020202; }
     .stats-shell { display:grid; gap:22px; }
+    .is-hidden { display:none !important; }
     .hero { border:1px solid var(--line); border-radius:16px; padding:28px; background:linear-gradient(125deg, rgba(255,255,255,.07), rgba(29,243,242,.08) 42%, rgba(0,0,0,.4)); overflow:hidden; }
     .eyebrow { color:var(--accent); font-weight:900; font-size:12px; text-transform:uppercase; letter-spacing:0; margin-bottom:10px; }
     h1 { margin:0 0 12px; font-size:clamp(36px,5vw,72px); line-height:.96; }
@@ -67,19 +68,24 @@
     .highlight { border:1px solid rgba(255,255,255,.1); border-radius:10px; background:rgba(8,8,10,.82); padding:18px; }
     .highlight strong { display:block; margin-bottom:8px; color:#fff; font-size:20px; }
     .highlight p { color:#cfd6db; font-size:14px; line-height:1.5; }
-    .benchmark-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-    .benchmark-card { border:1px solid rgba(255,255,255,.1); border-radius:10px; background:var(--panel); padding:18px; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease; }
-    .benchmark-card:hover { transform:translateY(-4px); border-color:rgba(29,243,242,.55); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 26px rgba(29,243,242,.08); background:rgba(18,18,22,.98); }
-    .benchmark-card.special { border-color:rgba(29,243,242,.30); background:linear-gradient(145deg,rgba(9,24,25,.84),rgba(10,10,12,.94)); }
+    .market-hub { color:var(--text); background:radial-gradient(circle at 20% 0%,rgba(29,243,242,.10),transparent 28%),linear-gradient(180deg,#050506 0%,#09090b 58%,#050506 100%); border:1px solid rgba(29,243,242,.24); border-radius:16px; overflow:hidden; min-width:0; box-shadow:0 28px 90px rgba(0,0,0,.32),0 0 32px rgba(29,243,242,.08); }
+    .market-wrap { width:min(1180px,calc(100% - 38px)); margin:0 auto; }
+    .market-intro { padding:36px 0 26px; }
+    .market-intro h2 { margin:0 0 10px; color:var(--text); font-size:clamp(30px,3.8vw,48px); line-height:1.05; letter-spacing:-.025em; }
+    .market-intro > p { margin:0 0 20px; max-width:880px; color:#b8c3c7; line-height:1.6; font-size:17px; }
+    .benchmark-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; padding:0 0 32px; }
+    .benchmark-card { border:1px solid rgba(255,255,255,.12); border-radius:22px; background:rgba(10,10,12,.92); padding:20px; box-shadow:0 24px 70px rgba(0,0,0,.46); transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; }
+    .benchmark-card:hover { transform:translateY(-3px); border-color:rgba(29,243,242,.48); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(29,243,242,.08); background:rgba(10,10,12,.92); }
+    .benchmark-card.special { border-color:rgba(29,243,242,.28); background:linear-gradient(145deg,rgba(9,24,25,.84),rgba(10,10,12,.94)); }
     .card-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:12px; }
     .category { color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; }
     .benchmark-title-row { display:flex; align-items:center; gap:14px; margin-bottom:12px; }
     .benchmark-logo { width:74px; height:74px; flex:0 0 74px; border-radius:999px; padding:3px; border:1px solid rgba(29,243,242,.48); background:rgba(255,255,255,.08); box-shadow:0 0 22px rgba(29,243,242,.18); overflow:hidden; }
     .benchmark-logo img { width:100%; height:100%; display:block; border-radius:999px; object-fit:cover; background:#fff; }
-    .benchmark-card h2 { margin:0; font-size:24px; line-height:1.12; }
-    .label { display:inline-flex; border:1px solid rgba(29,243,242,.34); border-radius:999px; padding:5px 9px; color:#dfffff; background:rgba(29,243,242,.08); font-size:12px; font-weight:900; margin-bottom:12px; }
+    .benchmark-card h2 { margin:0; font-size:22px; line-height:1.14; }
+    .label { display:inline-flex; border:1px solid rgba(29,243,242,.34); border-radius:999px; padding:5px 9px; color:#dfffff; background:rgba(29,243,242,.08); font-size:12px; font-weight:950; margin-bottom:12px; }
     .platforms { color:#cfd6db; font-size:13px; font-weight:800; margin-bottom:10px; }
-    .strategy { color:#d7dde0; line-height:1.55; margin:0 0 16px; }
+    .strategy { color:#b8c3c7; line-height:1.55; margin:0 0 16px; font-size:14px; }
     .open-btn, .cta { border:0; border-radius:999px; padding:10px 13px; color:#020202; background:var(--accent); font-weight:950; cursor:pointer; text-decoration:none; display:inline-flex; }
     .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(0,0,0,.78); z-index:50; }
     .modal.open { display:flex; }
@@ -102,15 +108,161 @@
     .subcard { border:1px solid rgba(29,243,242,.18); border-radius:8px; padding:10px; background:rgba(29,243,242,.06); color:#e9ffff; font-weight:900; text-align:center; }
     .do-dont { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
     .do-dont ul { margin:0; padding-left:18px; }
-    .closing { border-top:2px solid var(--accent); padding-top:26px; margin-top:12px; display:grid; gap:12px; }
-    .closing h2 { margin:0; font-size:clamp(28px,4vw,44px); }
-    .closing p { margin:0; max-width:980px; color:#d7dde0; line-height:1.6; font-size:17px; }
+    .closing { border-top:2px solid var(--accent); padding:26px 0 40px; margin-top:0; display:grid; gap:12px; }
+    .closing h2 { margin:0; font-size:clamp(22px,2.4vw,30px); line-height:1.15; letter-spacing:0; }
+    .closing p { margin:0; max-width:980px; color:#b8c3c7; line-height:1.6; font-size:17px; }
+    .logic-hub { --logic-bg:#050506; --logic-ink:#f8f8f8; --logic-muted:#b8c3c7; --logic-line:rgba(255,255,255,.12); --logic-card:rgba(10,10,12,.92); --logic-purple:#1df3f2; --logic-cyan:#1df3f2; --logic-shadow:0 24px 70px rgba(0,0,0,.46); color:var(--logic-ink); background:radial-gradient(circle at 76% 8%,rgba(29,243,242,.11),transparent 30%),linear-gradient(180deg,#050506 0%,#09090b 58%,#050506 100%); border:1px solid rgba(29,243,242,.24); border-radius:16px; overflow:hidden; min-width:0; margin-bottom:8px; box-shadow:0 28px 90px rgba(0,0,0,.32),0 0 32px rgba(29,243,242,.08); }
+    .logic-hub * { box-sizing:border-box; }
+    .logic-download,.logic-btn { display:inline-flex; justify-content:center; align-items:center; min-height:40px; border:0; border-radius:999px; padding:10px 14px; color:#020202; background:var(--accent); text-decoration:none; font-size:14px; font-weight:950; box-shadow:0 0 24px rgba(29,243,242,.16); cursor:pointer; }
+    .logic-wrap { width:min(1180px,calc(100% - 38px)); margin:0 auto; }
+    .logic-hero { display:grid; grid-template-columns:minmax(0,1.02fr) minmax(360px,.98fr); gap:32px; align-items:center; padding:clamp(34px,5vw,72px) 0 32px; }
+    .logic-eyebrow { color:var(--logic-purple); font-weight:900; text-transform:uppercase; font-size:12px; letter-spacing:.12em; margin-bottom:12px; }
+    .logic-hero h1 { margin:0 0 18px; color:var(--logic-ink); font-size:clamp(42px,5.5vw,76px); line-height:.98; letter-spacing:-.03em; }
+    .logic-hero h1 span { color:var(--logic-purple); }
+    .logic-hero p { margin:0; max-width:720px; color:var(--logic-muted); line-height:1.62; font-size:20px; }
+    .logic-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:26px; }
+    .logic-stat { border:1px solid var(--logic-line); border-radius:18px; padding:16px; background:var(--logic-card); box-shadow:var(--logic-shadow); }
+    .logic-stat b { display:block; color:var(--logic-purple); font-size:26px; line-height:1; }
+    .logic-stat span { display:block; margin-top:6px; color:var(--logic-muted); font-size:13px; font-weight:750; line-height:1.35; }
+    .logic-principle { border:1px solid var(--logic-line); border-radius:24px; padding:22px; background:var(--logic-card); box-shadow:var(--logic-shadow); }
+    .logic-principle h2 { margin:0 0 18px; color:var(--logic-ink); font-size:28px; letter-spacing:-.02em; }
+    .logic-layers { display:grid; grid-template-columns:1fr 74px 1fr; gap:14px; align-items:center; }
+    .logic-layer { min-height:190px; border:1px solid var(--logic-line); border-radius:14px; padding:18px; background:rgba(255,255,255,.045); }
+    .logic-layer.hidden { border-color:rgba(29,243,242,.28); background:rgba(29,243,242,.055); }
+    .logic-layer h3 { margin:0 0 8px; color:var(--logic-ink); font-size:20px; }
+    .logic-layer p { margin:0; color:var(--logic-muted); line-height:1.5; }
+    .logic-layer strong { display:block; margin-bottom:7px; color:#eff; }
+    .logic-creator { display:grid; gap:8px; place-items:center; color:var(--logic-purple); font-size:13px; font-weight:950; text-align:center; }
+    .logic-creator::before,.logic-creator::after { content:""; width:58px; height:2px; background:linear-gradient(90deg,var(--logic-purple),var(--logic-cyan)); }
+    .logic-result { margin-top:14px; border:1px solid rgba(29,243,242,.34); border-radius:12px; padding:14px; background:rgba(29,243,242,.07); color:#eaffff; line-height:1.48; font-weight:850; }
+    .logic-section { padding:32px 0; min-width:0; scroll-margin-top:76px; }
+    .logic-section-start { padding-top:36px; }
+    .logic-section-end { padding-top:14px; margin-top:0; padding-bottom:26px; border-top:1px solid rgba(255,255,255,.10); border-bottom:2px solid var(--accent); }
+    #logicCompare { width:calc(min(1180px,calc(100% - 38px)) + 8px); margin:0 auto; padding-top:14px; padding-bottom:14px; }
+    #logicTools { width:calc(min(1180px,calc(100% - 38px)) + 8px); margin:0 auto; }
+    .logic-section h2 { margin:0 0 10px; color:var(--logic-ink); font-size:clamp(30px,3.8vw,48px); line-height:1.05; letter-spacing:-.025em; }
+    .logic-section > p { margin:0 0 20px; max-width:880px; color:var(--logic-muted); line-height:1.6; font-size:17px; }
+    .logic-card-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .logic-card,.logic-detail-card,.logic-factor { border:1px solid var(--logic-line); border-radius:22px; background:var(--logic-card); box-shadow:var(--logic-shadow); }
+    .logic-card { display:block; width:100%; padding:20px; color:var(--logic-ink); text-decoration:none; text-align:left; font:inherit; cursor:pointer; transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; }
+    .logic-card:hover { transform:translateY(-3px); border-color:rgba(29,243,242,.48); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(29,243,242,.08); }
+    .logic-card-head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .logic-logo { width:42px; height:42px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; color:#fff; background:#000; border:1px solid rgba(255,255,255,.12); font-size:13px; font-weight:950; box-shadow:0 0 20px rgba(29,243,242,.18); overflow:hidden; }
+    .logic-logo img { width:100%; height:100%; object-fit:cover; display:block; }
+    .logic-card h3,.logic-detail-card h3 { margin:0; color:var(--logic-ink); font-size:22px; }
+    .logic-card dl { display:grid; gap:10px; margin:0; }
+    .logic-card div:not(.logic-card-head) { min-width:0; }
+    .logic-card dt { color:var(--logic-purple); font-size:11px; font-weight:950; text-transform:uppercase; }
+    .logic-card dd { margin:2px 0 0; color:var(--logic-muted); font-size:14px; line-height:1.42; }
+    .logic-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .logic-detail-source { display:none !important; }
+    .logic-detail-card { padding:20px; }
+    .logic-detail-card ol { margin:14px 0 0; padding-left:22px; color:var(--logic-muted); line-height:1.48; }
+    .logic-detail-card li { margin:6px 0; }
+    .logic-detail-target { margin-top:16px; border-top:1px solid var(--logic-line); padding-top:13px; color:#eff; font-weight:950; }
+    .logic-accordion-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 0;
+      color: var(--logic-ink);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: none;
+    }
+    .logic-accordion-trigger h2 { margin: 0; }
+    .logic-subchapter-title { font-size: clamp(22px, 2.4vw, 30px) !important; line-height: 1.15 !important; letter-spacing: 0 !important; }
+    .logic-accordion-icon {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #020202;
+      background: var(--accent);
+      font-size: 20px;
+      font-weight: 950;
+      transition: transform .22s ease;
+    }
+    .logic-accordion-trigger[aria-expanded="true"] .logic-accordion-icon { transform: rotate(180deg); }
+    .logic-accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .34s ease, opacity .24s ease, margin-top .24s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+    .logic-accordion-panel.open {
+      max-height: none;
+      overflow: visible;
+      opacity: 1;
+      margin-top: 18px;
+    }
+    .logic-matrix-wrap { width:calc(100vw - 40px); margin-left:calc((100% - (100vw - 40px)) / 2); overflow-x:visible; border:1px solid rgba(29,243,242,.22); border-radius:14px; background:linear-gradient(145deg,rgba(4,4,6,.94),rgba(8,18,19,.72)); box-shadow:var(--logic-shadow),0 0 24px rgba(29,243,242,.07); }
+    .logic-matrix { min-width:0; width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0; }
+    .logic-matrix th,.logic-matrix td { padding:10px 8px; border-right:1px solid rgba(255,255,255,.105); border-bottom:1px solid rgba(255,255,255,.105); text-align:left; vertical-align:top; color:var(--logic-muted); font-size:12px; line-height:1.32; background:rgba(255,255,255,.035); overflow-wrap:anywhere; hyphens:auto; }
+    .logic-matrix th { color:#eaffff; background:linear-gradient(180deg,rgba(29,243,242,.18),rgba(29,243,242,.07)); font-size:10px; font-weight:950; letter-spacing:.03em; text-transform:uppercase; }
+    .logic-matrix td:first-child,.logic-matrix th:first-child { color:var(--logic-ink); background:linear-gradient(180deg,rgba(10,10,12,.98),rgba(12,26,27,.96)); font-weight:950; box-shadow:none; }
+    .logic-matrix th:first-child { color:var(--accent); }
+    .logic-matrix tbody tr:nth-child(even) td { background:rgba(255,255,255,.055); }
+    .logic-matrix tbody tr:nth-child(even) td:first-child { background:linear-gradient(180deg,rgba(13,13,15,.98),rgba(13,31,32,.96)); }
+    .logic-matrix tbody tr:hover td { background:rgba(29,243,242,.075); color:#eff; }
+    .logic-matrix tbody tr:hover td:first-child { background:rgba(29,243,242,.13); }
+    .logic-matrix tr:last-child td { border-bottom:0; }
+    .logic-matrix th:last-child,.logic-matrix td:last-child { border-right:0; }
+    .logic-factors { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:12px; }
+    .logic-factor { padding:16px; }
+    .logic-factor span { display:inline-flex; margin-bottom:12px; color:var(--logic-purple); font-size:12px; font-weight:950; }
+    .logic-factor b { display:block; margin-bottom:7px; color:var(--logic-ink); font-size:16px; line-height:1.2; }
+    .logic-factor p { margin:0; color:var(--logic-muted); line-height:1.42; font-size:14px; }
+    .logic-final { display:grid; grid-template-columns:1fr auto; gap:18px; align-items:center; margin:34px auto 40px; border:1px solid rgba(29,243,242,.24); border-radius:16px; padding:22px; background:linear-gradient(135deg,rgba(29,243,242,.08),rgba(255,255,255,.035)); box-shadow:var(--logic-shadow); }
+    .logic-final h2 { margin:0 0 6px; color:var(--logic-ink); font-size:26px; }
+    .logic-final p { margin:0; color:var(--logic-muted); line-height:1.5; }
+    .logic-modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(0,0,0,.78); z-index:60; }
+    .logic-modal.open { display:flex; }
+    .logic-modal-card { width:min(860px,100%); max-height:88vh; overflow:auto; border-radius:14px; background:#08080a; border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow); }
+    .logic-modal-head { position:sticky; top:0; z-index:1; display:flex; justify-content:space-between; gap:16px; align-items:flex-start; padding:20px; background:rgba(8,8,10,.96); border-bottom:1px solid rgba(255,255,255,.1); }
+    .logic-modal-title { display:flex; gap:12px; align-items:center; min-width:0; }
+    .logic-modal-title .logic-logo { display:none; }
+    .logic-modal-title h2 { margin:0 0 5px; color:#fff; font-size:clamp(28px,3vw,40px); line-height:1; }
+    .logic-modal-title p { margin:0; color:#aeb8bd; font-weight:800; }
+    .logic-modal-body { padding:22px; display:grid; gap:16px; }
+    .logic-modal-intro { margin:0; color:#d7dde0; font-size:17px; line-height:1.6; }
+    .logic-modal-body ol { margin:0; padding-left:22px; color:#d7dde0; line-height:1.56; }
+    .logic-modal-body li { margin:8px 0; }
+    .logic-modal-target { border-top:1px solid rgba(255,255,255,.11); padding-top:16px; color:#eaffff; font-weight:950; line-height:1.45; }
+    .logic-modal-target ul { margin:9px 0 0; padding-left:18px; color:#d7dde0; font-weight:700; }
+    .logic-modal-target li { margin:5px 0; }
+    .logic-deep-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-items:stretch; }
+    .logic-deep-box { min-height:168px; border:1px solid rgba(255,255,255,.11); border-radius:12px; padding:15px; background:rgba(255,255,255,.045); }
+    .logic-deep-box.wide { grid-column:1/-1; min-height:0; }
+    .logic-deep-box h4 { margin:0 0 9px; color:#fff; font-size:17px; }
+    .logic-deep-box p { margin:0; color:#d7dde0; line-height:1.5; font-size:14px; white-space:pre-line; }
+    .logic-deep-box ul,.logic-deep-learning ul { margin:0; padding-left:18px; color:#d7dde0; line-height:1.5; font-size:14px; }
+    .logic-deep-box li,.logic-deep-learning li { margin:5px 0; }
+    .logic-deep-box li::marker,.logic-deep-learning li::marker { color:var(--accent); }
+    .logic-deep-learning { margin-top:-4px; border:1px solid rgba(29,243,242,.28); border-radius:12px; padding:15px; background:rgba(29,243,242,.065); }
+    .logic-deep-learning h4 { margin:0 0 9px; color:#fff; font-size:17px; }
+    .logic-deep-learning p { margin:0; color:#d7dde0; line-height:1.5; font-size:14px; }
     @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards{grid-template-columns:repeat(2,minmax(0,1fr));} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (max-width:1050px){ .logic-hero{grid-template-columns:1fr;}.logic-card-grid,.logic-detail-grid,.logic-deep-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.logic-factors{grid-template-columns:repeat(3,minmax(0,1fr));}.logic-layers{grid-template-columns:1fr;}.logic-creator::before,.logic-creator::after{width:2px;height:28px;}.logic-stats{grid-template-columns:repeat(2,minmax(0,1fr));} }
     @media (max-width:760px){
       main{width:calc(100% - 24px);}
       header{grid-template-columns:1fr;}
       .main-nav{justify-content:flex-start;}
       .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards{grid-template-columns:1fr;}
+      .logic-wrap{width:calc(100% - 28px);}
+      .logic-card-grid,.logic-detail-grid,.logic-deep-grid,.logic-factors,.logic-stats{grid-template-columns:1fr;}
+      .logic-deep-box{min-height:0;}
+      .logic-final{grid-template-columns:1fr;}
+      .logic-download,.logic-btn{width:100%;}
       .score-row{grid-template-columns:1fr 1fr 26px;}
       .modal{padding:10px;}
       .modal-head{position:relative;}
@@ -122,7 +274,7 @@
 <body>
   <main>
     <header>
-      <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo.png" alt="Academy Creator Lab" /></a>
+      <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo-cropped.png" alt="Academy Creator Lab" /></a>
       <nav class="main-nav" aria-label="Hauptnavigation">
         <a class="nav-link" href="lab.html">Lab</a>
         <a class="nav-link active" href="stats.html">Stats</a>
@@ -131,7 +283,182 @@
     </header>
 
     <section class="stats-shell">
-      <section class="economy-story" aria-label="Creator Economy Analyse">
+      <section class="logic-hub" aria-labelledby="logicOverviewTitle">
+        <div class="logic-wrap">
+          <section id="logicOverview" class="logic-section logic-section-start" aria-labelledby="logicOverviewTitle">
+            <div class="logic-eyebrow">Stats · Plattformlogiken</div>
+            <h2 id="logicOverviewTitle">Plattformen im Überblick</h2>
+            <p>Soziale Plattformen entscheiden nicht zufällig über Sichtbarkeit. Jede Plattform folgt eigenen Regeln, Algorithmen und Erfolgsfaktoren. Diese Analyse zeigt, wie die wichtigsten Plattformen Inhalte bewerten und was Creator daraus lernen können.</p>
+            <p>Plattformen ändern sich ständig aber die Prinzipien guter Inhalte bleiben. Verstehe die Logik. Nutze die Möglichkeiten. Baue echten Mehrwert. So entsteht nachhaltiger Erfolg. (Stand 11.06.2026)</p>
+            <div class="logic-card-grid">
+              <button class="logic-card" type="button" data-logic-modal="logicInstagram"><div class="logic-card-head"><span class="logic-logo"><img src="instagram-logo.png" alt="Instagram Logo" /></span><h3>Instagram</h3></div><dl><div><dt>Fokus</dt><dd>Beziehungen & Community</dd></div><div><dt>Algorithmus</dt><dd>Social Graph, Engagement, Relevanz</dd></div><div><dt>Wichtigster Faktor</dt><dd>Saves & Interaktionen</dd></div><div><dt>Monetarisierung</dt><dd>Werbung, Branded Content, Shopping, Abos</dd></div></dl></button>
+              <button class="logic-card" type="button" data-logic-modal="logicTiktok"><div class="logic-card-head"><span class="logic-logo"><img src="tiktok-logo.png" alt="TikTok Logo" /></span><h3>TikTok</h3></div><dl><div><dt>Fokus</dt><dd>Aufmerksamkeit & Entertainment</dd></div><div><dt>Algorithmus</dt><dd>Interest Graph, Watchtime, Interaktionen</dd></div><div><dt>Wichtigster Faktor</dt><dd>Watchtime & Wiederholungen</dd></div><div><dt>Monetarisierung</dt><dd>Creator Fund, Gifts, Shop, Brand Deals</dd></div></dl></button>
+              <button class="logic-card" type="button" data-logic-modal="logicYoutube"><div class="logic-card-head"><span class="logic-logo"><img src="youtube-logo.png" alt="YouTube Logo" /></span><h3>YouTube</h3></div><dl><div><dt>Fokus</dt><dd>Watchtime & Zuschauerbindung</dd></div><div><dt>Algorithmus</dt><dd>Empfehlungsalgorithmus, Watchtime, CTR</dd></div><div><dt>Wichtigster Faktor</dt><dd>Zuschauerbindung & Klickrate</dd></div><div><dt>Monetarisierung</dt><dd>Werbung, Mitgliedschaften, Super Chats, Merchandise, Affiliate</dd></div></dl></button>
+              <button class="logic-card" type="button" data-logic-modal="logicSnapchat"><div class="logic-card-head"><span class="logic-logo"><img src="snapchat - Logo.png" alt="Snapchat Logo" /></span><h3>Snapchat</h3></div><dl><div><dt>Fokus</dt><dd>Freundschaft & Entdeckung</dd></div><div><dt>Algorithmus</dt><dd>Discover, Engagement, Aktualität</dd></div><div><dt>Wichtigster Faktor</dt><dd>Engagement im Discover-Bereich</dd></div><div><dt>Monetarisierung</dt><dd>Spotlight, Werbung, Creator Rewards</dd></div></dl></button>
+              <button class="logic-card" type="button" data-logic-modal="logicX"><div class="logic-card-head"><span class="logic-logo"><img src="x twitter - Logo.png" alt="X Twitter Logo" /></span><h3>X (Twitter)</h3></div><dl><div><dt>Fokus</dt><dd>Echtheit, Information & öffentliche Diskussion</dd></div><div><dt>Algorithmus</dt><dd>For You Feed, Engagement, Aktualität, Relevanz</dd></div><div><dt>Wichtigster Faktor</dt><dd>Replies & Quotes</dd></div><div><dt>Monetarisierung</dt><dd>Premium, Werbung, Creator Subscriptions</dd></div></dl></button>
+              <button class="logic-card" type="button" data-logic-modal="logicTwitch"><div class="logic-card-head"><span class="logic-logo"><img src="twitch-logo.png" alt="Twitch Logo" /></span><h3>Twitch</h3></div><dl><div><dt>Fokus</dt><dd>Live-Entertainment & Community</dd></div><div><dt>Algorithmus</dt><dd>Live-Ranking, Watchtime, Engagement</dd></div><div><dt>Wichtigster Faktor</dt><dd>Returning Viewer & Live-Interaktion</dd></div><div><dt>Monetarisierung</dt><dd>Abos, Bits, Spenden, Werbung, Sponsoring</dd></div></dl></button>
+              <button class="logic-card" type="button" data-logic-modal="logicSpotify"><div class="logic-card-head"><span class="logic-logo"><img src="spotify-logo.png" alt="Spotify Logo" /></span><h3>Spotify</h3></div><dl><div><dt>Fokus</dt><dd>Datengetriebene Audio-Plattform</dd></div><div><dt>Algorithmus</dt><dd>Personalisierung, Hörverhalten, Interessen</dd></div><div><dt>Wichtigster Faktor</dt><dd>Hörzeit & App-Bindung</dd></div><div><dt>Monetarisierung</dt><dd>Audience Network, Partner Program, Ads</dd></div></dl></button>
+              <button class="logic-card" type="button" data-logic-modal="logicCampfire"><div class="logic-card-head"><span class="logic-logo"><img src="campfirefm - logo.jpeg" alt="CampfireFM Logo" /></span><h3>CampfireFM</h3></div><dl><div><dt>Fokus</dt><dd>Podcasting als Community-Erlebnis</dd></div><div><dt>Algorithmus</dt><dd>Community, Reaktionen, Engagementdaten</dd></div><div><dt>Wichtigster Faktor</dt><dd>Aktive Fan-Experience</dd></div><div><dt>Monetarisierung</dt><dd>Tickets, Merchandise, exklusive Inhalte</dd></div></dl></button>
+            </div>
+          </div>
+
+          <div class="logic-detail-source" hidden>
+              <article id="logicInstagram" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="instagram-logo.png" alt="Instagram Logo" /></span><h3>Instagram</h3></div>
+                <p class="logic-detail-intro">Instagram lässt sich gut über Mediengrammatik erklären: sichtbare Formate und unsichtbare algorithmische Steuerung greifen ineinander.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>Oberflächengrammatik</h4><ul><li>Posts, Stories, Reels, Kommentare, Likes</li><li>Profile, Feed, Explore-Bereich</li><li>Creator gestalten hier ihre sichtbare Kommunikation.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Konstituentengrammatik</h4><ul><li>Algorithmen, Code, Ranking-Systeme</li><li>Empfehlungen und Personalisierung</li><li>Steuert Sichtbarkeit und Reichweite.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Darstellungsebenen</h4><ul><li>Profil: Markenidentität, Wiedererkennbarkeit</li><li>Post: Storytelling, Caption, Kommentare</li><li>Feed/Explore: Konkurrenz um Aufmerksamkeit</li></ul></article>
+                  <article class="logic-deep-box"><h4>Edits-App</h4><ul><li>Plattformnahe Inhalte für Instagram</li><li>Starke Einstiege, Texteinblendungen, Untertitel</li><li>Kompatibler, aber ersetzt keine Strategie.</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Creator-Learning</h4><ul><li>Reels erzeugen Reichweite.</li><li>Stories binden Community.</li><li>Posts pflegen Wiedererkennbarkeit.</li></ul></article>
+                <div class="logic-detail-target">Ziel: Community aufbauen & langfristig binden</div>
+              </article>
+              <article id="logicTiktok" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="tiktok-logo.png" alt="TikTok Logo" /></span><h3>TikTok</h3></div>
+                <p class="logic-detail-intro">TikTok testet Videos als eigenständige Einheiten. Follower helfen, aber die erste Zielgruppenreaktion entscheidet.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>Interest Graph, FYP, Retention</h4><ul><li>TikTok ordnet Inhalte nach Interessen, nicht nur nach Follower-Beziehungen.</li><li>Die For You Page testet Videos stufenweise.</li><li>Retention entscheidet, ob ein Video weiter ausgespielt wird.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Interaktion: 50–60 %</h4><ul><li>Completion Rate und Watchtime</li><li>Rewatches, Likes, Kommentare</li><li>Shares, Saves, Profilaufrufe, Follow nach dem Anschauen</li></ul></article>
+                  <article class="logic-deep-box"><h4>Videoinformationen: 20–30 %</h4><ul><li>Caption, Hashtags, Keywords, Screen-Text</li><li>Untertitel, Sound, Thema, Sprache, Format</li><li>Hilft TikTok bei der Klassifikation.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Account-Daten: 10–20 %</h4><ul><li>Veröffentlichungsfrequenz</li><li>Nischen-Konsistenz</li><li>Sprache, Region, Follower-Verhalten</li></ul></article>
+                  <article class="logic-deep-box wide"><h4>Negative Signale</h4><ul><li>Early Skip in den ersten 1–3 Sekunden</li><li>Niedrige Wiedergabezeit oder irrelevante Hashtags</li><li>Clickbait ohne Payoff</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Creator-Learning</h4><p>TikTok fragt zuerst: Für wen ist dieses Video interessant? Dann testet die Plattform die Reaktion einer kleinen Zielgruppe und erweitert Reichweite schrittweise.</p></article>
+                <div class="logic-detail-target">Ziel: Maximale Watchtime & Interaktionen</div>
+              </article>
+              <article id="logicYoutube" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="youtube-logo.png" alt="YouTube Logo" /></span><h3>YouTube</h3></div>
+                <p class="logic-detail-intro">YouTube ist die Plattform, bei der Geschäftsmodell, Monetarisierung und Empfehlungslogik besonders eng verbunden sind. Die Plattform gehört zu Alphabet und verbindet Videos, Shorts, Livestreams, Werbung, Premium-Angebote und Creator-Monetarisierung.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>Watchtime, CTR, Monetarisierung</h4><ul><li>Watchtime zeigt, wie lange Inhalte wirklich binden.</li><li>CTR entscheidet, ob Titel und Thumbnail klicken.</li><li>Monetarisierung hängt eng an Reichweite, Bindung und Werbefähigkeit.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Geschäftsmodell</h4><ul><li>Werbung vor, während oder neben Videos</li><li>YouTube Premium als kostenpflichtiges Angebot</li><li>Werbetreibende nutzen detaillierte Zielgruppenoptionen.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Monetarisierung für Creator</h4><ul><li>mindestens 1.000 Abonnenten</li><li>4.000 Stunden Wiedergabezeit in 12 Monaten</li><li>zusätzlich: Memberships, Super Chats, Merchandise</li></ul></article>
+                  <article class="logic-deep-box"><h4>Empfehlungsalgorithmus</h4><ul><li>Analysiert Sehgewohnheiten und Suchverläufe</li><li>Berücksichtigt Interessen und ähnliche Nutzer</li><li>Empfiehlt auf Startseite und in Vorschlägen.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Erfolgsfaktoren</h4><ul><li>Interessante und relevante Inhalte</li><li>Persönliche Ansprache und Community-Interaktion</li><li>Kooperationen mit bekannten Creatorn</li></ul></article>
+                  <article class="logic-deep-box"><h4>Influencer-Rolle</h4><ul><li>YouTuber wirken oft authentisch und nahbar</li><li>Parasoziale Beziehungen stärken Bindung</li><li>MCNs und eigene Produktionsfirmen professionalisieren Vermarktung.</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Creator-Learning</h4><p>YouTube-Erfolg entsteht aus Reichweite, Bindung, professioneller Präsentation und Sichtbarkeit im Empfehlungssystem.</p></article>
+                <div class="logic-detail-target">Ziel: Watchtime erhöhen, treue Zuschauer gewinnen, Empfehlungen als zentrales Steuerungselement</div>
+              </article>
+              <article id="logicSnapchat" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="snapchat - Logo.png" alt="Snapchat Logo" /></span><h3>Snapchat</h3></div>
+                <p class="logic-detail-intro">Snapchat entwickelt sich von Messenger-Logik zu Creator- und Business-Plattform, besonders über Spotlight, AR und Monetarisierung.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>Spotlight, AR, Gen Z</h4><ul><li>Spotlight stärkt Kurzvideo-Entdeckung.</li><li>AR-Lenses und Filter machen Inhalte interaktiv.</li><li>Gen-Z-Nutzung bleibt ein zentraler Plattformvorteil.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Algorithmus-Faktoren</h4><ul><li>Replies, Shares, Screenshots</li><li>Regelmäßigkeit beim Posten</li><li>Watchtime und vollständiges Ansehen</li><li>Trend- und Themenrelevanz</li></ul></article>
+                  <article class="logic-deep-box"><h4>Monetarisierung</h4><ul><li>Offizielles Programm seit 2025</li><li>Fokus auf Engagement, Watchtime, Posting-Aktivität</li><li>Auch Micro-Creator können Chancen haben.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Voraussetzungen</h4><ul><li>ca. 50.000 Follower</li><li>10 Mio. Views in 30 Tagen</li><li>12.000 Stunden Watchtime</li><li>9:16-Content, mindestens 1 Minute</li></ul></article>
+                  <article class="logic-deep-box wide"><h4>Weitere Einnahmen</h4><ul><li>Sponsored Content und Affiliate</li><li>Produkte, Takeovers, Cross-Promotion</li><li>AR-Filter, Geofilter, UGC-Kampagnen</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Herausforderung</h4><p>Hohe Einstiegshürden, weniger virale Reichweite als TikTok, eingeschränkte Analytics und hoher Content-Aufwand.</p></article>
+                <div class="logic-detail-target">Ziel: Im Discover sichtbar werden & wachsen</div>
+              </article>
+              <article id="logicX" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="x twitter - Logo.png" alt="X Twitter Logo" /></span><h3>X (Twitter)</h3></div>
+                <p class="logic-detail-intro">X verbindet sozialen Graph, Interessen und aktuelle Debatten. Sichtbarkeit entsteht oft durch Anschlussfähigkeit.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>For You, Replies, Quotes</h4><ul><li>Sozialer Graph, Interessen und Debatten laufen zusammen.</li><li>Replies zeigen Gesprächswert.</li><li>Quotes erzeugen Kontext, Widerspruch und Reichweite.</li></ul></article>
+                  <article class="logic-deep-box"><h4>For You</h4><ul><li>Mischung aus gefolgten Accounts und Empfehlungen</li><li>Keine chronologische Timeline</li><li>Personalisiert nach Verhalten und Interessen</li></ul></article>
+                  <article class="logic-deep-box"><h4>Ranking-Signale</h4><ul><li>Likes, Klicks, Views, Antworten</li><li>Reposts, Quotes, Profilbesuche</li><li>Dwell Time und Thread-Öffnungen</li></ul></article>
+                  <article class="logic-deep-box"><h4>Verstärker</h4><ul><li>Aktualität und Trends</li><li>Debattenfähigkeit</li><li>Schnelle Interaktion und aktive Community</li></ul></article>
+                  <article class="logic-deep-box wide"><h4>Begrenzer</h4><ul><li>Mute, Block, Report, Not interested</li><li>Spam, Duplikate, Regelverstöße</li><li>Wenig Reaktion oder schneller Skip</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Creator-Learning</h4><p>X belohnt nicht nur Popularität, sondern Relevanz, Reaktion und Anschlussfähigkeit an laufende Debatten.</p></article>
+                <div class="logic-detail-target">Ziel: Relevante Diskussionen anführen</div>
+              </article>
+              <article id="logicTwitch" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="twitch-logo.png" alt="Twitch Logo" /></span><h3>Twitch</h3></div>
+                <p class="logic-detail-intro">Auf Twitch zählen Watch Time, Chat, Kategorien, Tags und Returning Viewers. Externe Clips helfen, erste Signale aufzubauen.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>Live-first</h4><ul><li>Twitch bewertet Streams im Moment ihrer Verfügbarkeit.</li><li>Relevanz entsteht live durch Thema, Timing und Community-Aktivität.</li><li>Wer regelmäßig live ist, macht Rückkehr zur Gewohnheit.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Chat & Returning Viewers</h4><ul><li>Chat-Aktivität zeigt, ob ein Stream wirklich bindet.</li><li>Returning Viewers signalisieren Community-Treue.</li><li>Formate brauchen wiedererkennbare Abläufe und klare Hosts.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Empfehlungsflächen</h4><ul><li>Startseite, Suche und Kategorien</li><li>Mobile Feed, Clips und linke Kanalliste</li><li>Empfohlen werden Live-Streams und Communities.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Ranking-Kriterien</h4><ul><li>Watch Time und Klickverhalten</li><li>Chat-Aktivität und Engagement</li><li>Kategorie, Tags, Sprache und Region</li></ul></article>
+                  <article class="logic-deep-box"><h4>Live-Besonderheit</h4><ul><li>Streams sind dynamisch verfügbar.</li><li>Der Algorithmus prüft, wer gerade live ist.</li><li>Relevanz hängt vom Moment ab.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Wachstumshebel</h4><ul><li>Regelmäßiger Zeitplan</li><li>Aktiver Chat und klare Formate</li><li>Clips, TikTok, Shorts, Discord, Instagram und X</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Creator-Learning</h4><p>Twitch liebt nicht nur Klicks, sondern Retention, Live-Aktivität und die Gewohnheit der Community, zurückzukommen.</p></article>
+                <div class="logic-detail-target">Ziel: Community aufbauen & Zuschauer binden</div>
+              </article>
+              <article id="logicSpotify" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="spotify-logo.png" alt="Spotify Logo" /></span><h3>Spotify</h3></div>
+                <p class="logic-detail-intro">Spotify steht für die große datengetriebene Audio-Plattform: Musik, Podcasts, Video-Podcasts, Hörbücher, Ads und Creator-Tools.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>Audio-Plattform</h4><ul><li>Spotify bündelt Musik, Podcasts, Video-Podcasts und Hörbücher.</li><li>Personalisierte Empfehlungen strukturieren Nutzung und Auffindbarkeit.</li><li>Creator arbeiten mit Upload-, Analyse- und Interaktionstools.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Ökosystem</h4><ul><li>Musik, Podcasts, Video-Podcasts und Hörbücher</li><li>Hörer erhalten personalisierte Empfehlungen.</li><li>Creator erhalten Upload-, Analyse- und Interaktionstools.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Geschäftszahlen 2025</h4><ul><li>751 Mio. monatlich aktive Nutzer</li><li>290 Mio. Premium-Abonnenten</li><li>17,186 Mrd. Euro Umsatz</li></ul></article>
+                  <article class="logic-deep-box"><h4>Warum Podcasts wichtig sind</h4><ul><li>Erhöhen Nutzungszeit und App-Bindung</li><li>Schaffen neues Werbeinventar</li><li>Liefern Daten über Interessen, Genres und Themen</li></ul></article>
+                  <article class="logic-deep-box"><h4>Creator-Tools</h4><ul><li>Hosting und Distribution</li><li>Audio- und Video-Uploads</li><li>Analytics, Kommentare, Monetarisierung</li></ul></article>
+                  <article class="logic-deep-box"><h4>Interaktion</h4><ul><li>Q&A und Umfragen</li><li>Kommentare für Podcasts</li><li>Podcast wird vom linearen Hörmedium zum Plattformformat mit Rückkanal.</li></ul></article>
+                  <article class="logic-deep-box wide"><h4>Monetarisierung</h4><ul><li>Spotify Audience Network</li><li>Spotify Partner Program</li><li>Werbeerlöse und Premium-Video-Nutzung für berechtigte Creator</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Creator-Learning</h4><p>Spotify macht Podcasts zu datengetriebenen Content-Objekten: Auffindbarkeit, Analytics, Community-Funktionen und Werbung werden Teil der Produktion.</p></article>
+                <div class="logic-detail-target">Ziel: Hörzeit, Auffindbarkeit und Monetarisierung systematisch verbinden</div>
+              </article>
+              <article id="logicCampfire" class="logic-detail-card">
+                <div class="logic-card-head"><span class="logic-logo"><img src="campfirefm - logo.jpeg" alt="CampfireFM Logo" /></span><h3>CampfireFM</h3></div>
+                <p class="logic-detail-intro">CampfireFM steht für Podcasting als Community-Erlebnis: Episoden werden zu Startpunkten für Gespräche, Reaktionen und Bonusmaterial.</p>
+                <div class="logic-deep-grid">
+                  <article class="logic-deep-box"><h4>Community</h4><ul><li>Podcast nicht nur hören, sondern gemeinsam erleben.</li><li>Fans diskutieren mit anderen und teilweise mit Hosts.</li><li>Jeder Podcast kann einen eigenen Community-Raum bilden.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Fan-Experience</h4><ul><li>Timeline, Diskussionen und Umfragen</li><li>Sprachnachrichten und Kommentare</li><li>Bilder, Links und Bonusmaterial zur Episode</li></ul></article>
+                  <article class="logic-deep-box"><h4>Plattformlogik</h4><ul><li>Podcast nicht nur hören, sondern gemeinsam erleben</li><li>Fans diskutieren mit anderen und teilweise mit Hosts</li><li>Jeder Podcast kann einen eigenen Community-Raum bilden.</li></ul></article>
+                  <article class="logic-deep-box"><h4>Funktionen</h4><ul><li>Timeline, Diskussionen und Umfragen</li><li>Sprachnachrichten und Kommentare</li><li>Bilder, Links und Bonusmaterial zur Episode</li></ul></article>
+                  <article class="logic-deep-box"><h4>Monetarisierung</h4><ul><li>Tickets, Merchandise, exklusive Inhalte</li><li>Werbung und In-App-Käufe</li><li>Neue Vermarktung rund um Podcast-Communitys</li></ul></article>
+                  <article class="logic-deep-box"><h4>Datafizierung</h4><ul><li>Kommentare, Reaktionen, Abstimmungen</li><li>Messbare Interessen und Engagementdaten</li><li>Passive Hörer werden aktive Community-Mitglieder.</li></ul></article>
+                </div>
+                <article class="logic-deep-learning"><h4>Kritischer Punkt</h4><p>Social-Podcast-Logiken schaffen Nähe, aber auch zusätzlichen Produktionsdruck, weil Hosts nicht nur Episoden liefern, sondern dauerhaft Community betreuen müssen.</p></article>
+                <div class="logic-detail-target">Ziel: Aus Episoden dauerhafte Community-Erlebnisse machen</div>
+              </article>
+            </div>
+          </section>
+
+          <section id="logicCompare" class="logic-section" aria-labelledby="logicMatrixTitle">
+            <button id="logicMatrixToggle" class="logic-accordion-trigger" type="button" aria-expanded="false" aria-controls="logicMatrixPanel">
+              <h2 id="logicMatrixTitle" class="logic-subchapter-title">Plattformvergleich – Die wichtigsten Unterschiede auf einen Blick</h2>
+              <span class="logic-accordion-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div id="logicMatrixPanel" class="logic-accordion-panel" hidden>
+              <div class="logic-matrix-wrap">
+                <table class="logic-matrix">
+                  <thead><tr><th>Aspekt</th><th>Instagram</th><th>TikTok</th><th>YouTube</th><th>Snapchat</th><th>X (Twitter)</th><th>Twitch</th><th>Spotify</th><th>CampfireFM</th></tr></thead>
+                  <tbody>
+                    <tr><td>Primärer Fokus</td><td>Community & Beziehungen</td><td>Aufmerksamkeit & Entertainment</td><td>Watchtime & Zuschauerbindung</td><td>Freundschaft & Entdeckung</td><td>Echtheit & Diskussion</td><td>Live-Entertainment & Community</td><td>Datengetriebene Audio-Plattform</td><td>Podcasting als Community-Erlebnis</td></tr>
+                    <tr><td>Entdeckungslogik</td><td>Social Graph</td><td>Interest Graph</td><td>Empfehlungsalgorithmus</td><td>Discover & Engagement</td><td>For You Feed</td><td>Live-Ranking & Empfehlungen</td><td>Personalisierung & Hörverhalten</td><td>Community-Räume & Engagement</td></tr>
+                    <tr><td>Wichtigstes Signal</td><td>Saves & Interaktionen</td><td>Watchtime & Wiederholungen</td><td>Zuschauerbindung & CTR</td><td>Engagement im Discover-Bereich</td><td>Replies & Quotes</td><td>Returning Viewer & Watchtime</td><td>Hörzeit, Interessen & App-Bindung</td><td>Kommentare, Reaktionen & Abstimmungen</td></tr>
+                    <tr><td>Monetarisierung</td><td>Werbung, Branded Content, Shopping</td><td>Creator Fund, Gifts, Shop</td><td>Werbung, Mitgliedschaften, Super Chats, Merchandise</td><td>Spotlight, Werbung, Rewards</td><td>Premium, Werbung, Creator Subscriptions</td><td>Abos, Bits, Spenden, Werbung</td><td>Audience Network, Partner Program, Ads</td><td>Tickets, Merchandise, exklusive Inhalte</td></tr>
+                    <tr><td>Content-Formate</td><td>Fotos, Reels, Stories, Lives</td><td>Kurzvideos, Livestreams</td><td>Videos lang & kurz, Livestreams</td><td>Stories, Spotlight, AR</td><td>Texte, Bilder, Videos, Spaces</td><td>Livestreams, Clips, VODs</td><td>Musik, Podcasts, Video-Podcasts, Hörbücher</td><td>Episoden, Diskussionen, Umfragen, Bonusmaterial</td></tr>
+                    <tr><td>Stärken</td><td>Starke Community, visuelles Storytelling</td><td>Virales Wachstum, hohe Reichweite</td><td>Tiefgehende Inhalte, hohe Monetarisierung</td><td>Hohe Engagement-Raten bei kurzer Nutzung</td><td>Kommunikation in Echtzeit</td><td>Engagierte Live-Community</td><td>Große Reichweite, Daten, Werbeinventar</td><td>Nähe, Fanbindung, aktive Podcast-Communitys</td></tr>
+                    <tr><td>Herausforderung</td><td>Hoher Konkurrenzdruck im Feed</td><td>Schnelle Trends, kurze Aufmerksamkeit</td><td>Hoher Aufwand für langfristigen Erfolg</td><td>Schwierige Auffindbarkeit</td><td>Algorithmus-Intransparenz & Volatilität</td><td>Unregelmäßige Streaming-Zeiten</td><td>Auffindbarkeit und Plattformabhängigkeit</td><td>Zusätzlicher Produktions- und Community-Druck</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section id="logicTools" class="logic-section logic-section-end" aria-labelledby="logicFactorsTitle">
+            <button id="logicFactorsToggle" class="logic-accordion-trigger" type="button" aria-expanded="false" aria-controls="logicFactorsPanel">
+              <h2 id="logicFactorsTitle" class="logic-subchapter-title">Sieben Prinzipien, die auf allen Plattformen zählen</h2>
+              <span class="logic-accordion-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div id="logicFactorsPanel" class="logic-accordion-panel" hidden>
+              <div class="logic-factors">
+                <article class="logic-factor"><span>01</span><b>Zielgruppe verstehen</b><p>Kenne deine Zielgruppe, ihre Bedürfnisse und wo sie sich aufhält.</p></article>
+                <article class="logic-factor"><span>02</span><b>Aufmerksamkeit gewinnen</b><p>Starke Starts: Die ersten Sekunden entscheiden über Erfolg oder Misserfolg.</p></article>
+                <article class="logic-factor"><span>03</span><b>Zuschauer halten</b><p>Höhere Watchtime bedeutet für viele Plattformen ein starkes Signal.</p></article>
+                <article class="logic-factor"><span>04</span><b>Interaktionen fördern</b><p>Likes, Kommentare, Shares und Saves erhöhen deine Sichtbarkeit.</p></article>
+                <article class="logic-factor"><span>05</span><b>Konsistent veröffentlichen</b><p>Regelmäßigkeit trainiert Algorithmen und baut Vertrauen beim Publikum auf.</p></article>
+                <article class="logic-factor"><span>06</span><b>Community aufbauen</b><p>Echte Beziehungen schaffen Loyalität und langfristigen Erfolg.</p></article>
+                <article class="logic-factor"><span>07</span><b>Daten analysieren</b><p>Nutze Analytics, teste, optimiere und lerne kontinuierlich dazu.</p></article>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="economy-story is-hidden" aria-label="Creator Economy Analyse">
         <div class="economy-intro">
           <div class="eyebrow">Stats · Creator Economy</div>
           <h2>Wie Creator Economy Medienhäuser verändert</h2>
@@ -163,23 +490,27 @@
         </section>
       </section>
 
-      <div class="hero">
-        <div class="eyebrow">Stats · Marktanalyse</div>
-        <h1>Social-Media-Benchmark</h1>
-        <p>Wir haben analysiert, wie andere Medienhäuser, öffentlich-rechtliche Formate, Sport-Creator und Politfluencer auf TikTok, Instagram und YouTube arbeiten. Die Frage: Was können wir daraus für Axel Springer lernen?</p>
-        <div class="highlights">
-          <article class="highlight"><strong>Marke vor Mensch</strong><p>Viele Medienhäuser setzen weiter stark auf ihre Marke. Hosts kommen vor, stehen aber selten wirklich als eigene Creator im Mittelpunkt.</p></article>
-          <article class="highlight"><strong>Wiedererkennbarkeit gewinnt</strong><p>Erfolgreiche Accounts arbeiten mit festen Gesichtern, wiederkehrenden Settings, klaren Hooks und eigener visueller Sprache.</p></article>
-          <article class="highlight"><strong>Community ist die Lücke</strong><p>Viele Accounts posten regelmäßig, reagieren aber kaum. Genau hier liegt ein großes Potenzial für journalistische Creator.</p></article>
+      <section class="market-hub" aria-labelledby="marketTitle">
+        <div class="market-wrap">
+          <section class="market-intro">
+            <div class="logic-eyebrow">Stats · Marktanalyse</div>
+            <h2 id="marketTitle">Marktanalyse</h2>
+            <p>Wir haben analysiert, wie andere Medienhäuser, öffentlich-rechtliche Formate, Sport-Creator und Politfluencer auf TikTok, Instagram und YouTube arbeiten. Danach zeigen die Kacheln, welche Strategien, Stärken und Lücken sich daraus für Axel Springer ableiten lassen.</p>
+            <div class="highlights">
+              <article class="highlight"><strong>Marke vor Mensch</strong><p>Viele Medienhäuser setzen weiter stark auf ihre Marke. Hosts kommen vor, stehen aber selten wirklich als eigene Creator im Mittelpunkt.</p></article>
+              <article class="highlight"><strong>Wiedererkennbarkeit gewinnt</strong><p>Erfolgreiche Accounts arbeiten mit festen Gesichtern, wiederkehrenden Settings, klaren Hooks und eigener visueller Sprache.</p></article>
+              <article class="highlight"><strong>Community ist die Lücke</strong><p>Viele Accounts posten regelmäßig, reagieren aber kaum. Genau hier liegt ein großes Potenzial für journalistische Creator.</p></article>
+            </div>
+          </section>
+
+          <section id="benchmarkGrid" class="benchmark-grid" aria-label="Marktanalyse Kacheln"></section>
+
+          <section class="closing">
+            <h2>Was Axel Springer daraus lernen kann</h2>
+            <p>Die Marktanalyse zeigt: Erfolgreicher Creator-Journalismus entsteht nicht durch bloßes Posten auf Social Media. Entscheidend sind klare Hosts, plattformgerechte Formate, sichtbare Quellen, wiedererkennbare Settings, echte Community-Arbeit und eine saubere Trennung von Information, Analyse und Meinung. Axel Springer kann daraus ein eigenes Creator-System entwickeln, das die Stärke etablierter Marken mit der Nähe journalistischer Persönlichkeiten verbindet.</p>
+            <a class="cta" href="index.html">Zum Playbook</a>
+          </section>
         </div>
-      </div>
-
-      <section id="benchmarkGrid" class="benchmark-grid" aria-label="Benchmark Kacheln"></section>
-
-      <section class="closing">
-        <h2>Was Axel Springer daraus lernen kann</h2>
-        <p>Der Benchmark zeigt: Erfolgreicher Creator-Journalismus entsteht nicht durch bloßes Posten auf Social Media. Entscheidend sind klare Hosts, plattformgerechte Formate, sichtbare Quellen, wiedererkennbare Settings, echte Community-Arbeit und eine saubere Trennung von Information, Analyse und Meinung. Axel Springer kann daraus ein eigenes Creator-System entwickeln, das die Stärke etablierter Marken mit der Nähe journalistischer Persönlichkeiten verbindet.</p>
-        <a class="cta" href="index.html">Zum Playbook</a>
       </section>
     </section>
   </main>
@@ -197,7 +528,66 @@
     </article>
   </div>
 
+  <div id="logicDetailModal" class="logic-modal" onclick="closeLogicDetail(event)">
+    <article class="logic-modal-card" onclick="event.stopPropagation()">
+      <div class="logic-modal-head">
+        <div class="logic-modal-title">
+          <span id="logicModalLogo" class="logic-logo" aria-hidden="true"></span>
+          <div>
+            <h2 id="logicModalTitle"></h2>
+            <p>Plattformlogik im Detail</p>
+          </div>
+        </div>
+        <button class="close" type="button" onclick="closeLogicDetail()">Schließen</button>
+      </div>
+      <div id="logicModalBody" class="logic-modal-body"></div>
+    </article>
+  </div>
+
   <script>
+    function openLogicDetail(id) {
+      const detail = document.getElementById(id);
+      if (!detail) return;
+      const title = detail.querySelector("h3")?.textContent || "Plattform";
+      const list = detail.querySelector("ol")?.outerHTML || "";
+      const intro = detail.querySelector(".logic-detail-intro")?.outerHTML.replace("logic-detail-intro", "logic-modal-intro") || "";
+      const deepDive = detail.querySelector(".logic-deep-grid")?.outerHTML || "";
+      const learning = detail.querySelector(".logic-deep-learning")?.outerHTML || "";
+      const target = detail.querySelector(".logic-detail-target")?.innerHTML || "";
+      document.getElementById("logicModalTitle").textContent = title;
+      document.getElementById("logicModalLogo").innerHTML = "";
+      document.getElementById("logicModalBody").innerHTML = `${intro}${deepDive || list}${learning}<div class="logic-modal-target">${target}</div>`;
+      document.getElementById("logicDetailModal").classList.add("open");
+    }
+
+    function closeLogicDetail(event) {
+      if (!event || event.target.id === "logicDetailModal") document.getElementById("logicDetailModal").classList.remove("open");
+    }
+
+    document.addEventListener("click", event => {
+      const card = event.target.closest("[data-logic-modal]");
+      if (card) openLogicDetail(card.dataset.logicModal);
+    });
+
+    function setupLogicAccordion(toggleId, panelId) {
+      const toggle = document.getElementById(toggleId);
+      const panel = document.getElementById(panelId);
+      toggle?.addEventListener("click", () => {
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!isOpen));
+      if (isOpen) {
+          panel.classList.remove("open");
+          window.setTimeout(() => { panel.hidden = true; }, 260);
+      } else {
+          panel.hidden = false;
+          window.requestAnimationFrame(() => panel.classList.add("open"));
+      }
+      });
+    }
+
+    setupLogicAccordion("logicMatrixToggle", "logicMatrixPanel");
+    setupLogicAccordion("logicFactorsToggle", "logicFactorsPanel");
+
     const scoreLabels = ["Plattformlogik","Host-Faktor","Quellen-Transparenz","Community Management","Wiedererkennbarkeit","Axel-Springer-Potenzial"];
     const displayOrder = ["Der Spiegel","Deutschlandfunk","Funk","Handelsblatt","Politfluencer","RBB24","Sport Content Creator","Sportschau","SZ","Tagesschau","Zeit","ZDF"];
     const economyCases = [
@@ -338,7 +728,7 @@
             <div class="category">${item.category}</div>
           </div>
           <div class="benchmark-title-row">
-            <div class="benchmark-logo"><img src="${item.logo}" alt="${item.name} Logo" loading="lazy" /></div>
+            <div class="benchmark-logo"><img src="${item.logo}" alt="${item.name} Logo" /></div>
             <h2>${item.name}</h2>
           </div>
           <span class="label">${item.label}</span>
@@ -383,12 +773,14 @@
       if (!event || event.target.id === "detailModal") document.getElementById("detailModal").classList.remove("open");
     }
 
-    document.addEventListener("keydown", event => { if (event.key === "Escape") closeDetail(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") { closeDetail(); closeLogicDetail(); } });
     renderEconomyCases();
     renderCards();
     window.setEconomyCase = setEconomyCase;
     window.openDetail = openDetail;
     window.closeDetail = closeDetail;
+    window.openLogicDetail = openLogicDetail;
+    window.closeLogicDetail = closeLogicDetail;
   </script>
 </body>
 </html>

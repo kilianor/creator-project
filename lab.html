@@ -224,10 +224,48 @@
     .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(0,0,0,.78); z-index:20; }
     .modal.open { display:flex; }
     .modal-card { width:min(920px,100%); max-height:88vh; overflow:auto; border-radius:12px; background:#08080a; border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow); }
+    .starter-modal { padding:18px; background:rgba(0,0,0,.88); }
+    .starter-card {
+      position: relative;
+      width: min(100%, 1120px);
+      height: min(92vh, 1120px);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+    }
+    .starter-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+    .starter-action {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      padding: 14px 20px;
+      color: #fff;
+      background: rgba(72,72,78,.72);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 950;
+      box-shadow: 0 18px 48px rgba(0,0,0,.58);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+    .starter-card .close { position:absolute; top:14px; right:14px; margin:0; }
     .modal-preview-wrap {
       border-bottom: 1px solid rgba(255,255,255,.1);
       background: #040406;
     }
+    .modal-card.description-only .modal-preview-wrap { display:none; }
     .modal-preview {
       width: 100%;
       max-height: 420px;
@@ -365,7 +403,7 @@
 <body>
   <main>
     <header>
-      <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo.png" alt="Academy Creator Lab" /></a>
+      <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo-cropped.png" alt="Academy Creator Lab" /></a>
       <nav class="main-nav" aria-label="Hauptnavigation">
         <a class="nav-link active" href="lab.html">Lab</a>
         <a class="nav-link" href="stats.html">Stats</a>
@@ -386,6 +424,14 @@ B</div>
     </section>
   </main>
 
+  <div id="starterModal" class="modal starter-modal" onclick="closeStarterModal(event)">
+    <div class="starter-card" onclick="event.stopPropagation()">
+      <button class="close" type="button" onclick="closeStarterModal()">Schließen</button>
+      <img id="starterPreview" src="" alt="" />
+      <button id="starterAction" class="starter-action" type="button">Zur Beschreibung</button>
+    </div>
+  </div>
+
   <div id="modal" class="modal" onclick="closeModal(event)">
     <div class="modal-card" onclick="event.stopPropagation()">
       <button class="close" type="button" onclick="closeModal()">Schließen</button>
@@ -403,14 +449,14 @@ B</div>
   <script>
     const channels = [
       {title:"markusundvinz",meta:"Markus & Vinzenz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",preview:"markusundvinz-tile.png",previewAlt:"markusundvinz Kachel",text:"Markus & Vinz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@markusundvinz"},{label:"YouTube öffnen",url:"https://www.youtube.com/@MarkusundVinz"}]},
-      {title:"berlinmarti",meta:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"berlinmarti-modal.png",cardPreview:"lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"}]},
+      {title:"berlinmarti",meta:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"berlinmarti-modal.png",cardPreview:"lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"},{label:"berlinmarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
       {title:"philipamarti",meta:"Philipa: Zeitgeist, Mode und Trends",preview:"philipamarti-modal.png",cardPreview:"lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Kachel",text:"Philipa: Zeitgeist, Mode und Trends",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
-      {title:"lauras.sports",meta:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",preview:"laura-sports-tile.png",cardPreview:"lab-laura-sports-card.png",previewAlt:"lauras.sports Kachel",profileScale:1,profilePosition:"center center",text:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
+      {title:"lauras.sports",meta:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",preview:"laurasports - starterpack.png",cardPreview:"lab-laura-sports-card.png",previewAlt:"lauras.sports Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
       {title:"moin.lisa",meta:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",preview:"moin-lisa-tile.png",cardPreview:"lab-moin-lisa-card.jpeg",previewAlt:"moin.lisa Kachel",profileScale:1,profilePosition:"center center",text:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moin.lisa?is_from_webapp=1&sender_device=pc"},{label:"YouTube öffnen",url:"https://www.youtube.com/@moin_lisa"}]},
-      {title:"lauraemelytalks",meta:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Kachel",text:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
-      {title:"apropos_news",meta:"Kilian: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"apropos-news-tile.png",previewAlt:"apropos_news Kachel",text:"Apropos News: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
-      {title:"zwischendenpfosten",meta:"Elinor, Simon, Maurus: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",preview:"zdp-tile.png",cardPreview:"lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Kachel",profileScale:1,profilePosition:"center center",text:"Zwischen den Pfosten: Alles über Torhüter. Paraden, Druck, Drama und die Geschichten hinter der letzten Linie.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
-      {title:"alinasophiekatzele",meta:"Alina-Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",preview:"alinasophiekatzele-tile.png",cardPreview:"alinasophiekatzele-logo.jpeg",previewAlt:"alinasophiekatzele Kachel",profileScale:1,profilePosition:"center center",text:"Alina Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
+      {title:"lauraemelytalks",meta:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"lauraemelytalks - starterpack.png",cardPreview:"lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Starterpack",showStarterFirst:true,text:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
+      {title:"apropos_news",meta:"Kilian: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"apropos_news - starterpack.png",cardPreview:"apropos-news-tile.png",previewAlt:"apropos_news Starterpack",showStarterFirst:true,text:"Apropos News: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
+      {title:"zwischendenpfosten",meta:"Elinor, Maurus, Simon: Alles  rund um Torhüter. Nachrichten, Fakten, Erklärstücke und kurioses Wissen über die speziellste Position im Fußball.",preview:"zwischendenpfosten_starterpack.jpeg",cardPreview:"lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Elinor, Maurus, Simon: Alles  rund um Torhüter. Nachrichten, Fakten, Erklärstücke und kurioses Wissen über die speziellste Position im Fußball.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
+      {title:"alinasophiekatzele",meta:"Alina-Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",preview:"alinasophiekatzele - starterpack.png",cardPreview:"alinasophiekatzele-logo.jpeg",previewAlt:"alinasophiekatzele Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Alina Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
       {title:"moscowplaybook",meta:"Daria: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"moscowplaybook-tile.png",previewAlt:"moscowplaybook Kachel",text:"Moscow Playbook: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"}]}
     ];
 
@@ -664,23 +710,48 @@ B</div>
 
     function openModal(i) {
       const item = channels[i];
+      if (item.showStarterFirst) {
+        openStarterModal(i);
+        return;
+      }
+      openDescriptionModal(i, true);
+    }
+
+    function openStarterModal(i) {
+      const item = channels[i];
+      const starterPreview = document.getElementById("starterPreview");
+      starterPreview.src = item.preview;
+      starterPreview.alt = item.previewAlt || item.title;
+      document.getElementById("starterAction").onclick = () => {
+        closeStarterModal();
+        openDescriptionModal(i, false);
+      };
+      document.getElementById("starterModal").classList.add("open");
+    }
+
+    function openDescriptionModal(i, showImage = true) {
+      const item = channels[i];
+      const modalCard = document.querySelector("#modal .modal-card");
+      modalCard.classList.toggle("description-only", !showImage);
       document.getElementById("modalTitle").textContent = item.title;
       document.getElementById("modalText").textContent = item.text;
       const modalPreview = document.getElementById("modalPreview");
-      modalPreview.src = item.preview;
-      modalPreview.alt = item.previewAlt || item.title;
+      modalPreview.src = showImage ? item.preview : "";
+      modalPreview.alt = showImage ? (item.previewAlt || item.title) : "";
       document.getElementById("modalLinks").innerHTML = item.links.map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join("");
       document.getElementById("modal").classList.add("open");
     }
     function closeModal(event) { if (!event || event.target.id === "modal") document.getElementById("modal").classList.remove("open"); }
+    function closeStarterModal(event) { if (!event || event.target.id === "starterModal") document.getElementById("starterModal").classList.remove("open"); }
     function toggleGlobalMute() {
       isMuted = !isMuted;
       applyMutedState();
       playActiveVideo();
     }
-    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeModal(); closeStarterModal(); } });
     window.openModal = openModal;
     window.closeModal = closeModal;
+    window.closeStarterModal = closeStarterModal;
     window.toggleGlobalMute = toggleGlobalMute;
   </script>
 </body>

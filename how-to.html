@@ -5,34 +5,489 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How-To · Academy Creator Lab</title>
   <style>
-    :root { --text:#f8f8f8; --muted:#a5a5ad; --accent:#1df3f2; --line:rgba(255,255,255,.12); }
+    :root {
+      --text:#f8f8f8;
+      --muted:#a5a5ad;
+      --accent:#1df3f2;
+      --youtube:#ff0033;
+    }
     * { box-sizing: border-box; }
-    body { margin:0; font-family:Inter,system-ui,sans-serif; color:var(--text); background:linear-gradient(180deg,#030303 0%,#080808 50%,#030303 100%); }
+    body {
+      margin:0;
+      font-family:Inter,system-ui,sans-serif;
+      color:var(--text);
+      background:#0f0f0f;
+      min-height:100vh;
+    }
     main { width:min(1480px,calc(100% - 40px)); margin:0 auto; padding:22px 0 56px; }
     header { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; margin-bottom:20px; }
     .logo { width:clamp(176px,18vw,260px); display:block; }
     .main-nav { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-    .nav-link { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 14px; color:var(--text); background:rgba(255,255,255,.06); text-decoration:none; font-size:14px; font-weight:800; }
+    .nav-link {
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      padding:10px 14px;
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      text-decoration:none;
+      font-size:14px;
+      font-weight:800;
+    }
     .nav-link.active { background:var(--accent); border-color:var(--accent); color:#020202; }
-    .hero { border:1px solid var(--line); border-radius:14px; padding:24px; background:linear-gradient(125deg, rgba(255,255,255,.07), rgba(29,243,242,.08) 42%, rgba(0,0,0,.4)); margin-bottom:16px; }
-    h1 { margin:0 0 10px; font-size:clamp(30px,4vw,52px); }
-    p { margin:0; color:#d7dde0; line-height:1.6; }
-    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} }
+    .youtube-shell {
+      align-items:start;
+      padding-top:4px;
+    }
+    .content-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:18px;
+      margin-bottom:24px;
+      padding:0 0 18px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    h1 {
+      margin:0;
+      font-size:clamp(30px,4vw,54px);
+      line-height:1;
+      letter-spacing:0;
+      font-weight:1000;
+    }
+    .channel-line {
+      margin:9px 0 0;
+      color:#d7dde0;
+      line-height:1.45;
+      font-size:15px;
+      font-weight:650;
+    }
+    .video-grid {
+      position:relative;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:34px 20px;
+      padding-left:58px;
+    }
+    .progress-arrow {
+      position:absolute;
+      left:18px;
+      top:8px;
+      bottom:48px;
+      width:22px;
+      pointer-events:none;
+    }
+    .progress-arrow::before {
+      content:"";
+      position:absolute;
+      left:10px;
+      top:10px;
+      bottom:12px;
+      width:2px;
+      border-radius:999px;
+      background:linear-gradient(180deg,rgba(29,243,242,.72),rgba(255,255,255,.12));
+    }
+    .progress-arrow::after {
+      content:"";
+      position:absolute;
+      left:4px;
+      bottom:4px;
+      width:12px;
+      height:12px;
+      border-right:2px solid rgba(29,243,242,.72);
+      border-bottom:2px solid rgba(29,243,242,.72);
+      transform:rotate(45deg);
+    }
+    .progress-dot {
+      position:absolute;
+      left:5px;
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      background:#0f0f0f;
+      border:2px solid rgba(29,243,242,.76);
+      box-shadow:0 0 14px rgba(29,243,242,.22);
+    }
+    .progress-dot.start { top:4px; }
+    .progress-dot.end { bottom:0; }
+    .section-heading {
+      grid-column:1 / -1;
+      margin:10px 0 -18px;
+      color:rgba(248,248,248,.72);
+      font-size:14px;
+      line-height:1.2;
+      font-weight:1000;
+      letter-spacing:0;
+    }
+    }
+    .video-card {
+      color:var(--text);
+      text-decoration:none;
+      display:grid;
+      gap:10px;
+      min-width:0;
+      padding:4px;
+      border-radius:12px;
+      transition:background .18s ease, transform .18s ease;
+    }
+    .video-card:hover {
+      background:#1b1b1b;
+      transform:translateY(-2px);
+    }
+    .ai-first-card {
+      position:relative;
+      min-width:0;
+      min-height:100%;
+      border-radius:12px;
+      padding:18px 18px 18px 46px;
+      display:flex;
+      align-items:center;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:none;
+    }
+    .ai-first-card p {
+      margin:0;
+      color:rgba(248,248,248,.64);
+      font-size:14px;
+      line-height:1.46;
+      font-weight:600;
+    }
+    .ai-first-card strong {
+      color:rgba(248,248,248,.88);
+      font-weight:1000;
+    }
+    .ai-first-card::after {
+      content:"←";
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:rgba(29,243,242,.72);
+      font-size:24px;
+      font-weight:1000;
+      line-height:1;
+    }
+    .top-row-spacer { display:block; }
+    .player {
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      background:#050505;
+      border:1px solid rgba(255,255,255,.08);
+      aspect-ratio:16 / 9;
+      box-shadow:0 14px 34px rgba(0,0,0,.28);
+    }
+    .player img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .22s ease, filter .22s ease;
+    }
+    .video-card:hover .player img { transform:scale(1.035); filter:brightness(.82); }
+    .player::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.58));
+      pointer-events:none;
+    }
+    .play-button {
+      position:absolute;
+      left:50%;
+      top:50%;
+      z-index:2;
+      width:58px;
+      height:40px;
+      transform:translate(-50%,-50%);
+      border-radius:10px;
+      background:rgba(255,0,51,.94);
+      display:grid;
+      place-items:center;
+      box-shadow:0 14px 34px rgba(0,0,0,.38);
+    }
+    .play-button::before {
+      content:"";
+      width:0;
+      height:0;
+      margin-left:3px;
+      border-top:9px solid transparent;
+      border-bottom:9px solid transparent;
+      border-left:15px solid #fff;
+    }
+    .duration {
+      position:absolute;
+      right:8px;
+      bottom:8px;
+      z-index:2;
+      padding:4px 6px;
+      border-radius:5px;
+      background:rgba(0,0,0,.84);
+      color:#fff;
+      font-size:12px;
+      font-weight:900;
+    }
+    .thumb-badge {
+      position:absolute;
+      left:8px;
+      top:8px;
+      z-index:2;
+      padding:5px 8px;
+      border-radius:999px;
+      background:rgba(15,15,15,.82);
+      border:1px solid rgba(255,255,255,.18);
+      color:#fff;
+      font-size:12px;
+      font-weight:950;
+      backdrop-filter:blur(8px);
+    }
+    .thumb-badge.instagram { background:linear-gradient(120deg,rgba(131,58,180,.92),rgba(253,29,29,.9),rgba(252,176,69,.9)); }
+    .thumb-badge.youtube { background:rgba(255,0,51,.94); }
+    .thumb-badge.tiktok { background:linear-gradient(120deg,rgba(0,242,234,.85),rgba(255,0,80,.88)); }
+    .thumb-badge.chatgpt { background:rgba(16,163,127,.92); }
+    .thumb-badge.buffer { background:rgba(45,107,255,.92); }
+    .mini-controls {
+      position:absolute;
+      left:8px;
+      right:8px;
+      bottom:8px;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      opacity:0;
+      transform:translateY(8px);
+      transition:opacity .18s ease, transform .18s ease;
+    }
+    .video-card:hover .mini-controls { opacity:1; transform:translateY(0); }
+    .control-dot {
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      flex:0 0 auto;
+      position:relative;
+    }
+    .control-dot::after {
+      content:"";
+      position:absolute;
+      left:7px;
+      top:5px;
+      width:0;
+      height:0;
+      border-top:4px solid transparent;
+      border-bottom:4px solid transparent;
+      border-left:6px solid #0b0b0b;
+    }
+    .progress {
+      height:4px;
+      flex:1;
+      border-radius:999px;
+      background:rgba(255,255,255,.35);
+      overflow:hidden;
+    }
+    .progress span { display:block; width:38%; height:100%; background:var(--youtube); }
+    .video-meta {
+      display:grid;
+      grid-template-columns:1fr 28px;
+      gap:8px;
+      align-items:start;
+      min-width:0;
+      padding:0 2px 2px;
+    }
+    .video-title {
+      margin:0;
+      color:#f1f1f1;
+      font-size:16px;
+      line-height:1.32;
+      font-weight:950;
+      overflow-wrap:anywhere;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+      min-height:calc(1.32em * 2);
+    }
+    .more-menu {
+      width:28px;
+      height:28px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      color:#aaa;
+      font-size:20px;
+      line-height:1;
+      font-weight:900;
+    }
+    .video-card:hover .more-menu {
+      background:#272727;
+      color:#fff;
+    }
+    @media (max-width:1120px) {
+      .video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); padding-left:44px; }
+      .top-row-spacer { display:none; }
+    }
+    @media (max-width:680px) {
+      main { width:calc(100% - 24px); }
+      header { grid-template-columns:1fr; }
+      .main-nav { justify-content:flex-start; }
+      .content-head { display:grid; }
+      .video-grid { grid-template-columns:1fr; padding-left:34px; }
+      .progress-arrow { left:6px; }
+    }
   </style>
 </head>
 <body>
   <main>
     <header>
-      <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo.png" alt="Academy Creator Lab" /></a>
+      <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo-cropped.png" alt="Academy Creator Lab" /></a>
       <nav class="main-nav" aria-label="Hauptnavigation">
         <a class="nav-link" href="lab.html">Lab</a>
         <a class="nav-link" href="stats.html">Stats</a>
         <a class="nav-link active" href="how-to.html">How-To</a>
       </nav>
     </header>
-    <section class="hero">
-      <h1>How-To</h1>
-      <p>Hier entsteht die Anleitungssammlung für Workflows, Formate und Produktionsprozesse.</p>
+
+    <section class="youtube-shell" aria-label="How-To Tutorials">
+      <div id="tutorials">
+        <div class="content-head">
+          <div>
+            <h1>How-To</h1>
+            <p class="channel-line">Tutorials für Creator-Workflows, Produktion und schnelle Umsetzung im Feed.</p>
+          </div>
+        </div>
+
+        <section class="video-grid" aria-label="Tutorial-Videos">
+          <div class="progress-arrow" aria-hidden="true">
+            <span class="progress-dot start"></span>
+            <span class="progress-dot end"></span>
+          </div>
+
+          <h2 class="section-heading">Setup</h2>
+
+          <a class="video-card short" href="https://youtube.com/shorts/2Hswk03nZ3s?feature=share" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/2Hswk03nZ3s/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge">Auftakt</span>
+              <span class="duration">Short</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Kanal einrichten (Instagram, TikTok, YouTube)</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <a class="video-card" href="https://youtu.be/o6BRYBZgDnQ" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/o6BRYBZgDnQ/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge buffer">Buffer</span>
+              <span class="duration">Video</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Kanäle mit Buffer verknüpfen</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <div class="top-row-spacer" aria-hidden="true"></div>
+
+          <h2 class="section-heading">Tools</h2>
+
+          <a class="video-card" href="https://youtu.be/eOSoj-Spo6w" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/eOSoj-Spo6w/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge">Schnitt</span>
+              <span class="duration">Video</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Schnittprogramme</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <a class="video-card" href="https://youtu.be/zpqACE5yVAc" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/zpqACE5yVAc/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge chatgpt">ChatGPT</span>
+              <span class="duration">Video</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Skripte mit ChatGPT erstellen</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <div class="ai-first-card">
+            <p><strong>AI-first</strong> bedeutet, künstliche Intelligenz von Anfang an in Themenfindung und Skripterstellung einzubinden. So entstehen schneller relevante Ideen, starke Hooks und erste Skriptentwürfe, die anschließend redaktionell geschärft werden.</p>
+          </div>
+
+          <h2 class="section-heading">Upload</h2>
+
+          <a class="video-card short" href="https://youtube.com/shorts/LaMxPnYm8r0?feature=share#" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/LaMxPnYm8r0/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge instagram">Instagram</span>
+              <span class="duration">Short</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Upload Instagram</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <a class="video-card short" href="https://youtube.com/shorts/EBTjuRrLG5Q?feature=share" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/EBTjuRrLG5Q/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge tiktok">TikTok</span>
+              <span class="duration">Short</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Upload TikTok</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <a class="video-card short" href="https://youtube.com/shorts/zod0xO8vf-E?feature=share" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/zod0xO8vf-E/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge youtube">YouTube</span>
+              <span class="duration">Short</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Upload YouTube</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+        </section>
+      </div>
     </section>
   </main>
 </body>
