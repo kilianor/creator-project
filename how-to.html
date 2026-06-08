@@ -16,7 +16,7 @@
       margin:0;
       font-family:Inter,system-ui,sans-serif;
       color:var(--text);
-      background:#0f0f0f;
+      background:linear-gradient(180deg,#030303 0%,#080808 50%,#030303 100%);
       min-height:100vh;
     }
     main { width:min(1480px,calc(100% - 40px)); margin:0 auto; padding:22px 0 56px; }
@@ -215,18 +215,6 @@
       border-bottom:9px solid transparent;
       border-left:15px solid #fff;
     }
-    .duration {
-      position:absolute;
-      right:8px;
-      bottom:8px;
-      z-index:2;
-      padding:4px 6px;
-      border-radius:5px;
-      background:rgba(0,0,0,.84);
-      color:#fff;
-      font-size:12px;
-      font-weight:900;
-    }
     .thumb-badge {
       position:absolute;
       left:8px;
@@ -240,11 +228,25 @@
       font-size:12px;
       font-weight:950;
       backdrop-filter:blur(8px);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
     .thumb-badge.instagram { background:linear-gradient(120deg,rgba(131,58,180,.92),rgba(253,29,29,.9),rgba(252,176,69,.9)); }
     .thumb-badge.youtube { background:rgba(255,0,51,.94); }
+    .thumb-badge.shorts { background:rgba(255,0,51,.94); }
+    .thumb-badge.shorts::before {
+      content:"";
+      width:12px;
+      height:15px;
+      border-radius:4px;
+      background:#fff;
+      clip-path:polygon(20% 0,100% 20%,70% 50%,100% 80%,20% 100%,0 82%,30% 50%,0 18%);
+    }
     .thumb-badge.tiktok { background:linear-gradient(120deg,rgba(0,242,234,.85),rgba(255,0,80,.88)); }
     .thumb-badge.chatgpt { background:rgba(16,163,127,.92); }
+    .thumb-badge.claude { background:rgba(214,116,72,.92); }
+    .thumb-badge.hardware { background:rgba(29,243,242,.86); color:#020202; }
     .thumb-badge.buffer { background:rgba(45,107,255,.92); }
     .mini-controls {
       position:absolute;
@@ -370,7 +372,6 @@
               <img src="https://img.youtube.com/vi/2Hswk03nZ3s/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
               <span class="play-button" aria-hidden="true"></span>
               <span class="thumb-badge">Auftakt</span>
-              <span class="duration">Short</span>
               <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
             </div>
             <div class="video-meta">
@@ -386,7 +387,6 @@
               <img src="https://img.youtube.com/vi/o6BRYBZgDnQ/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
               <span class="play-button" aria-hidden="true"></span>
               <span class="thumb-badge buffer">Buffer</span>
-              <span class="duration">Video</span>
               <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
             </div>
             <div class="video-meta">
@@ -401,28 +401,11 @@
 
           <h2 class="section-heading">Tools</h2>
 
-          <a class="video-card" href="https://youtu.be/eOSoj-Spo6w" target="_blank" rel="noopener noreferrer">
-            <div class="player">
-              <img src="https://img.youtube.com/vi/eOSoj-Spo6w/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
-              <span class="play-button" aria-hidden="true"></span>
-              <span class="thumb-badge">Schnitt</span>
-              <span class="duration">Video</span>
-              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
-            </div>
-            <div class="video-meta">
-              <div>
-                <h2 class="video-title">Schnittprogramme</h2>
-              </div>
-              <span class="more-menu" aria-hidden="true">⋮</span>
-            </div>
-          </a>
-
           <a class="video-card" href="https://youtu.be/zpqACE5yVAc" target="_blank" rel="noopener noreferrer">
             <div class="player">
               <img src="https://img.youtube.com/vi/zpqACE5yVAc/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
               <span class="play-button" aria-hidden="true"></span>
               <span class="thumb-badge chatgpt">ChatGPT</span>
-              <span class="duration">Video</span>
               <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
             </div>
             <div class="video-meta">
@@ -433,9 +416,54 @@
             </div>
           </a>
 
+          <a class="video-card" href="https://youtu.be/oQBwEQ49tUA" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/oQBwEQ49tUA/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge claude">Claude</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Content Coach mit Claude</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
           <div class="ai-first-card">
             <p><strong>AI-first</strong> bedeutet, künstliche Intelligenz von Anfang an in Themenfindung und Skripterstellung einzubinden. So entstehen schneller relevante Ideen, starke Hooks und erste Skriptentwürfe, die anschließend redaktionell geschärft werden.</p>
           </div>
+
+          <a class="video-card short" href="https://www.youtube.com/shorts/4QxG89Zn4Yc" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/4QxG89Zn4Yc/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge hardware">Hardware</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Equipment für Content Creator</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <a class="video-card" href="https://youtu.be/eOSoj-Spo6w" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/eOSoj-Spo6w/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge">Schnitt</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Schnittprogramme</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
 
           <h2 class="section-heading">Upload</h2>
 
@@ -444,7 +472,6 @@
               <img src="https://img.youtube.com/vi/LaMxPnYm8r0/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
               <span class="play-button" aria-hidden="true"></span>
               <span class="thumb-badge instagram">Instagram</span>
-              <span class="duration">Short</span>
               <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
             </div>
             <div class="video-meta">
@@ -460,7 +487,6 @@
               <img src="https://img.youtube.com/vi/EBTjuRrLG5Q/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
               <span class="play-button" aria-hidden="true"></span>
               <span class="thumb-badge tiktok">TikTok</span>
-              <span class="duration">Short</span>
               <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
             </div>
             <div class="video-meta">
@@ -475,13 +501,43 @@
             <div class="player">
               <img src="https://img.youtube.com/vi/zod0xO8vf-E/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
               <span class="play-button" aria-hidden="true"></span>
-              <span class="thumb-badge youtube">YouTube</span>
-              <span class="duration">Short</span>
+              <span class="thumb-badge shorts">YouTube Shorts</span>
               <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
             </div>
             <div class="video-meta">
               <div>
-                <h2 class="video-title">Upload YouTube</h2>
+                <h2 class="video-title">Upload YouTube Shorts</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <a class="video-card" href="https://youtu.be/QLR-4kfO8iI" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/QLR-4kfO8iI/maxresdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="thumb-badge youtube">YouTube + Spotify</span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Upload YouTube + Spotify</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </a>
+
+          <h2 class="section-heading">Zusatz</h2>
+
+          <a class="video-card short" href="https://youtube.com/shorts/0anD7P0BuRc" target="_blank" rel="noopener noreferrer">
+            <div class="player">
+              <img src="https://img.youtube.com/vi/0anD7P0BuRc/hqdefault.jpg" alt="YouTube Tutorial Thumbnail" />
+              <span class="play-button" aria-hidden="true"></span>
+              <span class="mini-controls" aria-hidden="true"><span class="control-dot"></span><span class="progress"><span></span></span></span>
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Journalistische Sorgfalt</h2>
               </div>
               <span class="more-menu" aria-hidden="true">⋮</span>
             </div>

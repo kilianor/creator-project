@@ -20,7 +20,7 @@
       isolation: isolate;
       border-radius: 18px;
       padding: 8px 0 10px;
-      --channel-card-height: clamp(344px, 24vw, 360px);
+      --channel-card-height: clamp(430px, 30vw, 500px);
     }
     .grid {
       position: relative;
@@ -220,10 +220,11 @@
     .platform-icon.twitch,
     .platform-icon.spotify { border-color: rgba(29,243,242,.65); }
     .card h3 { margin:0; min-height:calc(1.25em * 2); max-width:100%; line-height:1.25; font-size: 22px; overflow-wrap:anywhere; display:flex; align-items:center; justify-content:center; }
-    .card .meta { color: var(--muted); line-height: 1.45; font-size: 14px; min-height:calc(1.45em * 3); max-height:calc(1.45em * 3); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .card .meta { color: var(--muted); line-height: 1.45; font-size: 14px; max-width:100%; overflow-wrap:anywhere; }
     .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(0,0,0,.78); z-index:20; }
     .modal.open { display:flex; }
     .modal-card { width:min(920px,100%); max-height:88vh; overflow:auto; border-radius:12px; background:#08080a; border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow); }
+    .modal-card.rich-description { width:min(1120px,100%); }
     .starter-modal { padding:18px; background:rgba(0,0,0,.88); }
     .starter-card {
       position: relative;
@@ -276,6 +277,41 @@
     .modal-content { padding:24px; }
     .modal-content h2 { margin:0 0 8px; }
     .modal-content p { color:#d4d4db; line-height:1.6; }
+    .modal-description { color:#d4d4db; line-height:1.6; }
+    .modal-rich { display:grid; gap:18px; color:#d4d4db; }
+    .rich-hero {
+      border:1px solid rgba(29,243,242,.24);
+      border-radius:12px;
+      padding:20px;
+      background:linear-gradient(135deg,rgba(29,243,242,.08),rgba(255,255,255,.035));
+    }
+    .rich-kicker {
+      margin:0 0 8px;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .rich-hero h3 { margin:0 0 12px; font-size:clamp(24px,3vw,38px); line-height:1.08; }
+    .rich-hero p, .rich-section p { margin:0; color:#d4d4db; line-height:1.62; }
+    .rich-hero .rich-core {
+      margin-top:14px;
+      color:#f8ffff;
+      font-size:17px;
+      font-weight:900;
+    }
+    .rich-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .rich-section {
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:10px;
+      padding:16px;
+      background:rgba(255,255,255,.045);
+    }
+    .rich-section h3 { margin:0 0 8px; font-size:16px; line-height:1.25; }
+    .rich-section ul { margin:10px 0 0; padding-left:20px; color:#d4d4db; line-height:1.56; }
+    .rich-section li { margin:5px 0; }
+    .rich-section.full { grid-column:1 / -1; }
     .link-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
     .link-row a { display:inline-flex; text-decoration:none; color:#020202; background:var(--accent); border-radius:999px; padding:10px 13px; font-size:14px; font-weight:900; }
     .close { float:right; margin:16px 16px 0 0; border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:10px 14px; background:rgba(255,255,255,.08); color:var(--text); cursor:pointer; font-weight:800; }
@@ -397,7 +433,7 @@
       }
     }
     @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .showcase-section .comment-background,.showcase-lab-word{display:none;} }
-    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} }
+    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} .rich-grid{grid-template-columns:1fr;} .rich-section.full{grid-column:auto;} }
   </style>
 </head>
 <body>
@@ -440,7 +476,7 @@ B</div>
       </div>
       <div class="modal-content">
         <h2 id="modalTitle"></h2>
-        <p id="modalText"></p>
+        <div id="modalText"></div>
         <div id="modalLinks" class="link-row"></div>
       </div>
     </div>
@@ -448,17 +484,342 @@ B</div>
 
   <script>
     const channels = [
-      {title:"markusundvinz",meta:"Markus & Vinzenz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",preview:"markusundvinz-tile.png",previewAlt:"markusundvinz Kachel",text:"Markus & Vinz: Emotionaler Boulevardjournalismus zwischen großen Gefühlen, echten Menschen und starken Geschichten.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@markusundvinz"},{label:"YouTube öffnen",url:"https://www.youtube.com/@MarkusundVinz"}]},
-      {title:"berlinmarti",meta:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"berlinmarti-modal.png",cardPreview:"lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"},{label:"berlinmarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
-      {title:"philipamarti",meta:"Philipa: Zeitgeist, Mode und Trends",preview:"philipamarti-modal.png",cardPreview:"lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Kachel",text:"Philipa: Zeitgeist, Mode und Trends",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
-      {title:"lauras.sports",meta:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",preview:"laurasports - starterpack.png",cardPreview:"lab-laura-sports-card.png",previewAlt:"lauras.sports Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Laura: Frauen im Sport, große Debatten und die Geschichten, die viel zu oft übersehen werden.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
-      {title:"moin.lisa",meta:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",preview:"moin-lisa-tile.png",cardPreview:"lab-moin-lisa-card.jpeg",previewAlt:"moin.lisa Kachel",profileScale:1,profilePosition:"center center",text:"Lisa: Sport Gossip, große Namen, kleine Seitenhiebe und alles, worüber die Sportwelt gerade redet.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moin.lisa?is_from_webapp=1&sender_device=pc"},{label:"YouTube öffnen",url:"https://www.youtube.com/@moin_lisa"}]},
-      {title:"lauraemelytalks",meta:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"lauraemelytalks - starterpack.png",cardPreview:"lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Starterpack",showStarterFirst:true,text:"Laura Emely: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
-      {title:"apropos_news",meta:"Kilian: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"apropos_news - starterpack.png",cardPreview:"apropos-news-tile.png",previewAlt:"apropos_news Starterpack",showStarterFirst:true,text:"Apropos News: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
-      {title:"zwischendenpfosten",meta:"Elinor, Maurus, Simon: Alles  rund um Torhüter. Nachrichten, Fakten, Erklärstücke und kurioses Wissen über die speziellste Position im Fußball.",preview:"zwischendenpfosten_starterpack.jpeg",cardPreview:"lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Elinor, Maurus, Simon: Alles  rund um Torhüter. Nachrichten, Fakten, Erklärstücke und kurioses Wissen über die speziellste Position im Fußball.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
-      {title:"alinasophiekatzele",meta:"Alina-Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",preview:"alinasophiekatzele - starterpack.png",cardPreview:"alinasophiekatzele-logo.jpeg",previewAlt:"alinasophiekatzele Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Alina Sophie: Gesellschaftliche Mega-Trends, shared feelings und Erklärungsversuche für alles, was Millionen bewegt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
-      {title:"moscowplaybook",meta:"Daria: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"moscowplaybook-tile.png",previewAlt:"moscowplaybook Kachel",text:"Moscow Playbook: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"}]}
+      {title:"markusundvinz",meta:"Markus Pfander & Vinzenz Mayer: Boulevardjournalismus in Kurzvideoform mit Promis, Behördenchaos und gesellschaftlichen Aufregern.",preview:"markusundvinz - starterpack.png",cardPreview:"markusundvinz-tile.png",previewAlt:"markusundvinz Starterpack",showStarterFirst:true,text:"Markus Pfander & Vinzenz Mayer: Boulevardjournalismus in Kurzvideoform mit Promis, Behördenchaos und gesellschaftlichen Aufregern.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@markusundvinz"},{label:"YouTube öffnen",url:"https://www.youtube.com/@MarkusundVinz"}]},
+      {title:"berlinmarti",meta:"Philipa Martin Foteva: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"berlinmarti-modal.png",cardPreview:"lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa Martin Foteva: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"},{label:"berlinmarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
+      {title:"philipamarti",meta:"Philipa Martin Foteva: Zeitgeist, Mode und Trends",preview:"philipamarti - starterpack.jpg",cardPreview:"lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Starterpack",showStarterFirst:true,text:"Philipa Martin Foteva: Zeitgeist, Mode und Trends",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
+      {title:"lauras.sports",meta:"Laura Pollmann: Frauen im Sport als nächste Wachstumsfläche im Sportjournalismus.",preview:"laurasports - starterpack.png",cardPreview:"lab-laura-sports-card.png",previewAlt:"lauras.sports Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Laura Pollmann: Frauen im Sport als nächste Wachstumsfläche im Sportjournalismus.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
+      {title:"moin.lisa",meta:"Lisa Reck: Sport, Social Media und Popkultur verständlich, relevant und unterhaltsam erzählt.",preview:"moin.lisa - starterpack.png",cardPreview:"lab-moin-lisa-card.jpeg",previewAlt:"moin.lisa Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Lisa Reck: Sport, Social Media und Popkultur verständlich, relevant und unterhaltsam erzählt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moin.lisa?is_from_webapp=1&sender_device=pc"},{label:"YouTube öffnen",url:"https://www.youtube.com/@moin_lisa"}]},
+      {title:"lauraemelytalks",meta:"Laura Waibel: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"lauraemelytalks - starterpack.png",cardPreview:"lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Starterpack",showStarterFirst:true,text:"Laura Waibel: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
+      {title:"apropos_news",meta:"Kilian Hocke: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"apropos_news - starterpack.png",cardPreview:"apropos-news-tile.png",previewAlt:"apropos_news Starterpack",showStarterFirst:true,text:"Kilian Hocke: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
+      {title:"zwischendenpfosten",meta:"Elinor Hessenberger, Maurus Elias Moritz & Simon Fortmann: Alles rund um Fußballtorhüter, von Nachrichten bis kurioses Wissen.",preview:"zwischendenpfosten_starterpack.jpeg",cardPreview:"lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Elinor Hessenberger, Maurus Elias Moritz & Simon Fortmann: Alles rund um Fußballtorhüter, von Nachrichten bis kurioses Wissen.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
+      {title:"alinasophiekatzele",meta:"Alina-Sophie Katzele: I am A.S.K.ing: „Warum Sind Wir So?“ Es geht um DIE großen gesellschaftlichen Trends, die wir im Alltag spüren. Woher sie kommen, was sie über uns aussagen, wie sie uns verändern- und wie wir damit umgehen (könnten). Feeling - Dealing - Healing!",preview:"alinasophiekatzele - starterpack.png",cardPreview:"alinasophiekatzele-logo.jpeg",previewAlt:"alinasophiekatzele Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Alina-Sophie Katzele: I am A.S.K.ing: „Warum Sind Wir So?“ Es geht um DIE großen gesellschaftlichen Trends, die wir im Alltag spüren. Woher sie kommen, was sie über uns aussagen, wie sie uns verändern- und wie wir damit umgehen (könnten). Feeling - Dealing - Healing!",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
+      {title:"moscowplaybook",meta:"Daria Zakharova: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"moscowplaybook - starterpack.png",cardPreview:"moscowplaybook-tile.png",previewAlt:"moscowplaybook Starterpack",showStarterFirst:true,text:"Daria Zakharova: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"}]}
     ];
+
+    const richDescriptions = {
+      markusundvinz: `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Boulevardjournalismus in Kurzvideoform</div>
+            <h3>Prominente, bürokratische Absurditäten und gesellschaftliche Aufreger.</h3>
+            <p>MarkusundVinz ist Boulevardjournalismus in Kurzvideoform. Im Mittelpunkt stehen Prominente, bürokratische Absurditäten und gesellschaftliche Aufreger.</p>
+            <p>Das Format erklärt, warum diese Themen relevant sind - ein Boulevardjournalismus, wie es ihn so auf Social Media bisher nicht gibt.</p>
+            <p class="rich-core">Boulevard mit journalistischem Anspruch: schnell, pointiert und eingeordnet.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>MarkusundVinz verbindet schnelle, pointierte Boulevardinhalte mit journalistischem Einordnen. Die Themen reichen von Promis über Behördenchaos bis zu Trends, immer mit journalistischer Substanz.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Host-Ansatz</h3>
+              <p>Die Hosts - Markus und Vinz - wechseln sich ab. Sie sind seriös, aber nicht trocken, und liefern klare Einordnungen. Boulevard mit journalistischem Anspruch.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Zwei Videos täglich, jeweils maximal 60 Sekunden, auf TikTok, YouTube und Facebook. Kontinuierlicher Boulevardjournalismus, der einordnet, statt nur zu berichten.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Menschen zwischen 15 und 35, die auf Social Media nicht nur Boulevard, sondern auch journalistische Tiefe suchen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für Axel Springer</h3>
+              <p>MarkusundVinz schafft eine neue Art von Boulevardjournalismus, bindet junge Zielgruppen und bietet Verwertbarkeit für Social Media und redaktionelle Plattformen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung</h3>
+              <p>Einnahmen durch Ad-Formate auf TikTok, YouTube und Facebook sowie durch Native Ads.</p>
+            </section>
+          </div>
+        </div>
+      `,
+      "lauras.sports": `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Frauen im Sport</div>
+            <h3>Die nächste Wachstumsfläche im Sportjournalismus.</h3>
+            <p>Frauen im Sport: Die nächste Wachstumsfläche im Sportjournalismus. Genau da knüpft lauras.sports an. Aktuell ist die Sportberichterstattung männerdominiert, aber es gibt immer mehr spannende Geschichten über Sportlerinnen.</p>
+            <p>Egal ob Fußball, Wrestling, Tennis oder Biathlon: Genau da stecken die Geschichten. Als junge sportinteressierte Frau, die tagtäglich die News verfolgt, weiß Laura, welche Inhalte klicken und wo der Nachrichtenwert liegt.</p>
+            <p class="rich-core">lauras.sports ist keine Aktivismusplattform, sondern der nächste logische Schritt in der Sportberichterstattung: locker, informativ und debattenfähig.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Formatbeschreibung</h3>
+              <p>Erfahrungen innerhalb der Projektphase haben gezeigt, dass diese Art von Content Menschen anzieht, die sich nicht nur für den Sport, sondern auch für die Geschichten dahinter interessieren.</p>
+              <p>Der Content zieht auf Social Media nicht nur Frauen, sondern auch eine Vielzahl an Männern an. In genau dieser Mischung entstehen Austausch und Debatten: Informationen bieten, Einordnung ermöglichen und Meinungsbildung schaffen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>lauras.sports etabliert Frauen im Sport auf einem Wachstumsmarkt, besonders im Frauenfußball. Die Perspektive auf Frauen im Sport ist die nächste Wachstumsfläche im Sportjournalismus.</p>
+              <p>Zwar ist die Berichterstattung sehr männerdominiert, jedoch lassen sich Sportlerinnen genauso gut journalistisch abdecken wie Sportler. Außerdem zieht das Thema Debatten fast automatisch an und bietet die Chance, sich als Vorreiter von anderen Medienhäusern abzusetzen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Host-Strategie</h3>
+              <ul>
+                <li>junge sportinteressierte Frau</li>
+                <li>professioneller Auftritt im Stil einer Moderatorin</li>
+                <li>aktive Interaktion mit der Community</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Angesprochen werden sportaffine Menschen, vornehmlich in Deutschland, mit Fokus auf eine junge Zielgruppe zwischen 18 und 35 Jahren und Gen Z.</p>
+              <p>Das Format richtet sich an Menschen, die Abwechslung oder Ergänzung zu üblichen Sportjournalismusformaten suchen.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Das Kernprodukt ist ein Shortform-Video pro Tag für TikTok und Instagram. lauras.sports reagiert schnell auf aktuelle Themen, erzählt aber auch ikonische Geschichten.</p>
+              <ul>
+                <li>Fußball: starke Fangemeinschaften und Fans von Männermannschaften, die Interesse für Frauenmannschaften aufbringen</li>
+                <li>Wrestling: Aufmerksamkeit durch den Bruch mit einer sehr männerdominiert wahrgenommenen Sportwelt</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für SPORT BILD / BILD</h3>
+              <ul>
+                <li>erschließt neue Zielgruppen außerhalb der klassischen Sportfans</li>
+                <li>verjüngt die Markenwahrnehmung</li>
+                <li>macht Sport über Persönlichkeiten zugänglich</li>
+                <li>kann als Einstiegspunkt in tiefergehende Sport-Berichterstattung dienen</li>
+                <li>öffnet neues Werbekundenpotenzial</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung</h3>
+              <ul>
+                <li>Presented-by-Partner, zum Beispiel Sportwetten, Streaming oder Lifestyle-Marken</li>
+                <li>Abo-Funnel zu SPORT BILD / BILD</li>
+                <li>TikTok Creator Rewards</li>
+                <li>Native Brand Integrations, etwa Kleidung</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      `,
+      "moin.lisa": `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Sport, Social Media & Popkultur</div>
+            <h3>Sport verständlich, relevant und unterhaltsam erzählen.</h3>
+            <p>moin.lisa verbindet auf ihren Social-Media-Kanälen aktuelle Themen aus Sport, Social Media und Popkultur. Im Mittelpunkt stehen Geschichten, die zeigen, wie eng Sport heute mit gesellschaftlichen und popkulturellen Entwicklungen verknüpft ist.</p>
+            <p>Das Format erklärt Hintergründe, ordnet Entwicklungen ein und macht komplexe Zusammenhänge verständlich, ohne dabei die Dynamik moderner Social-Media-Plattformen zu verlieren.</p>
+            <p class="rich-core">moin.lisa macht Sport auch für Menschen interessant, die sich eigentlich nicht für Sport interessieren - indem sportliche Themen mit Popkultur, Gesellschaft und den Geschichten dahinter verbunden werden.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Formatbeschreibung</h3>
+              <p>Es geht nicht nur um Spielberichte, Transfers oder Rekorde, sondern vor allem um die Frage, warum diese Themen gesellschaftlich relevant sind: Warum wird ein bestimmtes Ereignis plötzlich viral? Welche Debatten spiegeln sich im Sport wider? Und warum beschäftigen bestimmte Athleten oder Ereignisse Menschen weit über die eigentliche Sportwelt hinaus?</p>
+            </section>
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>moin.lisa bewegt sich an der Schnittstelle zwischen Sportjournalismus, Entertainment und pointierter Einordnung. Die Themen decken bewusst unterschiedlichste Sportarten ab - auch solche, die normalerweise weniger mediale Aufmerksamkeit erhalten.</p>
+              <p>Der Fokus liegt auf überraschenden Geschichten, gesellschaftlichen Bezügen und sportlichen Themen mit Popkultur-Potenzial.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Host-Ansatz</h3>
+              <p>Die Host-Rolle verbindet journalistische Einordnung mit Creator-Logik. Komplexe Themen werden schnell, verständlich und unterhaltsam erklärt, ohne dabei an Glaubwürdigkeit zu verlieren.</p>
+              <p>Der Ton ist nahbar, authentisch und neugierig. Ziel ist es, Sportthemen so aufzubereiten, dass sie auch Menschen erreichen, die sich normalerweise nicht intensiv mit Sport beschäftigen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Die Kernzielgruppe liegt zwischen 16 und 35 Jahren. Sie konsumiert Inhalte überwiegend mobil und erwartet schnelle, verständliche und gleichzeitig informative Formate.</p>
+              <ul>
+                <li>Sport</li>
+                <li>Popkultur</li>
+                <li>aktuelle Trends</li>
+                <li>sportwissenschaftliche Themen</li>
+                <li>Gesundheit und Ernährung</li>
+                <li>gesellschaftliche Entwicklungen</li>
+              </ul>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Das Kernprodukt sind vertikale Kurzvideos für TikTok, Instagram Reels und YouTube Shorts. Zusätzlich werden zu besonderen Anlässen wiederkehrende Formate etabliert, beispielsweise tägliche Begleitformate rund um die French Open, Olympische Spiele oder Weltmeisterschaften.</p>
+              <ul>
+                <li>Kurzvideos für TikTok, Instagram und YouTube Shorts</li>
+                <li>längere Erklärformate und Deep Dives</li>
+                <li>redaktionell verwertbare Themenansätze</li>
+                <li>potenzielle Podcast-, Video- oder Artikelverlängerungen</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für BILD / Dyn / Axel Springer</h3>
+              <p>Für BILD, Dyn und Axel Springer bietet moin.lisa die Möglichkeit, aktuelle Sportthemen für jüngere Zielgruppen neu zu erzählen und außerhalb klassischer Sportberichterstattung einzuordnen.</p>
+              <ul>
+                <li>hohe Plattformkompatibilität</li>
+                <li>journalistische Einordnung aktueller Trends</li>
+                <li>Verbindung von Sport-, Gesellschafts- und Entertainment-Themen</li>
+                <li>hohe Viralität durch zeitnahe Themen</li>
+                <li>junge und schwer erreichbare Zielgruppe</li>
+                <li>vielfältige Verlängerung in Artikeln, Videos, Podcasts und weiteren Formaten</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung</h3>
+              <ul>
+                <li>Plattformerlöse über TikTok, YouTube und Meta</li>
+                <li>Sponsoring und Brand Partnerships</li>
+                <li>Native Advertising</li>
+                <li>Event- und Live-Formate</li>
+                <li>redaktionelle Zweitverwertung innerhalb des Verlags</li>
+              </ul>
+              <h3>Potenziell (monatlich)</h3>
+              <ul>
+                <li>Investition: 700 €</li>
+                <li>ca. 650 € Personal (20h/Woche)</li>
+                <li>50 € Equipment</li>
+                <li>Erlöse: 1.300 €</li>
+                <li>Presented-by-Partner: 1.000 €</li>
+                <li>Neue Abos: 200 € MKK</li>
+                <li>Plattform-Monetarisierung: 100 €</li>
+                <li>Überschuss: 600 €</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      `,
+      zwischendenpfosten: `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Alles rund um Fußballtorhüter</div>
+            <h3>Eine eigene Bühne für eine bisher unterbesetzte Fußball-Nische.</h3>
+            <p>Die Idee für ZwischendenPfosten entstand aus dem Wunsch, eine bisher unbesetzte Nische im Fußball-Content zu füllen. Torhüter bekommen in den sozialen Medien selten eine eigene Bühne. Genau das wollte das Format ändern.</p>
+            <p>Deshalb dreht sich alles um Fußballtorhüter: aktuelle Nachrichten, Erklärstücke, kurioses Wissen und eigene Formate.</p>
+            <p class="rich-core">Bei ZwischendenPfosten gibt es alles rund um Fußballtorhüter - nahbar, informativ und unterhaltsam erzählt.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Formatbeschreibung</h3>
+              <p>Der Content ist ein Mix aus aktuellen Nachrichten, Erklärstücken und eigenen Formaten. Im Mittelpunkt stehen Spieler, die oft weniger mediale Aufmerksamkeit bekommen als Feldspieler.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>ZwischendenPfosten macht ein nischiges Thema reichweitentauglich. Das Format verbindet sportjournalistische Inhalte mit direkter Nähe zur Community.</p>
+              <p>Der Fokus liegt auf aktuellen Themen und Nachrichten, gleichzeitig greift der Kanal historische Geschichten, besondere Karrieren und spannende Entwicklungen aus der Torwart-Welt auf.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Hostrolle</h3>
+              <p>Elinor Hessenberger, Simon Fortmann und Maurus E. Moritz verbindet die Leidenschaft für Fußball. Simon steht selbst als Torhüter auf dem Platz, Elinor und Maurus haben bereits im Sportjournalismus gearbeitet.</p>
+              <p>Der Auftritt verbindet journalistische Inhalte mit Creator-Logik: authentisch, persönlich, locker und gleichzeitig informativ - eher wie ein Gespräch mit der Community als wie ein klassischer Artikel.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Die Kernzielgruppe liegt zwischen 16 und 35 Jahren.</p>
+              <ul>
+                <li>Fußballfans</li>
+                <li>Sportinteressierte</li>
+                <li>Torhüterinnen und Torhüter</li>
+                <li>Menschen, die keine absoluten Sport-Nerds sind, sich aber für das Thema interessieren</li>
+              </ul>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Das Kernprodukt sind vertikale Kurzvideos für Instagram Reels, TikTok und YouTube Shorts. Neben nachrichtlichen Videos wurden eigene Formate etabliert, darunter „Diese drei Fakten über diesen Torhüter kennt ihr bestimmt noch nicht“ und der „Torhüter-Check“.</p>
+              <p>Darüber hinaus bieten die Inhalte Potenzial für redaktionelle Weiterverwertung in Artikeln sowie perspektivisch für Longform-Videos.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für BILD / SPORT BILD</h3>
+              <p>Für BILD und SPORT BILD bietet ZwischendenPfosten die Möglichkeit, eine jüngere Zielgruppe zu erreichen und ein Thema zu besetzen, das im deutschsprachigen Raum bislang nur wenig Aufmerksamkeit erhält.</p>
+              <ul>
+                <li>hohe Plattformkompatibilität</li>
+                <li>journalistische Einordnung rund um Fußballtorhüter</li>
+                <li>Verbindung von Sport-, Gesellschafts- und Entertainment-Themen</li>
+                <li>hohes Reichweitenpotenzial durch aktuelle Themen</li>
+                <li>junge und schwer erreichbare Zielgruppe</li>
+                <li>Verlängerung in Artikeln, Videos und weiteren Formaten</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung</h3>
+              <ul>
+                <li>Plattformerlöse über Meta, YouTube Shorts und TikTok</li>
+                <li>Sponsoring und Brand Partnerships</li>
+                <li>Gewinnspiele</li>
+                <li>Native Advertising und Host-Read-Advertising</li>
+                <li>Kooperationen mit Herstellern von Torhüter-Ausrüstung</li>
+                <li>redaktionelle Zweitverwertung im Verlag</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Wichtigste Learnings</h3>
+              <ul>
+                <li>Schon nach kurzer Zeit lässt sich mit dem richtigen Format eine hohe Reichweite erzielen.</li>
+                <li>Greenscreen-Videos funktionieren auf dem Kanal deutlich besser.</li>
+                <li>Authentizität schlägt Perfektion: natürliche und ehrliche Kommunikation kommt bei der Community am besten an.</li>
+                <li>Inhalte mit Bezug zu Vereinen, insbesondere zu deutschen Klubs, erzielen meist mehr Reichweite als internationale Themen.</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Integration in die Marke</h3>
+              <p>ZwischendenPfosten veröffentlicht regelmäßig Collab-Posts mit SPORT BILD und ist damit aktuell das einzige Creator-Projekt mit regelmäßiger Zusammenarbeit mit einer Marke aus dem Axel-Springer-Haus.</p>
+              <p>Die Zusammenarbeit sorgt für deutlich höhere Reichweiten und schnellere Aufrufzahlen. Gleichzeitig bedeutet mehr Reichweite nicht automatisch mehr Kommentare, Likes oder neue Follower.</p>
+              <p>Videos ohne Collab, die organisch vom Algorithmus ausgespielt werden, entwickeln häufig nachhaltigere Performance: mehr Interaktion, höherer Followerzuwachs und engere Community-Bindung.</p>
+            </section>
+          </div>
+        </div>
+      `,
+      lauraemelytalks: `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Story of your life</div>
+            <h3>Echte Menschen. Außergewöhnliche Lebensgeschichten.</h3>
+            <p>Story of your life ist ein Interviewformat über echte Menschen und außergewöhnliche Lebensgeschichten. Im Mittelpunkt stehen Gäste, deren Leben durch besondere Erfahrungen, Entscheidungen, Krisen oder Wendepunkte geprägt wurde.</p>
+            <p class="rich-core">Echte Geschichten. Echte Wendepunkte. Story of your life erzählt Lebensgeschichten, die bewegen, erklären und Perspektiven verändern.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Geschichte hinter der Geschichte</h3>
+              <p>Das Format erzählt nicht nur, was passiert ist. Es fragt, was ein Erlebnis mit einem Menschen macht und wie es Identität, Selbstbild, Beziehungen und Zukunft verändert.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>Emotionales Storytelling trifft gesellschaftliche Relevanz: mentale Gesundheit, Leistungssport, OnlyFans, Kriminalität und Haft, Schicksalsschläge, Neuanfänge und gesellschaftliche Tabus.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Host-Ansatz</h3>
+              <p>Der Gast steht im Mittelpunkt. Die Host-Rolle ist respektvoll, neugierig und nicht wertend - mit dem Ziel, zuzuhören, zu strukturieren, zu vertiefen und einen sicheren Gesprächsraum zu schaffen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>18 bis 40 Jahre: Menschen mit Interesse an Psychologie, Gesellschaft, Lebensgeschichten, Dokumentationen, persönlichen Wendepunkten und emotionalem Storytelling.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Das Kernprodukt ist ein 30- bis 60-minütiger Videopodcast auf YouTube und Spotify. Aus jeder Folge entstehen zusätzliche Kurzformate für Instagram Reels, TikTok und YouTube Shorts.</p>
+              <ul>
+                <li>ein Longform-Interview</li>
+                <li>eine Audiofassung</li>
+                <li>mehrere Social-Media-Clips</li>
+                <li>zitierfähige Aussagen</li>
+                <li>potenzielle redaktionelle Anschlussverwertung</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für BILD / Axel Springer</h3>
+              <ul>
+                <li>starke persönliche Storys</li>
+                <li>hohe Social-Media-Tauglichkeit</li>
+                <li>viele Clip-Möglichkeiten pro Folge</li>
+                <li>emotionales Storytelling mit journalistischer Tiefe</li>
+                <li>Anschlussfähigkeit an BILD, BILD+, WELT, Podcasts und Social Media</li>
+                <li>mögliche Artikel und redaktionelle Verlängerungen auf Basis der Interviews</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung</h3>
+              <ul>
+                <li>YouTube AdSense, Midrolls und Shorts Revenue</li>
+                <li>Sponsoring und Staffelpartnerschaften</li>
+                <li>Co-Produktionen und Verlagspartner</li>
+                <li>Zweitverwertung in Artikeln, Paid Content und Podcasts</li>
+                <li>langfristig Live-Events wie Story of your life Live</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      `
+    };
 
     const labIntroText = [
       "Als Volontäre der Axel Springer Academy sind wir zu einer kleinen Social-Media-Agentur geworden. Ziel: Eigene journalistische Formate, Persönlichkeiten und Kanäle aufzubauen.",
@@ -474,7 +835,8 @@ B</div>
       {creator:"zwischendenpfosten",src:"showcase-zdp.mp4"},
       {creator:"moin.lisa",src:"showcase-moin-lisa.mp4"},
       {creator:"lauraemelytalks",src:"showcase-lauraemilytalks.mp4"},
-      {creator:"moscowplaybook",src:"showcase-moscowplaybook.mp4"}
+      {creator:"moscowplaybook",src:"showcase-moscowplaybook.mp4"},
+      {creator:"alinasophiekatzele",src:"showcase-alinasophiekatzele.mp4"}
     ];
 
     const decorativeComments = [
@@ -547,6 +909,12 @@ B</div>
       }).join("");
     }
 
+    function formatDescription(text) {
+      const colonIndex = text.indexOf(":");
+      if (colonIndex === -1) return text;
+      return `<em>${text.slice(0, colonIndex)}</em>${text.slice(colonIndex)}`;
+    }
+
     function cardMarkup(item, i) {
       const seenPlatforms = new Set();
       const platformIcons = (item.links || []).map(link => {
@@ -567,7 +935,7 @@ B</div>
         <div class="profile-wrap"><img class="profile-image" ${profileStyle} src="${item.cardPreview || item.preview}" alt="${item.previewAlt}" loading="lazy" /></div>
         <div class="platform-icons">${platformIcons}</div>
         <h3>${item.title}</h3>
-        <div class="meta">${item.meta}</div>
+        <div class="meta">${formatDescription(item.meta)}</div>
       </article>`;
     }
 
@@ -731,10 +1099,14 @@ B</div>
 
     function openDescriptionModal(i, showImage = true) {
       const item = channels[i];
+      const richDescription = richDescriptions[item.title];
       const modalCard = document.querySelector("#modal .modal-card");
       modalCard.classList.toggle("description-only", !showImage);
+      modalCard.classList.toggle("rich-description", Boolean(richDescription));
       document.getElementById("modalTitle").textContent = item.title;
-      document.getElementById("modalText").textContent = item.text;
+      const modalText = document.getElementById("modalText");
+      modalText.className = richDescription ? "" : "modal-description";
+      modalText.innerHTML = richDescription || formatDescription(item.text);
       const modalPreview = document.getElementById("modalPreview");
       modalPreview.src = showImage ? item.preview : "";
       modalPreview.alt = showImage ? (item.previewAlt || item.title) : "";

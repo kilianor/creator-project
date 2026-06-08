@@ -15,6 +15,7 @@
     .nav-link { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 14px; color:var(--text); background:rgba(255,255,255,.06); text-decoration:none; font-size:14px; font-weight:800; }
     .nav-link.active { background:var(--accent); border-color:var(--accent); color:#020202; }
     .hero {
+      position: relative;
       border:1px solid var(--line);
       border-radius:16px;
       padding:28px;
@@ -60,60 +61,94 @@
     .card:hover { transform:translateY(-2px); border-color:rgba(29,243,242,.55); }
     .card h2 { margin:0 0 8px; font-size:22px; }
     .card p { margin:0; color:#cfd6db; line-height:1.5; }
-    .teaser-video-wrap {
-      margin-top: 16px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:0;
-      background:rgba(10,10,12,.9);
-      position: relative;
-      overflow: hidden;
-    }
-    .teaser-video {
-      width:100%;
-      height:420px;
-      object-fit:cover;
-      display:block;
-      background:#000;
-    }
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,.62), rgba(0,0,0,.2) 45%, rgba(0,0,0,.06));
-      pointer-events: none;
-    }
-    .video-card-overlay {
-      position: absolute;
-      top: 24px;
-      left: 24px;
-      right: 24px;
-      z-index: 10;
+    .home-card-row {
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:12px;
+      margin-bottom:20px;
     }
-    .video-card-overlay .card {
-      background: rgba(10,10,12,.78);
+    .home-card-row .card {
+      background: rgba(10,10,12,.82);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
+    }
+    .team-photo-section {
+      margin-top: 42px;
+    }
+    .trailer-section {
+      margin-top: 42px;
+    }
+    .trailer-section h2,
+    .team-photo-section h2 {
+      margin: 0 0 18px;
+      color: var(--text);
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 1;
+      font-weight: 1000;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    .trailer-player,
+    .team-photo-frame {
+      width: 100%;
+      aspect-ratio: 1080 / 780;
+      overflow: hidden;
+      background: rgba(10,10,12,.9);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.42);
+    }
+    .trailer-player {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    .trailer-player iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .trailer-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(248,248,248,.72);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      background: radial-gradient(circle at 50% 42%, rgba(29,243,242,.14), transparent 34%), rgba(10,10,12,.86);
+      pointer-events: none;
+    }
+    .team-photo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 36%;
+    }
+    .team-photo-credit {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+      text-align: right;
     }
     @media (max-width:1150px){ .hero{grid-template-columns:1fr;} }
     @media (max-width:1050px){
       .grid{grid-template-columns:repeat(2,minmax(0,1fr));}
-      .video-card-overlay{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .home-card-row{grid-template-columns:repeat(2,minmax(0,1fr));}
     }
     @media (max-width:680px){
       main{width:calc(100% - 24px);}
       header{grid-template-columns:1fr;}
       .main-nav{justify-content:flex-start;}
       .grid{grid-template-columns:1fr;}
-      .video-card-overlay{
-        top: 16px;
-        left: 16px;
-        right: 16px;
-        grid-template-columns:1fr;
+      .hero{
+        padding:20px;
       }
-      .teaser-video{height:520px;}
+      .home-card-row{grid-template-columns:1fr;}
     }
     .impressum-section {
       margin-top: 54px;
@@ -158,8 +193,14 @@
       <a href="index.html"><img class="logo" src="as-academy-creator-lab-logo-cropped.png" alt="Academy Creator Lab" /></a>
     </header>
 
+    <nav class="home-card-row" aria-label="Playbook Bereiche">
+      <a class="card" href="lab.html"><h2>Lab</h2><p>Creator Channels als interaktive Übersicht.</p></a>
+      <a class="card" href="stats.html"><h2>Stats</h2><p>Recherchen, Zahlen und Analysen.</p></a>
+      <a class="card" href="how-to.html"><h2>How-To</h2><p>Anleitungen und Workflows.</p></a>
+    </nav>
+
     <section class="hero">
-      <div>
+      <div class="hero-copy">
         <div class="eyebrow">Unsere These...</div>
         <h1>Die nächste Generation Journalismus entsteht nicht im Newsroom.<br><span>Sie entsteht im Feed.</span></h1>
         <p>Dieses klickbare Playbook zeigt, wie journalistische Creator bei Axel Springer systematisch aufgebaut werden können: mit echten Experimenten, getesteten Formaten, klaren Learnings und konkreten Empfehlungen für Redaktionen, Marken und Plattformen.</p>
@@ -172,21 +213,20 @@
       </div>
     </section>
 
-    <section class="teaser-video-wrap" aria-label="Video Teaser">
-      <video
-        class="teaser-video"
-        src="scrolling-person.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-      ></video>
-      <div class="video-overlay" aria-hidden="true"></div>
-      <div class="video-card-overlay">
-        <a class="card" href="lab.html"><h2>Lab</h2><p>Creator Channels als interaktive Übersicht.</p></a>
-        <a class="card" href="stats.html"><h2>Stats</h2><p>Recherchen, Zahlen und Analysen.</p></a>
-        <a class="card" href="how-to.html"><h2>How-To</h2><p>Anleitungen und Workflows.</p></a>
+    <section class="trailer-section" aria-label="Playbook Trailer">
+      <h2>Das Playbook</h2>
+      <div class="trailer-player">
+        <iframe src="about:blank" title="Trailer des Playbooks" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div class="trailer-placeholder">YouTube Player</div>
       </div>
+    </section>
+
+    <section class="team-photo-section" aria-label="Gruppenfoto">
+      <h2>DAS CREATOR TEAM</h2>
+      <div class="team-photo-frame">
+        <img class="team-photo" src="Gruppenfoto hochkant.png" alt="Gruppenfoto des Academy Creator Lab Teams" />
+      </div>
+      <p class="team-photo-credit">Foto: Jakob Eckstein</p>
     </section>
 
     <section class="impressum-section" aria-label="Impressum">

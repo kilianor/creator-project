@@ -68,15 +68,48 @@
     .highlight { border:1px solid rgba(255,255,255,.1); border-radius:10px; background:rgba(8,8,10,.82); padding:18px; }
     .highlight strong { display:block; margin-bottom:8px; color:#fff; font-size:20px; }
     .highlight p { color:#cfd6db; font-size:14px; line-height:1.5; }
+    .market-lens { display:grid; grid-template-columns:1.1fr .9fr; gap:16px; margin-top:18px; }
+    .lens-card { border:1px solid rgba(29,243,242,.20); border-radius:12px; background:rgba(8,8,10,.68); padding:18px; }
+    .lens-card h3 { margin:0 0 10px; font-size:18px; line-height:1.2; }
+    .lens-card p { margin:0; color:#cfd6db; line-height:1.55; font-size:14px; }
+    .criteria-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .criteria-list span { display:inline-flex; border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:6px 9px; color:#dfffff; background:rgba(29,243,242,.07); font-size:12px; font-weight:850; }
+    .market-notes { padding:0 0 34px; }
+    .market-notes h2 { margin:0 0 14px; font-size:clamp(24px,3vw,34px); line-height:1.1; }
+    .note-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+    .note-card { border:1px solid rgba(255,255,255,.10); border-radius:10px; background:rgba(255,255,255,.045); padding:15px; }
+    .note-card b { display:block; color:#fff; margin-bottom:7px; font-size:16px; line-height:1.25; }
+    .note-card span { display:block; color:#cfd6db; line-height:1.48; font-size:13px; }
     .market-hub { color:var(--text); background:radial-gradient(circle at 20% 0%,rgba(29,243,242,.10),transparent 28%),linear-gradient(180deg,#050506 0%,#09090b 58%,#050506 100%); border:1px solid rgba(29,243,242,.24); border-radius:16px; overflow:hidden; min-width:0; box-shadow:0 28px 90px rgba(0,0,0,.32),0 0 32px rgba(29,243,242,.08); }
     .market-wrap { width:min(1180px,calc(100% - 38px)); margin:0 auto; }
     .market-intro { padding:36px 0 26px; }
     .market-intro h2 { margin:0 0 10px; color:var(--text); font-size:clamp(30px,3.8vw,48px); line-height:1.05; letter-spacing:-.025em; }
     .market-intro > p { margin:0 0 20px; max-width:880px; color:#b8c3c7; line-height:1.6; font-size:17px; }
     .benchmark-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; padding:0 0 32px; }
-    .benchmark-card { border:1px solid rgba(255,255,255,.12); border-radius:22px; background:rgba(10,10,12,.92); padding:20px; box-shadow:0 24px 70px rgba(0,0,0,.46); transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; }
-    .benchmark-card:hover { transform:translateY(-3px); border-color:rgba(29,243,242,.48); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(29,243,242,.08); background:rgba(10,10,12,.92); }
+    .benchmark-card { border:1px solid rgba(255,255,255,.12); border-radius:22px; background:rgba(10,10,12,.92); padding:20px; box-shadow:0 24px 70px rgba(0,0,0,.46); transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; cursor:pointer; }
+    .benchmark-card:hover, .benchmark-card:focus-visible { transform:translateY(-3px); border-color:rgba(29,243,242,.48); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(29,243,242,.08); background:rgba(10,10,12,.92); outline:none; }
     .benchmark-card.special { border-color:rgba(29,243,242,.28); background:linear-gradient(145deg,rgba(9,24,25,.84),rgba(10,10,12,.94)); }
+    .dw-feature-card {
+      display:grid;
+      grid-template-columns:150px 1fr;
+      gap:22px;
+      align-items:center;
+      margin:0 0 34px;
+      border:1px solid rgba(29,243,242,.30);
+      border-radius:16px;
+      padding:22px;
+      color:var(--text);
+      background:linear-gradient(135deg,rgba(29,243,242,.08),rgba(10,10,12,.94));
+      box-shadow:0 24px 70px rgba(0,0,0,.36),0 0 28px rgba(29,243,242,.08);
+      cursor:pointer;
+      text-align:left;
+      transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+    }
+    .dw-feature-card:hover, .dw-feature-card:focus-visible { transform:translateY(-3px); border-color:rgba(29,243,242,.56); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 30px rgba(29,243,242,.12); outline:none; }
+    .dw-feature-logo { width:150px; height:96px; border-radius:10px; object-fit:contain; background:#fff; padding:14px; border:1px solid rgba(255,255,255,.16); }
+    .dw-feature-kicker { color:var(--accent); font-size:12px; font-weight:950; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
+    .dw-feature-card h2 { margin:0; font-size:clamp(24px,3vw,38px); line-height:1.08; }
+    .dw-feature-card p { margin:10px 0 0; color:#cfd6db; line-height:1.55; max-width:860px; }
     .card-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:12px; }
     .category { color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; }
     .benchmark-title-row { display:flex; align-items:center; gap:14px; margin-bottom:12px; }
@@ -93,6 +126,8 @@
     .modal-head { position:sticky; top:0; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; padding:20px; background:rgba(8,8,10,.96); border-bottom:1px solid rgba(255,255,255,.1); z-index:1; }
     .modal-head h2 { margin:0 0 6px; font-size:32px; }
     .modal-head p { margin:0; color:var(--muted); font-weight:800; }
+    .modal-card.hide-detail-header .modal-head { justify-content:flex-end; padding:14px 20px; }
+    .modal-card.hide-detail-header .modal-head > div { display:none; }
     .close { border:1px solid rgba(255,255,255,.14); border-radius:999px; background:rgba(255,255,255,.08); color:var(--text); padding:10px 14px; cursor:pointer; font-weight:900; }
     .modal-body { padding:22px; display:grid; gap:16px; }
     .detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -100,14 +135,31 @@
     .detail-box h3 { margin:0 0 8px; color:var(--accent); font-size:14px; text-transform:uppercase; }
     .detail-box p, .detail-box li { color:#d7dde0; line-height:1.55; }
     .detail-box p { margin:0; }
-    .score-list { display:grid; gap:10px; }
-    .score-row { display:grid; grid-template-columns:170px 1fr 26px; gap:10px; align-items:center; color:#d7dde0; font-size:14px; font-weight:800; }
-    .bar { height:9px; border-radius:999px; background:rgba(255,255,255,.1); overflow:hidden; }
-    .bar span { display:block; height:100%; width:calc(var(--score) * 20%); background:linear-gradient(90deg,var(--accent),#fff); border-radius:999px; }
     .subcards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
     .subcard { border:1px solid rgba(29,243,242,.18); border-radius:8px; padding:10px; background:rgba(29,243,242,.06); color:#e9ffff; font-weight:900; text-align:center; }
     .do-dont { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
     .do-dont ul { margin:0; padding-left:18px; }
+    .interview-article { grid-column:1/-1; border:1px solid rgba(29,243,242,.22); border-radius:14px; background:linear-gradient(135deg,rgba(29,243,242,.07),rgba(255,255,255,.035)); overflow:hidden; }
+    .interview-head { display:grid; grid-template-columns:180px 1fr; gap:20px; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,.10); }
+    .interview-head img { width:180px; height:180px; border-radius:14px; object-fit:cover; border:1px solid rgba(255,255,255,.14); box-shadow:0 18px 46px rgba(0,0,0,.34); }
+    .interview-kicker { color:var(--accent); font-size:12px; font-weight:950; letter-spacing:.04em; text-transform:uppercase; margin-bottom:8px; }
+    .interview-head h3 { margin:0 0 10px; font-size:clamp(24px,3vw,36px); line-height:1.08; }
+    .interview-head p { margin:0; color:#d7dde0; line-height:1.58; }
+    .interview-stats { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:14px; }
+    .interview-stat-bubbles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; width:min(100%,500px); }
+    .interview-stats a { display:inline-flex; align-items:center; justify-content:center; min-width:0; gap:6px; border:1px solid rgba(29,243,242,.28); border-radius:999px; padding:7px 10px; color:#eff; background:rgba(29,243,242,.08); font-size:13px; font-weight:900; line-height:1.2; text-align:center; text-decoration:none; }
+    .interview-head .interview-stats img { width:1.25em; height:1.25em; flex:0 0 1.25em; border-radius:999px; object-fit:cover; display:block; aspect-ratio:auto; }
+    .interview-stat-date { color:#aeb8bd; font-size:12px; font-weight:850; white-space:nowrap; }
+    .interview-body { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; padding:18px; }
+    .interview-section { border:1px solid rgba(255,255,255,.10); border-radius:10px; background:rgba(8,8,10,.58); padding:15px; }
+    .interview-section h4 { margin:0 0 8px; color:#fff; font-size:16px; line-height:1.25; }
+    .interview-section p, .interview-section li { color:#d7dde0; line-height:1.55; }
+    .interview-section p { margin:0; }
+    .interview-section ul { margin:0; padding-left:18px; }
+    .interview-section.full { grid-column:1/-1; }
+    .interview-copy { padding:22px; display:grid; gap:16px; }
+    .interview-copy p { margin:0; color:#d7dde0; line-height:1.68; font-size:16px; }
+    .interview-copy h4 { margin:8px 0 -6px; color:#fff; font-size:20px; line-height:1.25; font-weight:1000; }
     .closing { border-top:2px solid var(--accent); padding:26px 0 40px; margin-top:0; display:grid; gap:12px; }
     .closing h2 { margin:0; font-size:clamp(22px,2.4vw,30px); line-height:1.15; letter-spacing:0; }
     .closing p { margin:0; max-width:980px; color:#b8c3c7; line-height:1.6; font-size:17px; }
@@ -220,7 +272,19 @@
     .logic-factors { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:12px; }
     .logic-factor { padding:16px; }
     .logic-factor span { display:inline-flex; margin-bottom:12px; color:var(--logic-purple); font-size:12px; font-weight:950; }
-    .logic-factor b { display:block; margin-bottom:7px; color:var(--logic-ink); font-size:16px; line-height:1.2; }
+    .logic-factor b {
+      display:block;
+      margin-bottom:7px;
+      color:var(--logic-ink);
+      font-size:16px;
+      line-height:1.2;
+    }
+    .logic-factor b span {
+      background:rgba(29,243,242,.22);
+      box-decoration-break:clone;
+      -webkit-box-decoration-break:clone;
+      padding:0 3px 1px;
+    }
     .logic-factor p { margin:0; color:var(--logic-muted); line-height:1.42; font-size:14px; }
     .logic-final { display:grid; grid-template-columns:1fr auto; gap:18px; align-items:center; margin:34px auto 40px; border:1px solid rgba(29,243,242,.24); border-radius:16px; padding:22px; background:linear-gradient(135deg,rgba(29,243,242,.08),rgba(255,255,255,.035)); box-shadow:var(--logic-shadow); }
     .logic-final h2 { margin:0 0 6px; color:var(--logic-ink); font-size:26px; }
@@ -251,19 +315,21 @@
     .logic-deep-learning { margin-top:-4px; border:1px solid rgba(29,243,242,.28); border-radius:12px; padding:15px; background:rgba(29,243,242,.065); }
     .logic-deep-learning h4 { margin:0 0 9px; color:#fff; font-size:17px; }
     .logic-deep-learning p { margin:0; color:#d7dde0; line-height:1.5; font-size:14px; }
-    @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards{grid-template-columns:repeat(2,minmax(0,1fr));} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards,.note-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .market-lens{grid-template-columns:1fr;} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
     @media (max-width:1050px){ .logic-hero{grid-template-columns:1fr;}.logic-card-grid,.logic-detail-grid,.logic-deep-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.logic-factors{grid-template-columns:repeat(3,minmax(0,1fr));}.logic-layers{grid-template-columns:1fr;}.logic-creator::before,.logic-creator::after{width:2px;height:28px;}.logic-stats{grid-template-columns:repeat(2,minmax(0,1fr));} }
     @media (max-width:760px){
       main{width:calc(100% - 24px);}
       header{grid-template-columns:1fr;}
       .main-nav{justify-content:flex-start;}
-      .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards{grid-template-columns:1fr;}
+      .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards,.note-grid,.interview-body{grid-template-columns:1fr;}
+      .dw-feature-card{grid-template-columns:1fr;}
+      .interview-head{grid-template-columns:1fr;}
+      .interview-head img{width:100%;height:auto;aspect-ratio:1/1;}
       .logic-wrap{width:calc(100% - 28px);}
       .logic-card-grid,.logic-detail-grid,.logic-deep-grid,.logic-factors,.logic-stats{grid-template-columns:1fr;}
       .logic-deep-box{min-height:0;}
       .logic-final{grid-template-columns:1fr;}
       .logic-download,.logic-btn{width:100%;}
-      .score-row{grid-template-columns:1fr 1fr 26px;}
       .modal{padding:10px;}
       .modal-head{position:relative;}
       .economy-intro,.case-detail{padding:18px;}
@@ -444,13 +510,13 @@
             </button>
             <div id="logicFactorsPanel" class="logic-accordion-panel" hidden>
               <div class="logic-factors">
-                <article class="logic-factor"><span>01</span><b>Zielgruppe verstehen</b><p>Kenne deine Zielgruppe, ihre Bedürfnisse und wo sie sich aufhält.</p></article>
-                <article class="logic-factor"><span>02</span><b>Aufmerksamkeit gewinnen</b><p>Starke Starts: Die ersten Sekunden entscheiden über Erfolg oder Misserfolg.</p></article>
-                <article class="logic-factor"><span>03</span><b>Zuschauer halten</b><p>Höhere Watchtime bedeutet für viele Plattformen ein starkes Signal.</p></article>
-                <article class="logic-factor"><span>04</span><b>Interaktionen fördern</b><p>Likes, Kommentare, Shares und Saves erhöhen deine Sichtbarkeit.</p></article>
-                <article class="logic-factor"><span>05</span><b>Konsistent veröffentlichen</b><p>Regelmäßigkeit trainiert Algorithmen und baut Vertrauen beim Publikum auf.</p></article>
-                <article class="logic-factor"><span>06</span><b>Community aufbauen</b><p>Echte Beziehungen schaffen Loyalität und langfristigen Erfolg.</p></article>
-                <article class="logic-factor"><span>07</span><b>Daten analysieren</b><p>Nutze Analytics, teste, optimiere und lerne kontinuierlich dazu.</p></article>
+                <article class="logic-factor"><span>01</span><b><span>Zielgruppe verstehen</span></b><p>Kenne deine Zielgruppe, ihre Bedürfnisse und wo sie sich aufhält.</p></article>
+                <article class="logic-factor"><span>02</span><b><span>Aufmerksamkeit gewinnen</span></b><p>Starke Starts: Die ersten Sekunden entscheiden über Erfolg oder Misserfolg.</p></article>
+                <article class="logic-factor"><span>03</span><b><span>Zuschauer halten</span></b><p>Höhere Watchtime bedeutet für viele Plattformen ein starkes Signal.</p></article>
+                <article class="logic-factor"><span>04</span><b><span>Interaktionen fördern</span></b><p>Likes, Kommentare, Shares und Saves erhöhen deine Sichtbarkeit.</p></article>
+                <article class="logic-factor"><span>05</span><b><span>Konsistent veröffentlichen</span></b><p>Regelmäßigkeit trainiert Algorithmen und baut Vertrauen beim Publikum auf.</p></article>
+                <article class="logic-factor"><span>06</span><b><span>Community aufbauen</span></b><p>Echte Beziehungen schaffen Loyalität und langfristigen Erfolg.</p></article>
+                <article class="logic-factor"><span>07</span><b><span>Daten analysieren</span></b><p>Nutze Analytics, teste, optimiere und lerne kontinuierlich dazu.</p></article>
               </div>
             </div>
           </section>
@@ -496,19 +562,24 @@
             <div class="logic-eyebrow">Stats · Marktanalyse</div>
             <h2 id="marketTitle">Marktanalyse</h2>
             <p>Wir haben analysiert, wie andere Medienhäuser, öffentlich-rechtliche Formate, Sport-Creator und Politfluencer auf TikTok, Instagram und YouTube arbeiten. Danach zeigen die Kacheln, welche Strategien, Stärken und Lücken sich daraus für Axel Springer ableiten lassen.</p>
-            <div class="highlights">
-              <article class="highlight"><strong>Marke vor Mensch</strong><p>Viele Medienhäuser setzen weiter stark auf ihre Marke. Hosts kommen vor, stehen aber selten wirklich als eigene Creator im Mittelpunkt.</p></article>
-              <article class="highlight"><strong>Wiedererkennbarkeit gewinnt</strong><p>Erfolgreiche Accounts arbeiten mit festen Gesichtern, wiederkehrenden Settings, klaren Hooks und eigener visueller Sprache.</p></article>
-              <article class="highlight"><strong>Community ist die Lücke</strong><p>Viele Accounts posten regelmäßig, reagieren aber kaum. Genau hier liegt ein großes Potenzial für journalistische Creator.</p></article>
-            </div>
           </section>
 
           <section id="benchmarkGrid" class="benchmark-grid" aria-label="Marktanalyse Kacheln"></section>
+          <section id="dwFeature" aria-label="Interview Deutsche Welle"></section>
+
+          <section class="market-notes" aria-label="Vertiefende Beobachtungen">
+            <h2>Was im Detail wichtig ist</h2>
+            <div class="note-grid">
+              <article class="note-card"><b>Nicht vom Thema, sondern vom Bedürfnis denken</b><span>Aus den YouTube-Learnings: Junge Zielgruppen bleiben eher dran, wenn ein Format Orientierung, Kontext oder konkrete Lebenswelt-Relevanz liefert. Watchtime und Community-Feedback zählen mehr als reine Reichweitenoptimierung.</span></article>
+              <article class="note-card"><b>Community als Recherche-Quelle</b><span>Starke Creator arbeiten nicht nur für ihre Community, sondern mit ihr. Kommentare, Fragen und Markierungen können neue Themen liefern, Korrekturen beschleunigen und Vertrauen stärken.</span></article>
+              <article class="note-card"><b>Politik braucht Tempo plus Transparenz</b><span>Politfluencer nutzen fast vollständig Video, emotionale Einstiege und klare Thesen. Medienhäuser sollten Tempo, Nähe und Verständlichkeit übersetzen, aber Meinung, Analyse und Faktencheck sichtbar trennen.</span></article>
+              <article class="note-card"><b>Authentizität schlägt Rollen-Spiel</b><span>Die stärksten Learnings aus Creator-Workshops: nicht künstlich Jugendsprache spielen, sondern so sprechen, wie man selbst spricht. Persönlichkeit ist kein Zusatz, sondern Teil der Glaubwürdigkeit.</span></article>
+            </div>
+          </section>
 
           <section class="closing">
             <h2>Was Axel Springer daraus lernen kann</h2>
-            <p>Die Marktanalyse zeigt: Erfolgreicher Creator-Journalismus entsteht nicht durch bloßes Posten auf Social Media. Entscheidend sind klare Hosts, plattformgerechte Formate, sichtbare Quellen, wiedererkennbare Settings, echte Community-Arbeit und eine saubere Trennung von Information, Analyse und Meinung. Axel Springer kann daraus ein eigenes Creator-System entwickeln, das die Stärke etablierter Marken mit der Nähe journalistischer Persönlichkeiten verbindet.</p>
-            <a class="cta" href="index.html">Zum Playbook</a>
+            <p>Die Marktanalyse zeigt: Erfolgreicher Creator-Journalismus entsteht nicht durch bloßes Posten auf Social Media. Entscheidend sind klare Hosts, plattformgerechte Formate, sichtbare Quellen, wiedererkennbare Settings, echte Community-Arbeit und eine saubere Trennung von Information, Analyse und Meinung. Journalist:innen müssen dabei nicht künstlich Influencer imitieren. Stärker ist es, ihre eigene Kompetenz, Sprache und Persönlichkeit sichtbar zu machen, Community-Fragen als Themenquelle zu nutzen und Formate von Anfang an social-first zu planen. Axel Springer kann daraus ein eigenes Creator-System entwickeln, das die Stärke etablierter Marken mit der Nähe journalistischer Persönlichkeiten verbindet.</p>
           </section>
         </div>
       </section>
@@ -588,7 +659,6 @@
     setupLogicAccordion("logicMatrixToggle", "logicMatrixPanel");
     setupLogicAccordion("logicFactorsToggle", "logicFactorsPanel");
 
-    const scoreLabels = ["Plattformlogik","Host-Faktor","Quellen-Transparenz","Community Management","Wiedererkennbarkeit","Axel-Springer-Potenzial"];
     const displayOrder = ["Der Spiegel","Deutschlandfunk","Funk","Handelsblatt","Politfluencer","RBB24","Sport Content Creator","Sportschau","SZ","Tagesschau","Zeit","ZDF"];
     const economyCases = [
       {
@@ -662,6 +732,7 @@
       {name:"SZ",logo:"benchmark-sz.png",category:"Privates Medienhaus",tags:["Medienhäuser","Private Medienhäuser","TikTok","Instagram","Starke Quellen","Markengetrieben"],platforms:"TikTok, Instagram",label:"Marke vor Creator",strategy:"Erklärvideos mit sichtbaren Quellen, aber Hosts stehen nicht als eigene Creator im Mittelpunkt.",profile:"Die SZ nutzt TikTok und Instagram mit ähnlichen Videos. Auf Instagram funktionieren die Inhalte besser als auf TikTok.",good:"Quellen werden oft direkt im Video eingeblendet. Die Videos sind verständlich, zugespitzt und social-media-gerecht. Screenshots, Artikel, Zitate, Memes und Quellenmaterial werden stark eingesetzt.",weak:"Die Hosts erklären und ordnen ein, stehen aber nicht als eigene Creator im Vordergrund. TikTok wirkt nicht stark genug eigenständig gedacht.",learning:"Axel Springer sollte Quellen sichtbar machen, aber Hosts stärker als wiedererkennbare Persönlichkeiten aufbauen.",scores:[3,2,5,3,3,4],compare:["TikTok, Instagram","Erklärende Hosts, aber nicht als eigene Creator aufgebaut","Quellen oft direkt sichtbar","Vorhanden, aber nicht stark im Zentrum","Einordnung dominiert, klare redaktionelle Linie","Solide, aber stärker marken- als personengetrieben","Quellenvorteil übernehmen, Host-Aufbau verstärken"]},
       {name:"Der Spiegel",logo:"benchmark-spiegel.png",category:"Privates Medienhaus",tags:["Medienhäuser","Private Medienhäuser","TikTok","Instagram","Wenig Community","Markengetrieben"],platforms:"Instagram, TikTok",label:"Redaktionell stark, wenig communitynah",strategy:"Professionelles Bildmaterial und klare Trennung von Meinung und Information, aber wenig Creator- und Community-Fokus.",profile:"Der Spiegel arbeitet stark redaktionell und markengetrieben.",good:"Starker Einsatz von Clips, Bildern, O-Tönen, Grafiken und redaktionell geschnittenem Material. Meinung und Information werden grundsätzlich getrennt.",weak:"Wenig persönliche Nähe, kaum aktives Community Management, Inhalte stark markengetrieben.",learning:"Professionelle Redaktion allein reicht nicht. Für Creator-Journalismus braucht es stärkere Personenbindung.",scores:[3,2,3,1,3,3],compare:["Instagram, TikTok","Hosts kaum als Creator erkennbar","Redaktionell solide, aber nicht immer sichtbar ausgespielt","Kaum aktives Community Management","Grundsätzlich sauber getrennt","Starke Marke, schwächere Personenbindung","Redaktionelle Stärke mit mehr Nähe kombinieren"]},
       {name:"Deutschlandfunk",logo:"benchmark-deutschlandfunk.png",category:"ÖRR",tags:["Medienhäuser","ÖRR","TikTok","Instagram","Starke Hosts","Markengetrieben"],platforms:"TikTok, Instagram Reels",label:"Einordnung viraler Themen",strategy:"Wiederkehrende junge Hosts ordnen virale Themen ein, mit klarer Markenbindung und plattformnaher Optik.",profile:"Deutschlandfunk, Deutschlandfunk Nova und Deutschlandfunk Kultur arbeiten mit wiederkehrenden jungen Hosts und plattformnaher Optik.",good:"Wiederkehrende Hosts, klare Einordnung, schnelle Schnitte, Reels-Optik, Memes, Archivclips und Screenshots.",weak:"Wenig aktives Community Management, Marke bleibt stärker als Person.",learning:"Axel Springer braucht klare Formate für virale Themen, aber auch mehr Dialog mit der Community.",scores:[4,4,3,1,4,4],compare:["TikTok, Instagram Reels","Wiederkehrende junge Hosts","Quellen und Kontext vorhanden, aber nicht maximal sichtbar","Wenig Dialog","Einordnung statt laute Meinung","Hohe Wiedererkennbarkeit durch Format und Host","Virale Themen systematisch erklären und dialogischer werden"]},
+      {name:"Deutsche Welle",logo:"Deutsche Welle - Logo.jpg",category:"Auslandsrundfunk / Social Media",tags:["Medienhäuser","TikTok","Instagram","YouTube","Starke Hosts","Creator-getrieben"],platforms:"TikTok, Instagram, YouTube",label:"Journalistin als Creator-Marke",strategy:"Die Deutsche Welle baut Social-First-Angebote früh und breit aus. Johanna Rüdiger zeigt, wie Journalistinnen als eigene Personenmarke wachsen können, ohne journalistische Standards aufzugeben.",profile:"Johanna Rüdiger ist Social-Media-Koordinatorin in der Abteilung Culture and Documentaries der Deutschen Welle und selbst erfolgreiche journalistische Content Creatorin.",good:"Die DW denkt Creator seit Jahren systematisch: viele Programm-Accounts, Cross-Plattform-Promotion, Collab-Posts und der Mut, persönliche Marken innerhalb einer Medienmarke zuzulassen.",weak:"Der Aufbau persönlicher journalistischer Kanäle ist laut Interview noch experimentell. Persönliche Accounts werden bisher nicht durchgehend strukturell bezahlt oder institutionalisiert.",learning:"Axel Springer sollte Journalistinnen und Journalisten mit intrinsischer Motivation gezielt fördern: Persönlichkeit zeigen, Communitykontakt ernst nehmen, aber Meinung und Aktivismus sauber von journalistischem Content trennen.",special:"dw"},
       {name:"Funk",logo:"benchmark-funk.png",category:"ÖRR / Junges Netzwerk",tags:["Medienhäuser","ÖRR","TikTok","Instagram","YouTube","Starke Quellen","Wenig Community","Creator-getrieben"],platforms:"Instagram, TikTok, YouTube",label:"Social-first und formatgetrieben",strategy:"Junge Sprache, klare Formate, sichtbare Quellen und starke Anpassung an Plattformlogiken.",profile:"Funk arbeitet jung, visuell und stark formatgetrieben.",good:"Quellen werden in Captions und Videos sichtbar gemacht. Funk nutzt Greenscreen, junge Hosts, klare YouTube-Formate und eine lockere, fachliche Sprache.",weak:"Teilweise Zweitverwertung, wenig Interaktion in Kommentaren.",learning:"Klare Formatidentität und transparente Quellen sind stark. Community Management muss konsequenter mitgedacht werden.",scores:[4,3,5,1,4,4],compare:["Instagram, TikTok, YouTube","Junge Hosts, eher format- als personenbezogen","Quellen oft sichtbar","Wenig Interaktion","Fachliche Einordnung mit lockerer Sprache","Starke Formatidentität","Social-first-System übernehmen, Community stärken"]},
       {name:"Zeit",logo:"benchmark-zeit.webp",category:"Privates Medienhaus",tags:["Medienhäuser","Private Medienhäuser","TikTok","Instagram","YouTube","Markengetrieben"],platforms:"TikTok, Instagram, YouTube, Podcast",label:"Plattformen unterschiedlich gedacht",strategy:"TikTok wirkt persönlicher und jünger, YouTube stärker auf Tiefe und seriöse Hosts ausgerichtet.",profile:"Die Zeit unterscheidet stärker zwischen TikTok, Instagram, YouTube und Podcast.",good:"Plattformen werden unterschiedlich gedacht. TikTok ist persönlicher und jünger, Instagram stärker nachrichtlich, YouTube tiefer und seriöser.",weak:"Kaum Kommentarinteraktion, Hosts sind oft eher Gastgeber als Creator.",learning:"Axel Springer sollte Plattformrollen klar trennen: TikTok für Nähe, YouTube für Tiefe, Instagram für Marke und Wiedererkennung.",scores:[4,3,3,1,3,4],compare:["TikTok, Instagram, YouTube, Podcast","Hosts als Gastgeber, selten Creator","Solide, aber nicht Hauptmerkmal","Kaum Kommentarinteraktion","Seriöse Einordnung, klare Plattformrollen","Mittlere Wiedererkennbarkeit","Plattformrollen sauber trennen"]},
       {name:"Tagesschau",logo:"benchmark-tagesschau.png",category:"ÖRR / Nachrichten",tags:["Medienhäuser","ÖRR","TikTok","Instagram","Starke Hosts","Markengetrieben"],platforms:"Instagram, TikTok",label:"Vertrauen durch feste Gesichter",strategy:"Wiederkehrende Hosts vermitteln Nachrichten sachlich und konsistent innerhalb einer starken Marke.",profile:"Sehr starke Nachrichtenmarke mit hoher Reichweite und wiederkehrenden Hosts.",good:"Vertrauen, Konsistenz, klare Trennung von Nachricht und Meinung, hoher Wiedererkennungswert durch feste Hosts.",weak:"Wenig persönliche Tiefe, starke Markenkontrolle, begrenzter Creator-Spielraum.",learning:"Feste Gesichter können Markenvertrauen verstärken, wenn Rollen klar definiert sind.",scores:[4,4,4,2,5,4],compare:["Instagram, TikTok","Feste Gesichter im Rahmen starker Marke","Journalistisch klar","Begrenzt aktiv","Nachricht und Meinung klar getrennt","Sehr hoch","Markenvertrauen mit klaren Host-Rollen verbinden"]},
@@ -722,11 +793,9 @@
     function renderCards() {
       document.getElementById("benchmarkGrid").innerHTML = benchmarkData
         .map((item, index) => ({ item, index }))
+        .filter(({ item }) => item.special !== "dw")
         .sort((a, b) => displayOrder.indexOf(a.item.name) - displayOrder.indexOf(b.item.name))
-        .map(({ item, index }) => `<article class="benchmark-card ${item.special ? "special" : ""}">
-          <div class="card-top">
-            <div class="category">${item.category}</div>
-          </div>
+        .map(({ item, index }) => `<article class="benchmark-card ${item.special ? "special" : ""}" role="button" tabindex="0" onclick="openDetail(${index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail(${index});}">
           <div class="benchmark-title-row">
             <div class="benchmark-logo"><img src="${item.logo}" alt="${item.name} Logo" /></div>
             <h2>${item.name}</h2>
@@ -734,12 +803,16 @@
           <span class="label">${item.label}</span>
           <div class="platforms">${item.platforms}</div>
           <p class="strategy">${item.strategy}</p>
-          <button class="open-btn" type="button" onclick="openDetail(${index})">Analyse öffnen</button>
         </article>`).join("");
-    }
-
-    function scoreMarkup(item) {
-      return `<div class="score-list">${scoreLabels.map((label, index) => `<div class="score-row"><span>${label}</span><div class="bar"><span style="--score:${item.scores[index]}"></span></div><strong>${item.scores[index]}</strong></div>`).join("")}</div>`;
+      const dwEntry = benchmarkData.map((item, index) => ({ item, index })).find(({ item }) => item.special === "dw");
+      document.getElementById("dwFeature").innerHTML = dwEntry ? `<article class="dw-feature-card" role="button" tabindex="0" onclick="openDetail(${dwEntry.index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail(${dwEntry.index});}">
+        <img class="dw-feature-logo" src="Deutsche Welle - Logo.jpg" alt="Deutsche Welle Logo" />
+        <div>
+          <div class="dw-feature-kicker">Interview · Deutsche Welle</div>
+          <h2>Johanna Rüdiger: Wie Journalisten zu Creator-Marken werden</h2>
+          <p>Ein Gespräch darüber, warum journalistische Creator kein Nebenprojekt mehr sind und was Medienhäuser von der Deutschen Welle lernen können.</p>
+        </div>
+      </article>` : "";
     }
 
     function specialMarkup(item) {
@@ -749,21 +822,57 @@
       if (item.special === "politics") {
         return `<div class="detail-box" style="grid-column:1/-1"><h3>Politfluencer übersetzen, nicht kopieren</h3><div class="do-dont"><div><strong>Was übernehmen</strong><ul><li>Tempo</li><li>starke Hooks</li><li>persönliche Ansprache</li><li>klare These</li><li>Community-Nähe</li></ul></div><div><strong>Was nicht kopieren</strong><ul><li>Desinformation</li><li>Feindbildlogik</li><li>künstliche Empörung</li><li>unklare Vermischung von Meinung und Information</li><li>fehlende Quellen</li></ul></div></div></div>`;
       }
+      if (item.special === "dw") {
+        return `<article class="interview-article">
+          <div class="interview-head">
+            <img src="Johanna Rüdiger.jpg" alt="Johanna Rüdiger" />
+            <div>
+              <div class="interview-kicker">Interview · Deutsche Welle</div>
+              <h3>Johanna Rüdiger: Wie Journalisten zu Creator-Marken werden</h3>
+              <p>Warum journalistische Creator kein Nebenprojekt mehr sind</p>
+              <div class="interview-stats">
+                <div class="interview-stat-bubbles">
+                  <a href="https://www.instagram.com/johannarudiger/?hl=de" target="_blank" rel="noopener noreferrer"><img src="instagram-logo.png" alt="" />171.000 Instagram-Follower</a>
+                  <a href="https://www.tiktok.com/@johannaruediger" target="_blank" rel="noopener noreferrer"><img src="tiktok-logo.png" alt="" />356.000 TikTok-Follower</a>
+                </div>
+                <span class="interview-stat-date">Stand 11.06.2026</span>
+              </div>
+            </div>
+          </div>
+          <div class="interview-copy">
+            <p>Johanna Rüdiger ist Social-Media-Koordinatorin in der Abteilung Culture and Documentaries bei der Deutschen Welle in Berlin. Gleichzeitig ist sie selbst erfolgreiche journalistische Content Creatorin. Damit ist sie den Weg, über den viele Medienhäuser gerade erst nachdenken, bereits gegangen: von der Journalistin zur persönlichen journalistischen Marke.</p>
+            <p>Für Rüdiger ist klar: TikTok nicht zu nutzen, wäre verschenktes Potenzial. Gerade journalistische Medien könnten dort Zielgruppen erreichen, die sie über klassische Kanäle kaum noch erreichen. Die Deutsche Welle habe diese Entwicklung früher erkannt als viele andere Medienhäuser in Deutschland. Beim Thema Social Media sieht Rüdiger die DW deshalb in einer Vorreiterrolle: Während ARD und ZDF erst seit einiger Zeit verstärkt auf Creator setzen, arbeite die Deutsche Welle nach ihrer Einschätzung schon seit fünf bis sechs Jahren systematischer mit digitalen Persönlichkeiten.</p>
+            <h4>Vom Nebenprojekt zur journalistischen Marke</h4>
+            <p>„Die DW ist total digital“, sagt Rüdiger. Ihr eigener TikTok-Kanal entstand bereits 2020. Damals war sie nach eigener Aussage die erste bei der Deutschen Welle, die sich als Persönlichkeit eine eigene Marke aufgebaut hat und trotzdem klar journalistische Inhalte produzierte. Anfangs sei das intern nicht für alle selbstverständlich gewesen. Manche hätten gefragt, warum sie das nebenbei mache. In Deutschland gebe es weniger selbstverständlich eine Kultur, in der Journalisten auch an ihrer eigenen Sichtbarkeit arbeiten. In anderen Ländern sei das normaler.</p>
+            <p>Inzwischen verändert sich diese Haltung. Viele Redaktionen und Medienhäuser erkennen, dass journalistische Persönlichkeiten ein Vorteil sein können. Sie schaffen Nähe, Vertrauen und Wiedererkennbarkeit. Gleichzeitig muss sich die Marke dazu verhalten. Bei der Deutschen Welle bedeutet das: Man sieht das Potenzial und probiert es aus. Wichtig ist Rüdiger dabei eine klare Grenze: Es geht nicht darum, private Meinung in den Vordergrund zu stellen. Journalistische Creator müssen weiterhin journalistisch arbeiten.</p>
+            <p>Die Strategie der Deutschen Welle folgt zwei Linien. Einerseits baut die DW eigene Kanäle mit eigenen Communities auf. Andererseits setzt sie Creator im Programm ein. In diesem Bereich ist das Angebot bereits groß: Laut Rüdiger gehören dazu 34 TikTok-Accounts, 45 Instagram-Accounts und mehr als 60 YouTube-Accounts. Die zweite Strategie, also einzelne Journalisten gezielt als persönliche Marken aufzubauen und später mit ihrer Community stärker an die Medienmarke anzubinden, steht dagegen noch am Anfang. Rüdiger beschreibt diesen Bereich als experimentelle Phase.</p>
+            <h4>Menschen folgen Menschen</h4>
+            <p>Für Medienmarken kann sich das trotzdem lohnen. Rüdiger betont, dass Social Media für Markenbindung extrem wichtig sei. Ihr eigener Content werbe auch immer wieder für die Deutsche Welle. Zwar könne sie nicht in konkreten Zahlen belegen, wie stark ihr persönlicher Account auf die Marke einzahlt. Aber sie bekomme regelmäßig Rückmeldungen von Menschen, die sagen, sie hätten die Deutsche Welle erst durch sie kennengelernt und würden dem Angebot inzwischen folgen.</p>
+            <p>Besonders wichtig sind für sie deshalb Cross-Plattform-Promotion und Collab-Posts. Diese Funktion mache sichtbar, dass zwei Communities miteinander verbunden werden. Ein persönlicher Account und ein Markenaccount können so gegenseitig Reichweite, Aufmerksamkeit und Vertrauen aufbauen. Dahinter steht ein einfacher, aber zentraler Gedanke: Menschen folgen lieber Menschen als Organisationen.</p>
+            <p>Die Auswahl geeigneter Creator ist trotzdem nicht beliebig. Bei der Zusammenarbeit auf bestehenden Kanälen kann die Deutsche Welle nicht mit allen arbeiten. Teilweise wählt Rüdiger selbst Personen aus, teilweise kommen Interessierte auf sie zu. Bei persönlichen Kanälen steht der Prozess noch am Anfang. Lange sei die Frage gewesen, ob solche Auftritte DW-konform seien oder ob sie zu aktivistisch wirken könnten. Inzwischen geht es stärker darum, Menschen zu finden, die wirklich Lust darauf haben.</p>
+            <h4>Creator sein muss man wollen</h4>
+            <p>Genau das ist für Rüdiger die wichtigste Voraussetzung: intrinsische Motivation. Wer journalistischer Creator werden will, muss wirklich mit Menschen in Kontakt treten wollen. Es reicht nicht, nur Inhalte zu senden. Creator-Journalismus ist publikumsgetrieben. Man muss verstehen wollen, was die Community interessiert, welche Fragen sie stellt und welche Themen sie sehen will.</p>
+            <p>Viele Journalisten unterschätzen laut Rüdiger, wie viel Arbeit hinter erfolgreichen Kanälen steckt. Viele sagen, sie wollten Creator werden. Aber es tatsächlich zu machen, sei etwas anderes. Regelmäßig posten, Community-Feedback aufnehmen, Formate weiterentwickeln, Kommentare lesen, Themen finden, drehen, schneiden und auswerten: All das braucht Zeit und Energie. Persönliche Kanäle werden bei der Deutschen Welle momentan nicht gesondert bezahlt. Wer damit beginnt, muss also zunächst aus eigener Motivation eine Community aufbauen.</p>
+            <p>Gerade deshalb ist Rüdigers Beispiel für andere Medienhäuser relevant. Es zeigt, dass journalistische Creator nicht einfach aus einer Social-Media-Laune entstehen. Sie brauchen Haltung, Ausdauer, Plattformverständnis und eine klare journalistische Linie. Gleichzeitig können sie für Medienmarken einen Wert schaffen, den klassische Organisationsaccounts oft schwer erreichen: persönliche Bindung.</p>
+          </div>
+        </article>`;
+      }
       return "";
     }
 
     function openDetail(index) {
       const item = benchmarkData[index];
-      document.getElementById("detailTitle").textContent = item.name;
-      document.getElementById("detailMeta").textContent = `${item.category} · ${item.platforms}`;
-      document.getElementById("detailBody").innerHTML = `<div class="detail-grid">
+      const isDwInterview = item.special === "dw";
+      document.querySelector("#detailModal .modal-card").classList.toggle("hide-detail-header", isDwInterview);
+      document.getElementById("detailTitle").textContent = isDwInterview ? "" : item.name;
+      document.getElementById("detailMeta").textContent = isDwInterview ? "" : item.platforms;
+      document.getElementById("detailBody").innerHTML = item.special === "dw" ? `<div class="detail-grid">${specialMarkup(item)}</div>` : `<div class="detail-grid">
         <div class="detail-box"><h3>Kurzprofil</h3><p>${item.profile}</p></div>
         <div class="detail-box"><h3>Plattformen</h3><p>${item.platforms}</p></div>
         <div class="detail-box"><h3>Strategie</h3><p>${item.strategy}</p></div>
         <div class="detail-box"><h3>Was funktioniert gut?</h3><p>${item.good}</p></div>
         <div class="detail-box"><h3>Was funktioniert weniger gut?</h3><p>${item.weak}</p></div>
         <div class="detail-box"><h3>Was Axel Springer daraus lernen kann</h3><p>${item.learning}</p></div>
-        <div class="detail-box" style="grid-column:1/-1"><h3>Scorecard</h3>${scoreMarkup(item)}</div>
         ${specialMarkup(item)}
       </div>`;
       document.getElementById("detailModal").classList.add("open");
