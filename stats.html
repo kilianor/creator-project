@@ -34,7 +34,7 @@
     .case-shell { display:grid; grid-template-columns:minmax(240px,340px) 1fr; gap:16px; align-items:start; }
     .case-tabs { display:grid; gap:10px; position:sticky; top:18px; }
     .case-tab { text-align:left; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:16px; color:var(--text); background:rgba(12,12,14,.84); cursor:pointer; transition:border-color .16s ease,background .16s ease,transform .16s ease; }
-    .case-tab:hover, .case-tab.active { border-color:rgba(29,243,242,.62); background:rgba(29,243,242,.1); transform:translateY(-2px); }
+    .case-tab:hover, .case-tab.active { border-color:rgba(24,143,216,.68); background:rgba(24,143,216,.10); transform:translateY(-2px); }
     .case-tab b { display:block; font-size:18px; margin-bottom:6px; }
     .case-tab span { display:block; color:#cfd6db; line-height:1.4; font-size:13px; }
     .case-detail { border:1px solid rgba(255,255,255,.11); border-radius:16px; background:var(--panel); padding:22px; box-shadow:0 24px 60px rgba(0,0,0,.34); }
@@ -87,8 +87,9 @@
     .market-intro > p { margin:0 0 20px; max-width:880px; color:#b8c3c7; line-height:1.6; font-size:17px; }
     .benchmark-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; padding:0 0 32px; }
     .benchmark-card { border:1px solid rgba(255,255,255,.12); border-radius:22px; background:rgba(10,10,12,.92); padding:20px; box-shadow:0 24px 70px rgba(0,0,0,.46); transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; cursor:pointer; }
-    .benchmark-card:hover, .benchmark-card:focus-visible { transform:translateY(-3px); border-color:rgba(29,243,242,.48); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(29,243,242,.08); background:rgba(10,10,12,.92); outline:none; }
-    .benchmark-card.special { border-color:rgba(29,243,242,.28); background:linear-gradient(145deg,rgba(9,24,25,.84),rgba(10,10,12,.94)); }
+    .benchmark-card:hover, .benchmark-card:focus-visible { transform:translateY(-3px); border-color:rgba(24,143,216,.62); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(24,143,216,.10); background:rgba(10,10,12,.92); outline:none; }
+    .benchmark-card.special { border-color:rgba(255,255,255,.12); background:rgba(10,10,12,.92); }
+    .benchmark-card.special:hover, .benchmark-card.special:focus-visible { border-color:rgba(24,143,216,.62); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(24,143,216,.10); }
     .dw-feature-card {
       display:grid;
       grid-template-columns:150px 1fr;
@@ -105,7 +106,7 @@
       text-align:left;
       transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
     }
-    .dw-feature-card:hover, .dw-feature-card:focus-visible { transform:translateY(-3px); border-color:rgba(29,243,242,.56); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 30px rgba(29,243,242,.12); outline:none; }
+    .dw-feature-card:hover, .dw-feature-card:focus-visible { transform:translateY(-3px); border-color:rgba(24,143,216,.68); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 30px rgba(24,143,216,.12); outline:none; }
     .dw-feature-logo { width:150px; height:96px; border-radius:10px; object-fit:contain; background:#fff; padding:14px; border:1px solid rgba(255,255,255,.16); }
     .dw-feature-kicker { color:var(--accent); font-size:12px; font-weight:950; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
     .dw-feature-card h2 { margin:0; font-size:clamp(24px,3vw,38px); line-height:1.08; }
@@ -128,6 +129,7 @@
     .modal-head p { margin:0; color:var(--muted); font-weight:800; }
     .modal-card.hide-detail-header .modal-head { justify-content:flex-end; padding:14px 20px; }
     .modal-card.hide-detail-header .modal-head > div { display:none; }
+    .modal-card.dw-detail { width:min(1280px,100%); }
     .close { border:1px solid rgba(255,255,255,.14); border-radius:999px; background:rgba(255,255,255,.08); color:var(--text); padding:10px 14px; cursor:pointer; font-weight:900; }
     .modal-body { padding:22px; display:grid; gap:16px; }
     .detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -137,18 +139,28 @@
     .detail-box p { margin:0; }
     .subcards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
     .subcard { border:1px solid rgba(29,243,242,.18); border-radius:8px; padding:10px; background:rgba(29,243,242,.06); color:#e9ffff; font-weight:900; text-align:center; }
+    .special-analysis-image {
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      display: block;
+      margin: 12px 0 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(5,5,8,.72);
+    }
     .do-dont { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
     .do-dont ul { margin:0; padding-left:18px; }
     .interview-article { grid-column:1/-1; border:1px solid rgba(29,243,242,.22); border-radius:14px; background:linear-gradient(135deg,rgba(29,243,242,.07),rgba(255,255,255,.035)); overflow:hidden; }
-    .interview-head { display:grid; grid-template-columns:180px 1fr; gap:20px; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,.10); }
-    .interview-head img { width:180px; height:180px; border-radius:14px; object-fit:cover; border:1px solid rgba(255,255,255,.14); box-shadow:0 18px 46px rgba(0,0,0,.34); }
+    .interview-head { display:grid; grid-template-columns:180px 1fr; gap:20px; align-items:center; padding:24px; border-bottom:1px solid rgba(255,255,255,.10); }
+    .interview-head > img { width:180px; height:180px; border-radius:14px; object-fit:cover; border:1px solid rgba(255,255,255,.14); box-shadow:0 18px 46px rgba(0,0,0,.34); }
     .interview-kicker { color:var(--accent); font-size:12px; font-weight:950; letter-spacing:.04em; text-transform:uppercase; margin-bottom:8px; }
-    .interview-head h3 { margin:0 0 10px; font-size:clamp(24px,3vw,36px); line-height:1.08; }
-    .interview-head p { margin:0; color:#d7dde0; line-height:1.58; }
+    .interview-head h3 { margin:0 0 10px; font-size:clamp(22px,2.7vw,34px); line-height:1.08; }
+    .interview-head p { margin:0; color:#d7dde0; line-height:1.58; font-size:18px; font-weight:800; }
     .interview-stats { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:14px; }
     .interview-stat-bubbles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; width:min(100%,500px); }
-    .interview-stats a { display:inline-flex; align-items:center; justify-content:center; min-width:0; gap:6px; border:1px solid rgba(29,243,242,.28); border-radius:999px; padding:7px 10px; color:#eff; background:rgba(29,243,242,.08); font-size:13px; font-weight:900; line-height:1.2; text-align:center; text-decoration:none; }
-    .interview-head .interview-stats img { width:1.25em; height:1.25em; flex:0 0 1.25em; border-radius:999px; object-fit:cover; display:block; aspect-ratio:auto; }
+    .interview-stats a { display:inline-flex; align-items:center; justify-content:center; min-width:0; gap:7px; border:1px solid rgba(29,243,242,.28); border-radius:999px; padding:8px 12px; color:#eff; background:rgba(29,243,242,.08); font-size:13px; font-weight:900; line-height:1.2; text-align:center; text-decoration:none; }
+    .interview-stats a img { width:18px; height:18px; flex:0 0 18px; border-radius:999px; object-fit:cover; display:block; }
     .interview-stat-date { color:#aeb8bd; font-size:12px; font-weight:850; white-space:nowrap; }
     .interview-body { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; padding:18px; }
     .interview-section { border:1px solid rgba(255,255,255,.10); border-radius:10px; background:rgba(8,8,10,.58); padding:15px; }
@@ -160,6 +172,307 @@
     .interview-copy { padding:22px; display:grid; gap:16px; }
     .interview-copy p { margin:0; color:#d7dde0; line-height:1.68; font-size:16px; }
     .interview-copy h4 { margin:8px 0 -6px; color:#fff; font-size:20px; line-height:1.25; font-weight:1000; }
+    .dw-infographic {
+      grid-column:1/-1;
+      margin:4px 22px 24px;
+      padding:28px;
+      border:1px solid rgba(29,243,242,.25);
+      border-radius:16px;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(29,243,242,.12), transparent 30%),
+        linear-gradient(180deg,#050506 0%,#09090b 100%);
+      box-shadow:0 28px 80px rgba(0,0,0,.34),0 0 34px rgba(29,243,242,.08);
+    }
+    .dw-infographic h3 {
+      margin:0 0 12px;
+      color:#fff;
+      font-size:clamp(28px,3.4vw,46px);
+      line-height:1.04;
+      font-weight:1000;
+    }
+    .dw-infographic-subtitle {
+      margin:0 0 20px;
+      color:var(--accent);
+      font-size:clamp(18px,2vw,24px);
+      line-height:1.2;
+      font-weight:950;
+    }
+    .dw-insight-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .dw-insight-card {
+      min-height:210px;
+      padding:20px;
+      border:1px solid rgba(29,243,242,.26);
+      border-radius:14px;
+      background:rgba(255,255,255,.045);
+      box-shadow:0 18px 48px rgba(0,0,0,.28);
+    }
+    .dw-insight-card.featured {
+      border-color:rgba(224,188,102,.78);
+      background:linear-gradient(145deg,rgba(224,188,102,.18),rgba(255,255,255,.045) 54%,rgba(10,10,12,.92));
+      box-shadow:0 18px 48px rgba(0,0,0,.32),0 0 28px rgba(224,188,102,.10);
+    }
+    .dw-insight-card h4 {
+      margin:0 0 10px;
+      color:#fff;
+      font-size:clamp(18px,1.7vw,24px);
+      line-height:1.14;
+      font-weight:1000;
+    }
+    .dw-insight-card.featured h4 { color:#f3d48b; }
+    .dw-insight-card p {
+      margin:0;
+      color:#d7dde0;
+      font-size:15px;
+      line-height:1.58;
+    }
+    .journalist-survey {
+      --survey-card:rgba(10,10,12,.90);
+      --survey-line:rgba(255,255,255,.12);
+      --survey-cyan:#1df3f2;
+      --survey-blue:#188fd8;
+      --survey-deep:#0d3d8f;
+      position:relative;
+      isolation:isolate;
+      width:100%;
+      margin:0 auto;
+      padding:36px 0;
+      border:1px solid rgba(29,243,242,.24);
+      border-radius:16px;
+      background:
+        radial-gradient(circle at 20% 0%,rgba(29,243,242,.10),transparent 28%),
+        radial-gradient(circle at 84% 18%,rgba(24,143,216,.14),transparent 30%),
+        linear-gradient(180deg,#050506 0%,#09090b 58%,#050506 100%);
+      box-shadow:0 28px 90px rgba(0,0,0,.32),0 0 32px rgba(29,243,242,.08);
+      overflow:hidden;
+    }
+    .journalist-survey > * {
+      width:min(1180px,calc(100% - 38px));
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .journalist-survey::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.5), transparent 80%);
+    }
+    .survey-head { display:grid; gap:10px; margin-bottom:24px; }
+    .survey-head h2 {
+      margin:0;
+      color:#fff;
+      font-size:clamp(30px,3.8vw,48px);
+      line-height:1.05;
+      font-weight:1000;
+      letter-spacing:0;
+    }
+    .survey-subhead {
+      margin:0;
+      color:var(--survey-cyan);
+      font-size:clamp(16px,1.8vw,21px);
+      line-height:1.25;
+      font-weight:950;
+    }
+    .survey-statement,
+    .survey-insight {
+      border:1px solid rgba(29,243,242,.20);
+      border-radius:14px;
+      background:rgba(255,255,255,.045);
+      box-shadow:0 18px 48px rgba(0,0,0,.24), inset 0 0 24px rgba(29,243,242,.02);
+    }
+    .survey-statement {
+      padding:18px;
+      max-width:970px;
+      color:#d7dde0;
+      font-size:17px;
+      line-height:1.6;
+      font-weight:750;
+      overflow-wrap:anywhere;
+    }
+    .survey-layout {
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+      gap:18px;
+      align-items:stretch;
+      margin-top:22px;
+    }
+    .survey-card {
+      border:1px solid var(--survey-line);
+      border-radius:16px;
+      background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025)), var(--survey-card);
+      box-shadow:0 24px 70px rgba(0,0,0,.36);
+    }
+    .survey-donut-card {
+      display:grid;
+      grid-template-columns:minmax(190px,240px) minmax(0,1fr);
+      gap:20px;
+      align-items:center;
+      min-height:310px;
+      padding:22px;
+      border-color:rgba(29,243,242,.26);
+      min-width:0;
+    }
+    .survey-donut {
+      width:min(100%,240px);
+      aspect-ratio:1;
+      display:grid;
+      place-items:center;
+      position:relative;
+    }
+    .survey-donut svg {
+      width:100%;
+      height:100%;
+      transform:rotate(-90deg);
+      filter:drop-shadow(0 0 20px rgba(29,243,242,.24));
+    }
+    .survey-donut-bg,
+    .survey-donut-value {
+      fill:none;
+      stroke-width:16;
+    }
+    .survey-donut-bg { stroke:rgba(255,255,255,.10); }
+    .survey-donut-value {
+      stroke:var(--survey-cyan);
+      stroke-linecap:round;
+      stroke-dasharray:77 100;
+    }
+    .survey-donut-center {
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      font-size:clamp(40px,4.4vw,58px);
+      line-height:1;
+      font-weight:1000;
+      text-shadow:0 0 26px rgba(29,243,242,.28);
+      gap:.22em;
+    }
+    .survey-donut-center .survey-count { font-size:inherit; line-height:inherit; }
+    .survey-donut-copy { min-width:0; }
+    .survey-donut-copy h3,
+    .survey-kpi-card h3,
+    .survey-insight h3 {
+      margin:0 0 10px;
+      color:#fff;
+      font-size:clamp(18px,1.8vw,24px);
+      line-height:1.16;
+      font-weight:1000;
+      overflow-wrap:anywhere;
+    }
+    .survey-donut-copy p {
+      margin:0;
+      color:#d7dde0;
+      font-size:16px;
+      line-height:1.55;
+      font-weight:750;
+      overflow-wrap:anywhere;
+    }
+    .survey-kpi-card {
+      padding:22px;
+      display:grid;
+      gap:14px;
+      border-color:rgba(29,243,242,.22);
+      min-width:0;
+    }
+    .survey-kpi-list {
+      display:grid;
+      gap:12px;
+    }
+    .survey-kpi {
+      --kpi-accent:var(--survey-cyan);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:10px 14px;
+      align-items:center;
+      min-height:88px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      padding:14px;
+      background:rgba(255,255,255,.045);
+      box-shadow:0 0 20px rgba(29,243,242,.06);
+      min-width:0;
+    }
+    .survey-kpi h4 {
+      margin:0;
+      color:#fff;
+      font-size:16px;
+      line-height:1.18;
+      font-weight:1000;
+      overflow-wrap:anywhere;
+    }
+    .survey-kpi-progress {
+      grid-column:1 / -1;
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.09);
+      overflow:hidden;
+    }
+    .survey-kpi-progress span {
+      display:block;
+      width:var(--progress);
+      height:100%;
+      border-radius:inherit;
+      background:var(--kpi-accent);
+      box-shadow:0 0 18px color-mix(in srgb, var(--kpi-accent) 34%, transparent);
+    }
+    .survey-kpi:nth-child(2) { --kpi-accent:var(--survey-blue); }
+    .survey-kpi:nth-child(3) { --kpi-accent:var(--survey-deep); }
+    .survey-kpi b {
+      display:inline-flex;
+      align-items:baseline;
+      gap:12px;
+      color:var(--kpi-accent);
+      font-size:clamp(30px,3.2vw,40px);
+      line-height:1;
+      font-weight:1000;
+      text-shadow:0 0 18px rgba(29,243,242,.18);
+      white-space:nowrap;
+    }
+    .survey-kpi b .survey-count { font-size:inherit; line-height:inherit; }
+    .survey-kpi span {
+      grid-column:1 / -1;
+      min-width:0;
+      color:#d7dde0;
+      font-size:14px;
+      line-height:1.48;
+      font-weight:400;
+      overflow-wrap:anywhere;
+    }
+    .survey-kpi b .survey-count { grid-column:auto; }
+    .survey-insight {
+      margin-top:18px;
+      padding:20px;
+      border-color:rgba(29,243,242,.24);
+      background:linear-gradient(135deg,rgba(29,243,242,.08),rgba(255,255,255,.035));
+    }
+    .survey-insight h3 { color:var(--survey-cyan); }
+    .survey-insight p {
+      margin:0;
+      color:#d7dde0;
+      font-size:16px;
+      line-height:1.55;
+      font-weight:800;
+      max-width:900px;
+      overflow-wrap:anywhere;
+    }
+    .survey-footnote {
+      margin:16px 0 0;
+      color:#aeb7c4;
+      font-size:12px;
+      line-height:1.4;
+      font-weight:850;
+    }
     .closing { border-top:2px solid var(--accent); padding:26px 0 40px; margin-top:0; display:grid; gap:12px; }
     .closing h2 { margin:0; font-size:clamp(22px,2.4vw,30px); line-height:1.15; letter-spacing:0; }
     .closing p { margin:0; max-width:980px; color:#b8c3c7; line-height:1.6; font-size:17px; }
@@ -197,7 +510,7 @@
     .logic-card-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
     .logic-card,.logic-detail-card,.logic-factor { border:1px solid var(--logic-line); border-radius:22px; background:var(--logic-card); box-shadow:var(--logic-shadow); }
     .logic-card { display:block; width:100%; padding:20px; color:var(--logic-ink); text-decoration:none; text-align:left; font:inherit; cursor:pointer; transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; }
-    .logic-card:hover { transform:translateY(-3px); border-color:rgba(29,243,242,.48); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(29,243,242,.08); }
+    .logic-card:hover { transform:translateY(-3px); border-color:rgba(24,143,216,.62); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(24,143,216,.10); }
     .logic-card-head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
     .logic-logo { width:42px; height:42px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; color:#fff; background:#000; border:1px solid rgba(255,255,255,.12); font-size:13px; font-weight:950; box-shadow:0 0 20px rgba(29,243,242,.18); overflow:hidden; }
     .logic-logo img { width:100%; height:100%; object-fit:cover; display:block; }
@@ -315,25 +628,691 @@
     .logic-deep-learning { margin-top:-4px; border:1px solid rgba(29,243,242,.28); border-radius:12px; padding:15px; background:rgba(29,243,242,.065); }
     .logic-deep-learning h4 { margin:0 0 9px; color:#fff; font-size:17px; }
     .logic-deep-learning p { margin:0; color:#d7dde0; line-height:1.5; font-size:14px; }
-    @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards,.note-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .market-lens{grid-template-columns:1fr;} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
-    @media (max-width:1050px){ .logic-hero{grid-template-columns:1fr;}.logic-card-grid,.logic-detail-grid,.logic-deep-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.logic-factors{grid-template-columns:repeat(3,minmax(0,1fr));}.logic-layers{grid-template-columns:1fr;}.logic-creator::before,.logic-creator::after{width:2px;height:28px;}.logic-stats{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    .platform-country-trigger {
+      min-height:250px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      border:0;
+      color:#188fd8;
+      background:transparent;
+      cursor:pointer;
+      isolation:isolate;
+    }
+    .platform-country-trigger svg {
+      position:absolute;
+      inset:8px;
+      width:calc(100% - 16px);
+      height:calc(100% - 16px);
+      overflow:visible;
+      filter:drop-shadow(0 0 18px rgba(24,143,216,.56));
+      animation:countryGlow 2.8s ease-in-out infinite;
+    }
+    .platform-country-trigger path {
+      fill:rgba(24,143,216,.10);
+      stroke:currentColor;
+      stroke-width:4;
+      stroke-linejoin:round;
+      vector-effect:non-scaling-stroke;
+    }
+    .platform-country-trigger .country-detail {
+      fill:none;
+      stroke:rgba(29,243,242,.76);
+      stroke-width:1.35;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      opacity:.78;
+      vector-effect:non-scaling-stroke;
+    }
+    .platform-country-trigger .country-island {
+      fill:rgba(24,143,216,.075);
+      stroke:currentColor;
+      stroke-width:2.4;
+      vector-effect:non-scaling-stroke;
+    }
+    .platform-country-trigger .country-dot {
+      fill:#eaffff;
+      stroke:rgba(24,143,216,.72);
+      stroke-width:1.5;
+      filter:drop-shadow(0 0 8px rgba(29,243,242,.62));
+    }
+    .platform-country-trigger span {
+      width:min(72%,230px);
+      position:relative;
+      z-index:1;
+      color:#eaffff;
+      font-size:clamp(17px,1.45vw,24px);
+      line-height:1.12;
+      font-weight:1000;
+      text-align:center;
+      text-shadow:0 0 18px rgba(24,143,216,.62),0 2px 12px rgba(0,0,0,.9);
+    }
+    .platform-country-trigger:hover,
+    .platform-country-trigger:focus-visible { outline:none; }
+    .platform-country-trigger:hover svg,
+    .platform-country-trigger:focus-visible svg { filter:drop-shadow(0 0 28px rgba(29,243,242,.78)); }
+    @keyframes countryGlow {
+      0%,100% { opacity:.68; filter:drop-shadow(0 0 10px rgba(24,143,216,.34)); }
+      50% { opacity:1; filter:drop-shadow(0 0 28px rgba(29,243,242,.86)); }
+    }
+    .platform-landkarte-modal {
+      position:fixed;
+      inset:0;
+      z-index:70;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      background:rgba(0,0,0,.78);
+    }
+    .platform-landkarte-modal.open { display:flex; }
+    .platform-landkarte {
+      --map-white:#fff;
+      --map-text:#f3f1f8;
+      --map-muted:#c9c4d6;
+      --map-blue:#188fd8;
+      --map-blue-soft:#1df3f2;
+      margin:28px auto 16px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      color:var(--map-text);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(29,243,242,.12), transparent 29%),
+        radial-gradient(circle at 52% 12%, rgba(44,205,255,.11), transparent 27%),
+        radial-gradient(circle at 84% 20%, rgba(86,245,210,.10), transparent 30%),
+        linear-gradient(180deg,#03050a 0%,#07090e 54%,#03050a 100%);
+      box-shadow:var(--logic-shadow),0 0 32px rgba(29,243,242,.07);
+      overflow:hidden;
+    }
+    .platform-landkarte-modal .platform-landkarte { width:min(1360px,100%); max-height:90vh; margin:0; overflow:auto; }
+    .platform-landkarte__inner { padding:clamp(24px,3.2vw,46px); }
+    .platform-landkarte__header { position:relative; text-align:center; margin-bottom:clamp(24px,3vw,40px); padding:0 56px; }
+    .platform-landkarte__header h2 {
+      margin:0;
+      color:var(--map-white);
+      font-size:clamp(34px,5vw,70px);
+      line-height:.94;
+      font-weight:950;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .platform-landkarte__header p {
+      margin:16px auto 0;
+      max-width:880px;
+      color:var(--map-muted);
+      font-size:clamp(16px,1.6vw,25px);
+      line-height:1.3;
+      font-weight:700;
+    }
+    .platform-landkarte__header strong { color:var(--map-blue); font-weight:950; }
+    .platform-map-close {
+      position:absolute;
+      top:0;
+      right:0;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .platform-map { position:relative; width:100%; aspect-ratio:16 / 8.5; min-height:640px; }
+    .platform-map__axis-x,
+    .platform-map__axis-y { position:absolute; z-index:1; pointer-events:none; }
+    .platform-map__axis-x {
+      left:13%;
+      right:13%;
+      top:50%;
+      height:3px;
+      background:linear-gradient(90deg,var(--map-blue),var(--map-blue-soft));
+      box-shadow:0 0 22px rgba(24,143,216,.36);
+    }
+    .platform-map__axis-y {
+      top:11%;
+      bottom:12%;
+      left:50%;
+      width:3px;
+      background:linear-gradient(180deg,var(--map-blue-soft),var(--map-blue));
+      box-shadow:0 0 22px rgba(24,143,216,.36);
+    }
+    .platform-map__axis-x::before,
+    .platform-map__axis-x::after,
+    .platform-map__axis-y::before,
+    .platform-map__axis-y::after {
+      content:"";
+      position:absolute;
+      width:18px;
+      height:18px;
+      border-top:3px solid currentColor;
+      border-left:3px solid currentColor;
+    }
+    .platform-map__axis-x::before { left:-3px; top:50%; color:var(--map-blue); transform:translateY(-50%) rotate(-45deg); }
+    .platform-map__axis-x::after { right:-3px; top:50%; color:var(--map-blue-soft); transform:translateY(-50%) rotate(135deg); }
+    .platform-map__axis-y::before { top:-3px; left:50%; color:var(--map-blue-soft); transform:translateX(-50%) rotate(45deg); }
+    .platform-map__axis-y::after { bottom:-3px; left:50%; color:var(--map-blue); transform:translateX(-50%) rotate(225deg); }
+    .platform-map__center-dot {
+      position:absolute;
+      z-index:2;
+      left:50%;
+      top:50%;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      background:#effcff;
+      box-shadow:0 0 22px rgba(0,229,255,.9);
+    }
+    .platform-map__label {
+      position:absolute;
+      z-index:3;
+      color:var(--map-muted);
+      font-size:clamp(11px,.9vw,14px);
+      line-height:1.35;
+      max-width:220px;
+    }
+    .platform-map__label strong {
+      display:block;
+      margin-bottom:4px;
+      font-size:clamp(16px,1.35vw,23px);
+      line-height:1;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .platform-map__label small { display:block; margin-top:94px; color:#aeb6c4; font-size:12px; line-height:1.45; }
+    .platform-map__label--top { top:0; left:50%; text-align:center; transform:translateX(-50%); }
+    .platform-map__label--bottom { bottom:0; left:50%; text-align:center; transform:translateX(-50%); }
+    .platform-map__label--left { top:40%; left:0; text-align:left; }
+    .platform-map__label--right { top:40%; right:0; text-align:left; }
+    .platform-map__label--top strong,
+    .platform-map__label--bottom strong,
+    .platform-map__label--left strong,
+    .platform-map__label--right strong { color:var(--map-blue); }
+    .platform-node {
+      position:absolute;
+      z-index:4;
+      width:min(210px,16vw);
+      text-align:center;
+      transform:translate(-50%,-50%);
+    }
+    .platform-node__logo {
+      width:clamp(40px,3.7vw,58px);
+      height:clamp(40px,3.7vw,58px);
+      object-fit:contain;
+      display:block;
+      margin:0 auto 10px;
+      border-radius:12px;
+      filter:drop-shadow(0 0 12px rgba(255,255,255,.18));
+    }
+    .platform-node h3 { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+    .platform-node h4 { margin:0 0 9px; font-size:clamp(11px,.92vw,15px); line-height:1.2; font-weight:950; }
+    .platform-node p { margin:0 auto; max-width:260px; color:var(--map-text); font-size:clamp(11px,.92vw,14px); line-height:1.42; font-weight:700; }
+    .platform-node--twitch { left:20%; top:22%; }
+    .platform-node--campfire { left:38%; top:31%; }
+    .platform-node--spotify { left:82%; top:21%; }
+    .platform-node--youtube { left:62%; top:33%; }
+    .platform-node--instagram { left:20%; top:72%; }
+    .platform-node--snapchat { left:38%; top:70%; }
+    .platform-node--x { left:61%; top:70%; }
+    .platform-node--tiktok { left:82%; top:72%; }
+    .platform-node--twitch h4,
+    .platform-node--campfire h4,
+    .platform-node--spotify h4,
+    .platform-node--youtube h4,
+    .platform-node--instagram h4,
+    .platform-node--snapchat h4,
+    .platform-node--x h4,
+    .platform-node--tiktok h4 { color:var(--map-blue); }
+    .monetization-section {
+      position:relative;
+      isolation:isolate;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(29,243,242,.11), transparent 28%),
+        radial-gradient(circle at 82% 18%, rgba(24,143,216,.14), transparent 30%),
+        linear-gradient(180deg,#050506 0%,#09090b 58%,#050506 100%);
+      border:1px solid rgba(29,243,242,.24);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 28px 90px rgba(0,0,0,.32),0 0 32px rgba(29,243,242,.08);
+    }
+    .monetization-section::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.42), transparent 74%);
+    }
+    .monetization-wrap { width:min(1180px,calc(100% - 38px)); margin:0 auto; padding:36px 0 0; }
+    .monetization-intro { margin-bottom:26px; }
+    .monetization-intro h2 { margin:0 0 10px; color:var(--text); font-size:clamp(30px,3.8vw,48px); line-height:1.05; letter-spacing:-.025em; }
+    .monetization-intro p { margin:0 0 20px; max-width:880px; color:#b8c3c7; line-height:1.6; font-size:17px; }
+    .monetization-intro a { color:var(--accent); font-weight:850; text-decoration:none; }
+    .monetization-intro a.source-link { color:#b8c3c7; text-decoration:underline; text-underline-offset:2px; }
+    .monetization-intro a:hover { text-decoration:underline; }
+    .monetization-section-title { margin:0 0 26px; color:#fff; font-size:clamp(34px,4.4vw,58px); line-height:1.02; letter-spacing:-.025em; }
+    .monetization-models { display:grid; gap:20px; padding-bottom:34px; }
+    .monetization-head { display:grid; grid-template-columns:1.05fr .95fr; gap:18px; align-items:stretch; }
+    .monetization-statement-card,
+    .monetization-question-card,
+    .monetization-card,
+    .monetization-diagram,
+    .monetization-memory {
+      border:1px solid rgba(255,255,255,.11);
+      border-radius:16px;
+      background:rgba(10,10,12,.86);
+      box-shadow:0 24px 70px rgba(0,0,0,.38),0 0 24px rgba(24,143,216,.08);
+    }
+    .monetization-statement-card {
+      padding:26px;
+      background:linear-gradient(135deg,rgba(29,243,242,.10),rgba(10,10,12,.92));
+      border-color:rgba(29,243,242,.26);
+    }
+    .monetization-statement-card h3 { margin:0 0 10px; color:#fff; font-size:clamp(27px,3.2vw,44px); line-height:1.06; letter-spacing:-.02em; }
+    .monetization-statement-card p { margin:0; max-width:840px; color:#d7dde0; line-height:1.55; font-size:18px; font-weight:750; }
+    .monetization-question-card { padding:24px; display:grid; align-content:center; gap:12px; }
+    .monetization-question-card b { color:var(--accent); font-size:12px; font-weight:950; letter-spacing:.08em; text-transform:uppercase; }
+    .monetization-question-card p { margin:0; color:#fff; font-size:clamp(23px,2.4vw,34px); line-height:1.12; font-weight:950; }
+    .monetization-card-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .monetization-card { padding:20px; display:grid; gap:16px; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+    .monetization-card:hover { transform:translateY(-3px); border-color:rgba(24,143,216,.62); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 24px rgba(24,143,216,.10); }
+    .monetization-card h3 { margin:0; color:#fff; font-size:clamp(20px,1.7vw,28px); line-height:1.08; }
+    .monetization-items { display:grid; gap:10px; }
+    .monetization-item { display:grid; grid-template-columns:38px 1fr; gap:10px; align-items:center; color:#d7dde0; font-size:14px; font-weight:850; line-height:1.3; }
+    .monetization-icon {
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(29,243,242,.24);
+      border-radius:12px;
+      color:var(--accent);
+      background:rgba(29,243,242,.07);
+      box-shadow:0 0 18px rgba(29,243,242,.10);
+    }
+    .monetization-icon svg,
+    .monetization-node-icon svg { width:24px; height:24px; display:block; }
+    .monetization-icon path,
+    .monetization-icon rect,
+    .monetization-icon circle,
+    .monetization-icon line,
+    .monetization-icon polyline,
+    .monetization-node-icon path,
+    .monetization-node-icon circle,
+    .monetization-node-icon line,
+    .monetization-node-icon polyline {
+      fill:none;
+      stroke:currentColor;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .monetization-diagram { padding:26px; background:linear-gradient(145deg,rgba(4,4,6,.94),rgba(8,18,19,.72)); border-color:rgba(29,243,242,.20); }
+    .monetization-diagram h3 { margin:0 0 18px; color:#fff; font-size:clamp(22px,2.2vw,32px); line-height:1.12; }
+    .monetization-flow {
+      position:relative;
+      min-height:390px;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      grid-template-rows:1fr 1fr;
+      gap:18px;
+      align-items:center;
+    }
+    .monetization-flow::before {
+      content:"";
+      position:absolute;
+      inset:50px 10%;
+      background:
+        linear-gradient(90deg, transparent 0 13%, rgba(29,243,242,.38) 13% 42%, transparent 42% 58%, rgba(29,243,242,.38) 58% 87%, transparent 87% 100%),
+        linear-gradient(180deg, transparent 0 49%, rgba(29,243,242,.34) 49% 51%, transparent 51% 100%),
+        linear-gradient(90deg, transparent 0 49%, rgba(29,243,242,.34) 49% 51%, transparent 51% 100%);
+      opacity:.74;
+      pointer-events:none;
+    }
+    .monetization-node {
+      position:relative;
+      z-index:1;
+      min-height:118px;
+      display:grid;
+      gap:8px;
+      justify-items:center;
+      align-content:center;
+      text-align:center;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:17px;
+      background:rgba(8,8,10,.88);
+      box-shadow:0 18px 46px rgba(0,0,0,.28);
+    }
+    .monetization-node.creator {
+      grid-column:2;
+      grid-row:1 / span 2;
+      width:min(230px,100%);
+      min-height:230px;
+      justify-self:center;
+      border-color:rgba(29,243,242,.42);
+      background:radial-gradient(circle,rgba(29,243,242,.16),rgba(8,8,10,.94));
+      box-shadow:0 0 34px rgba(29,243,242,.16),0 24px 70px rgba(0,0,0,.40);
+    }
+    .monetization-node.partners { grid-column:1; grid-row:1; }
+    .monetization-node.community { grid-column:3; grid-row:1; }
+    .monetization-node.platforms { grid-column:2; grid-row:2; align-self:end; transform:translateY(18px); }
+    .monetization-node-icon {
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      color:var(--accent);
+      border:1px solid rgba(29,243,242,.35);
+      background:rgba(29,243,242,.07);
+    }
+    .monetization-node b { color:#fff; font-size:18px; line-height:1.15; }
+    .monetization-node span { color:#b8c3c7; font-size:13px; line-height:1.35; font-weight:800; }
+    .monetization-memory { padding:20px; border-color:rgba(29,243,242,.24); background:rgba(29,243,242,.065); }
+    .monetization-memory p { margin:0; color:#eaffff; font-size:clamp(18px,1.8vw,25px); line-height:1.25; font-weight:950; }
+    .monetization-orbit {
+      position:relative;
+      min-height:820px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(29,243,242,.11), transparent 16%),
+        radial-gradient(circle at 27% 42%, rgba(78,145,242,.15), transparent 28%),
+        radial-gradient(circle at 72% 43%, rgba(13,61,143,.16), transparent 28%),
+        radial-gradient(circle at 50% 88%, rgba(29,243,242,.10), transparent 24%),
+        rgba(3,5,10,.80);
+      box-shadow:inset 0 0 70px rgba(0,0,0,.64),0 28px 90px rgba(0,0,0,.34);
+      overflow:hidden;
+    }
+    .monetization-orbit::before {
+      content:"";
+      position:absolute;
+      width:min(330px,32vw);
+      aspect-ratio:1;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      border-radius:999px;
+      border:2px solid rgba(29,243,242,.70);
+      box-shadow:
+        0 0 22px rgba(29,243,242,.46),
+        inset 0 0 48px rgba(29,243,242,.07);
+      background:
+        linear-gradient(90deg, rgba(55,130,255,.18), transparent 48%, rgba(10,55,130,.22)),
+        rgba(0,0,0,.10);
+    }
+    .monetization-orbit::after {
+      content:none;
+    }
+    .monetization-core {
+      position:absolute;
+      z-index:3;
+      left:50%;
+      top:50%;
+      width:180px;
+      height:180px;
+      transform:translate(-50%,-50%);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      border:2px solid rgba(29,243,242,.80);
+      border-radius:999px;
+      color:#eaffff;
+      background:radial-gradient(circle,rgba(29,243,242,.13),rgba(2,4,8,.95));
+      box-shadow:0 0 28px rgba(29,243,242,.62), inset 0 0 30px rgba(29,243,242,.09);
+    }
+    .monetization-core svg { width:76px; height:76px; color:var(--accent); margin-bottom:8px; }
+    .monetization-core path,
+    .monetization-core circle { fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .monetization-core b { display:block; color:#fff; font-size:26px; line-height:1; text-transform:uppercase; }
+    .monetization-zone-label {
+      position:absolute;
+      z-index:2;
+      max-width:210px;
+      font-weight:950;
+      line-height:1.1;
+      text-transform:uppercase;
+      font-size:clamp(18px,1.8vw,30px);
+      text-shadow:0 0 18px currentColor;
+    }
+    .monetization-zone-label.left { left:22%; top:46%; color:#78beff; }
+    .monetization-zone-label.right { right:20%; top:46%; color:#2f6fd8; }
+    .monetization-zone-label.right span { display:block; margin-top:10px; color:#d7dde0; font-size:13px; line-height:1.45; text-transform:none; font-weight:800; text-shadow:none; }
+    .monetization-orbit-node {
+      --node-color: var(--accent);
+      position:absolute;
+      z-index:4;
+      left:var(--x);
+      top:var(--y);
+      transform:translate(-50%,-50%);
+      width:132px;
+      height:132px;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      gap:6px;
+      padding:14px;
+      border:2px solid var(--node-color);
+      border-radius:999px;
+      color:var(--node-color);
+      background:radial-gradient(circle,rgba(255,255,255,.05),rgba(0,0,0,.90));
+      box-shadow:0 0 20px color-mix(in srgb, var(--node-color) 62%, transparent), inset 0 0 24px rgba(255,255,255,.04);
+      text-align:center;
+    }
+    .monetization-orbit-node svg { width:32px; height:32px; justify-self:center; align-self:end; }
+    .monetization-orbit-node path,
+    .monetization-orbit-node rect,
+    .monetization-orbit-node circle,
+    .monetization-orbit-node line,
+    .monetization-orbit-node polyline { fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .monetization-orbit-node b { width:100%; display:block; color:#fff; font-size:12px; line-height:1.12; text-align:center; text-transform:uppercase; overflow-wrap:normal; hyphens:auto; }
+    .monetization-orbit-node.purple { --node-color:#78beff; }
+    .monetization-orbit-node.blue { --node-color:#4f91f2; }
+    .monetization-orbit-node.green { --node-color:#2f6fd8; }
+    .monetization-orbit-node.cyan { --node-color:#0d3d8f; }
+    .monetization-orbit-node.sponsor { --x:33%; --y:15%; }
+    .monetization-orbit-node.host { --x:19%; --y:27%; }
+    .monetization-orbit-node.product-placement { --x:10%; --y:40%; }
+    .monetization-orbit-node.native { --x:12%; --y:60%; }
+    .monetization-orbit-node.giveaway { --x:24%; --y:73%; }
+    .monetization-orbit-node.affiliate { --x:34%; --y:86%; }
+    .monetization-orbit-node.reach { --x:50%; --y:89%; }
+    .monetization-orbit-node.community-products { --x:67%; --y:15%; }
+    .monetization-orbit-node.platform { --x:81%; --y:27%; }
+    .monetization-orbit-node.merch { --x:88%; --y:50%; }
+    .monetization-orbit-node.events { --x:76%; --y:73%; }
+    .monetization-orbit-node.funnel { --x:66%; --y:86%; }
+    .monetization-connectors {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      display:block;
+      z-index:1;
+      pointer-events:none;
+    }
+    .monetization-connectors line,
+    .monetization-connectors path { stroke:rgba(29,243,242,.48); stroke-width:2; stroke-dasharray:8 8; fill:none; filter:drop-shadow(0 0 8px rgba(29,243,242,.38)); }
+    .best-practices {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin-top: 24px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(29,243,242,.12), transparent 29%),
+        radial-gradient(circle at 52% 12%, rgba(44,205,255,.11), transparent 27%),
+        radial-gradient(circle at 84% 20%, rgba(86,245,210,.10), transparent 30%),
+        linear-gradient(180deg, #03050a 0%, #07090e 54%, #03050a 100%);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      box-shadow: 0 28px 90px rgba(0,0,0,.42), inset 0 0 0 1px rgba(255,255,255,.025);
+    }
+    .best-practices::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.48), transparent 78%);
+    }
+    .best-wrap { width:min(1180px,calc(100% - 38px)); margin:0 auto; padding:36px 0 62px; }
+    .best-head { display:grid; margin-bottom:26px; }
+    .best-head h2 { margin:0 0 10px; color:var(--text); font-size:clamp(30px,3.8vw,48px); line-height:1.05; letter-spacing:-.025em; }
+    .best-head p { margin:0 0 20px; max-width:880px; color:#b8c3c7; line-height:1.6; font-size:17px; }
+    .best-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+    .best-card {
+      --card-accent: #188fd8;
+      --card-rgb: 24,143,216;
+      min-height: 610px;
+      display:grid;
+      grid-template-rows: 104px 190px 34px 1fr;
+      border:2px solid rgba(var(--card-rgb),.28);
+      border-radius:22px;
+      padding:24px;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(var(--card-rgb),.14), transparent 30%),
+        linear-gradient(145deg, rgba(8,9,14,.96), rgba(5,6,10,.96));
+      box-shadow:0 24px 70px rgba(0,0,0,.50), 0 0 30px rgba(var(--card-rgb),.13), inset 0 0 30px rgba(var(--card-rgb),.035);
+      min-width:0;
+    }
+    .best-card.yahoo { --card-accent:#188fd8; --card-rgb:24,143,216; }
+    .best-card.espn { --card-accent:#188fd8; --card-rgb:24,143,216; }
+    .best-brand { display:grid; grid-template-columns:98px minmax(0,1fr); gap:22px; align-items:center; margin-bottom:22px; min-width:0; }
+    .brand-orb { width:86px; height:86px; border-radius:999px; display:grid; place-items:center; overflow:hidden; color:var(--card-accent); border:3px solid rgba(var(--card-rgb),.72); background:radial-gradient(circle, rgba(var(--card-rgb),.16), rgba(0,0,0,.28)); box-shadow:0 0 28px rgba(var(--card-rgb),.34), inset 0 0 22px rgba(var(--card-rgb),.12); font-size:34px; font-weight:1000; letter-spacing:0; }
+    .brand-orb img { width:72%; height:72%; object-fit:contain; display:block; filter:drop-shadow(0 0 10px rgba(var(--card-rgb),.24)); }
+    .brand-orb img[alt="Barstool Sports Logo"] { width:92%; height:92%; max-width:none; object-fit:contain; transform:none; }
+    .brand-orb.stool { font-size:47px; line-height:1; }
+    .brand-orb.espn-logo { font-size:24px; font-style:italic; letter-spacing:-.06em; }
+    .best-card h3 { margin:0 0 10px; max-width:100%; color:#fff; font-size:clamp(20px,1.6vw,31px); line-height:1.06; letter-spacing:0; white-space:nowrap; }
+    .best-card:first-child h3 { font-size:clamp(17px,1.15vw,24px); white-space:normal; }
+    .best-year { color:var(--card-accent); font-size:clamp(24px,2.2vw,32px); font-weight:1000; text-shadow:0 0 18px rgba(var(--card-rgb),.42); }
+    .best-transform { display:grid; grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr); gap:16px; align-items:start; margin:0; min-width:0; }
+    .best-state { min-height:158px; display:grid; grid-template-columns:38px 1fr; gap:11px; align-content:start; border:0; border-radius:0; padding:0; background:transparent; }
+    .best-state b { grid-column:1/-1; display:block; margin:0 0 5px; color:#9fa5ad; font-size:15px; text-transform:uppercase; letter-spacing:0; }
+    .best-state span { display:block; min-width:0; color:#cfd4db; font-size:clamp(14px,1.02vw,16px); line-height:1.36; font-weight:850; overflow-wrap:normal; word-break:normal; hyphens:auto; }
+    .best-state b + span:not(.state-icon) { grid-column:1/-1; }
+    .best-state .state-icon + span,
+    .best-state .handshake-icon + span { grid-column:2; }
+    .state-icon { color:var(--card-accent); font-size:35px; line-height:1; text-shadow:0 0 16px rgba(var(--card-rgb),.34); }
+    .handshake-icon { width:38px; height:38px; color:var(--card-accent); filter:drop-shadow(0 0 12px rgba(var(--card-rgb),.42)); }
+    .handshake-icon path { stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+    .best-transform-arrow { align-self:start; margin-top:64px; color:var(--card-accent); font-size:44px; line-height:1; font-weight:1000; text-align:center; text-shadow:0 0 20px rgba(var(--card-rgb),.38); }
+    .best-result-title { display:grid; grid-template-columns:minmax(36px,1fr) auto minmax(36px,1fr); gap:28px; align-items:center; color:var(--card-accent); font-size:16px; font-weight:1000; text-transform:uppercase; text-align:center; text-shadow:0 0 14px rgba(var(--card-rgb),.32); }
+    .best-result-title::before,.best-result-title::after { content:""; height:1px; background:rgba(var(--card-rgb),.36); }
+    .best-results { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:18px; min-width:0; }
+    .best-card.yahoo .best-results { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .best-card.yahoo .best-result,
+    .best-card.espn .best-result { grid-template-rows:50px 2.8em; align-content:start; }
+    .best-result { min-height:150px; display:grid; align-content:start; justify-items:center; text-align:center; gap:8px; border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:14px 10px; background:rgba(255,255,255,.025); min-width:0; overflow:hidden; }
+    .best-result:first-child { border-left:1px solid rgba(255,255,255,.08); }
+    .result-icon { color:var(--card-accent); font-size:34px; line-height:1; text-shadow:0 0 18px rgba(var(--card-rgb),.38); }
+    .result-svg { width:38px; height:38px; color:var(--card-accent); filter:drop-shadow(0 0 12px rgba(var(--card-rgb),.42)); }
+    .result-svg.heart { width:46px; height:46px; }
+    .result-svg path,
+    .result-svg polyline,
+    .result-svg line,
+    .result-svg rect { stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+    .best-number { display:block; width:92%; margin:0 auto; color:var(--card-accent); font-size:clamp(20px,1.6vw,28px); line-height:1.05; font-weight:1000; text-shadow:0 0 22px rgba(var(--card-rgb),.32); }
+    .best-number.muted { color:#b9bec6; font-size:clamp(13px,1.08vw,16px); line-height:1.34; font-weight:800; text-shadow:none; }
+    .result-copy { display:block; width:90%; max-width:100%; margin:0 auto; color:#b9bec6; font-size:clamp(12px,.95vw,16px); line-height:1.34; font-weight:800; overflow-wrap:normal; word-break:normal; hyphens:auto; }
+    .best-result span:not(.best-number):not(.result-icon) { display:block; width:90%; max-width:100%; margin:0 auto; color:#b9bec6; font-size:clamp(12px,.95vw,16px); font-weight:800; line-height:1.34; overflow-wrap:normal; word-break:normal; hyphens:auto; }
+    @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards,.note-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .dw-insight-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .market-lens,.survey-layout{grid-template-columns:1fr;} .survey-donut-card{grid-template-columns:minmax(190px,260px) 1fr;} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (max-width:1180px){ .logic-hero{grid-template-columns:1fr;}.logic-card-grid,.logic-detail-grid,.logic-deep-grid,.best-grid{grid-template-columns:1fr;}.logic-factors{grid-template-columns:repeat(3,minmax(0,1fr));}.logic-layers{grid-template-columns:1fr;}.logic-creator::before,.logic-creator::after{width:2px;height:28px;}.logic-stats{grid-template-columns:repeat(2,minmax(0,1fr));}.platform-country-trigger{min-height:230px;}.platform-map{aspect-ratio:auto;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}.platform-map__axis-x,.platform-map__axis-y,.platform-map__center-dot,.platform-map__label{display:none;}.platform-node{position:static;width:100%;transform:none;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.045);}.monetization-head,.monetization-card-grid{grid-template-columns:1fr;}.monetization-flow{min-height:0;grid-template-columns:1fr;grid-template-rows:auto;}.monetization-flow::before{display:none;}.monetization-node,.monetization-node.creator,.monetization-node.partners,.monetization-node.community,.monetization-node.platforms{grid-column:auto;grid-row:auto;width:100%;min-height:0;transform:none;align-self:auto;}.monetization-orbit{min-height:0;padding:22px 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}.monetization-orbit::before,.monetization-orbit::after,.monetization-connectors{display:none;}.monetization-orbit .monetization-orbit-node,.monetization-orbit .monetization-core,.monetization-orbit .monetization-zone-label{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:100%;height:auto;min-height:132px;}.monetization-core{grid-column:1/-1;min-height:180px;}.monetization-zone-label{max-width:none;font-size:20px;text-align:center;}.monetization-zone-label.left,.monetization-zone-label.right{color:var(--accent);} }
+    @media (min-width:521px) and (max-width:1180px){
+      .monetization-orbit{min-height:840px;padding:0;display:block;}
+      .monetization-orbit::before{width:min(300px,56vw);}
+      .monetization-orbit::before,.monetization-orbit::after,.monetization-connectors{display:block;}
+      .monetization-orbit .monetization-orbit-node{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:clamp(80px,12vw,145px);height:clamp(80px,12vw,145px);min-height:0;padding:8px;}
+      .monetization-orbit-node svg{width:clamp(24px,3.5vw,30px);height:clamp(24px,3.5vw,30px);}
+      .monetization-orbit-node b{font-size:clamp(8px,1.15vw,11px);line-height:1.08;}
+      .monetization-orbit .monetization-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(122px,18vw,160px);height:clamp(122px,18vw,160px);min-height:0;}
+      .monetization-core svg{width:clamp(48px,7vw,62px);height:clamp(48px,7vw,62px);}
+      .monetization-core b{font-size:clamp(18px,2.4vw,22px);}
+      .monetization-orbit .monetization-zone-label{position:absolute;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:auto;height:auto;min-height:0;max-width:150px;font-size:clamp(16px,2vw,21px);text-align:left;}
+      .monetization-orbit-node.sponsor{--x:31%;--y:13%;}
+      .monetization-orbit-node.host{--x:17%;--y:25%;}
+      .monetization-orbit-node.product-placement{--x:12%;--y:41%;}
+      .monetization-orbit-node.native{--x:12%;--y:59%;}
+      .monetization-orbit-node.giveaway{--x:24%;--y:72%;}
+      .monetization-orbit-node.affiliate{--x:26%;--y:84%;}
+      .monetization-orbit-node.reach{--x:50%;--y:82%;}
+      .monetization-orbit-node.funnel{--x:74%;--y:84%;}
+      .monetization-orbit-node.events{--x:76%;--y:72%;}
+      .monetization-orbit-node.community-products{--x:69%;--y:13%;}
+      .monetization-orbit-node.platform{--x:83%;--y:25%;}
+      .monetization-orbit-node.merch{--x:88%;--y:50%;}
+      .monetization-zone-label.left{left:21%;top:45%;color:#78beff;}
+      .monetization-zone-label.right{right:11%;top:37%;color:#2f6fd8;}
+      .monetization-zone-label.right span{display:none;}
+    }
     @media (max-width:760px){
       main{width:calc(100% - 24px);}
       header{grid-template-columns:1fr;}
       .main-nav{justify-content:flex-start;}
-      .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards,.note-grid,.interview-body{grid-template-columns:1fr;}
+      .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards,.note-grid,.interview-body,.dw-insight-grid{grid-template-columns:1fr;}
       .dw-feature-card{grid-template-columns:1fr;}
       .interview-head{grid-template-columns:1fr;}
-      .interview-head img{width:100%;height:auto;aspect-ratio:1/1;}
+      .interview-stat-bubbles{grid-template-columns:1fr;}
+      .dw-infographic{margin:0 14px 18px;padding:20px;}
       .logic-wrap{width:calc(100% - 28px);}
-      .logic-card-grid,.logic-detail-grid,.logic-deep-grid,.logic-factors,.logic-stats{grid-template-columns:1fr;}
+      .logic-card-grid,.logic-detail-grid,.logic-deep-grid,.logic-factors,.logic-stats,.best-grid,.best-transform,.best-results{grid-template-columns:1fr;}
+      .platform-map{grid-template-columns:1fr;}
+      .platform-landkarte__inner{padding:20px 14px;}
+      .platform-landkarte__header{padding:0 0 48px;}
+      .platform-map-close{top:auto;right:50%;bottom:0;transform:translateX(50%);}
+      .best-card:not(.yahoo) .best-results{grid-template-columns:repeat(3,minmax(0,1fr));}
+      .best-card.yahoo .best-results{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .best-card.espn .best-results{grid-template-columns:repeat(3,minmax(0,1fr));}
+      .best-wrap{width:calc(100% - 28px); padding:28px 0 30px;}
+      .best-card{min-height:0; padding:18px;}
+      .best-brand{grid-template-columns:76px 1fr; gap:14px; margin-bottom:22px;}
+      .brand-orb{width:72px;height:72px;font-size:25px;}
+      .brand-orb.stool{font-size:34px;}
+      .brand-orb.espn-logo{font-size:18px;}
+      .best-card h3{font-size:18px;}
+      .best-number{font-size:clamp(15px,4.2vw,20px); width:86%;}
+      .result-copy,
+      .best-result span:not(.best-number):not(.result-icon){font-size:clamp(10px,3.05vw,13px); width:84%; line-height:1.28;}
+      .best-transform{gap:10px;}
+      .best-transform-arrow{transform:rotate(90deg); justify-self:center; font-size:34px; margin-top:0;}
+      .best-result{border-left:0; border-top:1px solid rgba(255,255,255,.12); min-height:0; padding:14px 0;}
+      .best-result:first-child{border-top:0;}
       .logic-deep-box{min-height:0;}
       .logic-final{grid-template-columns:1fr;}
       .logic-download,.logic-btn{width:100%;}
+      .journalist-survey{padding:28px 0;border-radius:14px;}
+      .journalist-survey > *{width:calc(100% - 38px);}
+      .survey-donut-card{grid-template-columns:1fr;justify-items:center;padding:18px;}
+      .survey-donut{width:min(240px,100%);}
+      .survey-donut-copy{text-align:left;width:100%;}
+      .survey-kpi-card{padding:18px;}
+      .survey-kpi{grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;}
+      .survey-kpi b{font-size:42px;}
+      .survey-insight{padding:18px;}
       .modal{padding:10px;}
       .modal-head{position:relative;}
       .economy-intro,.case-detail{padding:18px;}
       .key-fact{border-radius:12px;}
+      .monetization-wrap{width:calc(100% - 28px); padding-top:34px;}
+      .monetization-statement-card,.monetization-question-card,.monetization-card,.monetization-diagram,.monetization-memory{border-radius:14px;}
+      .monetization-statement-card,.monetization-question-card,.monetization-diagram{padding:18px;}
+      .monetization-item{grid-template-columns:34px 1fr;}
+      .monetization-icon{width:34px;height:34px;border-radius:10px;}
+      .monetization-memory p{font-size:18px;}
+      .monetization-orbit{grid-template-columns:1fr;}
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .monetization-card,
+      .platform-country-trigger svg { transition:none; animation:none; }
     }
   </style>
 </head>
@@ -365,6 +1344,12 @@
               <button class="logic-card" type="button" data-logic-modal="logicTwitch"><div class="logic-card-head"><span class="logic-logo"><img src="twitch-logo.png" alt="Twitch Logo" /></span><h3>Twitch</h3></div><dl><div><dt>Fokus</dt><dd>Live-Entertainment & Community</dd></div><div><dt>Algorithmus</dt><dd>Live-Ranking, Watchtime, Engagement</dd></div><div><dt>Wichtigster Faktor</dt><dd>Returning Viewer & Live-Interaktion</dd></div><div><dt>Monetarisierung</dt><dd>Abos, Bits, Spenden, Werbung, Sponsoring</dd></div></dl></button>
               <button class="logic-card" type="button" data-logic-modal="logicSpotify"><div class="logic-card-head"><span class="logic-logo"><img src="spotify-logo.png" alt="Spotify Logo" /></span><h3>Spotify</h3></div><dl><div><dt>Fokus</dt><dd>Datengetriebene Audio-Plattform</dd></div><div><dt>Algorithmus</dt><dd>Personalisierung, Hörverhalten, Interessen</dd></div><div><dt>Wichtigster Faktor</dt><dd>Hörzeit & App-Bindung</dd></div><div><dt>Monetarisierung</dt><dd>Audience Network, Partner Program, Ads</dd></div></dl></button>
               <button class="logic-card" type="button" data-logic-modal="logicCampfire"><div class="logic-card-head"><span class="logic-logo"><img src="campfirefm - logo.jpeg" alt="CampfireFM Logo" /></span><h3>CampfireFM</h3></div><dl><div><dt>Fokus</dt><dd>Podcasting als Community-Erlebnis</dd></div><div><dt>Algorithmus</dt><dd>Community, Reaktionen, Engagementdaten</dd></div><div><dt>Wichtigster Faktor</dt><dd>Aktive Fan-Experience</dd></div><div><dt>Monetarisierung</dt><dd>Tickets, Merchandise, exklusive Inhalte</dd></div></dl></button>
+              <button class="platform-country-trigger" type="button" onclick="openPlatformMap()" aria-label="Zum Plattform-Kompass">
+                <svg viewBox="0 0 320 230" aria-hidden="true" focusable="false">
+                  <path d="M35 82 H185 V44 L282 115 L185 186 V148 H35 Z" />
+                </svg>
+                <span>Zum Plattform-Kompass</span>
+              </button>
             </div>
           </div>
 
@@ -480,6 +1465,88 @@
             </div>
           </section>
 
+          <div id="platformLandkarteModal" class="platform-landkarte-modal" onclick="closePlatformMap(event)">
+          <section class="platform-landkarte" aria-labelledby="platformLandkarteTitle" onclick="event.stopPropagation()">
+            <div class="platform-landkarte__inner">
+              <header class="platform-landkarte__header">
+                <button class="platform-map-close" type="button" onclick="closePlatformMap()">Schließen</button>
+              </header>
+
+              <div class="platform-map" aria-label="Plattform-Landkarte Social Graph Interest Graph Kurzformat Langformat">
+                <div class="platform-map__axis-x" aria-hidden="true"></div>
+                <div class="platform-map__axis-y" aria-hidden="true"></div>
+                <div class="platform-map__center-dot" aria-hidden="true"></div>
+
+                <div class="platform-map__label platform-map__label--top">
+                  <strong>Langformat</strong>
+                  <span>Tiefe & Verweildauer</span>
+                </div>
+                <div class="platform-map__label platform-map__label--bottom">
+                  <strong>Kurzformat</strong>
+                  <span>Schnell & kompakt</span>
+                </div>
+                <div class="platform-map__label platform-map__label--left">
+                  <strong>Social Graph</strong>
+                  <span>Beziehungen & Community</span>
+                </div>
+                <div class="platform-map__label platform-map__label--right">
+                  <strong>INTEREST GRAPH</strong>
+                  <span>Interessen & Entdeckung</span>
+                </div>
+                <article class="platform-node platform-node--twitch">
+                  <img class="platform-node__logo" src="twitch-logo.png" alt="Twitch Logo" />
+                  <h3>Twitch</h3>
+                  <h4>Community · Live · Treue</h4>
+                  <p>Belohnt Live-Präsenz, Community-Treue, Chat-Interaktion und Returning Viewer.</p>
+                </article>
+                <article class="platform-node platform-node--campfire">
+                  <img class="platform-node__logo" src="campfirefm - logo.jpeg" alt="CampfireFM Logo" />
+                  <h3>CampfireFM</h3>
+                  <h4>Community · Interaktion · Bindung</h4>
+                  <p>Überträgt Social-Media-Logiken auf Podcasts und belohnt Community-Interaktion rund um Shows.</p>
+                </article>
+                <article class="platform-node platform-node--spotify">
+                  <img class="platform-node__logo" src="spotify-logo.png" alt="Spotify Logo" />
+                  <h3>Spotify</h3>
+                  <h4>Nutzung · Bindung · Completion</h4>
+                  <p>Belohnt Hörzeit, Wiederkehr, Completion Rate und Interessen.</p>
+                </article>
+                <article class="platform-node platform-node--youtube">
+                  <img class="platform-node__logo" src="youtube-logo.png" alt="YouTube Logo" />
+                  <h3>YouTube</h3>
+                  <h4>Watchtime · Bindung · Empfehlungen</h4>
+                  <p>Belohnt Watchtime, Zuschauerbindung, Kanalbeziehungen und Empfehlungen.</p>
+                </article>
+                <article class="platform-node platform-node--instagram">
+                  <img class="platform-node__logo" src="instagram-logo.png" alt="Instagram Logo" />
+                  <h3>Instagram</h3>
+                  <h4>Beziehungen · Community · Interaktion</h4>
+                  <p>Belohnt Beziehungen, Interaktionen, Saves und Shares; Stories für Community, Reels für Reichweite.</p>
+                </article>
+                <article class="platform-node platform-node--snapchat">
+                  <img class="platform-node__logo" src="snapchat - Logo.png" alt="Snapchat Logo" />
+                  <h3>Snapchat</h3>
+                  <h4>Freundschaften · Entdeckung</h4>
+                  <p>Belohnt Freundschaften, Discover, Spotlight, Stories und AR-Erlebnisse.</p>
+                </article>
+                <article class="platform-node platform-node--x">
+                  <img class="platform-node__logo" src="x twitter - Logo.png" alt="X Logo" />
+                  <h3>X <span>(Twitter)</span></h3>
+                  <h4>Aktualität · Diskussion · Relevanz</h4>
+                  <p>Belohnt Aktualität, echte Diskussionen, Replies, Quotes, Reposts und öffentliche Relevanz.</p>
+                </article>
+                <article class="platform-node platform-node--tiktok">
+                  <img class="platform-node__logo" src="tiktok-logo.png" alt="TikTok Logo" />
+                  <h3>TikTok</h3>
+                  <h4>Aufmerksamkeit · Entdeckung · Watchtime</h4>
+                  <p>Belohnt Watchtime, Completion Rate, Wiederholungen, Interaktionen und schnelle Reichweite unabhängig von Followern.</p>
+                </article>
+              </div>
+
+            </div>
+          </section>
+          </div>
+
           <section id="logicCompare" class="logic-section" aria-labelledby="logicMatrixTitle">
             <button id="logicMatrixToggle" class="logic-accordion-trigger" type="button" aria-expanded="false" aria-controls="logicMatrixPanel">
               <h2 id="logicMatrixTitle" class="logic-subchapter-title">Plattformvergleich – Die wichtigsten Unterschiede auf einen Blick</h2>
@@ -524,6 +1591,128 @@
         </div>
       </section>
 
+      <section class="monetization-section" aria-labelledby="monetizationTitle">
+        <div class="monetization-wrap">
+          <div class="monetization-intro">
+            <div class="logic-eyebrow">Stats · Monetarisierung</div>
+            <h2 id="monetizationTitle">Monetarisierungsmodelle</h2>
+            <p>Markenbindung ohne großes Budget: Durch den täglichen Kontakt zu den Hosts kann eine junge Marke Vertrauen und Loyalität nachhaltig aufbauen. Aber Creator sind längst mehr als nur Vertrauensbotschafter. Sie entwickeln sich zu einem eigenständigen Geschäftsmodell: Allein 2025 werden in Deutschland rund 718 Millionen Euro für Creator-Werbung ausgegeben. (<a class="source-link" href="https://www.bvdw.org/the-influencer-creator-marketing-playbook/politische-positionierung/" target="_blank" rel="noopener">Quelle: Bundeszentrale für Digitalwirtschaft</a>)</p>
+          </div>
+          <section class="monetization-orbit" aria-label="Monetarisierungsmodelle">
+            <svg class="monetization-connectors" aria-hidden="true">
+              <line data-target=".monetization-orbit-node.sponsor" />
+              <line data-target=".monetization-orbit-node.host" />
+              <line data-target=".monetization-orbit-node.product-placement" />
+              <line data-target=".monetization-orbit-node.native" />
+              <line data-target=".monetization-orbit-node.giveaway" />
+              <line data-target=".monetization-orbit-node.affiliate" />
+              <line data-target=".monetization-orbit-node.reach" />
+              <line data-target=".monetization-orbit-node.community-products" />
+              <line data-target=".monetization-orbit-node.platform" />
+              <line data-target=".monetization-orbit-node.merch" />
+              <line data-target=".monetization-orbit-node.events" />
+              <line data-target=".monetization-orbit-node.funnel" />
+            </svg>
+            <div class="monetization-zone-label left">Externe<br>Partner</div>
+            <div class="monetization-zone-label right">Community<span>Direkte Erlöse durch deine Community</span></div>
+            <div class="monetization-core">
+              <div>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>
+                <b>Creator</b>
+              </div>
+            </div>
+            <article class="monetization-orbit-node purple sponsor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 12 3 3a2 2 0 0 0 3 0l1-1"/><path d="m14 14 2 2a2 2 0 0 0 3-3l-5-5-3 3a2 2 0 0 1-3-3l3-3a4 4 0 0 1 6 0l4 4"/><path d="m3 8 4-4"/><path d="m17 5 4 4"/></svg><b>Sponsoring</b></article>
+            <article class="monetization-orbit-node purple host"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="12" rx="4"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg><b>Host Read Ads</b></article>
+            <article class="monetization-orbit-node purple product-placement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/><path d="m7.5 5.5 9 5"/></svg><b>Produkt-<br>platzierung</b></article>
+            <article class="monetization-orbit-node purple native"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="11" height="10" rx="2"/><rect x="9" y="4" width="11" height="10" rx="2"/><path d="M7 12h4"/><path d="M12 9h5"/></svg><b>Native Advertising</b></article>
+            <article class="monetization-orbit-node purple giveaway"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 1 1 4.5-1.5V8"/><path d="M16.5 8A2.5 2.5 0 1 0 12 6.5V8"/></svg><b>Gewinnspiel</b></article>
+            <article class="monetization-orbit-node purple affiliate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg><b>Affiliate Marketing</b></article>
+            <article class="monetization-orbit-node blue reach"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19v-7"/><path d="M3 20h18"/><path d="m15 6 4-4 2 2"/></svg><b>Reichweiten-<br>vermarktung</b></article>
+            <article class="monetization-orbit-node green community-products"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M2 21a6 6 0 0 1 12 0"/><path d="M17 9a3 3 0 1 0-1-5.8"/><path d="M18 21a5 5 0 0 0-3-4.6"/></svg><b>Community<br>Produkte</b></article>
+            <article class="monetization-orbit-node green platform"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="m10 9 5 3-5 3Z"/></svg><b>Plattform<br>Monetarisierung</b></article>
+            <article class="monetization-orbit-node green merch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6l2 3 4 2-2 5-3-1v7H8v-7l-3 1-2-5 4-2 2-3Z"/><path d="M9 4c.7 1.4 1.7 2 3 2s2.3-.6 3-2"/></svg><b>Merchandise</b></article>
+            <article class="monetization-orbit-node green events"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="12" rx="4"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg><b>Events</b></article>
+            <article class="monetization-orbit-node cyan funnel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"/><path d="M7 10h10"/><path d="M10 15h4"/><path d="M12 15v5"/></svg><b>Abo-Funnel</b></article>
+          </section>
+        </div>
+
+      <section class="best-practices" aria-labelledby="bestPracticesTitle">
+        <div class="best-wrap">
+          <div class="best-head">
+            <div>
+              <div class="logic-eyebrow">Stats · Monetarisierung</div>
+              <h2 id="bestPracticesTitle">Best Practices im Überblick</h2>
+              <p>Drei Beispiele zeigen, wie Medienhäuser und Sportmarken durch Creator-Strategien neue Einnahmequellen erschließen.</p>
+            </div>
+          </div>
+
+          <div class="best-grid">
+            <article class="best-card">
+              <div class="best-brand">
+                <div class="brand-orb"><img src="Barstool sports - Logo 2.jpg" alt="Barstool Sports Logo" /></div>
+                <div>
+                  <h3>BARSTOOL SPORTS</h3>
+                  <div class="best-year">2023</div>
+                </div>
+              </div>
+              <div class="best-transform">
+                <div class="best-state"><b>Vorher</b><svg class="handshake-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3L13 7l-3 3a2 2 0 0 1-3-3l3.5-3.5a4.8 4.8 0 0 1 6.7 0L21 7"/><path d="m5 12 4 4"/><path d="m4 7 3-3"/><path d="m2 9 5 5"/><path d="m18 5 4 4"/></svg><span>Fokus auf Sportwetten-Partnerschaften</span></div>
+                <div class="best-transform-arrow" aria-hidden="true">››</div>
+                <div class="best-state"><b>Nachher</b><span>Creator-gestützte Monetarisierung & Abos</span></div>
+              </div>
+              <div class="best-result-title">Ergebnis</div>
+              <div class="best-results">
+                <div class="best-result"><svg class="result-svg" viewBox="0 0 24 24" aria-hidden="true"><polyline points="3 17 8 12 12 15 20 6"/><polyline points="15 6 20 6 20 11"/></svg><span class="best-number">+280 %</span><span>Umsatz aus Live-Events</span></div>
+                <div class="best-result"><svg class="result-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h14a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><path d="M16 7V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2"/><path d="M17 13h4"/><path d="M17 13a1 1 0 1 0 0 .01"/></svg><span class="best-number">45 Mio. $</span><span>Jährliche Einnahmen durch Barstool+</span></div>
+                <div class="best-result"><svg class="result-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6l2 3 4 2-2 5-3-1v7H8v-7l-3 1-2-5 4-2 2-3Z"/><path d="M9 4c.7 1.4 1.7 2 3 2s2.3-.6 3-2"/></svg><span class="best-number">38 Mio. $</span><span>Jährliche Einnahmen aus Merchandise</span></div>
+              </div>
+            </article>
+
+            <article class="best-card yahoo">
+              <div class="best-brand">
+                <div class="brand-orb"><img src="Yahoo - Logo.png" alt="Yahoo Logo" /></div>
+                <div>
+                  <h3>YAHOO</h3>
+                  <div class="best-year">2024</div>
+                </div>
+              </div>
+              <div class="best-transform">
+                <div class="best-state"><b>Vorher</b><svg class="handshake-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3L13 7l-3 3a2 2 0 0 1-3-3l3.5-3.5a4.8 4.8 0 0 1 6.7 0L21 7"/><path d="m5 12 4 4"/><path d="m4 7 3-3"/><path d="m2 9 5 5"/><path d="m18 5 4 4"/></svg><span>Fokus auf Nachrichten-Aggregation</span></div>
+                <div class="best-transform-arrow" aria-hidden="true">››</div>
+                <div class="best-state"><b>Nachher</b><span>Start von Yahoo Creators mit Revenue Share</span></div>
+              </div>
+              <div class="best-result-title">Ergebnis</div>
+              <div class="best-results">
+                <div class="best-result"><svg class="result-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="14" width="3" height="6"/><rect x="10.5" y="10" width="3" height="10"/><rect x="17" y="5" width="3" height="15"/><line x1="3" y1="21" x2="21" y2="21"/></svg><span class="result-copy">Rekordumsätze<br>für die Creator-Plattform</span></div>
+                <div class="best-result"><svg class="result-svg heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z"/></svg><span class="result-copy">Höchste<br>Interaktionsraten seit Start</span></div>
+              </div>
+            </article>
+
+            <article class="best-card espn">
+              <div class="best-brand">
+                <div class="brand-orb"><img src="ESPN - Logo.webp" alt="ESPN Logo" /></div>
+                <div>
+                  <h3>ESPN</h3>
+                  <div class="best-year">2025</div>
+                </div>
+              </div>
+              <div class="best-transform">
+                <div class="best-state"><b>Vorher</b><svg class="handshake-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3L13 7l-3 3a2 2 0 0 1-3-3l3.5-3.5a4.8 4.8 0 0 1 6.7 0L21 7"/><path d="m5 12 4 4"/><path d="m4 7 3-3"/><path d="m2 9 5 5"/><path d="m18 5 4 4"/></svg><span>Fokus auf klassische Studioshows</span></div>
+                <div class="best-transform-arrow" aria-hidden="true">››</div>
+                <div class="best-state"><b>Nachher</b><span>85 Mio. $ Investment in Creator Pat McAfee (5 Jahre)</span></div>
+              </div>
+              <div class="best-result-title">Ergebnis</div>
+              <div class="best-results">
+                <div class="best-result"><svg class="result-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 11a3 3 0 1 0-1.2-5.75"/><path d="M18 21a5.5 5.5 0 0 0-3-4.9"/></svg><span class="result-copy">Mehr<br>Zuschauer</span></div>
+                <div class="best-result"><svg class="result-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/><path d="M15 8.5a4 4 0 1 0 0 7"/><path d="M8.5 10.5h5.5"/><path d="M8.5 13.5h5.5"/></svg><span class="result-copy">Wertvollere Werbeplätze</span></div>
+                <div class="best-result"><svg class="result-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg><span class="result-copy">230 Shows pro Jahr</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      </section>
+
       <section class="economy-story is-hidden" aria-label="Creator Economy Analyse">
         <div class="economy-intro">
           <div class="eyebrow">Stats · Creator Economy</div>
@@ -565,8 +1754,6 @@
           </section>
 
           <section id="benchmarkGrid" class="benchmark-grid" aria-label="Marktanalyse Kacheln"></section>
-          <section id="dwFeature" aria-label="Interview Deutsche Welle"></section>
-
           <section class="market-notes" aria-label="Vertiefende Beobachtungen">
             <h2>Was im Detail wichtig ist</h2>
             <div class="note-grid">
@@ -576,12 +1763,44 @@
               <article class="note-card"><b>Authentizität schlägt Rollen-Spiel</b><span>Die stärksten Learnings aus Creator-Workshops: nicht künstlich Jugendsprache spielen, sondern so sprechen, wie man selbst spricht. Persönlichkeit ist kein Zusatz, sondern Teil der Glaubwürdigkeit.</span></article>
             </div>
           </section>
-
-          <section class="closing">
-            <h2>Was Axel Springer daraus lernen kann</h2>
-            <p>Die Marktanalyse zeigt: Erfolgreicher Creator-Journalismus entsteht nicht durch bloßes Posten auf Social Media. Entscheidend sind klare Hosts, plattformgerechte Formate, sichtbare Quellen, wiedererkennbare Settings, echte Community-Arbeit und eine saubere Trennung von Information, Analyse und Meinung. Journalist:innen müssen dabei nicht künstlich Influencer imitieren. Stärker ist es, ihre eigene Kompetenz, Sprache und Persönlichkeit sichtbar zu machen, Community-Fragen als Themenquelle zu nutzen und Formate von Anfang an social-first zu planen. Axel Springer kann daraus ein eigenes Creator-System entwickeln, das die Stärke etablierter Marken mit der Nähe journalistischer Persönlichkeiten verbindet.</p>
-          </section>
+          <section id="dwFeature" aria-label="Interview Deutsche Welle"></section>
         </div>
+      </section>
+
+      <section class="journalist-survey" aria-labelledby="journalistSurveyTitle">
+        <div class="survey-head">
+          <div class="logic-eyebrow">Stats · Interne Umfrage</div>
+          <h2 id="journalistSurveyTitle">Perspektive der Journalisten</h2>
+          <p class="survey-subhead">Umfrage im Haus zur Rolle von Content Creation im Journalismus</p>
+          <p class="survey-statement">Die Mehrheit ist überzeugt: Künftig werden mehr Journalisten auch zu Creator. Wer diesen Schritt bereits gegangen ist, erhält bislang jedoch kaum strukturelle Unterstützung – weder redaktionell noch finanziell.<br>Gleichzeitig zeigt sich: Andere Medienmarken erkennen bereits das Potenzial von journalistischen Creatorn und versuchen Springer-Journalisten abzuwerben.</p>
+        </div>
+
+        <div class="survey-layout">
+          <article class="survey-card survey-donut-card" aria-labelledby="surveyFutureTitle">
+            <div class="survey-donut" role="img" aria-label="77 Prozent glauben, dass künftig mehr Journalisten zu Creator werden">
+              <svg viewBox="0 0 140 140" aria-hidden="true" focusable="false">
+                <circle class="survey-donut-bg" cx="70" cy="70" r="52" pathLength="100"></circle>
+                <circle class="survey-donut-value" cx="70" cy="70" r="52" pathLength="100"></circle>
+              </svg>
+              <div class="survey-donut-center"><span class="survey-count" data-count="77">77</span>%</div>
+            </div>
+            <div class="survey-donut-copy">
+              <h3 id="surveyFutureTitle">Zukunftsüberzeugung</h3>
+              <p>glauben, dass künftig mehr Journalisten zu Creator werden.</p>
+            </div>
+          </article>
+
+          <article class="survey-card survey-kpi-card" aria-labelledby="surveyKpiTitle">
+            <h3 id="surveyKpiTitle">Realität heute<br>Bereits Creator aus unserem Haus</h3>
+            <div class="survey-kpi-list">
+              <div class="survey-kpi" style="--progress:63%;"><h4>Berufliche Angebote</h4><b><span class="survey-count" data-count="63">63</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>haben bereits Angebote erhalten</span></div>
+              <div class="survey-kpi" style="--progress:13%;"><h4>Verdienen Geld</h4><b><span class="survey-count" data-count="13">13</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>verdienen aktuell Geld mit ihren Inhalten</span></div>
+              <div class="survey-kpi" style="--progress:19%;"><h4>Erhalten Unterstützung</h4><b><span class="survey-count" data-count="19">19</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>erhalten redaktionelle Unterstützung</span></div>
+            </div>
+          </article>
+        </div>
+
+        <p class="survey-footnote">Basis: Journalisten, die regelmäßig journalistische Inhalte posten (N=16)</p>
       </section>
     </section>
   </main>
@@ -633,6 +1852,14 @@
 
     function closeLogicDetail(event) {
       if (!event || event.target.id === "logicDetailModal") document.getElementById("logicDetailModal").classList.remove("open");
+    }
+
+    function openPlatformMap() {
+      document.getElementById("platformLandkarteModal").classList.add("open");
+    }
+
+    function closePlatformMap(event) {
+      if (!event || event.target.id === "platformLandkarteModal") document.getElementById("platformLandkarteModal").classList.remove("open");
     }
 
     document.addEventListener("click", event => {
@@ -817,15 +2044,15 @@
 
     function specialMarkup(item) {
       if (item.special === "sport") {
-        return `<div class="detail-box" style="grid-column:1/-1"><h3>Analysierte Sport-Creator</h3><div class="subcards">${["Eleniwithamic","Conan Furlong","Magdalena Austerman","Manu Thiele","dieligalebt / Ria"].map(name => `<div class="subcard">${name}</div>`).join("")}</div></div>`;
+        return `<div class="detail-box" style="grid-column:1/-1"><h3>Analysierte Sport-Creator</h3><img class="special-analysis-image" src="Sportfluencer.jpg?v=2" alt="Sportfluencer Analyse" /></div>`;
       }
       if (item.special === "politics") {
-        return `<div class="detail-box" style="grid-column:1/-1"><h3>Politfluencer übersetzen, nicht kopieren</h3><div class="do-dont"><div><strong>Was übernehmen</strong><ul><li>Tempo</li><li>starke Hooks</li><li>persönliche Ansprache</li><li>klare These</li><li>Community-Nähe</li></ul></div><div><strong>Was nicht kopieren</strong><ul><li>Desinformation</li><li>Feindbildlogik</li><li>künstliche Empörung</li><li>unklare Vermischung von Meinung und Information</li><li>fehlende Quellen</li></ul></div></div></div>`;
+        return `<div class="detail-box" style="grid-column:1/-1"><h3>ANALYSIERTE POLITIK-Creator</h3><img class="special-analysis-image" src="Creator im politsichen Raum.jpg?v=2" alt="Creator im politischen Raum Analyse" /></div><div class="detail-box" style="grid-column:1/-1"><h3>Politfluencer übersetzen, nicht kopieren</h3><div class="do-dont"><div><strong>Was übernehmen</strong><ul><li>Tempo</li><li>starke Hooks</li><li>persönliche Ansprache</li><li>klare These</li><li>Community-Nähe</li></ul></div><div><strong>Was nicht kopieren</strong><ul><li>Desinformation</li><li>Feindbildlogik</li><li>künstliche Empörung</li><li>unklare Vermischung von Meinung und Information</li><li>fehlende Quellen</li></ul></div></div></div>`;
       }
       if (item.special === "dw") {
         return `<article class="interview-article">
           <div class="interview-head">
-            <img src="Johanna Rüdiger.jpg" alt="Johanna Rüdiger" />
+            <img src="Johanna Ruediger.jpg" alt="Johanna Rüdiger" />
             <div>
               <div class="interview-kicker">Interview · Deutsche Welle</div>
               <h3>Johanna Rüdiger: Wie Journalisten zu Creator-Marken werden</h3>
@@ -841,21 +2068,38 @@
           </div>
           <div class="interview-copy">
             <p>Johanna Rüdiger ist Social-Media-Koordinatorin in der Abteilung Culture and Documentaries bei der Deutschen Welle in Berlin. Gleichzeitig ist sie selbst erfolgreiche journalistische Content Creatorin. Damit ist sie den Weg, über den viele Medienhäuser gerade erst nachdenken, bereits gegangen: von der Journalistin zur persönlichen journalistischen Marke.</p>
-            <p>Für Rüdiger ist klar: TikTok nicht zu nutzen, wäre verschenktes Potenzial. Gerade journalistische Medien könnten dort Zielgruppen erreichen, die sie über klassische Kanäle kaum noch erreichen. Die Deutsche Welle habe diese Entwicklung früher erkannt als viele andere Medienhäuser in Deutschland. Beim Thema Social Media sieht Rüdiger die DW deshalb in einer Vorreiterrolle: Während ARD und ZDF erst seit einiger Zeit verstärkt auf Creator setzen, arbeite die Deutsche Welle nach ihrer Einschätzung schon seit fünf bis sechs Jahren systematischer mit digitalen Persönlichkeiten.</p>
-            <h4>Vom Nebenprojekt zur journalistischen Marke</h4>
-            <p>„Die DW ist total digital“, sagt Rüdiger. Ihr eigener TikTok-Kanal entstand bereits 2020. Damals war sie nach eigener Aussage die erste bei der Deutschen Welle, die sich als Persönlichkeit eine eigene Marke aufgebaut hat und trotzdem klar journalistische Inhalte produzierte. Anfangs sei das intern nicht für alle selbstverständlich gewesen. Manche hätten gefragt, warum sie das nebenbei mache. In Deutschland gebe es weniger selbstverständlich eine Kultur, in der Journalisten auch an ihrer eigenen Sichtbarkeit arbeiten. In anderen Ländern sei das normaler.</p>
-            <p>Inzwischen verändert sich diese Haltung. Viele Redaktionen und Medienhäuser erkennen, dass journalistische Persönlichkeiten ein Vorteil sein können. Sie schaffen Nähe, Vertrauen und Wiedererkennbarkeit. Gleichzeitig muss sich die Marke dazu verhalten. Bei der Deutschen Welle bedeutet das: Man sieht das Potenzial und probiert es aus. Wichtig ist Rüdiger dabei eine klare Grenze: Es geht nicht darum, private Meinung in den Vordergrund zu stellen. Journalistische Creator müssen weiterhin journalistisch arbeiten.</p>
-            <p>Die Strategie der Deutschen Welle folgt zwei Linien. Einerseits baut die DW eigene Kanäle mit eigenen Communities auf. Andererseits setzt sie Creator im Programm ein. In diesem Bereich ist das Angebot bereits groß: Laut Rüdiger gehören dazu 34 TikTok-Accounts, 45 Instagram-Accounts und mehr als 60 YouTube-Accounts. Die zweite Strategie, also einzelne Journalisten gezielt als persönliche Marken aufzubauen und später mit ihrer Community stärker an die Medienmarke anzubinden, steht dagegen noch am Anfang. Rüdiger beschreibt diesen Bereich als experimentelle Phase.</p>
-            <h4>Menschen folgen Menschen</h4>
-            <p>Für Medienmarken kann sich das trotzdem lohnen. Rüdiger betont, dass Social Media für Markenbindung extrem wichtig sei. Ihr eigener Content werbe auch immer wieder für die Deutsche Welle. Zwar könne sie nicht in konkreten Zahlen belegen, wie stark ihr persönlicher Account auf die Marke einzahlt. Aber sie bekomme regelmäßig Rückmeldungen von Menschen, die sagen, sie hätten die Deutsche Welle erst durch sie kennengelernt und würden dem Angebot inzwischen folgen.</p>
-            <p>Besonders wichtig sind für sie deshalb Cross-Plattform-Promotion und Collab-Posts. Diese Funktion mache sichtbar, dass zwei Communities miteinander verbunden werden. Ein persönlicher Account und ein Markenaccount können so gegenseitig Reichweite, Aufmerksamkeit und Vertrauen aufbauen. Dahinter steht ein einfacher, aber zentraler Gedanke: Menschen folgen lieber Menschen als Organisationen.</p>
-            <p>Die Auswahl geeigneter Creator ist trotzdem nicht beliebig. Bei der Zusammenarbeit auf bestehenden Kanälen kann die Deutsche Welle nicht mit allen arbeiten. Teilweise wählt Rüdiger selbst Personen aus, teilweise kommen Interessierte auf sie zu. Bei persönlichen Kanälen steht der Prozess noch am Anfang. Lange sei die Frage gewesen, ob solche Auftritte DW-konform seien oder ob sie zu aktivistisch wirken könnten. Inzwischen geht es stärker darum, Menschen zu finden, die wirklich Lust darauf haben.</p>
-            <h4>Creator sein muss man wollen</h4>
-            <p>Genau das ist für Rüdiger die wichtigste Voraussetzung: intrinsische Motivation. Wer journalistischer Creator werden will, muss wirklich mit Menschen in Kontakt treten wollen. Es reicht nicht, nur Inhalte zu senden. Creator-Journalismus ist publikumsgetrieben. Man muss verstehen wollen, was die Community interessiert, welche Fragen sie stellt und welche Themen sie sehen will.</p>
-            <p>Viele Journalisten unterschätzen laut Rüdiger, wie viel Arbeit hinter erfolgreichen Kanälen steckt. Viele sagen, sie wollten Creator werden. Aber es tatsächlich zu machen, sei etwas anderes. Regelmäßig posten, Community-Feedback aufnehmen, Formate weiterentwickeln, Kommentare lesen, Themen finden, drehen, schneiden und auswerten: All das braucht Zeit und Energie. Persönliche Kanäle werden bei der Deutschen Welle momentan nicht gesondert bezahlt. Wer damit beginnt, muss also zunächst aus eigener Motivation eine Community aufbauen.</p>
-            <p>Gerade deshalb ist Rüdigers Beispiel für andere Medienhäuser relevant. Es zeigt, dass journalistische Creator nicht einfach aus einer Social-Media-Laune entstehen. Sie brauchen Haltung, Ausdauer, Plattformverständnis und eine klare journalistische Linie. Gleichzeitig können sie für Medienmarken einen Wert schaffen, den klassische Organisationsaccounts oft schwer erreichen: persönliche Bindung.</p>
           </div>
-        </article>`;
+        </article>
+        <section class="dw-infographic" aria-labelledby="dwInfographicTitle">
+          <h3 id="dwInfographicTitle">Vorreiter: Deutsche Welle macht Journalisten zu Content Creatorn</h3>
+          <p class="dw-infographic-subtitle">Die wichtigsten 6 Erkenntnisse:</p>
+          <div class="dw-insight-grid">
+            <article class="dw-insight-card featured">
+              <h4>Deutsche Welle und Johanna Rüdiger als Vorreiter</h4>
+              <p>Die DW setzt seit ca. sechs Jahren auf Social Media und Community-Journalismus - deutlich früher als viele andere deutsche Medienhäuser. Seit diesem Jahr verstärkt auf journalistische Content Creator mit eigenen Profilen.</p>
+            </article>
+            <article class="dw-insight-card">
+              <h4>Creator-Strategie der DW</h4>
+              <p>Die Strategie hat zwei Säulen: 1. eigene Markenkanäle mit klaren Communities und 2. persönliche Creator-Kanäle, bei denen Journalistinnen und Journalisten als persönliche Marken aufgebaut und mit der DW verbunden werden.</p>
+            </article>
+            <article class="dw-insight-card">
+              <h4>Community-Arbeit im Zentrum</h4>
+              <p>Inhalte entstehen aus redaktionellen Themen, aber auch aus Fragen, Kommentaren und Interessen des Publikums. Ziel ist: Debatten anstoßen, Dialog fördern und aktiv zuhören.</p>
+            </article>
+            <article class="dw-insight-card">
+              <h4>Wichtigste Regel</h4>
+              <p>Persönlichkeit ja, Meinungsjournalismus nein. DW-Creator sollen nahbar und wiedererkennbar sein, aber nicht aktivistisch oder meinungsgetrieben. Im Mittelpunkt stehen Fakten, Einordnung und journalistische Werte.</p>
+            </article>
+            <article class="dw-insight-card">
+              <h4>Mehrwert für die Marke DW</h4>
+              <p>Menschen folgen lieber Menschen als Organisationen. Journalistische Creator machen die DW nahbarer, sichtbarer und vertrauenswürdiger - und können neue Zielgruppen an die Marke heranführen.</p>
+            </article>
+            <article class="dw-insight-card">
+              <h4>Wer kann Creator werden?</h4>
+              <p>Grundvoraussetzung: Die Lust am Austausch mit der Community muss gegeben sein. Jeder, der das mitbringt, kann Creator werden. Alles andere, wie Technik und Plattformlogik, lässt sich lernen.</p>
+            </article>
+          </div>
+        </section>`;
       }
       return "";
     }
@@ -863,7 +2107,9 @@
     function openDetail(index) {
       const item = benchmarkData[index];
       const isDwInterview = item.special === "dw";
-      document.querySelector("#detailModal .modal-card").classList.toggle("hide-detail-header", isDwInterview);
+      const detailCard = document.querySelector("#detailModal .modal-card");
+      detailCard.classList.toggle("hide-detail-header", isDwInterview);
+      detailCard.classList.toggle("dw-detail", isDwInterview);
       document.getElementById("detailTitle").textContent = isDwInterview ? "" : item.name;
       document.getElementById("detailMeta").textContent = isDwInterview ? "" : item.platforms;
       document.getElementById("detailBody").innerHTML = item.special === "dw" ? `<div class="detail-grid">${specialMarkup(item)}</div>` : `<div class="detail-grid">
@@ -882,14 +2128,93 @@
       if (!event || event.target.id === "detailModal") document.getElementById("detailModal").classList.remove("open");
     }
 
-    document.addEventListener("keydown", event => { if (event.key === "Escape") { closeDetail(); closeLogicDetail(); } });
+    function updateMonetizationConnectors() {
+      const orbit = document.querySelector(".monetization-orbit");
+      const core = document.querySelector(".monetization-core");
+      const svg = document.querySelector(".monetization-connectors");
+      if (!orbit || !core || !svg || getComputedStyle(svg).display === "none") return;
+
+      const orbitRect = orbit.getBoundingClientRect();
+      const coreRect = core.getBoundingClientRect();
+      const coreX = coreRect.left + coreRect.width / 2 - orbitRect.left;
+      const coreY = coreRect.top + coreRect.height / 2 - orbitRect.top;
+      const ringSize = Number(getComputedStyle(orbit, "::before").width.replace("px", ""));
+      const ringRadius = ringSize / 2 + 14;
+      svg.setAttribute("viewBox", `0 0 ${orbitRect.width} ${orbitRect.height}`);
+
+      svg.querySelectorAll("line[data-target]").forEach(line => {
+        const target = document.querySelector(line.dataset.target);
+        if (!target) return;
+        const targetRect = target.getBoundingClientRect();
+        const targetX = targetRect.left + targetRect.width / 2 - orbitRect.left;
+        const targetY = targetRect.top + targetRect.height / 2 - orbitRect.top;
+        const dx = targetX - coreX;
+        const dy = targetY - coreY;
+        const distance = Math.hypot(dx, dy) || 1;
+        const ux = dx / distance;
+        const uy = dy / distance;
+        const targetRadius = Math.min(targetRect.width, targetRect.height) / 2 + 8;
+
+        line.setAttribute("x1", coreX + ux * ringRadius);
+        line.setAttribute("y1", coreY + uy * ringRadius);
+        line.setAttribute("x2", targetX - ux * targetRadius);
+        line.setAttribute("y2", targetY - uy * targetRadius);
+      });
+    }
+
+    function animateSurveyCounts() {
+      const counters = Array.from(document.querySelectorAll(".survey-count"));
+      if (!counters.length) return;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const reveal = counter => {
+        const target = Number(counter.dataset.count || counter.textContent || 0);
+        if (prefersReducedMotion) {
+          counter.textContent = target;
+          return;
+        }
+        const start = performance.now();
+        const duration = 900;
+        const tick = now => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          counter.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      counters.forEach(counter => { counter.textContent = "0"; });
+      if (!("IntersectionObserver" in window)) {
+        counters.forEach(reveal);
+        return;
+      }
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries.some(entry => entry.isIntersecting);
+        if (!visible) return;
+        counters.forEach(reveal);
+        observer.disconnect();
+      }, { threshold: 0.35 });
+      observer.observe(document.querySelector(".journalist-survey"));
+    }
+
+    document.addEventListener("keydown", event => { if (event.key === "Escape") { closeDetail(); closeLogicDetail(); closePlatformMap(); } });
     renderEconomyCases();
     renderCards();
+    animateSurveyCounts();
+    updateMonetizationConnectors();
+    window.addEventListener("load", updateMonetizationConnectors);
+    window.addEventListener("resize", updateMonetizationConnectors);
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(updateMonetizationConnectors).observe(document.querySelector(".monetization-orbit"));
+    }
     window.setEconomyCase = setEconomyCase;
     window.openDetail = openDetail;
     window.closeDetail = closeDetail;
     window.openLogicDetail = openLogicDetail;
     window.closeLogicDetail = closeLogicDetail;
+    window.openPlatformMap = openPlatformMap;
+    window.closePlatformMap = closePlatformMap;
   </script>
 </body>
 </html>

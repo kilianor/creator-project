@@ -94,7 +94,7 @@
     .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:var(--channel-card-height); align-items:stretch; gap:18px; }
     .grid > * { height:100%; min-height:0; }
     .card { min-height:var(--channel-card-height); height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border-radius:8px; overflow:hidden; background:rgba(10,10,12,.92); border:1px solid rgba(255,255,255,.10); cursor:pointer; transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease; padding:18px; text-align:center; }
-    .card:hover { transform:translateY(-4px); border-color:rgba(29,243,242,.48); background:rgba(18,18,22,.98); box-shadow:0 22px 55px rgba(0,0,0,.42); }
+    .card:hover { transform:translateY(-4px); border-color:rgba(24,143,216,.62); background:rgba(18,18,22,.98); box-shadow:0 22px 55px rgba(0,0,0,.42), 0 0 24px rgba(24,143,216,.10); }
     .lab-text-card {
       position: relative;
       grid-column: 2;
@@ -320,8 +320,9 @@
       isolation: isolate;
       overflow: hidden;
       margin-top: 44px;
-      padding-top: 26px;
+      padding: 26px 0 44px;
       border-top: 1px solid rgba(29,243,242,.46);
+      border-bottom: 1px solid rgba(29,243,242,.46);
     }
     .showcase-lab-word {
       position: absolute;
@@ -420,6 +421,390 @@
       line-height: 1;
       text-shadow: 0 0 14px rgba(255,45,69,.72), 0 0 28px rgba(255,45,69,.34);
     }
+    .brand-integration-section {
+      margin-top: 42px;
+      padding: 38px 0 8px;
+    }
+    .brand-integration-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+    .brand-integration-head h2 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: .98;
+      font-weight: 1000;
+      letter-spacing: 0;
+    }
+    .brand-integration-head p {
+      margin: 0;
+      max-width: 430px;
+      color: #b8b8b8;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    .brand-slider-shell {
+      --brand-line: rgba(255,255,255,.12);
+      --brand-cyan: #1df3f2;
+      --brand-muted: #b8b8b8;
+      --brand-red: #e30613;
+      --brand-yellow: #ffd400;
+      --brand-welt: #0070c9;
+      position: relative;
+      border: 1px solid var(--brand-line);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+        rgba(255,255,255,.03);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      overflow: hidden;
+    }
+    .brand-slider-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px;
+      border-bottom: 1px solid var(--brand-line);
+      background: rgba(0,0,0,.36);
+    }
+    .brand-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .brand-tab {
+      border: 1px solid var(--brand-line);
+      background: rgba(255,255,255,.04);
+      color: var(--brand-muted);
+      border-radius: 999px;
+      padding: 11px 15px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0;
+      transition: .2s ease;
+    }
+    .brand-tab:hover,
+    .brand-tab.active {
+      color: #000;
+      background: var(--brand-cyan);
+      border-color: var(--brand-cyan);
+    }
+    .brand-slider-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    .brand-arrow {
+      width: 43px;
+      height: 43px;
+      border-radius: 999px;
+      border: 1px solid var(--brand-line);
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      cursor: pointer;
+      font-size: 22px;
+      transition: .2s ease;
+    }
+    .brand-arrow:hover {
+      background: var(--brand-cyan);
+      color: #000;
+      border-color: var(--brand-cyan);
+    }
+    .brand-slider-viewport {
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+    .brand-slider-track {
+      display: flex;
+      transition: transform .48s cubic-bezier(.2,.8,.2,1);
+      will-change: transform;
+    }
+    .brand-slide {
+      min-width: 100%;
+      padding: clamp(22px,4vw,46px);
+      display: grid;
+      grid-template-columns: 1fr .92fr;
+      gap: clamp(24px,5vw,58px);
+      align-items: center;
+    }
+    .brand-slide[data-brand="bild"],
+    .brand-slide[data-brand="sportbild"] { --brand-accent: var(--brand-red); }
+    .brand-slide[data-brand="autobild"] { --brand-accent: var(--brand-yellow); }
+    .brand-slide[data-brand="welt"] { --brand-accent: var(--brand-welt); }
+    .brand-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+    .brand-kicker::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--brand-accent);
+      box-shadow: 0 0 30px var(--brand-accent);
+    }
+    .brand-slide h3 {
+      margin: 0 0 22px;
+      font-size: clamp(36px,5vw,68px);
+      line-height: .94;
+      letter-spacing: 0;
+    }
+    .brand-slide-intro {
+      margin: 0 0 28px;
+      color: var(--brand-muted);
+      font-size: 18px;
+      line-height: 1.55;
+      max-width: 650px;
+    }
+    .brand-idea-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .brand-idea {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+      border: 1px solid var(--brand-line);
+      background: rgba(0,0,0,.26);
+      border-radius: 14px;
+      padding: 15px;
+    }
+    .brand-idea-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #000;
+      background: var(--brand-accent);
+      font-weight: 1000;
+    }
+    .brand-idea strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+    .brand-idea span {
+      color: var(--brand-muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .brand-mockup-wrap {
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .brand-mockup-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 999px;
+      background: var(--brand-accent);
+      filter: blur(110px);
+      opacity: .18;
+    }
+    .brand-phone {
+      width: min(100%,350px);
+      min-height: 590px;
+      border-radius: 34px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: #080808;
+      box-shadow: 0 35px 80px rgba(0,0,0,.6);
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-phone::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 96px;
+      height: 23px;
+      background: #000;
+      border-radius: 999px;
+      z-index: 2;
+    }
+    .brand-phone-screen {
+      min-height: 562px;
+      border-radius: 26px;
+      background: linear-gradient(180deg,rgba(255,255,255,.08),transparent 35%), #101010;
+      padding: 32px 16px 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .brand-phone-status {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(255,255,255,.72);
+      font-size: 11px;
+      margin-bottom: 18px;
+    }
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      height: 40px;
+      padding: 0 10px;
+      color: #fff;
+      background: var(--brand-accent);
+      font-weight: 1000;
+      letter-spacing: 0;
+      margin-bottom: 14px;
+    }
+    .brand-slide[data-brand="autobild"] .brand-logo,
+    .brand-slide[data-brand="autobild"] .brand-idea-number { color: #000; }
+    .brand-phone-nav {
+      display: flex;
+      gap: 9px;
+      overflow: hidden;
+      margin-bottom: 17px;
+    }
+    .brand-phone-nav span {
+      white-space: nowrap;
+      font-size: 10px;
+      color: rgba(255,255,255,.66);
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+    .brand-phone-nav span.active { color: var(--brand-accent); }
+    .brand-phone-card {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.28);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .brand-phone-image {
+      height: 180px;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.02)), linear-gradient(135deg, var(--brand-accent), #111);
+      position: relative;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .brand-play {
+      width: 62px;
+      height: 62px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: #000;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    }
+    .brand-phone-image strong {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 14px;
+      font-size: 26px;
+      line-height: .98;
+      text-align: left;
+      text-shadow: 0 3px 12px rgba(0,0,0,.5);
+    }
+    .brand-phone-copy { padding: 15px; }
+    .brand-phone-copy small {
+      color: var(--brand-accent);
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      font-weight: 900;
+      font-size: 10px;
+    }
+    .brand-phone-copy p {
+      margin: 7px 0 0;
+      color: rgba(255,255,255,.84);
+      line-height: 1.35;
+      font-size: 14px;
+    }
+    .brand-mini-feed {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 10px;
+    }
+    .brand-mini-feed div {
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.04);
+      border-radius: 12px;
+      min-height: 74px;
+      padding: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.76);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .brand-mini-feed b {
+      color: #fff;
+      font-size: 13px;
+    }
+    .brand-flow {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 12px;
+      padding: 0 clamp(22px,4vw,46px) clamp(24px,4vw,42px);
+    }
+    .brand-flow-step {
+      border: 1px solid var(--brand-line);
+      background: rgba(0,0,0,.24);
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 116px;
+    }
+    .brand-flow-step small {
+      color: var(--brand-cyan);
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      font-weight: 900;
+      font-size: 10px;
+    }
+    .brand-flow-step strong {
+      display: block;
+      margin: 10px 0 6px;
+      font-size: 16px;
+    }
+    .brand-flow-step span {
+      color: var(--brand-muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .brand-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 0 28px;
+    }
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(255,255,255,.26);
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .brand-dot.active {
+      width: 34px;
+      background: var(--brand-cyan);
+    }
     @keyframes floatUpFade {
       0% {
         opacity: 0;
@@ -432,8 +817,8 @@
         transform: translateX(-50%) translate(var(--drift, 0px), -360px) scale(var(--end-scale, 1.12)) rotate(calc(var(--rotate, 0deg) + var(--spin, 8deg)));
       }
     }
-    @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .showcase-section .comment-background,.showcase-lab-word{display:none;} }
-    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} .rich-grid{grid-template-columns:1fr;} .rich-section.full{grid-column:auto;} }
+    @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .showcase-section .comment-background,.showcase-lab-word{display:none;} .brand-slide{grid-template-columns:1fr;} .brand-mockup-wrap{order:-1;} .brand-flow{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} .rich-grid{grid-template-columns:1fr;} .rich-section.full{grid-column:auto;} .brand-integration-head{align-items:start;flex-direction:column;} .brand-slider-top{align-items:start;flex-direction:column;} .brand-slider-buttons{align-self:flex-end;} .brand-slide{padding:22px;} .brand-phone{min-height:520px;} .brand-phone-screen{min-height:492px;} .brand-flow{grid-template-columns:1fr;padding-left:22px;padding-right:22px;} }
   </style>
 </head>
 <body>
@@ -457,6 +842,139 @@ A
 B</div>
       <div id="commentBackground" class="comment-background" aria-hidden="true"></div>
       <div id="showcaseFeed" class="showcase-feed"></div>
+    </section>
+
+    <section class="brand-integration-section" id="brandIntegration" aria-labelledby="brandIntegrationTitle">
+      <div class="brand-integration-head">
+        <h2 id="brandIntegrationTitle">Swipe durch die Markenintegration</h2>
+        <p>Creator-Formate können direkt in BILD, AUTO BILD, SPORT BILD und WELT angedockt werden. Nutze Tabs, Pfeile oder Swipe nach links und rechts.</p>
+      </div>
+
+      <div class="brand-slider-shell">
+        <div class="brand-slider-top">
+          <div class="brand-tabs" role="tablist" aria-label="Marken auswählen">
+            <button class="brand-tab active" type="button" data-brand-target="0">BILD</button>
+            <button class="brand-tab" type="button" data-brand-target="1">AUTO BILD</button>
+            <button class="brand-tab" type="button" data-brand-target="2">SPORT BILD</button>
+            <button class="brand-tab" type="button" data-brand-target="3">WELT</button>
+          </div>
+
+          <div class="brand-slider-buttons">
+            <button class="brand-arrow" type="button" id="brandPrev" aria-label="Vorherige Marke">‹</button>
+            <button class="brand-arrow" type="button" id="brandNext" aria-label="Nächste Marke">›</button>
+          </div>
+        </div>
+
+        <div class="brand-slider-viewport" id="brandSliderViewport">
+          <div class="brand-slider-track" id="brandSliderTrack">
+            <article class="brand-slide" data-brand="bild">
+              <div>
+                <div class="brand-kicker">BILD Integration</div>
+                <h3>Menschen sichtbar machen, ohne Artikel vorwegzunehmen.</h3>
+                <p class="brand-slide-intro">BILD nutzt Creator als sichtbare journalistische Köpfe: auf der Home, im Artikel und in eigenen Reporter-Hubs. Kurzvideos liefern Haltung, Einordnung und Nähe, aber nicht den kompletten Artikel.</p>
+                <div class="brand-idea-list">
+                  <div class="brand-idea"><div class="brand-idea-number">1</div><div><strong>Creator auf der Home</strong><span>Prominente Video-Kacheln zwischen Top-News, Bild+ und Aufmachern.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">2</div><div><strong>Creator im Artikel</strong><span>Persönliche Einschätzung, On-Presenting und Social-Profil-Verweis ergänzen den Text.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">3</div><div><strong>Reporter-Hubs</strong><span>Eigene Seiten bündeln Artikel, Videos und Profile relevanter Creator.</span></div></div>
+                </div>
+              </div>
+              <div class="brand-mockup-wrap">
+                <div class="brand-mockup-glow"></div>
+                <div class="brand-phone"><div class="brand-phone-screen">
+                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
+                  <div class="brand-logo">BILD</div>
+                  <div class="brand-phone-nav"><span>Start</span><span>News</span><span>Politik</span><span>Sport</span><span class="active">Creator</span></div>
+                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Redakteur erklärt die Lage</strong></div><div class="brand-phone-copy"><small>Creator-Video</small><p>Kurze Einordnung mit persönlicher Perspektive. Der Artikel bleibt der Deep Dive.</p></div></div>
+                  <div class="brand-mini-feed"><div><b>Artikel</b><span>Alle Fakten im Text</span></div><div><b>Profil</b><span>Folgen & mehr Videos</span></div></div>
+                </div></div>
+              </div>
+            </article>
+
+            <article class="brand-slide" data-brand="autobild">
+              <div>
+                <div class="brand-kicker">AUTO BILD Integration</div>
+                <h3>Das Home-Karussell wird zum Social-Schaufenster.</h3>
+                <p class="brand-slide-intro">AUTO BILD kann Social- und Videoformate dort integrieren, wo Nutzer bereits einsteigen: oben im Karussell, im AUTO BILD TV-Bereich und über sichtbarer platzierte Social-Kanäle.</p>
+                <div class="brand-idea-list">
+                  <div class="brand-idea"><div class="brand-idea-number">1</div><div><strong>Instagram & YouTube im Karussell</strong><span>Posts, Shorts oder Videos als klickbare Aufmacher mit Playbutton.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">2</div><div><strong>Social Links höher platzieren</strong><span>Kanäle nicht nur unten im Footer, sondern oberhalb der Suchreiter zeigen.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">3</div><div><strong>Format der Woche</strong><span>„Gebrauchtwagen der Woche“ oder „Neuheit des Monats“ als wiederkehrendes Creator-Video.</span></div></div>
+                </div>
+              </div>
+              <div class="brand-mockup-wrap">
+                <div class="brand-mockup-glow"></div>
+                <div class="brand-phone"><div class="brand-phone-screen">
+                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
+                  <div class="brand-logo">AUTO BILD</div>
+                  <div class="brand-phone-nav"><span>Tests</span><span>News</span><span class="active">Video</span><span>Gebrauchtwagen</span></div>
+                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Gebrauchtwagen der Woche</strong></div><div class="brand-phone-copy"><small>Karussell-Modul</small><p>Social-Video als Einstieg, darunter Testbericht, Checkliste und Kaufberatung.</p></div></div>
+                  <div class="brand-mini-feed"><div><b>YouTube</b><span>AUTO BILD TV</span></div><div><b>Instagram</b><span>Direkt folgen</span></div></div>
+                </div></div>
+              </div>
+            </article>
+
+            <article class="brand-slide" data-brand="sportbild">
+              <div>
+                <div class="brand-kicker">SPORT BILD Integration</div>
+                <h3>Creator werden Teil des Spieltags.</h3>
+                <p class="brand-slide-intro">SPORT BILD kann Creator-Formate eng an laufende Sportberichterstattung andocken: als eigener Player, als Clip zwischen Bundesliga-Videos oder als eingebettete Analyse im Vorberichts-Artikel.</p>
+                <div class="brand-idea-list">
+                  <div class="brand-idea"><div class="brand-idea-number">1</div><div><strong>Creator-Play</strong><span>Eigener Player neben Bundesliga-Play oder Creator-Clips zwischen bestehenden Videos.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">2</div><div><strong>Torhüter-Check im Artikel</strong><span>Videoanalyse zwischen zwei Absätzen im Vorbericht zu großen Spielen.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">3</div><div><strong>Social-Verweis mit neuer Tab-Logik</strong><span>Instagram-Kanal am Ende des Videos verlinken, ohne Nutzerfluss im Artikel zu verlieren.</span></div></div>
+                </div>
+              </div>
+              <div class="brand-mockup-wrap">
+                <div class="brand-mockup-glow"></div>
+                <div class="brand-phone"><div class="brand-phone-screen">
+                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
+                  <div class="brand-logo">SPORT BILD</div>
+                  <div class="brand-phone-nav"><span>Start</span><span>Fußball</span><span class="active">Creator-Play</span><span>Mehr Sport</span></div>
+                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Torwart-Check zum Spiel</strong></div><div class="brand-phone-copy"><small>Vorbericht</small><p>Clip wird im Artikel eingebettet und führt danach zurück in den Spieltagskontext.</p></div></div>
+                  <div class="brand-mini-feed"><div><b>Watchtime</b><span>im Artikel erhöhen</span></div><div><b>Instagram</b><span>am Ende verlinken</span></div></div>
+                </div></div>
+              </div>
+            </article>
+
+            <article class="brand-slide" data-brand="welt">
+              <div>
+                <div class="brand-kicker">WELT Integration</div>
+                <h3>Vom Reel direkt in den vertiefenden Artikel.</h3>
+                <p class="brand-slide-intro">WELT integriert Creator über eigene Profilseiten, eine neue Reels-Rubrik in der Navigation und einen Swipe-Flow, der vom kurzen Social-Video zum passenden Artikel führt.</p>
+                <div class="brand-idea-list">
+                  <div class="brand-idea"><div class="brand-idea-number">1</div><div><strong>Creator- und Autorenseiten</strong><span>Videos, Artikel und weitere Inhalte werden pro Person gebündelt.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">2</div><div><strong>Reels in der Navigation</strong><span>Neue Rubrik neben bestehenden Ressorts für Social-Video-Formate.</span></div></div>
+                  <div class="brand-idea"><div class="brand-idea-number">3</div><div><strong>Video-zu-Artikel-Swipe</strong><span>Nach dem Reel erscheint der passende Artikel als vertiefender nächster Schritt.</span></div></div>
+                </div>
+              </div>
+              <div class="brand-mockup-wrap">
+                <div class="brand-mockup-glow"></div>
+                <div class="brand-phone"><div class="brand-phone-screen">
+                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
+                  <div class="brand-logo">WELT</div>
+                  <div class="brand-phone-nav"><span>Meinung</span><span>Wirtschaft</span><span>Sport</span><span class="active">Reels</span></div>
+                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Reel: Was steckt dahinter?</strong></div><div class="brand-phone-copy"><small>Swipe danach</small><p>Passender Artikel erscheint direkt im Anschluss an das Video.</p></div></div>
+                  <div class="brand-mini-feed"><div><b>Creator</b><span>Profilseite</span></div><div><b>Artikel</b><span>Deep Dive</span></div></div>
+                </div></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="brand-dots" aria-label="Slider-Punkte">
+          <button class="brand-dot active" type="button" data-brand-target="0" aria-label="BILD anzeigen"></button>
+          <button class="brand-dot" type="button" data-brand-target="1" aria-label="AUTO BILD anzeigen"></button>
+          <button class="brand-dot" type="button" data-brand-target="2" aria-label="SPORT BILD anzeigen"></button>
+          <button class="brand-dot" type="button" data-brand-target="3" aria-label="WELT anzeigen"></button>
+        </div>
+
+        <div class="brand-flow">
+          <div class="brand-flow-step"><small>Step 01</small><strong>Social Hook</strong><span>Creator-Video als schneller Einstieg in Thema, Person oder Moment.</span></div>
+          <div class="brand-flow-step"><small>Step 02</small><strong>Marken-Modul</strong><span>Einbindung auf Home, im Player, in Reels oder im Artikel.</span></div>
+          <div class="brand-flow-step"><small>Step 03</small><strong>Deep Dive</strong><span>Artikel, Analyse, Testbericht oder Bild+ bleibt der vertiefende Kern.</span></div>
+          <div class="brand-flow-step"><small>Step 04</small><strong>Creator Bindung</strong><span>Profilseite, Hub oder Social-Verweis macht die Person wiedererkennbar.</span></div>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -493,7 +1011,7 @@ B</div>
       {title:"apropos_news",meta:"Kilian Hocke: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",preview:"apropos_news - starterpack.png",cardPreview:"apropos-news-tile.png",previewAlt:"apropos_news Starterpack",showStarterFirst:true,text:"Kilian Hocke: Live-Journalismus im Austausch mit Zuschauern über Politik, Gesellschaft und die Themen, die jetzt zählen.",links:[{label:"Twitch öffnen",url:"https://www.twitch.tv/apropos_news"}]},
       {title:"zwischendenpfosten",meta:"Elinor Hessenberger, Maurus Elias Moritz & Simon Fortmann: Alles rund um Fußballtorhüter, von Nachrichten bis kurioses Wissen.",preview:"zwischendenpfosten_starterpack.jpeg",cardPreview:"lab-zdp-card.jpeg",previewAlt:"Zwischen den Pfosten Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Elinor Hessenberger, Maurus Elias Moritz & Simon Fortmann: Alles rund um Fußballtorhüter, von Nachrichten bis kurioses Wissen.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@zwischendenpfosten?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/zwischendenpfosten?igsh=eXpxM3FqazBiNDl3&utm_source=qr"},{label:"YouTube öffnen",url:"https://youtube.com/@zwischendenpfosten1?si=TdkI3TQHL6afBhhZ"}]},
       {title:"alinasophiekatzele",meta:"Alina-Sophie Katzele: I am A.S.K.ing: „Warum Sind Wir So?“ Es geht um DIE großen gesellschaftlichen Trends, die wir im Alltag spüren. Woher sie kommen, was sie über uns aussagen, wie sie uns verändern- und wie wir damit umgehen (könnten). Feeling - Dealing - Healing!",preview:"alinasophiekatzele - starterpack.png",cardPreview:"alinasophiekatzele-logo.jpeg",previewAlt:"alinasophiekatzele Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Alina-Sophie Katzele: I am A.S.K.ing: „Warum Sind Wir So?“ Es geht um DIE großen gesellschaftlichen Trends, die wir im Alltag spüren. Woher sie kommen, was sie über uns aussagen, wie sie uns verändern- und wie wir damit umgehen (könnten). Feeling - Dealing - Healing!",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@alinasophiekatzele?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/alinasophiekatzele?igsh=MWVkcjhxcGdma3EybA=="},{label:"YouTube öffnen",url:"https://www.youtube.com/@AlinaSophieKatzele"}]},
-      {title:"moscowplaybook",meta:"Daria Zakharova: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"moscowplaybook - starterpack.png",cardPreview:"moscowplaybook-tile.png",previewAlt:"moscowplaybook Starterpack",showStarterFirst:true,text:"Daria Zakharova: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"}]}
+      {title:"Propaganda Playbook",meta:"Daria Zakharova: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",preview:"moscowplaybook - starterpack.png",cardPreview:"moscowplaybook-tile.png",previewAlt:"Propaganda Playbook Starterpack",showStarterFirst:true,text:"Daria Zakharova: Russische Narrative verständlich erklärt. Orientierung für eine junge Zielgruppe in einer komplexen Welt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moscowplaybook?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/propagandaplaybook"},{label:"YouTube öffnen",url:"https://www.youtube.com/@Propagandaplaybook"}]}
     ];
 
     const richDescriptions = {
@@ -501,35 +1019,49 @@ B</div>
         <div class="modal-rich">
           <section class="rich-hero">
             <div class="rich-kicker">Boulevardjournalismus in Kurzvideoform</div>
-            <h3>Prominente, bürokratische Absurditäten und gesellschaftliche Aufreger.</h3>
-            <p>MarkusundVinz ist Boulevardjournalismus in Kurzvideoform. Im Mittelpunkt stehen Prominente, bürokratische Absurditäten und gesellschaftliche Aufreger.</p>
-            <p>Das Format erklärt, warum diese Themen relevant sind - ein Boulevardjournalismus, wie es ihn so auf Social Media bisher nicht gibt.</p>
-            <p class="rich-core">Boulevard mit journalistischem Anspruch: schnell, pointiert und eingeordnet.</p>
+            <h3>Schnell, verständlich, pointiert und journalistisch eingeordnet.</h3>
+            <p>MarkusundVinz ist Boulevardjournalismus in Kurzvideoform. Im Mittelpunkt stehen Prominente, bürokratische Absurditäten und gesellschaftliche Aufreger. Das Format erklärt, warum diese Themen relevant sind - schnell, pointiert und verständlich.</p>
+            <p>MarkusundVinz greift Themen auf, die Menschen bewegen, aufregen oder unterhalten, und ordnet sie journalistisch ein. Dadurch entsteht ein Boulevardjournalismus, wie es ihn in dieser Form auf Social Media bislang kaum gibt.</p>
+            <p class="rich-core">Wer wissen will, was gerade diskutiert wird und warum es wichtig ist, bekommt bei MarkusundVinz die passende Einordnung in unter 60 Sekunden.</p>
           </section>
           <div class="rich-grid">
             <section class="rich-section">
               <h3>Positionierung</h3>
-              <p>MarkusundVinz verbindet schnelle, pointierte Boulevardinhalte mit journalistischem Einordnen. Die Themen reichen von Promis über Behördenchaos bis zu Trends, immer mit journalistischer Substanz.</p>
+              <p>MarkusundVinz verbindet schnelle, aufmerksamkeitsstarke Boulevardinhalte mit journalistischer Einordnung. Die Themen reichen von Promis über Behördenchaos und bürokratische Absurditäten bis hin zu gesellschaftlichen Trends und lokalen Aufregern.</p>
+              <p>Dabei geht es nicht nur darum, was passiert ist, sondern vor allem darum, warum es relevant ist. Das Format macht Boulevardthemen social-media-gerecht, ohne dabei auf journalistische Substanz zu verzichten.</p>
             </section>
             <section class="rich-section">
-              <h3>Host-Ansatz</h3>
-              <p>Die Hosts - Markus und Vinz - wechseln sich ab. Sie sind seriös, aber nicht trocken, und liefern klare Einordnungen. Boulevard mit journalistischem Anspruch.</p>
+              <h3>Hostrolle</h3>
+              <p>Die Hosts Markus und Vinz wechseln sich in den Videos ab. Sie treten seriös, direkt und klar auf, ohne trocken zu wirken. Ihr Ton ist pointiert, verständlich und nahbar.</p>
+              <p>MarkusundVinz präsentiert Boulevard nicht als reinen Klatsch oder Aufreger, sondern mit Haltung, Einordnung und journalistischem Anspruch. Die Hosts erklären Themen so, dass sie schnell verständlich sind und gleichzeitig unterhalten.</p>
             </section>
             <section class="rich-section full">
               <h3>Content-Strategie</h3>
-              <p>Zwei Videos täglich, jeweils maximal 60 Sekunden, auf TikTok, YouTube und Facebook. Kontinuierlicher Boulevardjournalismus, der einordnet, statt nur zu berichten.</p>
+              <p>Das Kernprodukt sind vertikale Kurzvideos für TikTok, YouTube Shorts und Facebook. Geplant sind zwei Videos täglich mit einer Länge von maximal 60 Sekunden.</p>
+              <p>Die Inhalte setzen auf aktuelle Themen, klare Thesen und schnelle Einstiege. Ziel ist ein kontinuierlicher Boulevardjournalismus, der nicht nur berichtet, sondern einordnet. Besonders geeignet sind Themen mit hohem Gesprächswert, emotionalem Aufregerpotenzial oder lokalem Bezug.</p>
             </section>
             <section class="rich-section">
               <h3>Zielgruppe</h3>
-              <p>Menschen zwischen 15 und 35, die auf Social Media nicht nur Boulevard, sondern auch journalistische Tiefe suchen.</p>
+              <p>Die Kernzielgruppe liegt zwischen 15 und 35 Jahren.</p>
+              <p>Angesprochen werden Menschen mit Interesse an Boulevard, Prominenten, gesellschaftlichen Aufregern, Social-Media-Trends, bürokratischen Absurditäten und lokalen Geschichten.</p>
+              <p>Das Format richtet sich an Menschen, die schnelle Inhalte konsumieren, aber trotzdem journalistische Tiefe und Einordnung suchen.</p>
             </section>
             <section class="rich-section">
               <h3>Mehrwert für Axel Springer</h3>
-              <p>MarkusundVinz schafft eine neue Art von Boulevardjournalismus, bindet junge Zielgruppen und bietet Verwertbarkeit für Social Media und redaktionelle Plattformen.</p>
+              <p>MarkusundVinz bietet die Möglichkeit, Boulevardjournalismus auf eine neue, junge und plattformgerechte Art zu erzählen. Das Format spricht Zielgruppen an, die klassische Boulevardangebote seltener direkt konsumieren, aber auf Social Media offen für schnelle, gut erzählte und eingeordnete Inhalte sind.</p>
+              <p>Der Mehrwert liegt in hoher Plattformkompatibilität, einer jungen und schwer erreichbaren Zielgruppe, kontinuierlicher Bespielung von Social-Media-Kanälen, hohem Reichweitenpotenzial und möglicher redaktioneller Weiterverwertung auf Social Media und Plattformen von Axel Springer.</p>
             </section>
             <section class="rich-section">
               <h3>Monetarisierung</h3>
-              <p>Einnahmen durch Ad-Formate auf TikTok, YouTube und Facebook sowie durch Native Ads.</p>
+              <p>Potenzielle Monetarisierung monatlich: Investition ca. 260-520 Euro, davon ca. 210-420 Euro Personalaufwand bei ca. 8 Stunden pro Woche und ca. 2,5 Mio. Views sowie ca. 50-100 Euro Equipment und Tools.</p>
+              <p>Erlöse ca. 900-2.300 Dollar durch Zielgruppen-Monetarisierung, Werbung ab ca. 10.000 Abos zusätzlich möglich. Überschuss ca. 640-1.780 Dollar oder Euro, je nach tatsächlichem Personalaufwand, CPM und Werbepartnern.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Unsere wichtigsten Learnings</h3>
+              <p>Kontinuität ist der wichtigste Hebel. Auch wenn einzelne Videos kaum Traffic erzeugen, kann aus dem Nichts wieder ein Video viele Impressionen generieren. Deshalb gilt: posten, posten, posten.</p>
+              <p>Auf den Algorithmus hat man nur begrenzt Einfluss. Der einzige Hebel, den man wirklich zu 100 Prozent selbst steuern kann, ist die Regelmäßigkeit der Veröffentlichungen.</p>
+              <p>Themen mit lokalem Bezug funktionieren besonders gut, weil Menschen sich dafür interessieren, was in ihrer Nachbarschaft passiert. Boulevardthemen brauchen außerdem eine klare Einordnung: Es reicht nicht, nur den Aufreger zu erzählen. Entscheidend ist, schnell zu erklären, warum das Thema relevant ist und warum es die Menschen betrifft.</p>
+              <p>Kurze, pointierte Videos mit klarer Haltung eignen sich besonders gut für Social Media. Die Kombination aus schneller Erzählweise, journalistischer Substanz und persönlichem Host-Auftritt macht das Format wiedererkennbar.</p>
             </section>
           </div>
         </div>
@@ -583,6 +1115,14 @@ B</div>
                 <li>macht Sport über Persönlichkeiten zugänglich</li>
                 <li>kann als Einstiegspunkt in tiefergehende Sport-Berichterstattung dienen</li>
                 <li>öffnet neues Werbekundenpotenzial</li>
+              </ul>
+            </section>
+            <section class="rich-section full">
+              <h3>Wichtigste Learnings</h3>
+              <ul>
+                <li>Am besten performen Einordnungen, Hintergründe und kontroverse Sportthemen - nicht reine Spielberichte.</li>
+                <li>Eine statische, moderiert präsentierte Umsetzung funktioniert besonders gut.</li>
+                <li>Obwohl der Fokus auf Frauenfußball und Frauensport liegt, sind 52 % der Zuschauer männlich. Gleichzeitig sind 63 % der Follower weiblich - der Content erreicht also ein breites Sportpublikum, baut die Community aber besonders bei Frauen auf.</li>
               </ul>
             </section>
             <section class="rich-section">
@@ -806,6 +1346,16 @@ B</div>
                 <li>mögliche Artikel und redaktionelle Verlängerungen auf Basis der Interviews</li>
               </ul>
             </section>
+            <section class="rich-section full">
+              <h3>Wichtigste Learnings</h3>
+              <ul>
+                <li>Kommentare bringen Traffic und Reichweite.</li>
+                <li>Der Gast bestimmt die Zielgruppe mit.</li>
+                <li>Collab-Posts erreichen mehr Menschen.</li>
+                <li>Kurzvideos helfen, um Traffic zu generieren.</li>
+                <li>183 Follower und 224.500 Aufrufe insgesamt innerhalb von drei Wochen.</li>
+              </ul>
+            </section>
             <section class="rich-section">
               <h3>Monetarisierung</h3>
               <ul>
@@ -814,6 +1364,231 @@ B</div>
                 <li>Co-Produktionen und Verlagspartner</li>
                 <li>Zweitverwertung in Artikeln, Paid Content und Podcasts</li>
                 <li>langfristig Live-Events wie Story of your life Live</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      `,
+      apropos_news: `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Live-Journalismus auf Twitch</div>
+            <h3>Nachrichten live. Journalismus transparent. Politik im Dialog.</h3>
+            <p>apropos_news war ein journalistisches Live-Format auf Twitch, das aktuelle Nachrichten, politische Ereignisse und gesellschaftliche Debatten in Echtzeit begleitet, eingeordnet und mit der Community diskutiert hat.</p>
+            <p>Im Mittelpunkt stand nicht die klassische Nachrichtensendung, sondern ein offener, dialogischer Livestream: aktuelle Clips, Pressekonferenzen, TV-Livebilder, politische Entwicklungen und Breaking-News-Momente wurden gemeinsam mit dem Publikum verfolgt, kommentiert und journalistisch eingeordnet.</p>
+            <p class="rich-core">apropos_news zeigte, wie professionelle Nachrichteneinordnung auf Twitch funktionieren kann: live, direkt, interaktiv und verständlich für eine junge Zielgruppe, die Journalismus nicht nur konsumieren, sondern mitdiskutieren will.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>apropos_news positionierte sich an der Schnittstelle von Journalismus, Live-Reaktion und Community-Dialog. Während auf Twitch viele politische und gesellschaftliche Debatten von nicht-journalistischen Creatorn geprägt werden, setzte das Format bewusst auf eine professionelle redaktionelle Perspektive.</p>
+              <p>Die Grundidee: Journalismus darf auf jungen Plattformen nicht nur stattfinden, wenn ein fertiger Artikel, ein geschnittener Beitrag oder ein fertiges Video veröffentlicht wird. Er muss auch dort präsent sein, wo junge Zielgruppen Nachrichten live erleben, diskutieren und einordnen wollen.</p>
+              <p>Twitch bot dafür eine besondere Chance: Nachrichten wurden nicht als Einbahnstraße vermittelt, sondern gemeinsam mit dem Publikum verhandelt. Themenauswahl, Arbeitsweise, Einschätzungen und journalistische Abwägungen wurden sichtbar.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Format-Ansatz</h3>
+              <p>apropos_news funktionierte als Live-News-Companion. Der Stream begleitete aktuelle politische und gesellschaftliche Ereignisse, reagierte auf laufende Entwicklungen und ordnete sie für die Community ein.</p>
+              <ul>
+                <li>Live-Reaktionen auf Pressekonferenzen</li>
+                <li>politische Reden und Interviews</li>
+                <li>aktuelle TV-Livebilder</li>
+                <li>Breaking-News-Situationen</li>
+                <li>Wahlkampfereignisse</li>
+                <li>internationale Politik</li>
+                <li>gesellschaftliche Debatten</li>
+                <li>Medienkritik und Einordnung journalistischer Berichterstattung</li>
+              </ul>
+            </section>
+            <section class="rich-section full">
+              <h3>Teststreams</h3>
+              <p>In den Teststreams wurden unter anderem politische Live-Ereignisse und Nachrichtenthemen begleitet, darunter Beiträge zu SPD-Wahlkampf und Lars Klingbeil, die Wahl von Cem Özdemir zum Ministerpräsidenten von Baden-Württemberg, Trumps China-Besuch bei Xi Jinping sowie eine Pressekonferenz von Markus Söder zum Wirtschaftsstandort Bayern.</p>
+              <p>Das Format lebte von Aktualität, Spontaneität und Interaktion. Gleichzeitig brauchte es eine klare journalistische Haltung: faktenbasiert, einordnend, transparent und verantwortungsbewusst.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Host-Ansatz</h3>
+              <p>Die Host-Rolle war zentral. Der Host war nicht nur Moderator, sondern gleichzeitig Beobachter, Einordner, Gesprächspartner und Community-Manager.</p>
+              <p>Der Ton war direkt, zugänglich und dialogorientiert. Ziel war es, politische und gesellschaftliche Themen verständlich zu machen, ohne sie zu vereinfachen oder zu trivialisieren. Der Host reagierte auf Fragen aus dem Chat, erklärte Hintergründe, ordnete Aussagen ein und machte journalistische Denkprozesse nachvollziehbar.</p>
+              <p>Ein wichtiges Learning war: Live-Formate sind gnadenlos. Sie erfordern sprachliche Präzision, Haltung, Souveränität und ein Bewusstsein dafür, dass spontane Aussagen dauerhaft kontextlos zirkulieren können.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Technischer Stand</h3>
+              <p>Im Rahmen der Teststreams wurde die technische Grundlage aufgebaut und erprobt. Der erste Teststream startete am 12.05. und diente vor allem der technischen Orientierung. Zunächst wurde mit StreamLabs gearbeitet, anschließend erfolgte der Wechsel zu OBS.</p>
+              <p>Im zweiten Stream am 13.05. wurde das Overlay über StreamElements eingebunden. Bis zum dritten Stream am 15.05. funktionierte die Technik stabil und zuverlässig.</p>
+              <p>Die technische Einrichtung erwies sich als komplex, insbesondere beim Zusammenspiel von Streaming-Software, Overlay, Szenen, Quellen, Audio, Chat-Integration und Plattformlogik. Sobald das Setup jedoch einmal verstanden und eingerichtet war, ließ es sich zuverlässig bedienen.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Das Kernprodukt war ein regelmäßiger Twitch-Livestream, der aktuelle Nachrichtenereignisse begleitete und journalistisch einordnete. Aus jedem Stream hätten zusätzliche Inhalte entstehen können.</p>
+              <ul>
+                <li>kurze Highlight-Clips für TikTok, Instagram Reels und YouTube Shorts</li>
+                <li>längere Ausschnitte für YouTube</li>
+                <li>thematische Recaps</li>
+                <li>journalistische Erklärstücke</li>
+                <li>Social-Media-Debattenbeiträge</li>
+                <li>Artikel oder redaktionelle Verlängerungen zu besonders relevanten Themen</li>
+                <li>Community-Fragen als Ausgangspunkt für neue Inhalte</li>
+              </ul>
+              <p>Langfristig hätte apropos_news damit sowohl als Livestream-Format als auch als Clip-Quelle funktionieren können: live relevant, nachträglich verwertbar.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Die Kernzielgruppe waren junge nachrichteninteressierte Nutzerinnen und Nutzer zwischen 16 und 35 Jahren, die politische und gesellschaftliche Themen nicht primär über klassische Nachrichtensendungen verfolgen.</p>
+              <ul>
+                <li>Menschen, die Nachrichten live erleben wollen</li>
+                <li>Menschen, die politische Ereignisse erklärt bekommen möchten</li>
+                <li>Menschen mit Interesse an Medien, Politik und Gesellschaft</li>
+                <li>Menschen, die journalistische Einordnung suchen</li>
+                <li>Menschen, die Twitch, TikTok, YouTube oder Instagram als zentrale Informationsräume nutzen</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für Axel Springer</h3>
+              <p>Für Axel Springer bot apropos_news die Möglichkeit, journalistische Kompetenz auf einer Plattform sichtbar zu machen, die bislang stark von Creatorn, Streamern und nicht-redaktionellen Stimmen geprägt ist.</p>
+              <p>Der Mehrwert lag nicht in einer einzelnen Marke, sondern in der gruppenweiten Erprobung eines Live-News-Formats für junge Zielgruppen. Das Format hätte für verschiedene Redaktionen im Haus adaptierbar sein können - je nach thematischem Schwerpunkt, Host-Personality und Zielgruppe.</p>
+              <ul>
+                <li>Präsenz auf einer jungen, meinungsstarken Plattform</li>
+                <li>direkter Community-Kontakt</li>
+                <li>Aufbau von Vertrauen durch Transparenz</li>
+                <li>journalistische Einordnung in Echtzeit</li>
+                <li>hohe Clip- und Social-Media-Verwertbarkeit</li>
+                <li>Tests neuer Live-Mechaniken für Nachrichtenformate</li>
+                <li>Plattformwissen zu Twitch, OBS, StreamElements und Community-Moderation</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung</h3>
+              <p>Die Monetarisierung hätte perspektivisch über mehrere Säulen erfolgen können.</p>
+              <ul>
+                <li>Twitch-Abos</li>
+                <li>Twitch-Werbung</li>
+                <li>Sponsoring einzelner Streams oder Themenwochen</li>
+                <li>Brand Partnerships</li>
+                <li>YouTube-Zweitverwertung</li>
+                <li>Social-Media-Clips</li>
+                <li>redaktionelle Anschlussverwertung</li>
+                <li>Paid-Community-Elemente</li>
+                <li>Live-Events</li>
+                <li>Sonderformate zu Wahlen, Krisen oder politischen Großereignissen</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Learnings aus dem Test</h3>
+              <ul>
+                <li>Die Technik ist anfangs komplex, aber nach der Einrichtung gut beherrschbar.</li>
+                <li>OBS bietet mehr Kontrolle und Professionalität als StreamLabs.</li>
+                <li>Overlays über StreamElements funktionieren stabil.</li>
+                <li>Live-Hosting erfordert hohe Konzentration und sprachliche Präzision.</li>
+                <li>Schwierige Chat-Fragen müssen souverän moderiert werden.</li>
+                <li>Ohne Zuschauer ist es herausfordernd, allein einen Stream zu tragen.</li>
+                <li>Mit aktiver Community entsteht sofort mehr Energie.</li>
+                <li>Politische Live-Ereignisse eignen sich grundsätzlich gut für journalistische Begleitung.</li>
+                <li>Twitch verlangt eine andere Ansprache als klassische redaktionelle Plattformen.</li>
+                <li>Jeder Satz kann geclippt werden - das muss im Hosting immer mitgedacht werden.</li>
+              </ul>
+            </section>
+            <section class="rich-section full">
+              <h3>Status</h3>
+              <p>apropos_news wurde nach einer zweiwöchigen Testphase eingestellt. Das Experiment lieferte dennoch wertvolle Erkenntnisse zu Technik, Hosting, Community-Verhalten, Twitch-Mechaniken und den Anforderungen journalistischer Live-Formate.</p>
+              <p><strong>Kernversprechen:</strong> Nachrichten live. Journalismus transparent. Politik im Dialog.</p>
+            </section>
+          </div>
+        </div>
+      `,
+      "Propaganda Playbook": `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Propaganda Playbook</div>
+            <h3>Russische Narrative verständlich erklärt.</h3>
+            <p>Propaganda Playbook ist ein journalistisches Social-Video-Format, das russische Propaganda, Desinformation und Informationskrieg für junge Europäer verständlich macht.</p>
+            <p>Das Format erklärt, wie russische Narrative über TikTok, Instagram Reels, YouTube Shorts, Telegram, Influencer, Memes, alternative Medien und politische Akteure verbreitet werden.</p>
+            <p class="rich-core">Im Zentrum steht eine russische Journalistin im Exil, die russische Propaganda von innen versteht und für ein europäisches Publikum dekodiert.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <ul>
+                <li>Verbindet Außenpolitik, Desinformationsanalyse und Social-Media-Kultur</li>
+                <li>Setzt dort an, wo junge Menschen russischen Narrativen begegnen: in Kurzvideos, Memes, Kommentaren, Telegram-Posts und Influencer-Talking-Points</li>
+                <li>Erklärt Muster, Emotionen und politische Ziele hinter diesen Narrativen</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Host-Ansatz</h3>
+              <ul>
+                <li>Russische Journalistin im Exil</li>
+                <li>Nahbar, direkt, scharf beobachtend, leicht ironisch und journalistisch klar</li>
+                <li>Kennt russische Medienlogik, politische Sprache und Propaganda-Codes von innen</li>
+                <li>Ordnet russische, ukrainische und europapolitische Themen für ein europäisches Publikum verständlich ein</li>
+                <li>Brücke zwischen russischem Kontext, europäischer Öffentlichkeit, journalistischer Analyse und Social-Media-Erklärung</li>
+              </ul>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <ul>
+                <li>Kernprodukt: vertikale Kurzvideos für TikTok, Instagram Reels und YouTube Shorts</li>
+                <li>Geplant: 3-5 Shortform-Videos pro Woche</li>
+                <li>Länge: 45 bis 90 Sekunden</li>
+                <li>Schnelle Reaktion auf aktuelle Narrative, virale Themen und wiederkehrende Propaganda-Muster</li>
+                <li>Fokus auf Russland, Ukraine, EU, NATO, Desinformation und Sicherheitspolitik</li>
+                <li>Themen mit hoher Social-Media-Relevanz stehen im Mittelpunkt</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Perspektivische Erweiterung</h3>
+              <ul>
+                <li>Kurzfristig steht Shortform im Mittelpunkt</li>
+                <li>Newsletter als „Propaganda Brief“</li>
+                <li>längere YouTube-Explainer</li>
+                <li>Podcast-Segmente</li>
+                <li>POLITICO-Brussels-Explainer</li>
+                <li>Live-Formate bei Panels, Universitäten und Brussels Briefings</li>
+                <li>Kooperationen mit Think Tanks, NGOs, Civic-Tech-Organisationen und Media-Literacy-Projekten</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <ul>
+                <li>Kernzielgruppe: 18 bis 40 Jahre</li>
+                <li>Junge Europäerinnen und Europäer, die politische Themen über Social Media konsumieren</li>
+                <li>Menschen, die mit Debatten über Russland, Ukraine, NATO und EU konfrontiert sind</li>
+                <li>Nutzerinnen und Nutzer, die Orientierung in einer komplexen Informationsumgebung suchen</li>
+                <li>Menschen, die keine klassischen Policy-Leser sind, aber politische Themen über kurze, verständliche Videos erschließen wollen</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für POLITICO Brussels</h3>
+              <ul>
+                <li>Strategisch wichtiges Thema social-media-gerecht erzählen</li>
+                <li>Jüngere Zielgruppen außerhalb klassischer Policy-Leser erreichen</li>
+                <li>Stärkung der Marke POLITICO bei Russland, Ukraine und Informationskrieg</li>
+                <li>Aufbau einer wiedererkennbaren journalistischen Host-Persona</li>
+                <li>Einstiegspunkt in tiefere POLITICO-Analysen, Newsletter und Artikel</li>
+                <li>Anschlussfähigkeit an Debatten in Brüssel, EU-Institutionen, Think Tanks und NGOs</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung und Partnerschaften</h3>
+              <ul>
+                <li>Direkte Plattform-Monetarisierung ist nicht das Hauptargument</li>
+                <li>YouTube-, TikTok- und Shorts-Monetarisierung als mögliche Ergänzung</li>
+                <li>Newsletter-Funnel</li>
+                <li>Sponsoring</li>
+                <li>Kooperationen mit Civic-Tech-, Cybersecurity-, Bildungs- und Media-Literacy-Partnern</li>
+                <li>Event-Erweiterungen wie Panels, Uni-Talks, Brussels Briefings und Live-Explainer</li>
+              </ul>
+            </section>
+            <section class="rich-section full">
+              <h3>Wichtige Learnings für die Plattformstrategie</h3>
+              <ul>
+                <li>Russische Inhalte liefern attraktives, eingängiges Bildmaterial für vertikale Kurzvideoformate</li>
+                <li>Beispiele: Soldaten in Uniform, Drohnen über Städten, lange Schlangen an Tankstellen oder patriotischer Unterricht an russischen Schulen</li>
+                <li>Drastische und stark politisierte Inhalte sind auf TikTok und Instagram schwer zu bewerben</li>
+                <li>Der beste Reichweiten-Kompromiss sind aufmerksamkeitsstarke, aber neutraler gehaltene Themen</li>
+                <li>Zu Beginn wurden vor allem russischsprachige Personen in der EU erreicht</li>
+                <li>Für englischsprachige Europäer eignen sich Themen an der Schnittstelle zwischen Russland und Europa</li>
+                <li>Beispiele: Energiekrise, Gasversorgung der EU und russische Sabotageakte in der EU</li>
+                <li>Die „Heilige Dreifaltigkeit“ der TikTok-Promotion: Hook, hohe Abschlussrate und Verhältnis von Aufrufen zu Likes</li>
+                <li>Entscheidend ist nicht die absolute Anzahl der Likes</li>
               </ul>
             </section>
           </div>
@@ -835,7 +1610,7 @@ B</div>
       {creator:"zwischendenpfosten",src:"showcase-zdp.mp4"},
       {creator:"moin.lisa",src:"showcase-moin-lisa.mp4"},
       {creator:"lauraemelytalks",src:"showcase-lauraemilytalks.mp4"},
-      {creator:"moscowplaybook",src:"showcase-moscowplaybook.mp4"},
+      {creator:"Propaganda Playbook",src:"showcase-moscowplaybook.mp4"},
       {creator:"alinasophiekatzele",src:"showcase-alinasophiekatzele.mp4"}
     ];
 
@@ -959,7 +1734,7 @@ B</div>
         "lauraemelytalks",
         "zwischendenpfosten",
         "alinasophiekatzele",
-        "moscowplaybook",
+        "Propaganda Playbook",
         "apropos_news"
       ];
 
@@ -1120,7 +1895,60 @@ B</div>
       applyMutedState();
       playActiveVideo();
     }
+    const brandSliderTrack = document.getElementById("brandSliderTrack");
+    const brandSliderViewport = document.getElementById("brandSliderViewport");
+    const brandTabs = Array.from(document.querySelectorAll(".brand-tab"));
+    const brandDots = Array.from(document.querySelectorAll(".brand-dot"));
+    const brandPrev = document.getElementById("brandPrev");
+    const brandNext = document.getElementById("brandNext");
+    const brandTotalSlides = 4;
+    let activeBrandSlide = 0;
+    let brandStartX = 0;
+    let brandDeltaX = 0;
+    let brandPointerDown = false;
+
+    function goToBrandSlide(index) {
+      if (!brandSliderTrack) return;
+      activeBrandSlide = (index + brandTotalSlides) % brandTotalSlides;
+      brandSliderTrack.style.transform = `translateX(-${activeBrandSlide * 100}%)`;
+      brandTabs.forEach((tab, tabIndex) => tab.classList.toggle("active", tabIndex === activeBrandSlide));
+      brandDots.forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === activeBrandSlide));
+    }
+
+    brandTabs.forEach(tab => {
+      tab.addEventListener("click", () => goToBrandSlide(Number(tab.dataset.brandTarget)));
+    });
+    brandDots.forEach(dot => {
+      dot.addEventListener("click", () => goToBrandSlide(Number(dot.dataset.brandTarget)));
+    });
+    if (brandPrev) brandPrev.addEventListener("click", () => goToBrandSlide(activeBrandSlide - 1));
+    if (brandNext) brandNext.addEventListener("click", () => goToBrandSlide(activeBrandSlide + 1));
+    if (brandSliderViewport) {
+      brandSliderViewport.addEventListener("pointerdown", event => {
+        brandPointerDown = true;
+        brandStartX = event.clientX;
+        brandDeltaX = 0;
+        brandSliderViewport.setPointerCapture(event.pointerId);
+      });
+      brandSliderViewport.addEventListener("pointermove", event => {
+        if (!brandPointerDown) return;
+        brandDeltaX = event.clientX - brandStartX;
+      });
+      brandSliderViewport.addEventListener("pointerup", () => {
+        if (!brandPointerDown) return;
+        brandPointerDown = false;
+        if (Math.abs(brandDeltaX) > 55) goToBrandSlide(activeBrandSlide + (brandDeltaX < 0 ? 1 : -1));
+      });
+    }
+
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeModal(); closeStarterModal(); } });
+    document.addEventListener("keydown", (event) => {
+      const sliderVisible = document.getElementById("brandIntegration")?.getBoundingClientRect();
+      const isNearSlider = sliderVisible && sliderVisible.top < window.innerHeight && sliderVisible.bottom > 0;
+      if (!isNearSlider) return;
+      if (event.key === "ArrowRight") goToBrandSlide(activeBrandSlide + 1);
+      if (event.key === "ArrowLeft") goToBrandSlide(activeBrandSlide - 1);
+    });
     window.openModal = openModal;
     window.closeModal = closeModal;
     window.closeStarterModal = closeStarterModal;
