@@ -900,6 +900,175 @@
     .logic-modal-target { border-top:1px solid rgba(255,255,255,.11); padding-top:16px; color:#eaffff; font-weight:950; line-height:1.45; }
     .logic-modal-target ul { margin:9px 0 0; padding-left:18px; color:#d7dde0; font-weight:700; }
     .logic-modal-target li { margin:5px 0; }
+    .stats-image-teaser {
+      width:min(520px,100%);
+      display:grid;
+      gap:10px;
+      margin:0 0 26px;
+      padding:4px;
+      border:0;
+      border-radius:12px;
+      color:var(--text);
+      background:transparent;
+      cursor:pointer;
+      text-align:left;
+      font:inherit;
+      transition:background .18s ease, transform .18s ease;
+    }
+    .stats-image-teaser:hover,
+    .stats-image-teaser:focus-visible {
+      background:#1b1b1b;
+      transform:translateY(-2px);
+      outline:none;
+    }
+    .stats-image-teaser__frame {
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      aspect-ratio:16 / 9;
+      background:
+        radial-gradient(circle at 50% 42%,rgba(29,243,242,.16),transparent 36%),
+        linear-gradient(145deg,rgba(255,255,255,.08),rgba(8,8,10,.92));
+      box-shadow:0 14px 34px rgba(0,0,0,.28);
+    }
+    .stats-image-teaser__frame::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.55));
+      pointer-events:none;
+    }
+    .stats-image-teaser__placeholder {
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      color:rgba(248,248,248,.74);
+      font-size:13px;
+      font-weight:950;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      z-index:1;
+    }
+    .stats-image-teaser__meta {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      padding:0 2px;
+    }
+    .stats-image-teaser__meta h3 {
+      margin:0;
+      color:#f1f1f1;
+      font-size:16px;
+      line-height:1.32;
+      font-weight:950;
+    }
+    .stats-image-teaser__meta span {
+      color:#aaa;
+      font-size:20px;
+      line-height:1;
+      font-weight:900;
+    }
+    .stats-fullscreen-carousel {
+      position:fixed;
+      inset:0;
+      z-index:90;
+      display:none;
+      place-items:center;
+      padding:0;
+      background:rgba(0,0,0,.92);
+      backdrop-filter:blur(10px);
+    }
+    .stats-fullscreen-carousel.open { display:grid; }
+    .stats-carousel-stage {
+      position:relative;
+      width:100vw;
+      height:100vh;
+      display:grid;
+      place-items:center;
+    }
+    .stats-carousel-slide {
+      width:100vw;
+      height:100vh;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 30% 24%,rgba(29,243,242,.20),transparent 34%),
+        linear-gradient(145deg,#090b10,#030303);
+    }
+    .stats-carousel-slide img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:none;
+      background:#050505;
+    }
+    .stats-carousel-slide.has-image img { display:block; }
+    .stats-carousel-placeholder {
+      display:grid;
+      gap:10px;
+      place-items:center;
+      padding:24px;
+      text-align:center;
+      color:rgba(248,248,248,.78);
+    }
+    .stats-carousel-slide.has-image .stats-carousel-placeholder { display:none; }
+    .stats-carousel-placeholder b {
+      color:#fff;
+      font-size:clamp(30px,6vw,82px);
+      line-height:1;
+      text-transform:uppercase;
+    }
+    .stats-carousel-placeholder span {
+      color:#aeb8bd;
+      font-size:clamp(13px,1.6vw,20px);
+      font-weight:800;
+    }
+    .stats-carousel-close,
+    .stats-carousel-arrow {
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:999px;
+      background:rgba(0,0,0,.58);
+      color:#fff;
+      cursor:pointer;
+      backdrop-filter:blur(8px);
+    }
+    .stats-carousel-close {
+      position:fixed;
+      top:18px;
+      right:18px;
+      width:44px;
+      height:44px;
+      font-size:28px;
+      line-height:1;
+      z-index:3;
+    }
+    .stats-carousel-arrow {
+      position:absolute;
+      top:50%;
+      width:48px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      transform:translateY(-50%);
+      font-size:31px;
+      line-height:1;
+      z-index:2;
+    }
+    .stats-carousel-arrow:hover,
+    .stats-carousel-close:hover {
+      background:var(--accent);
+      color:#020202;
+    }
+    .stats-carousel-arrow.prev { left:18px; }
+    .stats-carousel-arrow.next { right:18px; }
+    .stats-carousel-arrow:disabled {
+      opacity:.28;
+      pointer-events:none;
+    }
     .logic-deep-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-items:stretch; }
     .logic-deep-box { min-height:168px; border:1px solid rgba(255,255,255,.11); border-radius:12px; padding:15px; background:rgba(255,255,255,.045); }
     .logic-deep-box.wide { grid-column:1/-1; min-height:0; }
@@ -1571,6 +1740,35 @@
       .dw-infographic{margin:0 14px 18px;padding:20px;}
       .logic-wrap{width:calc(100% - 28px);}
       .logic-card-grid,.logic-detail-grid,.logic-deep-grid,.logic-factors,.logic-stats,.best-grid,.best-transform,.best-results{grid-template-columns:1fr;}
+      .stats-image-teaser{width:100%;}
+      .stats-fullscreen-carousel{padding:0;overflow:hidden;touch-action:pan-y;}
+      .stats-carousel-stage{
+        width:100vw;
+        max-width:100vw;
+        height:100svh;
+        display:grid;
+        place-items:center;
+        padding:0;
+        touch-action:pan-y;
+      }
+      .stats-carousel-slide{
+        width:100vw;
+        height:100svh;
+      }
+      .stats-carousel-close{top:32px;right:12px;width:48px;height:48px;font-size:30px;}
+      .stats-carousel-arrow{
+        position:absolute;
+        top:50%;
+        transform:translateY(-50%);
+        width:52px;
+        height:52px;
+        min-width:44px;
+        min-height:44px;
+        font-size:34px;
+        touch-action:manipulation;
+      }
+      .stats-carousel-arrow.prev{left:12px;}
+      .stats-carousel-arrow.next{right:12px;}
       .logic-matrix-wrap{display:none;}
       .logic-matrix-accordion{display:grid;gap:12px;}
       .logic-card,
@@ -1719,6 +1917,14 @@
       <section class="logic-hub" aria-labelledby="logicOverviewTitle">
         <div class="logic-wrap">
           <section id="logicOverview" class="logic-section logic-section-start" aria-labelledby="logicOverviewTitle">
+            <button class="stats-image-teaser" type="button" id="statsImageCarouselOpen">
+              <div class="stats-image-teaser__frame">
+                <span class="stats-image-teaser__placeholder">Bildstrecke Platzhalter</span>
+              </div>
+              <div class="stats-image-teaser__meta">
+                <h3>Platzhalter Kachel</h3>
+              </div>
+            </button>
             <div class="logic-eyebrow">Stats · Plattformlogiken</div>
             <h2 id="logicOverviewTitle">Plattformen im Überblick</h2>
             <p>Soziale Plattformen entscheiden nicht zufällig über Sichtbarkeit. Jede Plattform folgt eigenen Regeln, Algorithmen und Erfolgsfaktoren. Diese Analyse zeigt, wie die wichtigsten Plattformen Inhalte bewerten und was Creator daraus lernen können.</p>
@@ -2233,7 +2439,85 @@
     </article>
   </div>
 
+  <div class="stats-fullscreen-carousel" id="statsImageCarouselModal" aria-hidden="true">
+    <button class="stats-carousel-close" type="button" id="statsImageCarouselClose" aria-label="Bildstrecke schließen">×</button>
+    <div class="stats-carousel-stage" role="dialog" aria-modal="true" aria-label="Stats Bildstrecke">
+      <button class="stats-carousel-arrow prev" type="button" id="statsImageCarouselPrev" aria-label="Vorheriges Bild">‹</button>
+      <div class="stats-carousel-slide" id="statsImageCarouselSlide">
+        <img id="statsImageCarouselImage" alt="" />
+        <div class="stats-carousel-placeholder">
+          <b id="statsImageCarouselPlaceholderTitle">Platzhalter 1</b>
+          <span>Hier kann später ein Querformat-Bild eingefügt werden.</span>
+        </div>
+      </div>
+      <button class="stats-carousel-arrow next" type="button" id="statsImageCarouselNext" aria-label="Nächstes Bild">›</button>
+    </div>
+  </div>
+
   <script>
+    const statsImageCarouselSlides = [
+      { src:"", title:"Platzhalter 1" },
+      { src:"", title:"Platzhalter 2" },
+      { src:"", title:"Platzhalter 3" }
+    ];
+    const statsImageCarouselOpen = document.getElementById("statsImageCarouselOpen");
+    const statsImageCarouselModal = document.getElementById("statsImageCarouselModal");
+    const statsImageCarouselClose = document.getElementById("statsImageCarouselClose");
+    const statsImageCarouselPrev = document.getElementById("statsImageCarouselPrev");
+    const statsImageCarouselNext = document.getElementById("statsImageCarouselNext");
+    const statsImageCarouselSlide = document.getElementById("statsImageCarouselSlide");
+    const statsImageCarouselImage = document.getElementById("statsImageCarouselImage");
+    const statsImageCarouselPlaceholderTitle = document.getElementById("statsImageCarouselPlaceholderTitle");
+    let statsImageCarouselIndex = 0;
+    let statsImageCarouselTouchStartX = 0;
+    let statsImageCarouselTouchStartY = 0;
+
+    function updateStatsImageCarousel(index) {
+      statsImageCarouselIndex = Math.max(0, Math.min(index, statsImageCarouselSlides.length - 1));
+      const slide = statsImageCarouselSlides[statsImageCarouselIndex];
+      const hasImage = Boolean(slide.src);
+      statsImageCarouselSlide.classList.toggle("has-image", hasImage);
+      statsImageCarouselImage.src = slide.src || "";
+      statsImageCarouselImage.alt = hasImage ? slide.title : "";
+      statsImageCarouselPlaceholderTitle.textContent = slide.title;
+      statsImageCarouselPrev.disabled = statsImageCarouselIndex === 0;
+      statsImageCarouselNext.disabled = statsImageCarouselIndex === statsImageCarouselSlides.length - 1;
+    }
+
+    function openStatsImageCarousel() {
+      updateStatsImageCarousel(0);
+      statsImageCarouselModal.classList.add("open");
+      statsImageCarouselModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeStatsImageCarousel() {
+      statsImageCarouselModal.classList.remove("open");
+      statsImageCarouselModal.setAttribute("aria-hidden", "true");
+      document.body.style.removeProperty("overflow");
+    }
+
+    statsImageCarouselOpen?.addEventListener("click", openStatsImageCarousel);
+    statsImageCarouselClose?.addEventListener("click", closeStatsImageCarousel);
+    statsImageCarouselPrev?.addEventListener("click", () => updateStatsImageCarousel(statsImageCarouselIndex - 1));
+    statsImageCarouselNext?.addEventListener("click", () => updateStatsImageCarousel(statsImageCarouselIndex + 1));
+    statsImageCarouselModal?.addEventListener("click", event => {
+      if (event.target === statsImageCarouselModal) closeStatsImageCarousel();
+    });
+    statsImageCarouselModal?.addEventListener("touchstart", event => {
+      const touch = event.changedTouches[0];
+      statsImageCarouselTouchStartX = touch.clientX;
+      statsImageCarouselTouchStartY = touch.clientY;
+    }, { passive:true });
+    statsImageCarouselModal?.addEventListener("touchend", event => {
+      if (!statsImageCarouselModal.classList.contains("open")) return;
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - statsImageCarouselTouchStartX;
+      const deltaY = touch.clientY - statsImageCarouselTouchStartY;
+      if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+      updateStatsImageCarousel(statsImageCarouselIndex + (deltaX < 0 ? 1 : -1));
+    }, { passive:true });
+
     function openLogicDetail(id) {
       const detail = document.getElementById(id);
       if (!detail) return;
@@ -2778,7 +3062,15 @@
       observer.observe(document.querySelector(".journalist-survey"));
     }
 
-    document.addEventListener("keydown", event => { if (event.key === "Escape") { closeDetail(); closeLogicDetail(); closePlatformMap(); } });
+    document.addEventListener("keydown", event => {
+      if (statsImageCarouselModal?.classList.contains("open")) {
+        if (event.key === "Escape") closeStatsImageCarousel();
+        if (event.key === "ArrowLeft") updateStatsImageCarousel(statsImageCarouselIndex - 1);
+        if (event.key === "ArrowRight") updateStatsImageCarousel(statsImageCarouselIndex + 1);
+        return;
+      }
+      if (event.key === "Escape") { closeDetail(); closeLogicDetail(); closePlatformMap(); }
+    });
     renderEconomyCases();
     renderCards();
     animateSurveyCounts();
