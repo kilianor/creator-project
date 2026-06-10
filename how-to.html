@@ -413,13 +413,86 @@
       .video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); padding-left:44px; }
       .top-row-spacer { display:none; }
     }
-    @media (max-width:680px) {
+    @media (max-width:768px) {
       main { width:calc(100% - 24px); }
       header { grid-template-columns:1fr; }
       .main-nav { justify-content:flex-start; }
       .content-head { display:grid; }
       .video-grid { grid-template-columns:1fr; padding-left:34px; }
       .progress-arrow { left:6px; }
+      .image-carousel-modal {
+        max-width:100vw;
+        max-height:100vh;
+        padding:10px;
+        place-items:center;
+        overflow:hidden;
+        touch-action:pan-y;
+      }
+      .carousel-stage {
+        width:100%;
+        max-width:100vw;
+        max-height:100vh;
+        min-height:100svh;
+        display:grid;
+        grid-template-columns:54px minmax(0,1fr) 54px;
+        grid-template-rows:1fr auto;
+        gap:10px 4px;
+        align-items:center;
+        justify-items:center;
+        padding:54px 0 18px;
+        touch-action:pan-y;
+      }
+      .carousel-image {
+        grid-column:1 / -1;
+        grid-row:1;
+        max-width:92vw;
+        max-height:78vh;
+        object-fit:contain;
+        align-self:center;
+      }
+      .carousel-close {
+        top:32px;
+        right:12px;
+        z-index:4;
+        width:48px;
+        height:48px;
+        font-size:30px;
+      }
+      .carousel-arrow {
+        position:relative;
+        top:auto;
+        transform:none;
+        z-index:3;
+        width:52px;
+        height:52px;
+        min-width:44px;
+        min-height:44px;
+        font-size:34px;
+        touch-action:manipulation;
+      }
+      .carousel-arrow.prev {
+        left:auto;
+        grid-column:1;
+        grid-row:2;
+      }
+      .carousel-arrow.next {
+        right:auto;
+        grid-column:3;
+        grid-row:2;
+      }
+      .carousel-counter {
+        position:relative;
+        left:auto;
+        bottom:auto;
+        transform:none;
+        grid-column:2;
+        grid-row:2;
+        align-self:center;
+        justify-self:center;
+        padding:8px 12px;
+        border-radius:999px;
+        background:rgba(0,0,0,.46);
+      }
     }
   </style>
 </head>
@@ -674,6 +747,8 @@
     const legalCarouselImage = document.getElementById("legalCarouselImage");
     const legalCarouselCounter = document.getElementById("legalCarouselCounter");
     let legalCarouselIndex = 0;
+    let legalCarouselTouchStartX = 0;
+    let legalCarouselTouchStartY = 0;
 
     function updateLegalCarousel(index) {
       legalCarouselIndex = Math.max(0, Math.min(index, legalCarouselImages.length - 1));
@@ -702,6 +777,19 @@
     legalCarouselModal.addEventListener("click", event => {
       if (event.target === legalCarouselModal) closeLegalCarousel();
     });
+    legalCarouselModal.addEventListener("touchstart", event => {
+      const touch = event.changedTouches[0];
+      legalCarouselTouchStartX = touch.clientX;
+      legalCarouselTouchStartY = touch.clientY;
+    }, { passive: true });
+    legalCarouselModal.addEventListener("touchend", event => {
+      if (!legalCarouselModal.classList.contains("open")) return;
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - legalCarouselTouchStartX;
+      const deltaY = touch.clientY - legalCarouselTouchStartY;
+      if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+      updateLegalCarousel(legalCarouselIndex + (deltaX < 0 ? 1 : -1));
+    }, { passive: true });
     document.addEventListener("keydown", event => {
       if (!legalCarouselModal.classList.contains("open")) return;
       if (event.key === "Escape") closeLegalCarousel();

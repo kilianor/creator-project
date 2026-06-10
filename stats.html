@@ -1442,14 +1442,50 @@
       .monetization-zone-label.right{right:11%;top:37%;color:#2f6fd8;}
       .monetization-zone-label.right span{display:none;}
     }
-    @media (max-width:760px){
+    @media (max-width:768px){
       main{width:calc(100% - 24px);}
       header{grid-template-columns:1fr;}
       .main-nav{justify-content:flex-start;}
+      .mobile-graphic-frame{
+        width:100%;
+        overflow-x:auto;
+        overflow-y:hidden;
+        border:1px solid rgba(255,255,255,.13);
+        border-radius:18px;
+        background:linear-gradient(145deg,rgba(10,10,12,.94),rgba(8,20,22,.76));
+        box-shadow:0 18px 56px rgba(0,0,0,.34),0 0 24px rgba(29,243,242,.08);
+        -webkit-overflow-scrolling:touch;
+        overscroll-behavior-x:contain;
+      }
+      .mobile-graphic-frame::after{
+        content:"Seitlich scrollen";
+        position:sticky;
+        left:0;
+        bottom:0;
+        display:block;
+        width:max-content;
+        margin:10px 12px 12px;
+        padding:6px 9px;
+        border:1px solid rgba(29,243,242,.18);
+        border-radius:999px;
+        color:#dfffff;
+        background:rgba(0,0,0,.52);
+        font-size:11px;
+        line-height:1;
+        font-weight:900;
+        pointer-events:none;
+      }
+      .mobile-graphic-frame > .graphic-content{min-width:760px;}
       .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards,.note-grid,.interview-body,.dw-insight-grid{grid-template-columns:1fr;}
       .dw-feature-card{grid-template-columns:1fr;}
       .creator-factor-shell{padding:20px 14px;gap:20px;}
       .creator-factor-graphic{width:min(100%,620px);}
+      .creator-factor-shell.graphic-only{align-items:center;text-align:center;}
+      .creator-factor-shell.graphic-only .creator-factor-copy{text-align:center;margin-left:auto;margin-right:auto;}
+      .creator-factor-shell.graphic-only .creator-factor-copy > p,
+      .creator-factor-shell.graphic-only .creator-factor-core{margin-left:auto;margin-right:auto;text-align:center;}
+      .creator-factor-faces{justify-content:center;gap:14px;flex-wrap:wrap;}
+      .creator-factor-face{justify-items:center;text-align:center;}
       .factor-title{font-size:17px;}
       .factor-copy{font-size:13.5px;}
       .interview-head{grid-template-columns:1fr;}
@@ -1457,26 +1493,57 @@
       .dw-infographic{margin:0 14px 18px;padding:20px;}
       .logic-wrap{width:calc(100% - 28px);}
       .logic-card-grid,.logic-detail-grid,.logic-deep-grid,.logic-factors,.logic-stats,.best-grid,.best-transform,.best-results{grid-template-columns:1fr;}
+      .logic-matrix-wrap{width:100%;margin-left:0;overflow-x:auto;}
+      .logic-matrix{min-width:960px;width:960px;table-layout:fixed;}
+      .logic-matrix th,.logic-matrix td{overflow-wrap:normal;hyphens:none;}
       .platform-map{grid-template-columns:1fr;}
       .platform-landkarte__inner{padding:20px 14px;}
       .platform-landkarte__header{padding:0 0 48px;}
       .platform-map-close{top:auto;right:50%;bottom:0;transform:translateX(50%);}
-      .best-card:not(.yahoo) .best-results{grid-template-columns:repeat(3,minmax(0,1fr));}
-      .best-card.yahoo .best-results{grid-template-columns:repeat(2,minmax(0,1fr));}
-      .best-card.espn .best-results{grid-template-columns:repeat(3,minmax(0,1fr));}
+      .platform-landkarte-modal{padding:10px;align-items:stretch;}
+      .platform-landkarte-modal .platform-landkarte{width:100%;max-height:calc(100svh - 20px);overflow:auto;}
+      .platform-landkarte__inner{padding:58px 20px 24px;}
+      .platform-map-frame{background:rgba(3,5,10,.58);}
+      .platform-map-frame::after{margin-top:0;}
+      .platform-map-frame > .platform-map,
+      .platform-map{
+        width:760px;
+        min-width:760px;
+        min-height:500px;
+        display:block;
+        aspect-ratio:16 / 8.5;
+      }
+      .platform-map__axis-x,.platform-map__axis-y,.platform-map__center-dot,.platform-map__label{display:block;}
+      .platform-map__label{position:absolute;}
+      .platform-node{position:absolute;width:150px;transform:translate(-50%,-50%);padding:0;border:0;border-radius:0;background:transparent;}
+      .platform-node__logo{width:42px;height:42px;}
+      .platform-node h4{font-size:12px;}
+      .platform-node p{font-size:11px;line-height:1.3;}
+      .platform-node--twitch{left:20%;top:22%;}
+      .platform-node--campfire{left:38%;top:31%;}
+      .platform-node--spotify{left:82%;top:21%;}
+      .platform-node--youtube{left:62%;top:33%;}
+      .platform-node--instagram{left:20%;top:72%;}
+      .platform-node--snapchat{left:38%;top:70%;}
+      .platform-node--x{left:61%;top:70%;}
+      .platform-node--tiktok{left:82%;top:72%;}
+      .best-card:not(.yahoo) .best-results,
+      .best-card.yahoo .best-results,
+      .best-card.espn .best-results{grid-template-columns:1fr;}
       .best-wrap{width:calc(100% - 28px); padding:28px 0 30px;}
-      .best-card{min-height:0; padding:18px;}
+      .best-card{min-height:0; padding:18px; grid-template-rows:auto; gap:18px;}
       .best-brand{grid-template-columns:76px 1fr; gap:14px; margin-bottom:22px;}
       .brand-orb{width:72px;height:72px;font-size:25px;}
       .brand-orb.stool{font-size:34px;}
       .brand-orb.espn-logo{font-size:18px;}
-      .best-card h3{font-size:18px;}
+      .best-card h3{font-size:18px;white-space:normal;}
       .best-number{font-size:clamp(15px,4.2vw,20px); width:86%;}
       .result-copy,
-      .best-result span:not(.best-number):not(.result-icon){font-size:clamp(10px,3.05vw,13px); width:84%; line-height:1.28;}
+      .best-result span:not(.best-number):not(.result-icon){font-size:13px; width:92%; line-height:1.35;}
       .best-transform{gap:10px;}
       .best-transform-arrow{transform:rotate(90deg); justify-self:center; font-size:34px; margin-top:0;}
-      .best-result{border-left:0; border-top:1px solid rgba(255,255,255,.12); min-height:0; padding:14px 0;}
+      .best-state{min-height:0;grid-template-columns:38px minmax(0,1fr);padding:14px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.035);}
+      .best-result{border-left:0; border-top:1px solid rgba(255,255,255,.12); min-height:0; padding:14px 10px;overflow:visible;}
       .best-result:first-child{border-top:0;}
       .logic-deep-box{min-height:0;}
       .logic-final{grid-template-columns:1fr;}
@@ -1501,7 +1568,27 @@
       .monetization-item{grid-template-columns:34px 1fr;}
       .monetization-icon{width:34px;height:34px;border-radius:10px;}
       .monetization-memory p{font-size:18px;}
-      .monetization-orbit{grid-template-columns:1fr;}
+      .monetization-orbit-frame{background:rgba(3,5,10,.58);}
+      .monetization-orbit{
+        width:760px;
+        min-width:760px;
+        min-height:820px;
+        padding:0;
+        display:block;
+        overflow:hidden;
+      }
+      .monetization-orbit::before{display:block;width:300px;}
+      .monetization-orbit::after,.monetization-connectors{display:block;}
+      .monetization-orbit .monetization-orbit-node{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:112px;height:112px;min-height:0;padding:10px;}
+      .monetization-orbit-node svg{width:27px;height:27px;}
+      .monetization-orbit-node b{font-size:10px;line-height:1.08;}
+      .monetization-orbit .monetization-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;min-height:0;}
+      .monetization-core svg{width:56px;height:56px;}
+      .monetization-core b{font-size:21px;}
+      .monetization-orbit .monetization-zone-label{position:absolute;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:auto;height:auto;min-height:0;max-width:150px;font-size:19px;text-align:left;}
+      .monetization-zone-label.left{left:21%;top:45%;color:#78beff;}
+      .monetization-zone-label.right{right:11%;top:37%;color:#2f6fd8;}
+      .monetization-zone-label.right span{display:none;}
     }
     @media (prefers-reduced-motion: reduce) {
       .monetization-card,
@@ -1665,7 +1752,8 @@
                 <button class="platform-map-close" type="button" onclick="closePlatformMap()">Schließen</button>
               </header>
 
-              <div class="platform-map" aria-label="Plattform-Landkarte Social Graph Interest Graph Kurzformat Langformat">
+              <div class="mobile-graphic-frame platform-map-frame">
+              <div class="platform-map graphic-content" aria-label="Plattform-Landkarte Social Graph Interest Graph Kurzformat Langformat">
                 <div class="platform-map__axis-x" aria-hidden="true"></div>
                 <div class="platform-map__axis-y" aria-hidden="true"></div>
                 <div class="platform-map__center-dot" aria-hidden="true"></div>
@@ -1735,6 +1823,7 @@
                   <p>Belohnt Watchtime, Completion Rate, Wiederholungen, Interaktionen und schnelle Reichweite unabhängig von Followern.</p>
                 </article>
               </div>
+              </div>
 
             </div>
           </section>
@@ -1746,8 +1835,8 @@
               <span class="logic-accordion-icon" aria-hidden="true">⌄</span>
             </button>
             <div id="logicMatrixPanel" class="logic-accordion-panel" hidden>
-              <div class="logic-matrix-wrap">
-                <table class="logic-matrix">
+              <div class="logic-matrix-wrap mobile-graphic-frame">
+                <table class="logic-matrix graphic-content">
                   <thead><tr><th>Aspekt</th><th>Instagram</th><th>TikTok</th><th>YouTube</th><th>Snapchat</th><th>X (Twitter)</th><th>Twitch</th><th>Spotify</th><th>CampfireFM</th></tr></thead>
                   <tbody>
                     <tr><td>Primärer Fokus</td><td>Community & Beziehungen</td><td>Aufmerksamkeit & Entertainment</td><td>Watchtime & Zuschauerbindung</td><td>Freundschaft & Entdeckung</td><td>Echtheit & Diskussion</td><td>Live-Entertainment & Community</td><td>Datengetriebene Audio-Plattform</td><td>Podcasting als Community-Erlebnis</td></tr>
@@ -1791,7 +1880,8 @@
             <h2 id="monetizationTitle">Monetarisierungsmodelle</h2>
             <p>Markenbindung ohne großes Budget: Durch den täglichen Kontakt zu den Hosts kann eine junge Marke Vertrauen und Loyalität nachhaltig aufbauen. Aber Creator sind längst mehr als nur Vertrauensbotschafter. Sie entwickeln sich zu einem eigenständigen Geschäftsmodell: Allein 2025 werden in Deutschland rund 718 Millionen Euro für Creator-Werbung ausgegeben. (<a class="source-link" href="https://www.bvdw.org/the-influencer-creator-marketing-playbook/politische-positionierung/" target="_blank" rel="noopener">Quelle: Bundeszentrale für Digitalwirtschaft</a>)</p>
           </div>
-          <section class="monetization-orbit" aria-label="Monetarisierungsmodelle">
+          <div class="mobile-graphic-frame monetization-orbit-frame">
+          <section class="monetization-orbit graphic-content" aria-label="Monetarisierungsmodelle">
             <svg class="monetization-connectors" aria-hidden="true">
               <line data-target=".monetization-orbit-node.sponsor" />
               <line data-target=".monetization-orbit-node.host" />
@@ -1827,6 +1917,7 @@
             <article class="monetization-orbit-node green events"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="12" rx="4"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg><b>Events</b></article>
             <article class="monetization-orbit-node cyan funnel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"/><path d="M7 10h10"/><path d="M10 15h4"/><path d="M12 15v5"/></svg><b>Abo-Funnel</b></article>
           </section>
+          </div>
         </div>
 
       <section class="best-practices" aria-labelledby="bestPracticesTitle">

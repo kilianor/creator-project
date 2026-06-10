@@ -1278,25 +1278,172 @@
       }
     }
     @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .showcase-section .comment-background,.showcase-lab-word{display:none;} .brand-slide{grid-template-columns:1fr;} .brand-mockup-wrap{order:-1;} .brand-flow{grid-template-columns:repeat(2,1fr);} }
-    @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} .rich-grid{grid-template-columns:1fr;} .rich-section.full{grid-column:auto;} .brand-integration-head{align-items:start;flex-direction:column;} .brand-slider-top{align-items:start;flex-direction:column;} .brand-slider-buttons{align-self:flex-end;} .brand-slide{padding:22px;} .brand-phone{min-height:520px;} .brand-phone-screen{min-height:492px;} .brand-flow{grid-template-columns:1fr;padding-left:22px;padding-right:22px;} }
-    @media (max-width:680px){
-      .brand-slide[data-brand="autobild"] .brand-phone {
+    @media (max-width:768px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} .rich-grid{grid-template-columns:1fr;} .rich-section.full{grid-column:auto;} .brand-integration-head{align-items:start;flex-direction:column;} .brand-slider-top{align-items:start;flex-direction:column;} .brand-slider-buttons{align-self:flex-end;} .brand-slide{padding:22px;} .brand-phone{min-height:520px;} .brand-phone-screen{min-height:492px;} .brand-flow{grid-template-columns:1fr;padding-left:22px;padding-right:22px;} }
+    @media (max-width:768px){
+      .brand-integration-section {
+        margin-top: 34px;
+      }
+      .brand-slider-shell {
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .brand-tabs {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .brand-tab {
+        flex: 0 0 auto;
+        min-height: 44px;
+      }
+      .brand-slide {
+        gap: 28px;
+      }
+      .brand-slide h3,
+      .brand-slide-intro {
+        max-width: 100%;
+      }
+      .brand-idea-list {
+        gap: 14px;
+      }
+      .brand-idea {
+        grid-template-columns: 38px minmax(0, 1fr);
+        gap: 14px;
+        padding: 16px;
+        border-radius: 14px;
+      }
+      .brand-idea-number {
+        width: 38px;
+        height: 38px;
+      }
+      .brand-idea strong,
+      .brand-idea span {
+        overflow-wrap: anywhere;
+      }
+      .brand-mockup-wrap {
+        width: 100%;
+        justify-self: stretch;
+      }
+      .brand-mockup-glow {
+        inset: 20px;
+      }
+      .brand-phone {
+        width: min(100%, 430px);
+        margin: 0 auto;
+      }
+      .brand-flow {
+        gap: 16px;
+        padding: 22px;
+      }
+      .brand-flow-step {
         min-height: 0;
+        padding: 18px;
+        border-radius: 14px;
+        background: rgba(255,255,255,.055);
+        box-shadow: 0 18px 42px rgba(0,0,0,.22);
+      }
+      .brand-flow-step small,
+      .brand-flow-step strong,
+      .brand-flow-step span {
+        display: block;
+        text-align: left;
+      }
+      .brand-flow-step strong {
+        margin-top: 6px;
+        font-size: 19px;
+        line-height: 1.18;
+      }
+      .brand-flow-step span {
+        margin-top: 8px;
+        line-height: 1.5;
+      }
+      .brand-slide[data-brand="autobild"] .brand-phone {
+        width: min(100%, 590px);
+        min-height: 0;
+        aspect-ratio: 590 / 370;
         padding: 12px 12px 12px 30px;
+        border-radius: 28px;
+      }
+      .brand-slide[data-brand="autobild"] .brand-phone::before {
+        top: 50%;
+        left: 11px;
+        width: 16px;
+        height: 76px;
+        transform: translateY(-50%);
       }
       .brand-slide[data-brand="autobild"] .brand-phone-screen {
         min-height: 0;
-        grid-template-columns: 1fr;
+        height: 100%;
+        padding: 12px;
+        border-radius: 20px;
+        display: block;
       }
-      .brand-slide[data-brand="autobild"] .brand-phone-nav {
-        justify-content: flex-start;
+      .autobild-phone-carousel {
+        height: auto;
+        aspect-ratio: 538 / 312;
+        max-height: 100%;
       }
-      .brand-slide[data-brand="autobild"] .brand-phone-card {
-        grid-template-columns: 1fr;
+      .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone,
+      .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone.portrait {
+        width: min(100%, 590px);
         min-height: 0;
+        aspect-ratio: 590 / 370;
+        padding: 12px 12px 12px 30px;
+        border-radius: 28px;
       }
-      .brand-slide[data-brand="autobild"] .brand-phone-image {
-        min-height: 156px;
+      .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone::before,
+      .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone.portrait::before {
+        top: 50%;
+        left: 11px;
+        width: 16px;
+        height: 76px;
+        transform: translateY(-50%);
+      }
+      .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone .brand-phone-screen,
+      .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone.portrait .brand-phone-screen {
+        min-height: 0;
+        height: 100%;
+        padding: 12px;
+        border-radius: 20px;
+        display: block;
+      }
+      .sportbild-phone-view,
+      .sportbild-phone.portrait .sportbild-phone-view {
+        height: auto;
+        aspect-ratio: 538 / 312;
+        max-height: 100%;
+        border-radius: 16px;
+      }
+      .image-popup {
+        padding: 12px;
+        overflow: hidden;
+      }
+      .image-popup-stage.landscape {
+        width: 100%;
+        height: min(72vh, 520px);
+        padding: 0 54px;
+      }
+      .image-popup-stage.landscape .image-popup-img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .image-popup-arrow.prev.horizontal {
+        left: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .image-popup-arrow.next.horizontal {
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .image-popup-arrow {
+        width: 48px;
+        height: 48px;
+        min-width: 44px;
+        min-height: 44px;
       }
     }
   </style>
@@ -2776,7 +2923,7 @@ B</div>
         accent: "#e30613",
         images: [
           { src: "SportBild quer.png", alt: "SPORT BILD Querformat Ansicht", orientation: "landscape" },
-          { src: "SportBild hoch.png", alt: "SPORT BILD Hochformat Ansicht", orientation: "portrait" }
+          { src: "SportBild hoch.png", alt: "SPORT BILD Hochformat Ansicht", orientation: "landscape" }
         ]
       },
       welt: {
