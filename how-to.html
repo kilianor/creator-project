@@ -129,6 +129,14 @@
       border-radius:12px;
       transition:background .18s ease, transform .18s ease;
     }
+    button.video-card {
+      appearance:none;
+      border:0;
+      background:transparent;
+      font:inherit;
+      text-align:left;
+      cursor:pointer;
+    }
     .video-card:hover {
       background:#1b1b1b;
       transform:translateY(-2px);
@@ -324,6 +332,82 @@
     .video-card:hover .more-menu {
       background:#272727;
       color:#fff;
+    }
+    .image-carousel-modal {
+      position:fixed;
+      inset:0;
+      z-index:80;
+      display:none;
+      place-items:center;
+      padding:clamp(18px,3vw,42px);
+      background:rgba(0,0,0,.88);
+      backdrop-filter:blur(10px);
+    }
+    .image-carousel-modal.open { display:grid; }
+    .carousel-stage {
+      position:relative;
+      width:min(92vw,1180px);
+      display:grid;
+      place-items:center;
+    }
+    .carousel-image {
+      display:block;
+      max-width:100%;
+      max-height:82vh;
+      object-fit:contain;
+      border-radius:12px;
+      background:#050505;
+      box-shadow:0 30px 100px rgba(0,0,0,.72);
+    }
+    .carousel-close,
+    .carousel-arrow {
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:999px;
+      background:rgba(0,0,0,.58);
+      color:#fff;
+      cursor:pointer;
+      backdrop-filter:blur(8px);
+    }
+    .carousel-close {
+      position:fixed;
+      top:18px;
+      right:18px;
+      width:42px;
+      height:42px;
+      font-size:28px;
+      line-height:1;
+      z-index:2;
+    }
+    .carousel-arrow {
+      position:absolute;
+      top:50%;
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      transform:translateY(-50%);
+      font-size:30px;
+      line-height:1;
+    }
+    .carousel-arrow:hover,
+    .carousel-close:hover {
+      background:var(--youtube);
+      color:#fff;
+    }
+    .carousel-arrow.prev { left:-62px; }
+    .carousel-arrow.next { right:-62px; }
+    .carousel-arrow:disabled {
+      opacity:.28;
+      pointer-events:none;
+    }
+    .carousel-counter {
+      position:absolute;
+      left:50%;
+      bottom:-34px;
+      transform:translateX(-50%);
+      color:rgba(255,255,255,.7);
+      font-size:12px;
+      font-weight:850;
     }
     @media (max-width:1120px) {
       .video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); padding-left:44px; }
@@ -542,9 +626,88 @@
               <span class="more-menu" aria-hidden="true">⋮</span>
             </div>
           </a>
+
+          <button class="video-card" type="button" id="legalCarouselOpen">
+            <div class="player">
+              <img src="1 1.jpg" alt="Vorschaubild Rechtliche Fragen" />
+            </div>
+            <div class="video-meta">
+              <div>
+                <h2 class="video-title">Rechtliche Fragen</h2>
+              </div>
+              <span class="more-menu" aria-hidden="true">⋮</span>
+            </div>
+          </button>
         </section>
       </div>
     </section>
   </main>
+
+  <div class="image-carousel-modal" id="legalCarouselModal" aria-hidden="true">
+    <button class="carousel-close" type="button" id="legalCarouselClose" aria-label="Bilderkarussell schließen">×</button>
+    <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Rechtliche Fragen">
+      <button class="carousel-arrow prev" type="button" id="legalCarouselPrev" aria-label="Vorheriges Bild">‹</button>
+      <img class="carousel-image" id="legalCarouselImage" src="1 1.jpg" alt="Rechtliche Fragen Bild 1" />
+      <button class="carousel-arrow next" type="button" id="legalCarouselNext" aria-label="Nächstes Bild">›</button>
+      <div class="carousel-counter" id="legalCarouselCounter">1 / 10</div>
+    </div>
+  </div>
+
+  <script>
+    const legalCarouselImages = [
+      "1 1.jpg",
+      "2 1.jpg",
+      "3 1.jpg",
+      "4 1.jpg",
+      "5 1.jpg",
+      "6 1.jpg",
+      "7 1.jpg",
+      "8 1.jpg",
+      "9 1.jpg",
+      "10 1.jpg"
+    ];
+    const legalCarouselOpen = document.getElementById("legalCarouselOpen");
+    const legalCarouselModal = document.getElementById("legalCarouselModal");
+    const legalCarouselClose = document.getElementById("legalCarouselClose");
+    const legalCarouselPrev = document.getElementById("legalCarouselPrev");
+    const legalCarouselNext = document.getElementById("legalCarouselNext");
+    const legalCarouselImage = document.getElementById("legalCarouselImage");
+    const legalCarouselCounter = document.getElementById("legalCarouselCounter");
+    let legalCarouselIndex = 0;
+
+    function updateLegalCarousel(index) {
+      legalCarouselIndex = Math.max(0, Math.min(index, legalCarouselImages.length - 1));
+      legalCarouselImage.src = legalCarouselImages[legalCarouselIndex];
+      legalCarouselImage.alt = `Rechtliche Fragen Bild ${legalCarouselIndex + 1}`;
+      legalCarouselCounter.textContent = `${legalCarouselIndex + 1} / ${legalCarouselImages.length}`;
+      legalCarouselPrev.disabled = legalCarouselIndex === 0;
+      legalCarouselNext.disabled = legalCarouselIndex === legalCarouselImages.length - 1;
+    }
+
+    function openLegalCarousel() {
+      updateLegalCarousel(0);
+      legalCarouselModal.classList.add("open");
+      legalCarouselModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLegalCarousel() {
+      legalCarouselModal.classList.remove("open");
+      legalCarouselModal.setAttribute("aria-hidden", "true");
+    }
+
+    legalCarouselOpen.addEventListener("click", openLegalCarousel);
+    legalCarouselClose.addEventListener("click", closeLegalCarousel);
+    legalCarouselPrev.addEventListener("click", () => updateLegalCarousel(legalCarouselIndex - 1));
+    legalCarouselNext.addEventListener("click", () => updateLegalCarousel(legalCarouselIndex + 1));
+    legalCarouselModal.addEventListener("click", event => {
+      if (event.target === legalCarouselModal) closeLegalCarousel();
+    });
+    document.addEventListener("keydown", event => {
+      if (!legalCarouselModal.classList.contains("open")) return;
+      if (event.key === "Escape") closeLegalCarousel();
+      if (event.key === "ArrowLeft") updateLegalCarousel(legalCarouselIndex - 1);
+      if (event.key === "ArrowRight") updateLegalCarousel(legalCarouselIndex + 1);
+    });
+  </script>
 </body>
 </html>

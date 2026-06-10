@@ -541,8 +541,8 @@
       align-items: center;
     }
     .brand-slide[data-brand="bild"],
-    .brand-slide[data-brand="sportbild"] { --brand-accent: var(--brand-red); }
-    .brand-slide[data-brand="autobild"] { --brand-accent: var(--brand-yellow); }
+    .brand-slide[data-brand="sportbild"],
+    .brand-slide[data-brand="autobild"] { --brand-accent: var(--brand-red); }
     .brand-slide[data-brand="welt"] { --brand-accent: var(--brand-welt); }
     .brand-kicker {
       display: inline-flex;
@@ -611,6 +611,14 @@
       line-height: 1.45;
       font-size: 14px;
     }
+    .brand-rubrics-image {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--brand-line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 18px 44px rgba(0,0,0,.22);
+    }
     .brand-mockup-wrap {
       display: grid;
       place-items: center;
@@ -676,8 +684,36 @@
       letter-spacing: 0;
       margin-bottom: 14px;
     }
-    .brand-slide[data-brand="autobild"] .brand-logo,
-    .brand-slide[data-brand="autobild"] .brand-idea-number { color: #000; }
+    .bild-phone-image {
+      width: 100%;
+      height: 530px;
+      display: block;
+      object-fit: contain;
+      object-position: center top;
+      border-radius: 20px;
+      background: #050507;
+    }
+    .bild-phone-carousel {
+      height: 530px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #050507;
+      position: relative;
+    }
+    .bild-phone-track {
+      height: 100%;
+      position: relative;
+    }
+    .bild-phone-track .bild-phone-image {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .25s ease;
+      pointer-events: none;
+    }
+    .bild-phone-track .bild-phone-image.active {
+      opacity: 1;
+    }
     .brand-slide[data-brand="autobild"] .brand-phone {
       width: min(100%, 590px);
       min-height: 370px;
@@ -703,11 +739,8 @@
       overflow: hidden;
       border-radius: 18px;
       background: #fff;
-      cursor: grab;
-      touch-action: pan-y;
       position: relative;
     }
-    .autobild-phone-carousel:active { cursor: grabbing; }
     .autobild-phone-track {
       height: 100%;
       display: flex;
@@ -746,6 +779,241 @@
     }
     .autobild-phone-dot.active {
       width: 18px;
+      background: var(--brand-accent);
+    }
+    .autobild-phone-arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(0,0,0,.48);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      transform: translateY(-50%);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .autobild-phone-arrow:hover {
+      background: var(--brand-accent);
+      color: #000;
+    }
+    .autobild-phone-arrow:disabled {
+      opacity: .28;
+      cursor: default;
+      pointer-events: none;
+    }
+    .autobild-phone-arrow.left { left: 10px; }
+    .autobild-phone-arrow.right { right: 10px; }
+    .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone {
+      width: min(100%, 590px);
+      min-height: 370px;
+      border-radius: 32px;
+      padding: 13px 16px 13px 36px;
+      transition: width .35s ease, min-height .35s ease, padding .35s ease, border-radius .35s ease;
+    }
+    .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone::before {
+      top: 50%;
+      left: 13px;
+      width: 20px;
+      height: 96px;
+      transform: translateY(-50%);
+      border-radius: 999px;
+    }
+    .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone.portrait {
+      width: min(100%,350px);
+      min-height: 590px;
+      border-radius: 34px;
+      padding: 14px;
+    }
+    .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone.portrait::before {
+      top: 12px;
+      left: 50%;
+      width: 96px;
+      height: 23px;
+      transform: translateX(-50%);
+    }
+    .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone .brand-phone-screen {
+      min-height: 344px;
+      border-radius: 24px;
+      padding: 16px;
+      display: block;
+      transition: min-height .35s ease, border-radius .35s ease, padding .35s ease;
+    }
+    .brand-slide[data-brand="sportbild"] .brand-phone.sportbild-phone.portrait .brand-phone-screen {
+      min-height: 562px;
+      border-radius: 26px;
+      padding: 32px 16px 16px;
+    }
+    .sportbild-phone-view {
+      height: 312px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #050507;
+      position: relative;
+      transition: height .35s ease, border-radius .35s ease;
+    }
+    .sportbild-phone.portrait .sportbild-phone-view {
+      height: 530px;
+      border-radius: 20px;
+    }
+    .sportbild-phone-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center top;
+      opacity: 0;
+      transition: opacity .25s ease;
+      background: #050507;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .sportbild-phone-image.active { opacity: 1; }
+    .sportbild-phone-arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(0,0,0,.48);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      transform: translateY(-50%);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .sportbild-phone-arrow:hover { background: var(--brand-accent); color:#000; }
+    .sportbild-phone-arrow:disabled {
+      opacity: .28;
+      cursor: default;
+      pointer-events: none;
+    }
+    .sportbild-phone-arrow.left { left: 10px; }
+    .sportbild-phone-arrow.right { right: 10px; }
+    .sportbild-phone-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.34);
+      backdrop-filter: blur(8px);
+      z-index: 3;
+    }
+    .sportbild-phone-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0;
+      background: rgba(255,255,255,.48);
+      cursor: pointer;
+    }
+    .sportbild-phone-dot.active {
+      width: 18px;
+      background: var(--brand-accent);
+    }
+    .welt-phone-carousel {
+      height: 530px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #050507;
+      position: relative;
+    }
+    .welt-phone-track {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: transform .35s cubic-bezier(.2,.8,.2,1);
+      will-change: transform;
+    }
+    .welt-phone-slide {
+      width: 100%;
+      height: 530px;
+      flex: 0 0 530px;
+      display: block;
+      object-fit: contain;
+      object-position: center top;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .bild-phone-arrow,
+    .welt-phone-arrow {
+      position: absolute;
+      left: 50%;
+      z-index: 3;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(0,0,0,.48);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      transform: translateX(-50%);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .bild-phone-arrow:hover,
+    .welt-phone-arrow:hover {
+      background: var(--brand-accent);
+      color: #000;
+    }
+    .bild-phone-arrow:disabled,
+    .welt-phone-arrow:disabled {
+      opacity: .28;
+      cursor: default;
+      pointer-events: none;
+    }
+    .bild-phone-arrow.up,
+    .welt-phone-arrow.up { top: 10px; }
+    .bild-phone-arrow.down,
+    .welt-phone-arrow.down { bottom: 10px; }
+    .bild-phone-dots,
+    .welt-phone-dots {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.36);
+      backdrop-filter: blur(8px);
+    }
+    .bild-phone-dot,
+    .welt-phone-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0;
+      background: rgba(255,255,255,.48);
+      cursor: pointer;
+    }
+    .bild-phone-dot.active,
+    .welt-phone-dot.active {
+      height: 18px;
       background: var(--brand-accent);
     }
     .brand-phone-nav {
@@ -865,6 +1133,119 @@
       font-size: 13px;
       line-height: 1.4;
     }
+    .bild-phone-carousel,
+    .autobild-phone-carousel,
+    .sportbild-phone-view,
+    .welt-phone-carousel {
+      cursor: zoom-in;
+    }
+    .bild-phone-carousel button,
+    .autobild-phone-carousel button,
+    .sportbild-phone-view button,
+    .welt-phone-carousel button {
+      cursor: pointer;
+    }
+    .image-popup {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: none;
+      place-items: center;
+      padding: clamp(16px,3vw,42px);
+      background: rgba(0,0,0,.9);
+      backdrop-filter: blur(12px);
+    }
+    .image-popup.open { display: grid; }
+    .image-popup-close {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 4;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      cursor: pointer;
+      font-size: 28px;
+      line-height: 1;
+    }
+    .image-popup-stage {
+      position: relative;
+      width: min(94vw, 760px);
+      height: min(88vh, 900px);
+      display: grid;
+      place-items: center;
+    }
+    .image-popup-stage.landscape {
+      width: min(94vw, 1180px);
+      height: min(78vh, 760px);
+    }
+    .image-popup-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 34px 110px rgba(0,0,0,.72);
+      background: #050507;
+    }
+    .image-popup-stage.landscape .image-popup-img { background: #fff; }
+    .image-popup-arrow {
+      position: absolute;
+      z-index: 3;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      background: rgba(0,0,0,.58);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      font-size: 25px;
+      line-height: 1;
+    }
+    .image-popup-arrow:hover { background: var(--popup-accent, #e30613); color:#000; }
+    .image-popup-arrow:disabled { opacity:.28; pointer-events:none; }
+    .image-popup-arrow.prev.horizontal { left:-58px; top:50%; transform:translateY(-50%); }
+    .image-popup-arrow.next.horizontal { right:-58px; top:50%; transform:translateY(-50%); }
+    .image-popup-arrow.prev.vertical { left:50%; top:12px; transform:translateX(-50%); }
+    .image-popup-arrow.next.vertical { left:50%; bottom:12px; transform:translateX(-50%); }
+    .image-popup-dots {
+      position: absolute;
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.38);
+      backdrop-filter: blur(8px);
+    }
+    .image-popup-dots.horizontal {
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+    }
+    .image-popup-dots.vertical {
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+    }
+    .image-popup-dot {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.5);
+      padding: 0;
+      cursor: pointer;
+    }
+    .image-popup-dot.active { background: var(--popup-accent, #e30613); }
+    .image-popup-dots.horizontal .image-popup-dot.active { width: 20px; }
+    .image-popup-dots.vertical .image-popup-dot.active { height: 20px; }
     .brand-dots {
       display: flex;
       justify-content: center;
@@ -945,8 +1326,7 @@ B</div>
 
     <section class="brand-integration-section" id="brandIntegration" aria-labelledby="brandIntegrationTitle">
       <div class="brand-integration-head">
-        <h2 id="brandIntegrationTitle">Swipe durch die Markenintegration</h2>
-        <p>Creator-Formate können direkt in BILD, AUTO BILD, SPORT BILD und WELT angedockt werden. Nutze Tabs, Pfeile oder Swipe nach links und rechts.</p>
+        <h2 id="brandIntegrationTitle">Markenintegration</h2>
       </div>
 
       <div class="brand-slider-shell">
@@ -973,6 +1353,7 @@ B</div>
                 <p class="brand-slide-intro">BILD nutzt Creator als sichtbare journalistische Köpfe: auf der Home, im Artikel und in eigenen Reporter-Hubs. Kurzvideos liefern Haltung, Einordnung und Nähe, aber nicht den kompletten Artikel.</p>
                 <div class="brand-idea-list">
                   <div class="brand-idea"><div class="brand-idea-number">1</div><div><strong>Creator auf der Home</strong><span>Prominente Video-Kacheln zwischen Top-News, Bild+ und Aufmachern.</span></div></div>
+                  <img class="brand-rubrics-image" src="Bild rubriken.png" alt="BILD Rubriken" />
                   <div class="brand-idea"><div class="brand-idea-number">2</div><div><strong>Creator im Artikel</strong><span>Persönliche Einschätzung, On-Presenting und Social-Profil-Verweis ergänzen den Text.</span></div></div>
                   <div class="brand-idea"><div class="brand-idea-number">3</div><div><strong>Reporter-Hubs</strong><span>Eigene Seiten bündeln Artikel, Videos und Profile relevanter Creator.</span></div></div>
                 </div>
@@ -980,11 +1361,18 @@ B</div>
               <div class="brand-mockup-wrap">
                 <div class="brand-mockup-glow"></div>
                 <div class="brand-phone"><div class="brand-phone-screen">
-                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
-                  <div class="brand-logo">BILD</div>
-                  <div class="brand-phone-nav"><span>Start</span><span>News</span><span>Politik</span><span>Sport</span><span class="active">Creator</span></div>
-                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Redakteur erklärt die Lage</strong></div><div class="brand-phone-copy"><small>Creator-Video</small><p>Kurze Einordnung mit persönlicher Perspektive. Der Artikel bleibt der Deep Dive.</p></div></div>
-                  <div class="brand-mini-feed"><div><b>Artikel</b><span>Alle Fakten im Text</span></div><div><b>Profil</b><span>Folgen & mehr Videos</span></div></div>
+                  <div class="bild-phone-carousel" aria-label="BILD Hochformat-Screenshots">
+                    <div class="bild-phone-track" id="bildPhoneTrack">
+                      <img class="bild-phone-image active" src="Bild hoch zwei.png" alt="BILD Hochformat Ansicht eins" draggable="false" />
+                      <img class="bild-phone-image" src="Bild hoch eins.png" alt="BILD Hochformat Ansicht zwei" draggable="false" />
+                    </div>
+                    <div class="bild-phone-dots" aria-label="BILD Screens">
+                      <button class="bild-phone-dot active" type="button" data-bild-target="0" aria-label="BILD Screen eins"></button>
+                      <button class="bild-phone-dot" type="button" data-bild-target="1" aria-label="BILD Screen zwei"></button>
+                    </div>
+                    <button class="bild-phone-arrow up" id="bildPhonePrev" type="button" aria-label="Vorheriges BILD Bild">↑</button>
+                    <button class="bild-phone-arrow down" id="bildPhoneNext" type="button" aria-label="Nächstes BILD Bild">↓</button>
+                  </div>
                 </div></div>
               </div>
             </article>
@@ -1012,6 +1400,8 @@ B</div>
                       <button class="autobild-phone-dot active" type="button" data-autobild-target="0" aria-label="AUTO BILD Screen eins"></button>
                       <button class="autobild-phone-dot" type="button" data-autobild-target="1" aria-label="AUTO BILD Screen zwei"></button>
                     </div>
+                    <button class="autobild-phone-arrow left" id="autobildPhonePrev" type="button" aria-label="Vorheriges AUTO BILD Bild">‹</button>
+                    <button class="autobild-phone-arrow right" id="autobildPhoneNext" type="button" aria-label="Nächstes AUTO BILD Bild">›</button>
                   </div>
                 </div></div>
               </div>
@@ -1030,12 +1420,17 @@ B</div>
               </div>
               <div class="brand-mockup-wrap">
                 <div class="brand-mockup-glow"></div>
-                <div class="brand-phone"><div class="brand-phone-screen">
-                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
-                  <div class="brand-logo">SPORT BILD</div>
-                  <div class="brand-phone-nav"><span>Start</span><span>Fußball</span><span class="active">Creator-Play</span><span>Mehr Sport</span></div>
-                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Torwart-Check zum Spiel</strong></div><div class="brand-phone-copy"><small>Vorbericht</small><p>Clip wird im Artikel eingebettet und führt danach zurück in den Spieltagskontext.</p></div></div>
-                  <div class="brand-mini-feed"><div><b>Watchtime</b><span>im Artikel erhöhen</span></div><div><b>Instagram</b><span>am Ende verlinken</span></div></div>
+                <div class="brand-phone sportbild-phone" id="sportbildPhone"><div class="brand-phone-screen">
+                  <div class="sportbild-phone-view" aria-label="SPORT BILD Screenshots">
+                    <img class="sportbild-phone-image active" src="SportBild quer.png" alt="SPORT BILD Querformat Ansicht" draggable="false" />
+                    <img class="sportbild-phone-image" src="SportBild hoch.png" alt="SPORT BILD Hochformat Ansicht" draggable="false" />
+                    <div class="sportbild-phone-dots" aria-label="SPORT BILD Screens">
+                      <button class="sportbild-phone-dot active" type="button" data-sportbild-target="0" aria-label="SPORT BILD Screen quer"></button>
+                      <button class="sportbild-phone-dot" type="button" data-sportbild-target="1" aria-label="SPORT BILD Screen hoch"></button>
+                    </div>
+                    <button class="sportbild-phone-arrow left" id="sportbildPhonePrev" type="button" aria-label="Zurück zum SPORT BILD Querformat">‹</button>
+                    <button class="sportbild-phone-arrow right" id="sportbildPhoneNext" type="button" aria-label="Zum SPORT BILD Hochformat">›</button>
+                  </div>
                 </div></div>
               </div>
             </article>
@@ -1054,11 +1449,20 @@ B</div>
               <div class="brand-mockup-wrap">
                 <div class="brand-mockup-glow"></div>
                 <div class="brand-phone"><div class="brand-phone-screen">
-                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
-                  <div class="brand-logo">WELT</div>
-                  <div class="brand-phone-nav"><span>Meinung</span><span>Wirtschaft</span><span>Sport</span><span class="active">Reels</span></div>
-                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Reel: Was steckt dahinter?</strong></div><div class="brand-phone-copy"><small>Swipe danach</small><p>Passender Artikel erscheint direkt im Anschluss an das Video.</p></div></div>
-                  <div class="brand-mini-feed"><div><b>Creator</b><span>Profilseite</span></div><div><b>Artikel</b><span>Deep Dive</span></div></div>
+                  <div class="welt-phone-carousel" id="weltPhoneCarousel" aria-label="WELT Hochformat-Screenshots">
+                    <div class="welt-phone-track" id="weltPhoneTrack">
+                      <img class="welt-phone-slide" src="Welt hoch drei.png" alt="WELT Hochformat Ansicht eins" draggable="false" />
+                      <img class="welt-phone-slide" src="Welt hoch ein.png" alt="WELT Hochformat Ansicht zwei" draggable="false" />
+                      <img class="welt-phone-slide" src="Welt hoch zwei.png" alt="WELT Hochformat Ansicht drei" draggable="false" />
+                    </div>
+                    <div class="welt-phone-dots" aria-label="WELT Screens">
+                      <button class="welt-phone-dot active" type="button" data-welt-target="0" aria-label="WELT Screen eins"></button>
+                      <button class="welt-phone-dot" type="button" data-welt-target="1" aria-label="WELT Screen zwei"></button>
+                      <button class="welt-phone-dot" type="button" data-welt-target="2" aria-label="WELT Screen drei"></button>
+                    </div>
+                    <button class="welt-phone-arrow up" id="weltPhonePrev" type="button" aria-label="Vorheriges WELT Bild">↑</button>
+                    <button class="welt-phone-arrow down" id="weltPhoneNext" type="button" aria-label="Nächstes WELT Bild">↓</button>
+                  </div>
                 </div></div>
               </div>
             </article>
@@ -1101,6 +1505,16 @@ B</div>
         <div id="modalText"></div>
         <div id="modalLinks" class="link-row"></div>
       </div>
+    </div>
+  </div>
+
+  <div class="image-popup" id="imagePopup" aria-hidden="true">
+    <button class="image-popup-close" id="imagePopupClose" type="button" aria-label="Großansicht schließen">×</button>
+    <div class="image-popup-stage portrait" id="imagePopupStage" role="dialog" aria-modal="true" aria-label="Bild Großansicht">
+      <img class="image-popup-img" id="imagePopupImg" src="" alt="" />
+      <button class="image-popup-arrow prev vertical" id="imagePopupPrev" type="button" aria-label="Vorheriges Bild">↑</button>
+      <button class="image-popup-arrow next vertical" id="imagePopupNext" type="button" aria-label="Nächstes Bild">↓</button>
+      <div class="image-popup-dots vertical" id="imagePopupDots" aria-label="Screens"></div>
     </div>
   </div>
 
@@ -2225,7 +2639,7 @@ B</div>
     if (brandNext) brandNext.addEventListener("click", () => goToBrandSlide(activeBrandSlide + 1));
     if (brandSliderViewport) {
       brandSliderViewport.addEventListener("pointerdown", event => {
-        if (event.target.closest(".autobild-phone-carousel")) return;
+        if (event.target.closest(".bild-phone-carousel, .autobild-phone-carousel, .sportbild-phone-view, .welt-phone-carousel")) return;
         brandPointerDown = true;
         brandStartX = event.clientX;
         brandDeltaX = 0;
@@ -2242,54 +2656,229 @@ B</div>
       });
     }
 
-    const autobildPhoneCarousel = document.getElementById("autobildPhoneCarousel");
-    const autobildPhoneTrack = document.getElementById("autobildPhoneTrack");
-    const autobildPhoneDots = Array.from(document.querySelectorAll(".autobild-phone-dot"));
-    let activeAutobildPhoneSlide = 0;
-    let autobildPhoneStartX = 0;
-    let autobildPhoneDeltaX = 0;
-    let autobildPhonePointerDown = false;
+    function setupPhoneControls({ trackId, dotSelector, targetName, prevId, nextId, axis = "x", step = 100, mode = "transform" }) {
+      const track = document.getElementById(trackId);
+      const dots = Array.from(document.querySelectorAll(dotSelector));
+      const prev = document.getElementById(prevId);
+      const next = document.getElementById(nextId);
+      const slides = Array.from(track?.children || []);
+      let activeSlide = 0;
+      if (!track || !dots.length) return;
 
-    function goToAutobildPhoneSlide(index) {
-      if (!autobildPhoneTrack) return;
-      activeAutobildPhoneSlide = (index + 2) % 2;
-      autobildPhoneTrack.style.transform = `translateX(-${activeAutobildPhoneSlide * 100}%)`;
-      autobildPhoneDots.forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === activeAutobildPhoneSlide));
+      function goToSlide(index) {
+        activeSlide = Math.max(0, Math.min(index, dots.length - 1));
+        if (mode === "active") {
+          slides.forEach((slide, slideIndex) => slide.classList.toggle("active", slideIndex === activeSlide));
+        } else {
+          track.style.transform = axis === "y" ? `translateY(-${activeSlide * step}px)` : `translateX(-${activeSlide * 100}%)`;
+        }
+        dots.forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === activeSlide));
+        if (prev) prev.disabled = activeSlide === 0;
+        if (next) next.disabled = activeSlide === dots.length - 1;
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener("click", event => {
+          event.stopPropagation();
+          goToSlide(Number(dot.dataset[targetName]));
+        });
+      });
+      if (prev) prev.addEventListener("click", event => {
+        event.stopPropagation();
+        goToSlide(activeSlide - 1);
+      });
+      if (next) next.addEventListener("click", event => {
+        event.stopPropagation();
+        goToSlide(activeSlide + 1);
+      });
+      goToSlide(0);
     }
 
-    autobildPhoneDots.forEach(dot => {
-      dot.addEventListener("click", event => {
+    setupPhoneControls({
+      dotSelector: ".bild-phone-dot",
+      targetName: "bildTarget",
+      trackId: "bildPhoneTrack",
+      prevId: "bildPhonePrev",
+      nextId: "bildPhoneNext",
+      axis: "y",
+      step: 530,
+      mode: "active"
+    });
+    setupPhoneControls({
+      dotSelector: ".autobild-phone-dot",
+      targetName: "autobildTarget",
+      trackId: "autobildPhoneTrack",
+      prevId: "autobildPhonePrev",
+      nextId: "autobildPhoneNext"
+    });
+    setupPhoneControls({
+      dotSelector: ".welt-phone-dot",
+      targetName: "weltTarget",
+      trackId: "weltPhoneTrack",
+      prevId: "weltPhonePrev",
+      nextId: "weltPhoneNext",
+      axis: "y",
+      step: 530
+    });
+
+    function setupSportbildPhoneControls() {
+      const phone = document.getElementById("sportbildPhone");
+      const slides = Array.from(document.querySelectorAll(".sportbild-phone-image"));
+      const dots = Array.from(document.querySelectorAll(".sportbild-phone-dot"));
+      const prev = document.getElementById("sportbildPhonePrev");
+      const next = document.getElementById("sportbildPhoneNext");
+      let activeSlide = 0;
+      if (!phone || !slides.length) return;
+
+      function goToSlide(index) {
+        activeSlide = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, slideIndex) => slide.classList.toggle("active", slideIndex === activeSlide));
+        dots.forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === activeSlide));
+        phone.classList.toggle("portrait", activeSlide === 1);
+        if (prev) prev.disabled = activeSlide === 0;
+        if (next) next.disabled = activeSlide === slides.length - 1;
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener("click", event => {
+          event.stopPropagation();
+          goToSlide(Number(dot.dataset.sportbildTarget));
+        });
+      });
+      if (prev) prev.addEventListener("click", event => {
         event.stopPropagation();
-        goToAutobildPhoneSlide(Number(dot.dataset.autobildTarget));
+        goToSlide(activeSlide - 1);
+      });
+      if (next) next.addEventListener("click", event => {
+        event.stopPropagation();
+        goToSlide(activeSlide + 1);
+      });
+      goToSlide(0);
+    }
+    setupSportbildPhoneControls();
+
+    const imagePopupData = {
+      bild: {
+        accent: "#e30613",
+        images: [
+          { src: "Bild hoch zwei.png", alt: "BILD Hochformat Ansicht eins", orientation: "portrait" },
+          { src: "Bild hoch eins.png", alt: "BILD Hochformat Ansicht zwei", orientation: "portrait" }
+        ]
+      },
+      autobild: {
+        accent: "#e30613",
+        images: [
+          { src: "autobild quer eins.png", alt: "AUTO BILD Querformat Ansicht eins", orientation: "landscape" },
+          { src: "autobild quer zwei.png", alt: "AUTO BILD Querformat Ansicht zwei", orientation: "landscape" }
+        ]
+      },
+      sportbild: {
+        accent: "#e30613",
+        images: [
+          { src: "SportBild quer.png", alt: "SPORT BILD Querformat Ansicht", orientation: "landscape" },
+          { src: "SportBild hoch.png", alt: "SPORT BILD Hochformat Ansicht", orientation: "portrait" }
+        ]
+      },
+      welt: {
+        accent: "#0070c9",
+        images: [
+          { src: "Welt hoch drei.png", alt: "WELT Hochformat Ansicht eins", orientation: "portrait" },
+          { src: "Welt hoch ein.png", alt: "WELT Hochformat Ansicht zwei", orientation: "portrait" },
+          { src: "Welt hoch zwei.png", alt: "WELT Hochformat Ansicht drei", orientation: "portrait" }
+        ]
+      }
+    };
+
+    const imagePopup = document.getElementById("imagePopup");
+    const imagePopupStage = document.getElementById("imagePopupStage");
+    const imagePopupImg = document.getElementById("imagePopupImg");
+    const imagePopupPrev = document.getElementById("imagePopupPrev");
+    const imagePopupNext = document.getElementById("imagePopupNext");
+    const imagePopupDots = document.getElementById("imagePopupDots");
+    const imagePopupClose = document.getElementById("imagePopupClose");
+    let activeImagePopupConfig = null;
+    let activeImagePopupIndex = 0;
+
+    function activeDotIndex(selector) {
+      const dots = Array.from(document.querySelectorAll(selector));
+      return Math.max(0, dots.findIndex(dot => dot.classList.contains("active")));
+    }
+
+    function updateImagePopup(index) {
+      if (!activeImagePopupConfig || !imagePopupImg || !imagePopupStage || !imagePopupDots) return;
+      activeImagePopupIndex = Math.max(0, Math.min(index, activeImagePopupConfig.images.length - 1));
+      const image = activeImagePopupConfig.images[activeImagePopupIndex];
+      const isLandscape = image.orientation === "landscape";
+      imagePopupStage.className = `image-popup-stage ${isLandscape ? "landscape" : "portrait"}`;
+      imagePopupPrev.className = `image-popup-arrow prev ${isLandscape ? "horizontal" : "vertical"}`;
+      imagePopupNext.className = `image-popup-arrow next ${isLandscape ? "horizontal" : "vertical"}`;
+      imagePopupPrev.textContent = isLandscape ? "‹" : "↑";
+      imagePopupNext.textContent = isLandscape ? "›" : "↓";
+      imagePopupDots.className = `image-popup-dots ${isLandscape ? "horizontal" : "vertical"}`;
+      imagePopupImg.src = image.src;
+      imagePopupImg.alt = image.alt;
+      Array.from(imagePopupDots.children).forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === activeImagePopupIndex));
+      imagePopupPrev.disabled = activeImagePopupIndex === 0;
+      imagePopupNext.disabled = activeImagePopupIndex === activeImagePopupConfig.images.length - 1;
+    }
+
+    function openImagePopup(brand, index = 0) {
+      const config = imagePopupData[brand];
+      if (!config || !imagePopup || !imagePopupDots) return;
+      activeImagePopupConfig = config;
+      imagePopup.style.setProperty("--popup-accent", config.accent);
+      imagePopupDots.innerHTML = config.images.map((_, dotIndex) => `<button class="image-popup-dot" type="button" data-image-popup-target="${dotIndex}" aria-label="Screen ${dotIndex + 1}"></button>`).join("");
+      const hasMultipleImages = config.images.length > 1;
+      imagePopupPrev.style.display = hasMultipleImages ? "" : "none";
+      imagePopupNext.style.display = hasMultipleImages ? "" : "none";
+      imagePopupDots.style.display = hasMultipleImages ? "" : "none";
+      imagePopupDots.querySelectorAll(".image-popup-dot").forEach(dot => {
+        dot.addEventListener("click", event => {
+          event.stopPropagation();
+          updateImagePopup(Number(dot.dataset.imagePopupTarget));
+        });
+      });
+      updateImagePopup(index);
+      imagePopup.classList.add("open");
+      imagePopup.setAttribute("aria-hidden", "false");
+    }
+
+    function closeImagePopup() {
+      if (!imagePopup) return;
+      imagePopup.classList.remove("open");
+      imagePopup.setAttribute("aria-hidden", "true");
+      if (imagePopupImg) imagePopupImg.removeAttribute("src");
+    }
+
+    [
+      [".bild-phone-carousel", "bild", ".bild-phone-dot"],
+      [".autobild-phone-carousel", "autobild", ".autobild-phone-dot"],
+      [".sportbild-phone-view", "sportbild", ".sportbild-phone-dot"],
+      [".welt-phone-carousel", "welt", ".welt-phone-dot"]
+    ].forEach(([selector, brand, dotSelector]) => {
+      document.querySelectorAll(selector).forEach(surface => {
+        surface.addEventListener("click", event => {
+          if (event.target.closest("button")) return;
+          event.stopPropagation();
+          openImagePopup(brand, activeDotIndex(dotSelector));
+        });
       });
     });
 
-    if (autobildPhoneCarousel) {
-      autobildPhoneCarousel.addEventListener("pointerdown", event => {
-        event.stopPropagation();
-        autobildPhonePointerDown = true;
-        autobildPhoneStartX = event.clientX;
-        autobildPhoneDeltaX = 0;
-        autobildPhoneCarousel.setPointerCapture(event.pointerId);
-      });
-      autobildPhoneCarousel.addEventListener("pointermove", event => {
-        event.stopPropagation();
-        if (!autobildPhonePointerDown) return;
-        autobildPhoneDeltaX = event.clientX - autobildPhoneStartX;
-      });
-      autobildPhoneCarousel.addEventListener("pointerup", event => {
-        event.stopPropagation();
-        if (!autobildPhonePointerDown) return;
-        autobildPhonePointerDown = false;
-        if (Math.abs(autobildPhoneDeltaX) > 42) goToAutobildPhoneSlide(activeAutobildPhoneSlide + (autobildPhoneDeltaX < 0 ? 1 : -1));
-      });
-      autobildPhoneCarousel.addEventListener("pointercancel", event => {
-        event.stopPropagation();
-        autobildPhonePointerDown = false;
-      });
-    }
+    if (imagePopupPrev) imagePopupPrev.addEventListener("click", event => {
+      event.stopPropagation();
+      updateImagePopup(activeImagePopupIndex - 1);
+    });
+    if (imagePopupNext) imagePopupNext.addEventListener("click", event => {
+      event.stopPropagation();
+      updateImagePopup(activeImagePopupIndex + 1);
+    });
+    if (imagePopupClose) imagePopupClose.addEventListener("click", closeImagePopup);
+    if (imagePopup) imagePopup.addEventListener("click", event => {
+      if (event.target === imagePopup) closeImagePopup();
+    });
 
-    document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeModal(); closeStarterModal(); } });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeModal(); closeStarterModal(); closeImagePopup(); } });
     document.addEventListener("keydown", (event) => {
       const sliderVisible = document.getElementById("brandIntegration")?.getBoundingClientRect();
       const isNearSlider = sliderVisible && sliderVisible.top < window.innerHeight && sliderVisible.bottom > 0;
