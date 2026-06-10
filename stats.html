@@ -1587,13 +1587,15 @@
       .platform-landkarte__inner{padding:20px 14px;}
       .platform-landkarte__header{padding:0 0 48px;}
       .platform-map-close{top:auto;right:50%;bottom:0;transform:translateX(50%);}
-      .platform-landkarte-modal{padding:10px;align-items:stretch;}
-      .platform-landkarte-modal .platform-landkarte{width:100%;max-height:calc(100svh - 20px);overflow:auto;}
-      .platform-landkarte__inner{padding:58px 20px 24px;}
-      .platform-map-frame{background:rgba(3,5,10,.58);}
+      .platform-landkarte-modal{padding:8px;align-items:stretch;}
+      .platform-landkarte-modal .platform-landkarte{width:100%;max-height:calc(100svh - 16px);overflow:auto;border-radius:14px;}
+      .platform-landkarte__inner{padding:54px 12px 18px;}
+      .platform-map-frame{
+        background:rgba(3,5,10,.58);
+        overflow:hidden;
+      }
       .platform-map-frame,
       .monetization-orbit-frame{position:relative;}
-      .platform-map-frame > .platform-map,
       .platform-map{
         position:absolute;
         left:50%;
@@ -1626,6 +1628,7 @@
       .best-card{min-height:0; padding:18px; grid-template-rows:auto; gap:18px;}
       .best-brand{grid-template-columns:76px 1fr; gap:14px; margin-bottom:22px;}
       .brand-orb{width:72px;height:72px;font-size:25px;}
+      .brand-orb img[alt="Barstool Sports Logo"]{width:64%;height:64%;max-width:64%;}
       .brand-orb.stool{font-size:34px;}
       .brand-orb.espn-logo{font-size:18px;}
       .best-card h3{font-size:18px;white-space:normal;}
@@ -2723,7 +2726,7 @@
 
         const availableWidth = frame.clientWidth;
         const scale = Math.min(1, availableWidth / item.width);
-        frame.style.height = `${Math.ceil(item.height * scale)}px`;
+        frame.style.height = `${Math.ceil(item.height * scale) + 2}px`;
         content.style.transform = `scale(${scale}) translateX(-${item.width / 2}px)`;
         content.dataset.graphicScale = String(scale);
       });
