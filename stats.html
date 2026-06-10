@@ -1592,7 +1592,10 @@
       .platform-landkarte__inner{padding:54px 12px 18px;}
       .platform-map-frame{
         background:rgba(3,5,10,.58);
-        overflow:hidden;
+        overflow-x:auto;
+        overflow-y:hidden;
+        overscroll-behavior-x:contain;
+        -webkit-overflow-scrolling:touch;
       }
       .platform-map-frame,
       .monetization-orbit-frame{position:relative;}
@@ -1606,6 +1609,12 @@
         display:block;
         aspect-ratio:16 / 8.5;
         margin:0;
+      }
+      .platform-map-frame > .platform-map{
+        position:relative;
+        left:auto;
+        top:auto;
+        transform:none !important;
       }
       .platform-map__axis-x,.platform-map__axis-y,.platform-map__center-dot,.platform-map__label{display:block;}
       .platform-map__label{position:absolute;}
@@ -2707,7 +2716,6 @@
 
     function fitMobileGraphics() {
       const graphics = [
-        { frame: ".platform-map-frame", content: ".platform-map", width: 760, height: 500 },
         { frame: ".monetization-orbit-frame", content: ".monetization-orbit", width: 760, height: 820 }
       ];
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
