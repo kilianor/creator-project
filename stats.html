@@ -14,6 +14,28 @@
     .main-nav { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
     .nav-link { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 14px; color:var(--text); background:rgba(255,255,255,.06); text-decoration:none; font-size:14px; font-weight:800; }
     .nav-link.active { background:var(--accent); border-color:var(--accent); color:#020202; }
+    .bottom-nav-bubbles {
+      margin:54px 0 0;
+      padding-top:28px;
+      border-top:1px solid rgba(29,243,242,.28);
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+    .bottom-nav-bubble {
+      min-width:0;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:16px;
+      color:var(--text);
+      background:rgba(10,10,12,.88);
+      text-decoration:none;
+      box-shadow:0 18px 48px rgba(0,0,0,.32),0 0 22px rgba(29,243,242,.07);
+      transition:transform .15s ease,border-color .15s ease;
+    }
+    .bottom-nav-bubble:hover { transform:translateY(-2px); border-color:rgba(29,243,242,.55); }
+    .bottom-nav-bubble b { display:block; margin-bottom:7px; color:#fff; font-size:22px; line-height:1.1; }
+    .bottom-nav-bubble span { display:block; color:#cfd6db; font-size:14px; line-height:1.45; overflow-wrap:anywhere; }
     .stats-shell { display:grid; gap:22px; }
     .is-hidden { display:none !important; }
     .hero { border:1px solid var(--line); border-radius:16px; padding:28px; background:linear-gradient(125deg, rgba(255,255,255,.07), rgba(29,243,242,.08) 42%, rgba(0,0,0,.4)); overflow:hidden; }
@@ -770,6 +792,79 @@
     .logic-matrix tbody tr:hover td:first-child { background:rgba(29,243,242,.13); }
     .logic-matrix tr:last-child td { border-bottom:0; }
     .logic-matrix th:last-child,.logic-matrix td:last-child { border-right:0; }
+    .logic-matrix-accordion { display:none; }
+    .logic-matrix-mobile-card {
+      border:1px solid rgba(29,243,242,.22);
+      border-radius:14px;
+      background:linear-gradient(145deg,rgba(4,4,6,.94),rgba(8,18,19,.72));
+      box-shadow:var(--logic-shadow),0 0 24px rgba(29,243,242,.07);
+      overflow:hidden;
+    }
+    .logic-matrix-mobile-trigger {
+      width:100%;
+      min-height:48px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      border:0;
+      padding:14px 16px;
+      color:#eff;
+      background:rgba(29,243,242,.075);
+      font:inherit;
+      font-size:15px;
+      line-height:1.25;
+      font-weight:950;
+      text-align:left;
+      cursor:pointer;
+    }
+    .logic-matrix-mobile-trigger:focus-visible {
+      outline:2px solid var(--accent);
+      outline-offset:3px;
+    }
+    .logic-matrix-mobile-trigger b {
+      flex:0 0 32px;
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      color:#020202;
+      background:var(--accent);
+      font-size:18px;
+      transition:transform .18s ease;
+    }
+    .logic-matrix-mobile-trigger[aria-expanded="true"] b { transform:rotate(180deg); }
+    .logic-matrix-mobile-panel {
+      display:grid;
+      gap:10px;
+      padding:14px 16px 16px;
+    }
+    .logic-matrix-mobile-panel[hidden] { display:none; }
+    .logic-matrix-mobile-row {
+      min-width:0;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.09);
+    }
+    .logic-matrix-mobile-row:last-child { border-bottom:0; padding-bottom:0; }
+    .logic-matrix-mobile-row span {
+      display:block;
+      margin-bottom:4px;
+      color:var(--accent);
+      font-size:11px;
+      line-height:1.2;
+      font-weight:950;
+      text-transform:uppercase;
+      overflow-wrap:anywhere;
+    }
+    .logic-matrix-mobile-row p {
+      margin:0;
+      color:#d7dde0;
+      font-size:14px;
+      line-height:1.45;
+      overflow-wrap:anywhere;
+      word-break:break-word;
+    }
     .logic-factors { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:12px; }
     .logic-factor { padding:16px; }
     .logic-factor span { display:inline-flex; margin-bottom:12px; color:var(--logic-purple); font-size:12px; font-weight:950; }
@@ -1377,7 +1472,7 @@
     .best-brand { display:grid; grid-template-columns:98px minmax(0,1fr); gap:22px; align-items:center; margin-bottom:22px; min-width:0; }
     .brand-orb { width:86px; height:86px; border-radius:999px; display:grid; place-items:center; overflow:hidden; color:var(--card-accent); border:3px solid rgba(var(--card-rgb),.72); background:radial-gradient(circle, rgba(var(--card-rgb),.16), rgba(0,0,0,.28)); box-shadow:0 0 28px rgba(var(--card-rgb),.34), inset 0 0 22px rgba(var(--card-rgb),.12); font-size:34px; font-weight:1000; letter-spacing:0; }
     .brand-orb img { width:72%; height:72%; object-fit:contain; display:block; filter:drop-shadow(0 0 10px rgba(var(--card-rgb),.24)); }
-    .brand-orb img[alt="Barstool Sports Logo"] { width:92%; height:92%; max-width:none; object-fit:contain; transform:none; }
+    .brand-orb img[alt="Barstool Sports Logo"] { width:76%; height:76%; max-width:76%; object-fit:contain; transform:none; }
     .brand-orb.stool { font-size:47px; line-height:1; }
     .brand-orb.espn-logo { font-size:24px; font-style:italic; letter-spacing:-.06em; }
     .best-card h3 { margin:0 0 10px; max-width:100%; color:#fff; font-size:clamp(20px,1.6vw,31px); line-height:1.06; letter-spacing:0; white-space:nowrap; }
@@ -1446,36 +1541,19 @@
       main{width:calc(100% - 24px);}
       header{grid-template-columns:1fr;}
       .main-nav{justify-content:flex-start;}
+      .bottom-nav-bubbles{grid-template-columns:1fr;margin-top:34px;padding-top:22px;}
+      .bottom-nav-bubble{overflow-wrap:anywhere;word-break:break-word;}
       .mobile-graphic-frame{
         width:100%;
-        overflow-x:auto;
-        overflow-y:hidden;
+        overflow:hidden;
         border:1px solid rgba(255,255,255,.13);
         border-radius:18px;
         background:linear-gradient(145deg,rgba(10,10,12,.94),rgba(8,20,22,.76));
         box-shadow:0 18px 56px rgba(0,0,0,.34),0 0 24px rgba(29,243,242,.08);
-        -webkit-overflow-scrolling:touch;
-        overscroll-behavior-x:contain;
+        position:relative;
       }
-      .mobile-graphic-frame::after{
-        content:"Seitlich scrollen";
-        position:sticky;
-        left:0;
-        bottom:0;
-        display:block;
-        width:max-content;
-        margin:10px 12px 12px;
-        padding:6px 9px;
-        border:1px solid rgba(29,243,242,.18);
-        border-radius:999px;
-        color:#dfffff;
-        background:rgba(0,0,0,.52);
-        font-size:11px;
-        line-height:1;
-        font-weight:900;
-        pointer-events:none;
-      }
-      .mobile-graphic-frame > .graphic-content{min-width:760px;}
+      .mobile-graphic-frame::after{content:none;}
+      .mobile-graphic-frame > .graphic-content{transform-origin:top left;}
       .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards,.note-grid,.interview-body,.dw-insight-grid{grid-template-columns:1fr;}
       .dw-feature-card{grid-template-columns:1fr;}
       .creator-factor-shell{padding:20px 14px;gap:20px;}
@@ -1493,9 +1571,18 @@
       .dw-infographic{margin:0 14px 18px;padding:20px;}
       .logic-wrap{width:calc(100% - 28px);}
       .logic-card-grid,.logic-detail-grid,.logic-deep-grid,.logic-factors,.logic-stats,.best-grid,.best-transform,.best-results{grid-template-columns:1fr;}
-      .logic-matrix-wrap{width:100%;margin-left:0;overflow-x:auto;}
-      .logic-matrix{min-width:960px;width:960px;table-layout:fixed;}
-      .logic-matrix th,.logic-matrix td{overflow-wrap:normal;hyphens:none;}
+      .logic-matrix-wrap{display:none;}
+      .logic-matrix-accordion{display:grid;gap:12px;}
+      .logic-card,
+      .logic-detail-card,
+      .logic-factor,
+      .platform-node,
+      .best-card,
+      .best-state,
+      .best-result,
+      .monetization-card,
+      .monetization-item,
+      .key-fact{overflow-wrap:anywhere;word-break:break-word;}
       .platform-map{grid-template-columns:1fr;}
       .platform-landkarte__inner{padding:20px 14px;}
       .platform-landkarte__header{padding:0 0 48px;}
@@ -1504,14 +1591,19 @@
       .platform-landkarte-modal .platform-landkarte{width:100%;max-height:calc(100svh - 20px);overflow:auto;}
       .platform-landkarte__inner{padding:58px 20px 24px;}
       .platform-map-frame{background:rgba(3,5,10,.58);}
-      .platform-map-frame::after{margin-top:0;}
+      .platform-map-frame,
+      .monetization-orbit-frame{position:relative;}
       .platform-map-frame > .platform-map,
       .platform-map{
+        position:absolute;
+        left:50%;
+        top:0;
         width:760px;
         min-width:760px;
         min-height:500px;
         display:block;
         aspect-ratio:16 / 8.5;
+        margin:0;
       }
       .platform-map__axis-x,.platform-map__axis-y,.platform-map__center-dot,.platform-map__label{display:block;}
       .platform-map__label{position:absolute;}
@@ -1570,12 +1662,16 @@
       .monetization-memory p{font-size:18px;}
       .monetization-orbit-frame{background:rgba(3,5,10,.58);}
       .monetization-orbit{
+        position:absolute;
+        left:50%;
+        top:0;
         width:760px;
         min-width:760px;
         min-height:820px;
         padding:0;
         display:block;
         overflow:hidden;
+        margin:0;
       }
       .monetization-orbit::before{display:block;width:300px;}
       .monetization-orbit::after,.monetization-connectors{display:block;}
@@ -1849,6 +1945,7 @@
                   </tbody>
                 </table>
               </div>
+              <div class="logic-matrix-accordion" aria-label="Plattformvergleich als mobile Karten"></div>
             </div>
           </section>
 
@@ -2087,6 +2184,12 @@
         <p class="survey-footnote">Basis: Journalisten, die regelmäßig journalistische Inhalte posten (N=20)</p>
       </section>
     </section>
+
+    <nav class="bottom-nav-bubbles" aria-label="Weitere Playbook Bereiche">
+      <a class="bottom-nav-bubble" href="lab.html"><b>Lab</b><span>Creator Channels als interaktive Übersicht.</span></a>
+      <a class="bottom-nav-bubble" href="stats.html"><b>Stats</b><span>Recherchen, Zahlen und Analysen.</span></a>
+      <a class="bottom-nav-bubble" href="how-to.html"><b>How-To</b><span>Anleitungen und Workflows.</span></a>
+    </nav>
   </main>
 
   <div id="detailModal" class="modal" onclick="closeDetail(event)">
@@ -2140,6 +2243,7 @@
 
     function openPlatformMap() {
       document.getElementById("platformLandkarteModal").classList.add("open");
+      window.requestAnimationFrame(fitMobileGraphics);
     }
 
     function closePlatformMap(event) {
@@ -2169,6 +2273,58 @@
 
     setupLogicAccordion("logicMatrixToggle", "logicMatrixPanel");
     setupLogicAccordion("logicFactorsToggle", "logicFactorsPanel");
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      }[character]));
+    }
+
+    function setupLogicMatrixMobileAccordion() {
+      const table = document.querySelector(".logic-matrix");
+      const target = document.querySelector(".logic-matrix-accordion");
+      if (!table || !target) return;
+
+      const headers = Array.from(table.querySelectorAll("thead th")).map(cell => cell.textContent.trim());
+      const rows = Array.from(table.querySelectorAll("tbody tr"));
+      target.innerHTML = rows.map((row, rowIndex) => {
+        const cells = Array.from(row.children).map(cell => cell.textContent.trim());
+        const title = cells[0] || `Aspekt ${rowIndex + 1}`;
+        const isOpen = rowIndex === 0;
+        const items = cells.slice(1).map((value, valueIndex) => `
+          <div class="logic-matrix-mobile-row">
+            <span>${escapeHtml(headers[valueIndex + 1] || "")}</span>
+            <p>${escapeHtml(value)}</p>
+          </div>
+        `).join("");
+        return `
+          <article class="logic-matrix-mobile-card">
+            <button class="logic-matrix-mobile-trigger" type="button" aria-expanded="${isOpen}" aria-controls="logicMatrixMobilePanel${rowIndex}">
+              <span>${escapeHtml(title)}</span>
+              <b aria-hidden="true">⌄</b>
+            </button>
+            <div class="logic-matrix-mobile-panel" id="logicMatrixMobilePanel${rowIndex}" ${isOpen ? "" : "hidden"}>
+              ${items}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      target.querySelectorAll(".logic-matrix-mobile-trigger").forEach(trigger => {
+        trigger.addEventListener("click", () => {
+          const panel = document.getElementById(trigger.getAttribute("aria-controls"));
+          const isOpen = trigger.getAttribute("aria-expanded") === "true";
+          trigger.setAttribute("aria-expanded", String(!isOpen));
+          if (panel) panel.hidden = isOpen;
+        });
+      });
+    }
+
+    setupLogicMatrixMobileAccordion();
 
     function creatorFactorsMarkup() {
       return `<section class="creator-factor-shell graphic-only" aria-labelledby="creatorSvgTitle">
@@ -2515,32 +2671,64 @@
       const svg = document.querySelector(".monetization-connectors");
       if (!orbit || !core || !svg || getComputedStyle(svg).display === "none") return;
 
+      const scale = Number(orbit.dataset.graphicScale || 1) || 1;
       const orbitRect = orbit.getBoundingClientRect();
       const coreRect = core.getBoundingClientRect();
-      const coreX = coreRect.left + coreRect.width / 2 - orbitRect.left;
-      const coreY = coreRect.top + coreRect.height / 2 - orbitRect.top;
+      const orbitWidth = orbitRect.width / scale;
+      const orbitHeight = orbitRect.height / scale;
+      const coreX = (coreRect.left + coreRect.width / 2 - orbitRect.left) / scale;
+      const coreY = (coreRect.top + coreRect.height / 2 - orbitRect.top) / scale;
       const ringSize = Number(getComputedStyle(orbit, "::before").width.replace("px", ""));
       const ringRadius = ringSize / 2 + 14;
-      svg.setAttribute("viewBox", `0 0 ${orbitRect.width} ${orbitRect.height}`);
+      svg.setAttribute("viewBox", `0 0 ${orbitWidth} ${orbitHeight}`);
 
       svg.querySelectorAll("line[data-target]").forEach(line => {
         const target = document.querySelector(line.dataset.target);
         if (!target) return;
         const targetRect = target.getBoundingClientRect();
-        const targetX = targetRect.left + targetRect.width / 2 - orbitRect.left;
-        const targetY = targetRect.top + targetRect.height / 2 - orbitRect.top;
+        const targetX = (targetRect.left + targetRect.width / 2 - orbitRect.left) / scale;
+        const targetY = (targetRect.top + targetRect.height / 2 - orbitRect.top) / scale;
         const dx = targetX - coreX;
         const dy = targetY - coreY;
         const distance = Math.hypot(dx, dy) || 1;
         const ux = dx / distance;
         const uy = dy / distance;
-        const targetRadius = Math.min(targetRect.width, targetRect.height) / 2 + 8;
+        const targetRadius = Math.min(targetRect.width, targetRect.height) / (2 * scale) + 8;
 
         line.setAttribute("x1", coreX + ux * ringRadius);
         line.setAttribute("y1", coreY + uy * ringRadius);
         line.setAttribute("x2", targetX - ux * targetRadius);
         line.setAttribute("y2", targetY - uy * targetRadius);
       });
+    }
+
+    function fitMobileGraphics() {
+      const graphics = [
+        { frame: ".platform-map-frame", content: ".platform-map", width: 760, height: 500 },
+        { frame: ".monetization-orbit-frame", content: ".monetization-orbit", width: 760, height: 820 }
+      ];
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+      graphics.forEach(item => {
+        const frame = document.querySelector(item.frame);
+        const content = document.querySelector(item.content);
+        if (!frame || !content) return;
+
+        if (!isMobile) {
+          frame.style.removeProperty("height");
+          content.style.removeProperty("transform");
+          content.removeAttribute("data-graphic-scale");
+          return;
+        }
+
+        const availableWidth = frame.clientWidth;
+        const scale = Math.min(1, availableWidth / item.width);
+        frame.style.height = `${Math.ceil(item.height * scale)}px`;
+        content.style.transform = `scale(${scale}) translateX(-${item.width / 2}px)`;
+        content.dataset.graphicScale = String(scale);
+      });
+
+      updateMonetizationConnectors();
     }
 
     function animateSurveyCounts() {
@@ -2583,11 +2771,11 @@
     renderEconomyCases();
     renderCards();
     animateSurveyCounts();
-    updateMonetizationConnectors();
-    window.addEventListener("load", updateMonetizationConnectors);
-    window.addEventListener("resize", updateMonetizationConnectors);
+    fitMobileGraphics();
+    window.addEventListener("load", fitMobileGraphics);
+    window.addEventListener("resize", fitMobileGraphics);
     if ("ResizeObserver" in window) {
-      new ResizeObserver(updateMonetizationConnectors).observe(document.querySelector(".monetization-orbit"));
+      new ResizeObserver(fitMobileGraphics).observe(document.body);
     }
     window.setEconomyCase = setEconomyCase;
     window.openDetail = openDetail;
