@@ -312,6 +312,15 @@
     .rich-section ul { margin:10px 0 0; padding-left:20px; color:#d4d4db; line-height:1.56; }
     .rich-section li { margin:5px 0; }
     .rich-section.full { grid-column:1 / -1; }
+    .rich-section.learning {
+      order:99;
+      grid-column:1 / -1;
+      border-color:rgba(29,243,242,.34);
+      border-radius:10px;
+      background:linear-gradient(135deg,rgba(29,243,242,.075),rgba(255,255,255,.035));
+      box-shadow:0 0 28px rgba(29,243,242,.06);
+    }
+    .rich-section.learning h3 { color:var(--accent); }
     .link-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
     .link-row a { display:inline-flex; text-decoration:none; color:#020202; background:var(--accent); border-radius:999px; padding:10px 13px; font-size:14px; font-weight:900; }
     .close { float:right; margin:16px 16px 0 0; border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:10px 14px; background:rgba(255,255,255,.08); color:var(--text); cursor:pointer; font-weight:800; }
@@ -669,6 +678,76 @@
     }
     .brand-slide[data-brand="autobild"] .brand-logo,
     .brand-slide[data-brand="autobild"] .brand-idea-number { color: #000; }
+    .brand-slide[data-brand="autobild"] .brand-phone {
+      width: min(100%, 590px);
+      min-height: 370px;
+      border-radius: 32px;
+      padding: 13px 16px 13px 36px;
+    }
+    .brand-slide[data-brand="autobild"] .brand-phone::before {
+      top: 50%;
+      left: 13px;
+      width: 20px;
+      height: 96px;
+      transform: translateY(-50%);
+      border-radius: 999px;
+    }
+    .brand-slide[data-brand="autobild"] .brand-phone-screen {
+      min-height: 344px;
+      border-radius: 24px;
+      padding: 16px;
+      display: block;
+    }
+    .autobild-phone-carousel {
+      height: 312px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #fff;
+      cursor: grab;
+      touch-action: pan-y;
+      position: relative;
+    }
+    .autobild-phone-carousel:active { cursor: grabbing; }
+    .autobild-phone-track {
+      height: 100%;
+      display: flex;
+      transition: transform .42s cubic-bezier(.2,.8,.2,1);
+      will-change: transform;
+    }
+    .autobild-phone-slide {
+      min-width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center top;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .autobild-phone-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.34);
+      backdrop-filter: blur(8px);
+    }
+    .autobild-phone-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0;
+      background: rgba(255,255,255,.48);
+      cursor: pointer;
+    }
+    .autobild-phone-dot.active {
+      width: 18px;
+      background: var(--brand-accent);
+    }
     .brand-phone-nav {
       display: flex;
       gap: 9px;
@@ -819,6 +898,26 @@
     }
     @media (max-width:1050px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .showcase-section .comment-background,.showcase-lab-word{display:none;} .brand-slide{grid-template-columns:1fr;} .brand-mockup-wrap{order:-1;} .brand-flow{grid-template-columns:repeat(2,1fr);} }
     @media (max-width:680px){ main{width:calc(100% - 24px);} header{grid-template-columns:1fr;} .main-nav{justify-content:flex-start;} .grid{grid-template-columns:1fr;} .lab-text-card{grid-column:auto;grid-row:auto / span 2;} .lab-copy{gap:20px;} .comment-background{display:none;} .showcase-feed{width:100%;height:78vh;} .rich-grid{grid-template-columns:1fr;} .rich-section.full{grid-column:auto;} .brand-integration-head{align-items:start;flex-direction:column;} .brand-slider-top{align-items:start;flex-direction:column;} .brand-slider-buttons{align-self:flex-end;} .brand-slide{padding:22px;} .brand-phone{min-height:520px;} .brand-phone-screen{min-height:492px;} .brand-flow{grid-template-columns:1fr;padding-left:22px;padding-right:22px;} }
+    @media (max-width:680px){
+      .brand-slide[data-brand="autobild"] .brand-phone {
+        min-height: 0;
+        padding: 12px 12px 12px 30px;
+      }
+      .brand-slide[data-brand="autobild"] .brand-phone-screen {
+        min-height: 0;
+        grid-template-columns: 1fr;
+      }
+      .brand-slide[data-brand="autobild"] .brand-phone-nav {
+        justify-content: flex-start;
+      }
+      .brand-slide[data-brand="autobild"] .brand-phone-card {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+      .brand-slide[data-brand="autobild"] .brand-phone-image {
+        min-height: 156px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -904,11 +1003,16 @@ B</div>
               <div class="brand-mockup-wrap">
                 <div class="brand-mockup-glow"></div>
                 <div class="brand-phone"><div class="brand-phone-screen">
-                  <div class="brand-phone-status"><span>20:20</span><span>5G · 84%</span></div>
-                  <div class="brand-logo">AUTO BILD</div>
-                  <div class="brand-phone-nav"><span>Tests</span><span>News</span><span class="active">Video</span><span>Gebrauchtwagen</span></div>
-                  <div class="brand-phone-card"><div class="brand-phone-image"><div class="brand-play">▶</div><strong>Gebrauchtwagen der Woche</strong></div><div class="brand-phone-copy"><small>Karussell-Modul</small><p>Social-Video als Einstieg, darunter Testbericht, Checkliste und Kaufberatung.</p></div></div>
-                  <div class="brand-mini-feed"><div><b>YouTube</b><span>AUTO BILD TV</span></div><div><b>Instagram</b><span>Direkt folgen</span></div></div>
+                  <div class="autobild-phone-carousel" id="autobildPhoneCarousel" aria-label="AUTO BILD Querformat-Screenshots">
+                    <div class="autobild-phone-track" id="autobildPhoneTrack">
+                      <img class="autobild-phone-slide" src="autobild quer eins.png" alt="AUTO BILD Querformat Ansicht eins" draggable="false" />
+                      <img class="autobild-phone-slide" src="autobild quer zwei.png" alt="AUTO BILD Querformat Ansicht zwei" draggable="false" />
+                    </div>
+                    <div class="autobild-phone-dots" aria-label="AUTO BILD Screens">
+                      <button class="autobild-phone-dot active" type="button" data-autobild-target="0" aria-label="AUTO BILD Screen eins"></button>
+                      <button class="autobild-phone-dot" type="button" data-autobild-target="1" aria-label="AUTO BILD Screen zwei"></button>
+                    </div>
+                  </div>
                 </div></div>
               </div>
             </article>
@@ -1003,8 +1107,8 @@ B</div>
   <script>
     const channels = [
       {title:"markusundvinz",meta:"Markus Pfander & Vinzenz Mayer: Boulevardjournalismus in Kurzvideoform mit Promis, Behördenchaos und gesellschaftlichen Aufregern.",preview:"markusundvinz - starterpack.png",cardPreview:"markusundvinz-tile.png",previewAlt:"markusundvinz Starterpack",showStarterFirst:true,text:"Markus Pfander & Vinzenz Mayer: Boulevardjournalismus in Kurzvideoform mit Promis, Behördenchaos und gesellschaftlichen Aufregern.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@markusundvinz"},{label:"YouTube öffnen",url:"https://www.youtube.com/@MarkusundVinz"}]},
-      {title:"berlinmarti",meta:"Philipa Martin Foteva: Wirtschaft und alles, was Berlin gerade bewegt.",preview:"berlinmarti-modal.png",cardPreview:"lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Kachel",text:"Philipa Martin Foteva: Wirtschaft und alles, was Berlin gerade bewegt.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"},{label:"berlinmarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
-      {title:"philipamarti",meta:"Philipa Martin Foteva: Zeitgeist, Mode und Trends",preview:"philipamarti - starterpack.jpg",cardPreview:"lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Starterpack",showStarterFirst:true,text:"Philipa Martin Foteva: Zeitgeist, Mode und Trends",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
+      {title:"berlinmarti",meta:"Philipa Martin Foteva: Wirtschaftsthemen und Berlin in wenigen Minuten verstehen.",preview:"berlinmarti - starterpack.png",cardPreview:"lab-berlinmarti-profile.jpeg",previewAlt:"berlinmarti Starterpack",showStarterFirst:true,text:"Philipa Martin Foteva: Wirtschaftsthemen und Berlin in wenigen Minuten verstehen.",links:[{label:"berlinmarti auf TikTok",url:"https://www.tiktok.com/@berlinaktuell?lang=de-DE"},{label:"berlinmarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
+      {title:"philipamarti",meta:"Philipa Martin Foteva: Plötzlich ist ein Trend überall. Alle sehen ihn, alle reden darüber - aber kaum jemand versteht oder weiß, woher er kommt und was er wirklich bedeutet. Ich schon. Und ich erkläre es als Erste.",preview:"philipamarti - starterpack.jpeg",cardPreview:"lab-philipamarti-profile.jpeg",previewAlt:"philipamarti Starterpack",showStarterFirst:true,text:"Philipa Martin Foteva: Plötzlich ist ein Trend überall. Alle sehen ihn, alle reden darüber - aber kaum jemand versteht oder weiß, woher er kommt und was er wirklich bedeutet. Ich schon. Und ich erkläre es als Erste.",links:[{label:"philipamarti auf TikTok",url:"https://www.tiktok.com/@philipamarti?lang=de-DE"},{label:"philipamarti auf Instagram",url:"https://www.instagram.com/iamphilipamartin/"}]},
       {title:"lauras.sports",meta:"Laura Pollmann: Frauen im Sport als nächste Wachstumsfläche im Sportjournalismus.",preview:"laurasports - starterpack.png",cardPreview:"lab-laura-sports-card.png",previewAlt:"lauras.sports Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Laura Pollmann: Frauen im Sport als nächste Wachstumsfläche im Sportjournalismus.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauras.sports?is_from_webapp=1&sender_device=pcv"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauras.sports?igsh=MXJlZDF4MmJyNDU3dw=="}]},
       {title:"moin.lisa",meta:"Lisa Reck: Sport, Social Media und Popkultur verständlich, relevant und unterhaltsam erzählt.",preview:"moin.lisa - starterpack.png",cardPreview:"lab-moin-lisa-card.jpeg",previewAlt:"moin.lisa Starterpack",showStarterFirst:true,profileScale:1,profilePosition:"center center",text:"Lisa Reck: Sport, Social Media und Popkultur verständlich, relevant und unterhaltsam erzählt.",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@moin.lisa?is_from_webapp=1&sender_device=pc"},{label:"YouTube öffnen",url:"https://www.youtube.com/@moin_lisa"}]},
       {title:"lauraemelytalks",meta:"Laura Waibel: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",preview:"lauraemelytalks - starterpack.png",cardPreview:"lauraemelytalks-tile.png",previewAlt:"lauraemelytalks Starterpack",showStarterFirst:true,text:"Laura Waibel: Interviews mit Mehrwert. Persönliche Geschichten, echte Wendepunkte und die Frage: Was macht dein Leben aus?",links:[{label:"TikTok öffnen",url:"https://www.tiktok.com/@lauraemely.talks?is_from_webapp=1&sender_device=pc"},{label:"Instagram öffnen",url:"https://www.instagram.com/lauraemely.talks/"},{label:"YouTube öffnen",url:"https://www.youtube.com/@lauraemelytalks"},{label:"Spotify öffnen",url:"https://open.spotify.com/show/033oEFTfZ4LL5cGD2S1rPx?si=e60ede8a294b44ae"}]},
@@ -1056,12 +1160,131 @@ B</div>
               <p>Potenzielle Monetarisierung monatlich: Investition ca. 260-520 Euro, davon ca. 210-420 Euro Personalaufwand bei ca. 8 Stunden pro Woche und ca. 2,5 Mio. Views sowie ca. 50-100 Euro Equipment und Tools.</p>
               <p>Erlöse ca. 900-2.300 Dollar durch Zielgruppen-Monetarisierung, Werbung ab ca. 10.000 Abos zusätzlich möglich. Überschuss ca. 640-1.780 Dollar oder Euro, je nach tatsächlichem Personalaufwand, CPM und Werbepartnern.</p>
             </section>
-            <section class="rich-section full">
-              <h3>Unsere wichtigsten Learnings</h3>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
               <p>Kontinuität ist der wichtigste Hebel. Auch wenn einzelne Videos kaum Traffic erzeugen, kann aus dem Nichts wieder ein Video viele Impressionen generieren. Deshalb gilt: posten, posten, posten.</p>
               <p>Auf den Algorithmus hat man nur begrenzt Einfluss. Der einzige Hebel, den man wirklich zu 100 Prozent selbst steuern kann, ist die Regelmäßigkeit der Veröffentlichungen.</p>
               <p>Themen mit lokalem Bezug funktionieren besonders gut, weil Menschen sich dafür interessieren, was in ihrer Nachbarschaft passiert. Boulevardthemen brauchen außerdem eine klare Einordnung: Es reicht nicht, nur den Aufreger zu erzählen. Entscheidend ist, schnell zu erklären, warum das Thema relevant ist und warum es die Menschen betrifft.</p>
               <p>Kurze, pointierte Videos mit klarer Haltung eignen sich besonders gut für Social Media. Die Kombination aus schneller Erzählweise, journalistischer Substanz und persönlichem Host-Auftritt macht das Format wiedererkennbar.</p>
+            </section>
+          </div>
+        </div>
+      `,
+      berlinmarti: `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Wirtschaft & Berlin</div>
+            <h3>Die wichtigsten Nachrichten und Debatten aus Wirtschaft und Hauptstadt verständlich und unterhaltsam erklärt.</h3>
+            <p>berlinmarti bereitet Wirtschafts- und Berlin-Themen auf eine coole, schnelle und greifbare Art auf. Das Format ist ein Informations-Shortcut für alle, die wissen wollen, was in der Wirtschaft oder in Berlin passiert - ohne lange Artikel lesen zu müssen.</p>
+            <p>Der Account startete eine Woche nach Beginn der Projektphase. Schon das erste Video erzielte innerhalb weniger Stunden 70.000 Aufrufe, 4.000 Likes, 163 Kommentare, 772 Speicherungen und 400 Weiterleitungen. Weitere Videos erreichten über 17.000 und über 20.000 Aufrufe; viele Clips lagen trotz neuem Account über 10.000 Aufrufen.</p>
+            <p class="rich-core">berlinmarti verbindet Wirtschaftserklärung mit Hauptstadt-Reportage: modern, nahbar, journalistisch und direkt aus dem Alltag der Menschen erzählt.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>Das Format macht Wirtschaftsnews verständlich, relevant und interessant - mit Fokus auf Einordnung statt reiner Nachricht.</p>
+              <p>Im Mittelpunkt stehen Themen rund um Berlin: Politik und Stadtentwicklung, Verkehr, Wohnen und Mieten, Wirtschaft und Start-ups, Kultur, Nachtleben, Sicherheit sowie aktuelle Debatten aus der Hauptstadt.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Hostrolle</h3>
+              <p>Philipa ist bei @berlinmarti stärker als Host und Reporterin präsent. Sie spricht über Wirtschafts- und Hauptstadt-Themen und ist dabei auch unterwegs oder direkt vor Ort.</p>
+              <p>So werden Themen lebendiger, greifbarer und näher an der Realität der Menschen erzählt. Die Host-Persona ist glaubwürdig, neugierig, sympathisch, meinungsstark, cool und humorvoll.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Das Kernprodukt sind kurze, aufmerksamkeitsstarke Videos von ein bis zwei Minuten für TikTok, Instagram und die Webseiten der Marken.</p>
+              <p>Besonders gut passt das Format zu WELT TV und der B.Z., da es Wirtschafts- und Hauptstadt-Themen modern und nahbar erzählt. Bei der B.Z. werden die Videos bereits als Collab-Posts veröffentlicht und erzielen zwischen 20.000 und 50.000 Aufrufe.</p>
+              <p>Ein Beispiel zeigt das Potenzial: Ein Video wurde auf TikTok und Instagram veröffentlicht, erzielte auf Instagram über 52.000 Aufrufe und wurde zusätzlich als Beitrag auf der B.Z.-Website ausgespielt.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Gen Z und Gen Alpha - Zielgruppen, die sonst schwer zu erreichen sind. Die Zielgruppe ist zwischen 14 und 35 Jahre alt, weiblich und männlich und lebt in Deutschland.</p>
+              <p>Das Format spricht Menschen an, die aktuelle Wirtschafts- und Hauptstadt-Themen schnell verstehen wollen und sich über Social Media informieren.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für WELT / WELT TV / B.Z.</h3>
+              <p>Das Format erreicht junge Menschen zwischen 14 und 34 Jahren - potenzielle zukünftige Konsumenten von Markeninhalten, die aktuell fehlen und sonst schwer erreichbar sind.</p>
+              <p>Der Mehrwert entsteht über Vertrauen: Die Community folgt wegen Meinung, Einordnung und Haltung. Dadurch kann langfristig eine loyale Bindung an das Format und an die Marken entstehen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Marken- und Umsatzpotenzial</h3>
+              <ul>
+                <li>neue Zielgruppe zwischen 14 und 34 Jahren</li>
+                <li>loyale Community, Sichtbarkeit und Relevanz</li>
+                <li>Meinungsbildung und viele Kommentare</li>
+                <li>Werbung und Abo-Funnel für Marken</li>
+                <li>Weiterverwertung auf Social Media und Axel-Springer-Plattformen</li>
+                <li>Potenzial für YouTube, Podcast, Product Placement und Kooperationen</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Potenzielle Monetarisierung</h3>
+              <p>Das Format konnte bereits in der Testphase eine starke organische Reichweite erzielen und zeigt klares Wachstumspotenzial.</p>
+              <p>Die bisherigen Ergebnisse: 413.000 Aufrufe innerhalb kurzer Zeit auf @philipamarti, weitere 144.000 Aufrufe innerhalb einer Woche auf @berlinmarti sowie 185.000 Aufrufe innerhalb von zwei Wochen auf Instagram.</p>
+            </section>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
+              <p>Philipa hat zwei unterschiedliche Formate auf drei Accounts komplett alleine betreut - von Idee, Recherche und Skript über Dreh, Schnitt und Posting bis zur Auswertung. Dabei wurde deutlich: Die Accounts könnten schneller wachsen, wenn mehrere Personen gezielt an einem Format arbeiten.</p>
+              <p>Besonders wichtig war Schnelligkeit. Wenn Themen früh erkannt oder Informationen als Erste aufgegriffen wurden, konnten hohe Reichweiten entstehen. Vor-Ort-Videos machten die Inhalte zusätzlich authentischer, dynamischer und näher an der Zielgruppe.</p>
+            </section>
+          </div>
+        </div>
+      `,
+      philipamarti: `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Zeitgeist & aktuelle Trends</div>
+            <h3>Plötzlich ist ein Trend überall. philipamarti erklärt als Erste, woher er kommt und was er wirklich bedeutet.</h3>
+            <p>Das Format verdichtet die wichtigsten gesellschaftlichen, kulturellen und digitalen Trends in journalistisch aufbereiteten Social-Media-Videos. Es erklärt und ordnet Trends sowie Zusammenhänge ein - schnell, nahbar und mit journalistischem Anspruch.</p>
+            <p>Schon im März entstand die Idee, über aktuelle Trends zu berichten. Auf dem Account @philipamarti erschienen die ersten Videos zu Themen, die überall präsent waren, aber kaum journalistisch erklärt wurden. Mit dem dritten Video erzielte das Format in weniger als 24 Stunden über 200.000 Aufrufe, ein weiteres Video erreichte ebenfalls 100.000 Aufrufe.</p>
+            <p class="rich-core">philipamarti greift virale Trends, Internetphänomene, gesellschaftliche Debatten sowie Themen aus Popkultur, Technologie, Lifestyle, Generationen und Arbeitswelt auf.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>Viele Nutzer lieben Trends, konsumieren sie und machen bei den unterschiedlichsten Trends mit - wissen aber nicht, woher sie kommen. philipamarti deckt diese Ursprünge journalistisch auf.</p>
+              <p>Zusätzlich geht es um Popkultur, Mode und Themen, die vor allem Gen Z und Gen Alpha interessieren. Ziel ist zu zeigen: Auch auf Social Media können Journalisten der Wahrheit am nächsten sein.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Hostrolle</h3>
+              <p>Philipa ist das wiedererkennbare Gesicht des Formats und verbindet journalistische Themen mit einer nahbaren, modernen und unterhaltsamen Ansprache.</p>
+              <p>Bei @philipamarti nimmt sie eher die Rolle einer Freundin ein: persönlich, cool, humorvoll und direkt - ohne an Relevanz zu verlieren. So entsteht eine Host-Persona, die glaubwürdig, neugierig, sympathisch und wiedererkennbar ist.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Das Kernprodukt sind ein bis zwei Minuten lange Videos für TikTok, Instagram und die Webseiten von Axel Springer. Das Format kann Trends früh aufgreifen, einordnen und zusätzlich auf bestehenden Markenplattformen weiterverwertet werden.</p>
+              <p>Mit dem zweiten Account @berlinmarti wurde bereits ein Video produziert, das auf TikTok, auf Instagram mit über 52.000 Aufrufen und als Beitrag auf der B.Z.-Website veröffentlicht wurde. Dieses Prinzip lässt sich auch für andere Marken übertragen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Gen Z und Gen Alpha - Zielgruppen, die sonst schwer zu erreichen sind. Die Zielgruppe ist zwischen 14 und 35 Jahre alt, überwiegend weiblich und lebt in Deutschland.</p>
+              <p>Das Format spricht Menschen an, die sich über Social Media informieren und Trends nicht nur konsumieren, sondern verstehen wollen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für Axel Springer</h3>
+              <p>Das Format erreicht junge Menschen zwischen 14 und 34 Jahren - potenzielle zukünftige Konsumenten von BILD, WELT, WELT Lifestyle und weiteren Markeninhalten.</p>
+              <p>Der Mehrwert liegt nicht nur in klassischer Reichweite, sondern in Vertrauen: Die Community folgt wegen Meinung, Einordnung und Haltung. Dadurch kann langfristig eine loyale Bindung an das Format und an die Marken entstehen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Marken- und Umsatzpotenzial</h3>
+              <ul>
+                <li>neue Zielgruppe zwischen 14 und 34 Jahren</li>
+                <li>loyale Community, Sichtbarkeit und Relevanz</li>
+                <li>Meinungsbildung und viele Kommentare</li>
+                <li>Werbung und Abo-Funnel für Marken</li>
+                <li>Weiterverwertung auf Social Media und Axel-Springer-Plattformen</li>
+                <li>Potenzial für YouTube, Podcast, Product Placement und Kooperationen</li>
+              </ul>
+            </section>
+            <section class="rich-section">
+              <h3>Potenzielle Monetarisierung</h3>
+              <p>Das Format konnte bereits in der Testphase starke organische Reichweite erzielen und zeigt damit klares Wachstumspotenzial.</p>
+              <p>Die bisherigen Ergebnisse: 413.000 Aufrufe innerhalb kurzer Zeit auf @philipamarti, weitere 144.000 Aufrufe innerhalb einer Woche auf @berlinmarti sowie 185.000 Aufrufe innerhalb von zwei Wochen auf Instagram.</p>
+            </section>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
+              <p>Philipa hat zwei unterschiedliche Formate auf drei Accounts komplett alleine betreut - von Idee, Recherche und Skript über Dreh, Schnitt und Posting bis zur Auswertung. Dabei wurde deutlich: Die Accounts könnten schneller wachsen, wenn mehrere Personen gezielt an einem Format arbeiten.</p>
+              <p>Besonders wichtig war Schnelligkeit. Wenn Themen früh erkannt oder Informationen als Erste aufgegriffen wurden, konnten hohe Reichweiten entstehen. Vor-Ort-Videos wirkten zusätzlich authentischer, dynamischer und näher an der Zielgruppe.</p>
             </section>
           </div>
         </div>
@@ -1117,8 +1340,8 @@ B</div>
                 <li>öffnet neues Werbekundenpotenzial</li>
               </ul>
             </section>
-            <section class="rich-section full">
-              <h3>Wichtigste Learnings</h3>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
               <ul>
                 <li>Am besten performen Einordnungen, Hintergründe und kontroverse Sportthemen - nicht reine Spielberichte.</li>
                 <li>Eine statische, moderiert präsentierte Umsetzung funktioniert besonders gut.</li>
@@ -1216,6 +1439,15 @@ B</div>
                 <li>Überschuss: 600 €</li>
               </ul>
             </section>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
+              <ul>
+                <li>Die Einführung eines täglichen Formats während der French Open führte innerhalb von zehn Folgen zu 545 neuen Followern. Regelmäßige Formate mit klarer Veröffentlichungserwartung fördern nachhaltiges Wachstum.</li>
+                <li>Eine eigene, lockere Sprache wurde von der Community positiv wahrgenommen. Viele Kommentare und Nachrichten hoben den persönlichen und nahbaren Stil hervor - es wird auch die Persönlichkeit hinter den Inhalten verfolgt.</li>
+                <li>Komplexe Inhalte verständlich einzuordnen schafft Orientierung. Sowohl sportartfremde Nutzer („Endlich verstehe ich das“) als auch besonders engagierte Fans („Besser hätte ich es nicht erklären können“) reagierten positiv auf die Einordnung aktueller Themen.</li>
+                <li>Aktualität ist entscheidend. Themen zu weit im Voraus zu behandeln, führte selten zu hoher Reichweite. Besonders gut funktionierten Inhalte, die etwa 12 Stunden vor oder nach einem relevanten Ereignis veröffentlicht wurden.</li>
+              </ul>
+            </section>
           </div>
         </div>
       `,
@@ -1281,14 +1513,9 @@ B</div>
                 <li>redaktionelle Zweitverwertung im Verlag</li>
               </ul>
             </section>
-            <section class="rich-section">
-              <h3>Wichtigste Learnings</h3>
-              <ul>
-                <li>Schon nach kurzer Zeit lässt sich mit dem richtigen Format eine hohe Reichweite erzielen.</li>
-                <li>Greenscreen-Videos funktionieren auf dem Kanal deutlich besser.</li>
-                <li>Authentizität schlägt Perfektion: natürliche und ehrliche Kommunikation kommt bei der Community am besten an.</li>
-                <li>Inhalte mit Bezug zu Vereinen, insbesondere zu deutschen Klubs, erzielen meist mehr Reichweite als internationale Themen.</li>
-              </ul>
+            <section class="rich-section learning">
+              <h3>Learnings</h3>
+              <p>In den letzten 30 Tagen (9. Mai- 9. Juni) konnten wir plattformübergreifend 1,9 Millionen Aufrufe generieren. Dabei wurde die größte Reichweite über algorithmische Ausspielungen erzielt – insbesondere auf TikTok, wo 97 % der Views über die For-You-Page generiert wurden. Unser erfolgreichstes Video lief bei Instagram (382.000 Aufrufe). Gleichzeitig erwiesen sich prominente Expertenmeinungen (z. B. Jens Lehmann) als besonders wirksam für Reichweite und Followerwachstum. Die Ergebnisse bestätigen, dass die Kernzielgruppe überwiegend männlich und zwischen 18 und 44 Jahren alt ist, wobei TikTok die jüngeren Nutzer (18–34 Jahre) erreicht und Instagram sowie YouTube stärker bei den 25- bis 44-Jährigen performen. Das starke Followerwachstum auf TikTok (+600 %) und Instagram (+556 %) verdeutlicht zudem, dass relevanter, plattformgerecht aufbereiteter Video-Content nicht nur Reichweite, sondern auch nachhaltigen Community-Aufbau fördert.</p>
             </section>
             <section class="rich-section">
               <h3>Integration in die Marke</h3>
@@ -1346,8 +1573,8 @@ B</div>
                 <li>mögliche Artikel und redaktionelle Verlängerungen auf Basis der Interviews</li>
               </ul>
             </section>
-            <section class="rich-section full">
-              <h3>Wichtigste Learnings</h3>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
               <ul>
                 <li>Kommentare bringen Traffic und Reichweite.</li>
                 <li>Der Gast bestimmt die Zielgruppe mit.</li>
@@ -1365,6 +1592,79 @@ B</div>
                 <li>Zweitverwertung in Artikeln, Paid Content und Podcasts</li>
                 <li>langfristig Live-Events wie Story of your life Live</li>
               </ul>
+            </section>
+          </div>
+        </div>
+      `,
+      alinasophiekatzele: `
+        <div class="modal-rich">
+          <section class="rich-hero">
+            <div class="rich-kicker">Warum Sind Wir So?</div>
+            <h3>Gesellschaftliche Trends verstehen: Feeling - Dealing - Healing.</h3>
+            <p>Bei „Warum Sind Wir So“ von @alinasophiekatzele geht es um die großen gesellschaftlichen Trends, die unseren Alltag bestimmen: woher sie kommen, was sie über uns aussagen, wie sie uns verändern und wie wir damit umgehen könnten.</p>
+            <p>Eigene alltägliche Erlebnisse und tagesaktuelle Nachrichten werden aufgegriffen, werfen zentrale gesellschaftliche Fragen auf und geben Anlass, das bigger picture dahinter zu analysieren.</p>
+            <p class="rich-core">Das Format beobachtet, hinterfragt und beantwortet - klug und deep, aber kurzweilig, emotional greifbar und unterhaltsam.</p>
+          </section>
+          <div class="rich-grid">
+            <section class="rich-section">
+              <h3>Positionierung</h3>
+              <p>„Warum Sind Wir So“ ist Food for Thought: ein Format, das Gesellschaft reflektiert, aber down-to-earth bleibt. Es schließt die Lücke zwischen Politik und Unterhaltung.</p>
+              <p>Die Themen sind emotional greifbar und debattierfähig und eignen sich dadurch auch für Boulevard-Journalismus.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Host-Ansatz</h3>
+              <p>Vertrauen ist zum Heimvorteil journalistischer Personenmarken geworden. Alina verbindet deshalb Expertise mit Persönlichkeit: klug, aber einfach; analytisch, aber alltagsnah.</p>
+              <p>Als Juristin und Journalistin steht sie für sorgfältige Recherche und analytische Einordnung. Ihr eigener alltäglicher Blick auf komplexe gesellschaftliche Themen macht diese nahbar, verständlich und greifbar.</p>
+              <p>Der Ton ist empathisch, schlagfertig, intelligent und humorvoll - wie eine Freundin, die zuhört, Zusammenhänge erkennt und Haltung zeigt.</p>
+            </section>
+            <section class="rich-section full">
+              <h3>Content-Strategie</h3>
+              <p>Gesellschaftliche Trends und aktuelle Debatten werden journalistisch recherchiert, emotional erzählt und für Social Media verständlich aufbereitet. Kurze, hochgradig teilbare Inhalte schaffen Reichweite und fördern Diskussionen.</p>
+              <p>Aktuell liegt der Fokus auf 90-sekündigen Reels für Instagram, TikTok und YouTube Shorts.</p>
+              <p>Perspektivisch sind Podcasts für Spotify und YouTube möglich. Gastauftritte von Experten oder bekannten Persönlichkeiten könnten zusätzliche Reichweite schaffen. Auch eine Eventisierung des Formats ist denkbar, etwa Live-Events mit Podiumsdiskussionen, Keynotes oder ein „BILDGipfel“.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Kernversprechen</h3>
+              <p>In einer zunehmend komplexen Welt sehnen sich Menschen nach Verständnis und Einordnung. „Warum Sind Wir So“ kann Orientierung verschaffen.</p>
+              <p>Das Format ist ein Alltagsbegleiter, der versteht, verbindet, unterstützt und so echten Nutzen kreiert.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Zielgruppe</h3>
+              <p>Männer und Frauen im Alter von 18 bis 50 Jahren, die gesellschaftlich interessiert und digital affin sind und Orientierung, Einordnung und Antworten auf komplexe Entwicklungen des Alltags suchen.</p>
+              <p>„Warum Sind Wir So“ kann eine breite Zielgruppe auf Social Media ansprechen. Die Insights bestätigen das, mit Schwerpunkt bei den 25- bis 34-Jährigen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für Axel Springer</h3>
+              <p>Das Format erklärt die gesellschaftlichen Entwicklungen hinter den Schlagzeilen - verständlich, relevant und alltagsnah. So schafft Axel Springer Orientierung, Vertrauen und langfristige Community-Bindung.</p>
+              <p>„Warum Sind Wir So“ lässt sich mit einer breiten Themenpalette multimedial und über mehrere Kanäle für BILD, WELT, WELT Lifestyle sowie die BOOK-Family verwerten.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Mehrwert für BILD</h3>
+              <p>In der BILD-Redaktion heißt es oft: „Uns liest jeder - vom Einbeinigen bis zum Manager.“ Genau darin liegt die Stärke von „Warum Sind Wir So“: Das Format greift Themen auf, die Menschen unabhängig von Alter, Bildung oder Lebensrealität bewegen.</p>
+              <p>Während BILD traditionell stark für Politik, Sport und aktuelle Nachrichten steht, ergänzt „Warum Sind Wir So“ das Portfolio um gesellschaftliche Themen, die Orientierung schaffen, einordnen und neue Perspektiven eröffnen.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Monetarisierung</h3>
+              <p>Mögliche Erlösquellen sind Plattform-Monetarisierung, Podcast-Formate, Live-Events, Experten-Kooperationen sowie markenfähige Content-Serien innerhalb des Axel-Springer-Portfolios.</p>
+              <p>Besonders relevant ist Native Brand Sponsoring: Zeitgeist-Themen bieten Andockpunkte für Technik- und KI-Konzerne, Hotels und weitere Partner.</p>
+              <p>Bei zwei Vlogs für YouTube und Spotify sowie zwei Reels für Instagram, TikTok und YouTube Shorts pro Woche wäre nach einem Jahr eine Kernreichweite zwischen 150.000 und 400.000 auf Instagram, 15.000 Abonnenten und 30.000 Views pro Monat auf YouTube sowie 3.000 Hörer pro Spotify-Folge denkbar.</p>
+            </section>
+            <section class="rich-section">
+              <h3>Potenzielle Einnahmen</h3>
+              <ul>
+                <li>einmalige Hardware-Investitionen: Mikro, Kamera und Beleuchtung für ca. 1.000 Euro</li>
+                <li>monatliche laufende Kosten: Premiere Pro und KI-Tools für ca. 50 Euro</li>
+                <li>YouTube AdSense: ca. 240 Euro pro Monat bei 30.000 Views pro Monat</li>
+                <li>Spotify: ca. 720 Euro bei zwei Folgen pro Woche und 1.500 Hörern</li>
+                <li>Affiliate Marketing: bis zu 200 Euro pro Monat</li>
+              </ul>
+            </section>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
+              <p>Qualität in Inhalt und Umsetzung kann nicht alleine zum Erfolg führen, ist aber die erste Grundvoraussetzung.</p>
+              <p>Die Insights zeigen hohe Interaktionsraten: Reels von „Warum Sind Wir So“ wurden überdurchschnittlich häufig weitergeleitet und abgespeichert. Das sind zwei starke Indikatoren für nachhaltigen Mehrwert und inhaltliche Relevanz, die Instagram mit mehr Sichtbarkeit belohnt.</p>
+              <p>Die Resonanz ist vor dem Hintergrund der Rahmenbedingungen bemerkenswert: Nach der Auflösung eines zuvor betreuten Projekts erfolgte der Aufbau von „Warum Sind Wir So“ mit erheblichem zeitlichem Versatz zu den anderen Formaten und als One-Man-Show ohne Stock-Content. Trotzdem zeigt die Kommentarspalte valides Audience-Potenzial.</p>
+              <p>Qualität allein reicht dauerhaft nicht aus. Für Reichweite ist auch Quantität relevant. Eine höhere Posting-Frequenz, die Ausspielung auf weiteren Plattformen und gezielte Kooperationen mit Interviewpartnern würden Reichweite, Sichtbarkeit und Community-Wachstum beschleunigen.</p>
             </section>
           </div>
         </div>
@@ -1471,7 +1771,7 @@ B</div>
                 <li>Sonderformate zu Wahlen, Krisen oder politischen Großereignissen</li>
               </ul>
             </section>
-            <section class="rich-section">
+            <section class="rich-section learning">
               <h3>Learnings aus dem Test</h3>
               <ul>
                 <li>Die Technik ist anfangs komplex, aber nach der Einrichtung gut beherrschbar.</li>
@@ -1577,8 +1877,8 @@ B</div>
                 <li>Event-Erweiterungen wie Panels, Uni-Talks, Brussels Briefings und Live-Explainer</li>
               </ul>
             </section>
-            <section class="rich-section full">
-              <h3>Wichtige Learnings für die Plattformstrategie</h3>
+            <section class="rich-section full learning">
+              <h3>Learnings</h3>
               <ul>
                 <li>Russische Inhalte liefern attraktives, eingängiges Bildmaterial für vertikale Kurzvideoformate</li>
                 <li>Beispiele: Soldaten in Uniform, Drohnen über Städten, lange Schlangen an Tankstellen oder patriotischer Unterricht an russischen Schulen</li>
@@ -1925,6 +2225,7 @@ B</div>
     if (brandNext) brandNext.addEventListener("click", () => goToBrandSlide(activeBrandSlide + 1));
     if (brandSliderViewport) {
       brandSliderViewport.addEventListener("pointerdown", event => {
+        if (event.target.closest(".autobild-phone-carousel")) return;
         brandPointerDown = true;
         brandStartX = event.clientX;
         brandDeltaX = 0;
@@ -1938,6 +2239,53 @@ B</div>
         if (!brandPointerDown) return;
         brandPointerDown = false;
         if (Math.abs(brandDeltaX) > 55) goToBrandSlide(activeBrandSlide + (brandDeltaX < 0 ? 1 : -1));
+      });
+    }
+
+    const autobildPhoneCarousel = document.getElementById("autobildPhoneCarousel");
+    const autobildPhoneTrack = document.getElementById("autobildPhoneTrack");
+    const autobildPhoneDots = Array.from(document.querySelectorAll(".autobild-phone-dot"));
+    let activeAutobildPhoneSlide = 0;
+    let autobildPhoneStartX = 0;
+    let autobildPhoneDeltaX = 0;
+    let autobildPhonePointerDown = false;
+
+    function goToAutobildPhoneSlide(index) {
+      if (!autobildPhoneTrack) return;
+      activeAutobildPhoneSlide = (index + 2) % 2;
+      autobildPhoneTrack.style.transform = `translateX(-${activeAutobildPhoneSlide * 100}%)`;
+      autobildPhoneDots.forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === activeAutobildPhoneSlide));
+    }
+
+    autobildPhoneDots.forEach(dot => {
+      dot.addEventListener("click", event => {
+        event.stopPropagation();
+        goToAutobildPhoneSlide(Number(dot.dataset.autobildTarget));
+      });
+    });
+
+    if (autobildPhoneCarousel) {
+      autobildPhoneCarousel.addEventListener("pointerdown", event => {
+        event.stopPropagation();
+        autobildPhonePointerDown = true;
+        autobildPhoneStartX = event.clientX;
+        autobildPhoneDeltaX = 0;
+        autobildPhoneCarousel.setPointerCapture(event.pointerId);
+      });
+      autobildPhoneCarousel.addEventListener("pointermove", event => {
+        event.stopPropagation();
+        if (!autobildPhonePointerDown) return;
+        autobildPhoneDeltaX = event.clientX - autobildPhoneStartX;
+      });
+      autobildPhoneCarousel.addEventListener("pointerup", event => {
+        event.stopPropagation();
+        if (!autobildPhonePointerDown) return;
+        autobildPhonePointerDown = false;
+        if (Math.abs(autobildPhoneDeltaX) > 42) goToAutobildPhoneSlide(activeAutobildPhoneSlide + (autobildPhoneDeltaX < 0 ? 1 : -1));
+      });
+      autobildPhoneCarousel.addEventListener("pointercancel", event => {
+        event.stopPropagation();
+        autobildPhonePointerDown = false;
       });
     }
 

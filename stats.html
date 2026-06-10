@@ -108,9 +108,173 @@
     }
     .dw-feature-card:hover, .dw-feature-card:focus-visible { transform:translateY(-3px); border-color:rgba(24,143,216,.68); box-shadow:0 24px 58px rgba(0,0,0,.44),0 0 30px rgba(24,143,216,.12); outline:none; }
     .dw-feature-logo { width:150px; height:96px; border-radius:10px; object-fit:contain; background:#fff; padding:14px; border:1px solid rgba(255,255,255,.16); }
+    .dw-feature-logo.no-white-frame { background:transparent; padding:0; border:0; object-fit:cover; }
     .dw-feature-kicker { color:var(--accent); font-size:12px; font-weight:950; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
     .dw-feature-card h2 { margin:0; font-size:clamp(24px,3vw,38px); line-height:1.08; }
     .dw-feature-card p { margin:10px 0 0; color:#cfd6db; line-height:1.55; max-width:860px; }
+    .dw-feature-card.no-logo { grid-template-columns:1fr; margin-top:-18px; }
+    .creator-factor-shell {
+      --bg:#030506;
+      --panel:rgba(9,18,19,.88);
+      --cyan:#1df3f2;
+      --text:#f8f8f8;
+      --muted:#aeb8bd;
+      --line:rgba(29,243,242,.22);
+      min-height:min(100vh,860px);
+      display:grid;
+      grid-template-columns:minmax(280px,.86fr) minmax(520px,1.14fr);
+      gap:clamp(22px,4vw,48px);
+      align-items:center;
+      padding:clamp(24px,4vw,48px);
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:
+        radial-gradient(circle at 18% 12%,rgba(29,243,242,.13),transparent 30%),
+        radial-gradient(circle at 82% 62%,rgba(29,243,242,.08),transparent 32%),
+        linear-gradient(145deg,#030506 0%,#071012 54%,#030506 100%);
+      box-shadow:0 28px 90px rgba(0,0,0,.38),0 0 34px rgba(29,243,242,.08);
+      overflow:hidden;
+    }
+    .creator-factor-copy { max-width:520px; }
+    .creator-factor-eyebrow { margin:0 0 12px; color:var(--cyan); font-size:12px; font-weight:950; letter-spacing:.12em; text-transform:uppercase; }
+    .creator-factor-copy h3 { margin:0; color:var(--text); font-size:clamp(38px,5vw,68px); line-height:.98; letter-spacing:-.03em; }
+    .creator-factor-copy > p { margin:18px 0 0; color:var(--muted); font-size:clamp(16px,1.5vw,20px); line-height:1.58; font-weight:750; }
+    .creator-factor-core {
+      margin-top:24px;
+      border-left:3px solid var(--cyan);
+      padding:16px 0 16px 18px;
+      color:#eefafa;
+      font-size:clamp(17px,1.45vw,21px);
+      line-height:1.5;
+      font-weight:850;
+    }
+    .creator-factor-core strong { color:var(--cyan); font-weight:1000; }
+    .creator-factor-graphic { width:min(100%,760px); justify-self:center; }
+    .creator-factor-graphic svg { width:100%; height:auto; display:block; overflow:visible; filter:drop-shadow(0 0 26px rgba(29,243,242,.11)); }
+    .creator-factor-shell.graphic-only {
+      width:100%;
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:clamp(20px,3vw,34px);
+      border:0;
+      background:transparent;
+      box-shadow:none;
+      overflow:visible;
+    }
+    .creator-factor-shell.graphic-only .creator-factor-copy {
+      width:min(100%,1040px);
+      max-width:1040px;
+      margin:0 0 22px;
+      text-align:left;
+    }
+    .creator-factor-shell.graphic-only .creator-factor-copy h3 {
+      font-size:clamp(38px,4.8vw,70px);
+      letter-spacing:0;
+      line-height:1.02;
+    }
+    .creator-factor-shell.graphic-only .creator-factor-copy > p {
+      margin-top:14px;
+      font-size:clamp(16px,1.45vw,20px);
+      line-height:1.45;
+    }
+    .creator-factor-shell.graphic-only .creator-factor-core {
+      margin-top:18px;
+      max-width:none;
+      border-left:0;
+      padding:0;
+      color:#fff;
+      font-size:clamp(16px,1.45vw,20px);
+      line-height:1.55;
+      font-weight:400;
+    }
+    .creator-factor-shell.graphic-only .creator-factor-core strong { color:inherit; font-weight:400; }
+    .creator-factor-faces {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:clamp(14px,2vw,24px);
+      margin:0 0 22px;
+      width:min(100%,1040px);
+    }
+    .creator-factor-face {
+      display:grid;
+      justify-items:center;
+      gap:8px;
+      color:#fff;
+      font-size:clamp(11px,1vw,14px);
+      line-height:1.2;
+      font-weight:500;
+      text-align:center;
+      min-width:0;
+    }
+    .creator-factor-faces img {
+      width:clamp(96px,13vw,170px);
+      aspect-ratio:1;
+      border-radius:999px;
+      object-fit:cover;
+      display:block;
+      border:1px solid rgba(29,243,242,.32);
+      box-shadow:0 0 22px rgba(29,243,242,.16);
+    }
+    .creator-factor-shell.graphic-only .creator-factor-graphic {
+      width:min(94vw,1040px);
+      max-width:none;
+    }
+    .creator-factor-shell.graphic-only .creator-factor-graphic svg {
+      max-height:72vh;
+    }
+    .creator-factor-learnings {
+      width:min(100%,1040px);
+      margin:30px 0 0;
+    }
+    .creator-factor-learnings h3 {
+      margin:0 0 20px;
+      color:var(--text);
+      font-size:clamp(38px,4.8vw,70px);
+      line-height:1.02;
+      letter-spacing:0;
+    }
+    .youtube-placeholder {
+      position:relative;
+      width:min(100%,1040px);
+      margin:0 auto;
+      aspect-ratio:16/9;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(29,243,242,.28);
+      border-radius:14px;
+      background:rgba(255,255,255,.035);
+      box-shadow:0 0 28px rgba(29,243,242,.08);
+      color:#fff;
+    }
+    .youtube-placeholder::before {
+      content:"";
+      width:76px;
+      height:54px;
+      border-radius:14px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.24);
+      box-shadow:0 0 20px rgba(29,243,242,.10);
+    }
+    .youtube-placeholder::after {
+      content:"";
+      position:absolute;
+      width:0;
+      height:0;
+      border-top:12px solid transparent;
+      border-bottom:12px solid transparent;
+      border-left:18px solid #fff;
+      transform:translateX(3px);
+    }
+    .factor-segment { fill:rgba(255,255,255,.045); stroke:rgba(29,243,242,.72); stroke-width:1.7; }
+    .factor-center { fill:#060b0c; stroke:var(--cyan); stroke-width:2.4; filter:drop-shadow(0 0 18px rgba(29,243,242,.28)); }
+    .factor-title { fill:#fff; font-size:13.6px; font-weight:1000; letter-spacing:.02em; text-anchor:middle; }
+    .factor-copy { fill:#cfd9dc; font-size:11px; font-weight:760; text-anchor:middle; }
+    .factor-icon { fill:none; stroke:var(--cyan); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; opacity:.95; }
+    .factor-center-text { fill:#fff; font-size:22px; font-weight:1000; letter-spacing:.1em; text-anchor:middle; dominant-baseline:middle; }
     .card-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:12px; }
     .category { color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; }
     .benchmark-title-row { display:flex; align-items:center; gap:14px; margin-bottom:12px; }
@@ -130,6 +294,29 @@
     .modal-card.hide-detail-header .modal-head { justify-content:flex-end; padding:14px 20px; }
     .modal-card.hide-detail-header .modal-head > div { display:none; }
     .modal-card.dw-detail { width:min(1280px,100%); }
+    .modal-card.creator-factor-modal {
+      width:min(1320px,calc(100vw - 24px));
+      max-height:96vh;
+      overflow:auto;
+      border:0;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+    }
+    .modal-card.creator-factor-modal .modal-head {
+      position:absolute;
+      top:18px;
+      right:18px;
+      padding:0;
+      border:0;
+      background:transparent;
+      z-index:2;
+    }
+    .modal-card.creator-factor-modal .modal-body {
+      padding:clamp(12px,2vw,28px);
+      display:grid;
+      place-items:center;
+    }
     .close { border:1px solid rgba(255,255,255,.14); border-radius:999px; background:rgba(255,255,255,.08); color:var(--text); padding:10px 14px; cursor:pointer; font-weight:900; }
     .modal-body { padding:22px; display:grid; gap:16px; }
     .detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -342,7 +529,7 @@
     .survey-donut-value {
       stroke:var(--survey-cyan);
       stroke-linecap:round;
-      stroke-dasharray:77 100;
+      stroke-dasharray:85 100;
     }
     .survey-donut-center {
       position:absolute;
@@ -468,6 +655,7 @@
     }
     .survey-footnote {
       margin:16px 0 0;
+      padding-left:282px;
       color:#aeb7c4;
       font-size:12px;
       line-height:1.4;
@@ -481,7 +669,7 @@
     .logic-download,.logic-btn { display:inline-flex; justify-content:center; align-items:center; min-height:40px; border:0; border-radius:999px; padding:10px 14px; color:#020202; background:var(--accent); text-decoration:none; font-size:14px; font-weight:950; box-shadow:0 0 24px rgba(29,243,242,.16); cursor:pointer; }
     .logic-wrap { width:min(1180px,calc(100% - 38px)); margin:0 auto; }
     .logic-hero { display:grid; grid-template-columns:minmax(0,1.02fr) minmax(360px,.98fr); gap:32px; align-items:center; padding:clamp(34px,5vw,72px) 0 32px; }
-    .logic-eyebrow { color:var(--logic-purple); font-weight:900; text-transform:uppercase; font-size:12px; letter-spacing:.12em; margin-bottom:12px; }
+    .logic-eyebrow { color:var(--logic-purple,var(--accent)); font-weight:900; text-transform:uppercase; font-size:12px; letter-spacing:.12em; margin-bottom:12px; }
     .logic-hero h1 { margin:0 0 18px; color:var(--logic-ink); font-size:clamp(42px,5.5vw,76px); line-height:.98; letter-spacing:-.03em; }
     .logic-hero h1 span { color:var(--logic-purple); }
     .logic-hero p { margin:0; max-width:720px; color:var(--logic-muted); line-height:1.62; font-size:20px; }
@@ -1225,8 +1413,8 @@
     .best-number.muted { color:#b9bec6; font-size:clamp(13px,1.08vw,16px); line-height:1.34; font-weight:800; text-shadow:none; }
     .result-copy { display:block; width:90%; max-width:100%; margin:0 auto; color:#b9bec6; font-size:clamp(12px,.95vw,16px); line-height:1.34; font-weight:800; overflow-wrap:normal; word-break:normal; hyphens:auto; }
     .best-result span:not(.best-number):not(.result-icon) { display:block; width:90%; max-width:100%; margin:0 auto; color:#b9bec6; font-size:clamp(12px,.95vw,16px); font-weight:800; line-height:1.34; overflow-wrap:normal; word-break:normal; hyphens:auto; }
-    @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards,.note-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .dw-insight-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .market-lens,.survey-layout{grid-template-columns:1fr;} .survey-donut-card{grid-template-columns:minmax(190px,260px) 1fr;} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
-    @media (max-width:1180px){ .logic-hero{grid-template-columns:1fr;}.logic-card-grid,.logic-detail-grid,.logic-deep-grid,.best-grid{grid-template-columns:1fr;}.logic-factors{grid-template-columns:repeat(3,minmax(0,1fr));}.logic-layers{grid-template-columns:1fr;}.logic-creator::before,.logic-creator::after{width:2px;height:28px;}.logic-stats{grid-template-columns:repeat(2,minmax(0,1fr));}.platform-country-trigger{min-height:230px;}.platform-map{aspect-ratio:auto;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}.platform-map__axis-x,.platform-map__axis-y,.platform-map__center-dot,.platform-map__label{display:none;}.platform-node{position:static;width:100%;transform:none;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.045);}.monetization-head,.monetization-card-grid{grid-template-columns:1fr;}.monetization-flow{min-height:0;grid-template-columns:1fr;grid-template-rows:auto;}.monetization-flow::before{display:none;}.monetization-node,.monetization-node.creator,.monetization-node.partners,.monetization-node.community,.monetization-node.platforms{grid-column:auto;grid-row:auto;width:100%;min-height:0;transform:none;align-self:auto;}.monetization-orbit{min-height:0;padding:22px 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}.monetization-orbit::before,.monetization-orbit::after,.monetization-connectors{display:none;}.monetization-orbit .monetization-orbit-node,.monetization-orbit .monetization-core,.monetization-orbit .monetization-zone-label{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:100%;height:auto;min-height:132px;}.monetization-core{grid-column:1/-1;min-height:180px;}.monetization-zone-label{max-width:none;font-size:20px;text-align:center;}.monetization-zone-label.left,.monetization-zone-label.right{color:var(--accent);} }
+    @media (max-width:1050px){ .highlights,.benchmark-grid,.bullet-cards,.note-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .dw-insight-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .market-lens,.survey-layout{grid-template-columns:1fr;} .survey-donut-card{grid-template-columns:minmax(190px,260px) 1fr;} .survey-footnote{padding-left:302px;} .subcards{grid-template-columns:repeat(2,minmax(0,1fr));} .case-shell{grid-template-columns:1fr;} .case-tabs{position:relative; top:auto; grid-template-columns:repeat(2,minmax(0,1fr));} .case-detail-head{grid-template-columns:1fr;} .mini-visual{min-width:0;} .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (max-width:1180px){ .logic-hero{grid-template-columns:1fr;}.logic-card-grid,.logic-detail-grid,.logic-deep-grid,.best-grid{grid-template-columns:1fr;}.logic-factors{grid-template-columns:repeat(3,minmax(0,1fr));}.logic-layers{grid-template-columns:1fr;}.logic-creator::before,.logic-creator::after{width:2px;height:28px;}.logic-stats{grid-template-columns:repeat(2,minmax(0,1fr));}.platform-country-trigger{min-height:230px;}.platform-map{aspect-ratio:auto;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}.platform-map__axis-x,.platform-map__axis-y,.platform-map__center-dot,.platform-map__label{display:none;}.platform-node{position:static;width:100%;transform:none;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.045);}.creator-factor-shell{grid-template-columns:1fr;min-height:0;}.creator-factor-copy{max-width:760px;}.creator-factor-graphic{max-width:680px;}.monetization-head,.monetization-card-grid{grid-template-columns:1fr;}.monetization-flow{min-height:0;grid-template-columns:1fr;grid-template-rows:auto;}.monetization-flow::before{display:none;}.monetization-node,.monetization-node.creator,.monetization-node.partners,.monetization-node.community,.monetization-node.platforms{grid-column:auto;grid-row:auto;width:100%;min-height:0;transform:none;align-self:auto;}.monetization-orbit{min-height:0;padding:22px 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}.monetization-orbit::before,.monetization-orbit::after,.monetization-connectors{display:none;}.monetization-orbit .monetization-orbit-node,.monetization-orbit .monetization-core,.monetization-orbit .monetization-zone-label{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:100%;height:auto;min-height:132px;}.monetization-core{grid-column:1/-1;min-height:180px;}.monetization-zone-label{max-width:none;font-size:20px;text-align:center;}.monetization-zone-label.left,.monetization-zone-label.right{color:var(--accent);} }
     @media (min-width:521px) and (max-width:1180px){
       .monetization-orbit{min-height:840px;padding:0;display:block;}
       .monetization-orbit::before{width:min(300px,56vw);}
@@ -1260,6 +1448,10 @@
       .main-nav{justify-content:flex-start;}
       .highlights,.benchmark-grid,.detail-grid,.do-dont,.key-facts,.case-tabs,.case-grid,.bullet-cards,.note-grid,.interview-body,.dw-insight-grid{grid-template-columns:1fr;}
       .dw-feature-card{grid-template-columns:1fr;}
+      .creator-factor-shell{padding:20px 14px;gap:20px;}
+      .creator-factor-graphic{width:min(100%,620px);}
+      .factor-title{font-size:17px;}
+      .factor-copy{font-size:13.5px;}
       .interview-head{grid-template-columns:1fr;}
       .interview-stat-bubbles{grid-template-columns:1fr;}
       .dw-infographic{margin:0 14px 18px;padding:20px;}
@@ -1294,6 +1486,7 @@
       .survey-donut-card{grid-template-columns:1fr;justify-items:center;padding:18px;}
       .survey-donut{width:min(240px,100%);}
       .survey-donut-copy{text-align:left;width:100%;}
+      .survey-footnote{padding-left:18px;}
       .survey-kpi-card{padding:18px;}
       .survey-kpi{grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;}
       .survey-kpi b{font-size:42px;}
@@ -1770,19 +1963,19 @@
       <section class="journalist-survey" aria-labelledby="journalistSurveyTitle">
         <div class="survey-head">
           <div class="logic-eyebrow">Stats · Interne Umfrage</div>
-          <h2 id="journalistSurveyTitle">Perspektive der Journalisten</h2>
-          <p class="survey-subhead">Umfrage im Haus zur Rolle von Content Creation im Journalismus</p>
+          <h2 id="journalistSurveyTitle">Umfrage im Haus zur Rolle von Content Creation im Journalismus</h2>
+          <p class="survey-subhead">Perspektive der Journalisten</p>
           <p class="survey-statement">Die Mehrheit ist überzeugt: Künftig werden mehr Journalisten auch zu Creator. Wer diesen Schritt bereits gegangen ist, erhält bislang jedoch kaum strukturelle Unterstützung – weder redaktionell noch finanziell.<br>Gleichzeitig zeigt sich: Andere Medienmarken erkennen bereits das Potenzial von journalistischen Creatorn und versuchen Springer-Journalisten abzuwerben.</p>
         </div>
 
         <div class="survey-layout">
           <article class="survey-card survey-donut-card" aria-labelledby="surveyFutureTitle">
-            <div class="survey-donut" role="img" aria-label="77 Prozent glauben, dass künftig mehr Journalisten zu Creator werden">
+            <div class="survey-donut" role="img" aria-label="85 Prozent glauben, dass künftig mehr Journalisten zu Creator werden">
               <svg viewBox="0 0 140 140" aria-hidden="true" focusable="false">
                 <circle class="survey-donut-bg" cx="70" cy="70" r="52" pathLength="100"></circle>
                 <circle class="survey-donut-value" cx="70" cy="70" r="52" pathLength="100"></circle>
               </svg>
-              <div class="survey-donut-center"><span class="survey-count" data-count="77">77</span>%</div>
+              <div class="survey-donut-center"><span class="survey-count" data-count="85">85</span>%</div>
             </div>
             <div class="survey-donut-copy">
               <h3 id="surveyFutureTitle">Zukunftsüberzeugung</h3>
@@ -1793,14 +1986,14 @@
           <article class="survey-card survey-kpi-card" aria-labelledby="surveyKpiTitle">
             <h3 id="surveyKpiTitle">Realität heute<br>Bereits Creator aus unserem Haus</h3>
             <div class="survey-kpi-list">
-              <div class="survey-kpi" style="--progress:63%;"><h4>Berufliche Angebote</h4><b><span class="survey-count" data-count="63">63</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>haben bereits Angebote erhalten</span></div>
-              <div class="survey-kpi" style="--progress:13%;"><h4>Verdienen Geld</h4><b><span class="survey-count" data-count="13">13</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>verdienen aktuell Geld mit ihren Inhalten</span></div>
-              <div class="survey-kpi" style="--progress:19%;"><h4>Erhalten Unterstützung</h4><b><span class="survey-count" data-count="19">19</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>erhalten redaktionelle Unterstützung</span></div>
+              <div class="survey-kpi" style="--progress:65%;"><h4>Berufliche Angebote</h4><b><span class="survey-count" data-count="65">65</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>haben bereits Angebote erhalten</span></div>
+              <div class="survey-kpi" style="--progress:10%;"><h4>Verdienen Geld</h4><b><span class="survey-count" data-count="10">10</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>verdienen aktuell Geld mit ihren Inhalten</span></div>
+              <div class="survey-kpi" style="--progress:20%;"><h4>Erhalten Unterstützung</h4><b><span class="survey-count" data-count="20">20</span>%</b><div class="survey-kpi-progress" aria-hidden="true"><span></span></div><span>erhalten redaktionelle Unterstützung</span></div>
             </div>
           </article>
         </div>
 
-        <p class="survey-footnote">Basis: Journalisten, die regelmäßig journalistische Inhalte posten (N=16)</p>
+        <p class="survey-footnote">Basis: Journalisten, die regelmäßig journalistische Inhalte posten (N=20)</p>
       </section>
     </section>
   </main>
@@ -1885,6 +2078,94 @@
 
     setupLogicAccordion("logicMatrixToggle", "logicMatrixPanel");
     setupLogicAccordion("logicFactorsToggle", "logicFactorsPanel");
+
+    function creatorFactorsMarkup() {
+      return `<section class="creator-factor-shell graphic-only" aria-labelledby="creatorSvgTitle">
+        <div class="creator-factor-copy">
+          <h3>Fünf Prinzipien,<br>die auf allen Plattformen zählen</h3>
+          <p>Erkenntnisse aus dem Austausch mit aktiven journalistischen Creators aus Team 40</p>
+          <div class="creator-factor-core">Es gibt keine perfekten Social-Media-Tipps. Erfolgreiche Creator entwickeln eine eigene Sprache, zeigen Haltung, schaffen Wiedererkennbarkeit und bauen Vertrauen durch echtes Interesse am Thema auf.</div>
+        </div>
+        <div class="creator-factor-faces" aria-label="Creator-Gesichter">
+          <div class="creator-factor-face"><img src="Meltem_gesicht_kreis.png" alt="Meltem Seker" /><span>Meltem Seker</span></div>
+          <div class="creator-factor-face"><img src="Sarah Maria Sander_gesicht_kreis.png" alt="Sarah Maria Sander" /><span>Sarah Maria Sander</span></div>
+          <div class="creator-factor-face"><img src="gesicht_links_kreis.png" alt="Benjamin Scherp" /><span>Benjamin Scherp</span></div>
+          <div class="creator-factor-face"><img src="gesicht_rechts_kreis.png" alt="Dominik Steffens" /><span>Dominik Steffens</span></div>
+        </div>
+        <div class="creator-factor-graphic" aria-label="Neongrafik mit Erfolgsfaktoren journalistischer Creator">
+          <svg viewBox="0 0 860 860" role="img" aria-labelledby="creatorSvgTitle creatorSvgDesc">
+            <title id="creatorSvgTitle">Fünf Erfolgsfaktoren journalistischer Creator</title>
+            <desc id="creatorSvgDesc">Neon-Diagramm mit Themenkompetenz, Authentizität, Haltung, Wiedererkennbarkeit und Interaktionen um Creator im Zentrum.</desc>
+            <defs>
+              <radialGradient id="factorBg" cx="50%" cy="48%" r="62%">
+                <stop offset="0%" stop-color="#0a1115"></stop>
+                <stop offset="100%" stop-color="#020307"></stop>
+              </radialGradient>
+              <filter id="neonGreen" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#8fd7ff" flood-opacity=".9"></feDropShadow></filter>
+              <filter id="neonCyan" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#2cf7ff" flood-opacity=".9"></feDropShadow></filter>
+              <filter id="neonPurple" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#2f6fd8" flood-opacity=".9"></feDropShadow></filter>
+              <filter id="neonPink" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#1950b8" flood-opacity=".9"></feDropShadow></filter>
+              <filter id="softText" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#ffffff" flood-opacity=".32"></feDropShadow></filter>
+            </defs>
+            <rect width="860" height="860" rx="18" fill="url(#factorBg)"></rect>
+            <circle cx="430" cy="430" r="388" fill="rgba(255,255,255,.018)"></circle>
+
+            <path d="M 224.3 146.8 A 350 350 0 0 1 635.7 146.8 L 495.8 339.4 A 112 112 0 0 0 364.2 339.4 Z" fill="rgba(143,215,255,.045)" stroke="#8fd7ff" stroke-width="3.2" filter="url(#neonGreen)"></path>
+            <path d="M 635.7 146.8 A 350 350 0 0 1 762.9 538.2 L 536.5 464.6 A 112 112 0 0 0 495.8 339.4 Z" fill="rgba(75,160,255,.045)" stroke="#4ba0ff" stroke-width="3.2" filter="url(#neonCyan)"></path>
+            <path d="M 762.9 538.2 A 350 350 0 0 1 430 780 L 430 542 A 112 112 0 0 0 536.5 464.6 Z" fill="rgba(57,126,232,.045)" stroke="#397ee8" stroke-width="3.2" filter="url(#neonPurple)"></path>
+            <path d="M 430 780 A 350 350 0 0 1 97.1 538.2 L 323.5 464.6 A 112 112 0 0 0 430 542 Z" fill="rgba(47,111,216,.045)" stroke="#2f6fd8" stroke-width="3.2" filter="url(#neonPurple)"></path>
+            <path d="M 97.1 538.2 A 350 350 0 0 1 224.3 146.8 L 364.2 339.4 A 112 112 0 0 0 323.5 464.6 Z" fill="rgba(25,80,184,.045)" stroke="#1950b8" stroke-width="3.2" filter="url(#neonPink)"></path>
+
+            <g class="factor-icon" transform="translate(430 136)" filter="url(#neonGreen)" style="stroke:#8fd7ff">
+              <circle cx="0" cy="0" r="26"></circle><circle cx="0" cy="0" r="12"></circle><path d="M-7 7 L16 -16"></path><polygon points="25,-25 12,-20 20,-12"></polygon>
+            </g>
+            <text x="430" y="196" class="factor-title" filter="url(#softText)">THEMENKOMPETENZ</text>
+            <text x="354" y="222" class="factor-copy" style="text-anchor:start"><tspan x="354" dy="0" fill="#8fd7ff">•</tspan><tspan dx="11" fill="#dbe4e4">Journalistische Standards</tspan><tspan x="377" dy="18" fill="#dbe4e4">einhalten</tspan><tspan x="354" dy="20" fill="#8fd7ff">•</tspan><tspan dx="11" fill="#dbe4e4">Expertise aufbauen</tspan><tspan x="354" dy="20" fill="#8fd7ff">•</tspan><tspan dx="11" fill="#dbe4e4">Echtes Interesse am</tspan><tspan x="377" dy="18" fill="#dbe4e4">Themengebiet zeigen</tspan></text>
+
+            <g class="factor-icon" transform="translate(650 306)" filter="url(#neonCyan)" style="stroke:#4ba0ff">
+              <circle cx="-12" cy="-20" r="15"></circle><path d="M-38 28c4-25 50-25 54 0z"></path><path d="M42 -3c6-11 27-6 24 9-2 13-21 24-24 27-3-3-22-14-24-27-3-15 18-20 24-9z"></path>
+            </g>
+            <text x="642" y="376" class="factor-title" filter="url(#softText)">AUTHENTIZITÄT</text>
+            <text x="585" y="400" class="factor-copy" style="text-anchor:start"><tspan x="585" dy="0" fill="#4ba0ff">•</tspan><tspan dx="11" fill="#dbe4e4">Eigene Sprache</tspan><tspan x="608" dy="18" fill="#dbe4e4">entwickeln</tspan><tspan x="585" dy="20" fill="#4ba0ff">•</tspan><tspan dx="11" fill="#dbe4e4">Persönlichkeit zeigen</tspan><tspan x="585" dy="20" fill="#4ba0ff">•</tspan><tspan dx="11" fill="#dbe4e4">Nicht künstlich perfekt</tspan><tspan x="608" dy="18" fill="#dbe4e4">wirken</tspan></text>
+
+            <g class="factor-icon" transform="translate(292 552)" filter="url(#neonPurple)" style="stroke:#2f6fd8">
+              <rect x="-28" y="-18" width="44" height="36" rx="6"></rect><path d="M16 -6l22-12v36L16 6z"></path><path d="M-12 -9l15 9-15 9z"></path>
+            </g>
+            <text x="292" y="610" class="factor-title" filter="url(#softText)">WIEDERERKENNBARKEIT</text>
+            <text x="250" y="634" class="factor-copy" style="text-anchor:start"><tspan x="250" dy="0" fill="#2f6fd8">•</tspan><tspan dx="10" fill="#dbe4e4">Gleiches Setting nutzen</tspan><tspan x="250" dy="18" fill="#2f6fd8">•</tspan><tspan dx="10" fill="#dbe4e4">Anknüpfende Formate</tspan><tspan x="271" dy="16" fill="#dbe4e4">entwickeln</tspan><tspan x="250" dy="18" fill="#2f6fd8">•</tspan><tspan dx="10" fill="#dbe4e4">Einheitliches Look &amp;</tspan><tspan x="271" dy="16" fill="#dbe4e4">Feel etablieren</tspan></text>
+
+            <g class="factor-icon" transform="translate(586 552)" filter="url(#neonPurple)" style="stroke:#397ee8">
+              <path d="M-20 22v-44"></path><path d="M-20 -22h42l-10 12 10 12h-42"></path>
+            </g>
+            <text x="586" y="602" class="factor-title" filter="url(#softText)">HALTUNG</text>
+            <text x="482" y="634" class="factor-copy" style="text-anchor:start"><tspan x="482" dy="0" fill="#397ee8">•</tspan><tspan dx="10" fill="#dbe4e4">Klare Position</tspan><tspan x="503" dy="16" fill="#dbe4e4">beziehen</tspan><tspan x="482" dy="18" fill="#397ee8">•</tspan><tspan dx="10" fill="#dbe4e4">Werte sichtbar</tspan><tspan x="503" dy="16" fill="#dbe4e4">machen</tspan><tspan x="482" dy="18" fill="#397ee8">•</tspan><tspan dx="10" fill="#dbe4e4">Vertrauen durch</tspan><tspan x="503" dy="16" fill="#dbe4e4">Konsistenz schaffen</tspan></text>
+
+            <g class="factor-icon" transform="translate(218 306)" filter="url(#neonPink)" style="stroke:#1950b8">
+              <path d="M-30 -18h52a19 19 0 0 1 19 19v7a19 19 0 0 1-19 19H-5l-20 18v-18h-5a19 19 0 0 1-19-19v-7a19 19 0 0 1 19-19z"></path>
+              <path d="M-20 5h.5M-5 5h.5M10 5h.5" stroke-width="5"></path>
+            </g>
+            <text x="218" y="376" class="factor-title" filter="url(#softText)">INTERAKTIONEN</text>
+            <text x="160" y="400" class="factor-copy" style="text-anchor:start"><tspan x="160" dy="0" fill="#1950b8">•</tspan><tspan dx="11" fill="#dbe4e4">Community einbinden</tspan><tspan x="160" dy="20" fill="#1950b8">•</tspan><tspan dx="11" fill="#dbe4e4">Im Dialog bleiben</tspan><tspan x="160" dy="20" fill="#1950b8">•</tspan><tspan dx="11" fill="#dbe4e4">Austausch aktiv</tspan><tspan x="183" dy="18" fill="#dbe4e4">fördern</tspan></text>
+
+            <circle cx="430" cy="430" r="112" fill="#03070a" stroke="#2cf7ff" stroke-width="3.2" filter="url(#neonCyan)"></circle>
+            <text x="430" y="434" class="factor-center-text" filter="url(#softText)">CREATOR</text>
+          </svg>
+        </div>
+        <div class="creator-factor-learnings">
+          <h3>Die größten Learnings der Creator aus dem Haus</h3>
+          <div class="youtube-placeholder" aria-label="YouTube Videoplayer Platzhalter"></div>
+        </div>
+      </section>`;
+    }
+
+    function openCreatorFactors() {
+      const detailCard = document.querySelector("#detailModal .modal-card");
+      detailCard.classList.add("hide-detail-header", "dw-detail", "creator-factor-modal");
+      document.getElementById("detailTitle").textContent = "";
+      document.getElementById("detailMeta").textContent = "";
+      document.getElementById("detailBody").innerHTML = creatorFactorsMarkup();
+      document.getElementById("detailModal").classList.add("open");
+    }
 
     const displayOrder = ["Der Spiegel","Deutschlandfunk","Funk","Handelsblatt","Politfluencer","RBB24","Sport Content Creator","Sportschau","SZ","Tagesschau","Zeit","ZDF"];
     const economyCases = [
@@ -2036,8 +2317,16 @@
         <img class="dw-feature-logo" src="Deutsche Welle - Logo.jpg" alt="Deutsche Welle Logo" />
         <div>
           <div class="dw-feature-kicker">Interview · Deutsche Welle</div>
-          <h2>Johanna Rüdiger: Wie Journalisten zu Creator-Marken werden</h2>
-          <p>Ein Gespräch darüber, warum journalistische Creator kein Nebenprojekt mehr sind und was Medienhäuser von der Deutschen Welle lernen können.</p>
+          <h2>Deutsche Welle macht Journalisten zur Creatorn</h2>
+          <p>Ein Gespräch mit Johanna Rüdiger darüber, warum journalistische Creator kein Nebenprojekt mehr sind und was Medienhäuser von der DW lernen können.</p>
+        </div>
+      </article>
+      <article class="dw-feature-card" role="button" tabindex="0" onclick="openCreatorFactors()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCreatorFactors();}">
+        <img class="dw-feature-logo no-white-frame" src="Creator Gespraech.png" alt="Creator Gespraech" title="Creator Gespraech" />
+        <div>
+          <div class="dw-feature-kicker">Analyse · Creator-Faktoren</div>
+          <h2>Fünf Erfolgsfaktoren journalistischer Creator</h2>
+          <p>Wir haben bei anderen Creatorn nachgefragt, wie man erfolgreich journalistische Inhalte teilt.</p>
         </div>
       </article>` : "";
     }
@@ -2108,6 +2397,7 @@
       const item = benchmarkData[index];
       const isDwInterview = item.special === "dw";
       const detailCard = document.querySelector("#detailModal .modal-card");
+      detailCard.classList.remove("creator-factor-modal");
       detailCard.classList.toggle("hide-detail-header", isDwInterview);
       detailCard.classList.toggle("dw-detail", isDwInterview);
       document.getElementById("detailTitle").textContent = isDwInterview ? "" : item.name;
@@ -2215,6 +2505,7 @@
     window.closeLogicDetail = closeLogicDetail;
     window.openPlatformMap = openPlatformMap;
     window.closePlatformMap = closePlatformMap;
+    window.openCreatorFactors = openCreatorFactors;
   </script>
 </body>
 </html>
