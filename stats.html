@@ -259,11 +259,11 @@
       line-height:1.02;
       letter-spacing:0;
     }
-    .youtube-placeholder {
+    .creator-video-embed {
       position:relative;
       width:min(100%,1040px);
       margin:0 auto;
-      aspect-ratio:16/9;
+      aspect-ratio:200 / 113;
       display:grid;
       place-items:center;
       border:1px solid rgba(29,243,242,.28);
@@ -271,25 +271,69 @@
       background:rgba(255,255,255,.035);
       box-shadow:0 0 28px rgba(29,243,242,.08);
       color:#fff;
+      overflow:hidden;
     }
-    .youtube-placeholder::before {
-      content:"";
-      width:76px;
-      height:54px;
+    .creator-video-link {
+      position:relative;
+      width:100%;
+      height:100%;
+      display:block;
       border-radius:14px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.24);
-      box-shadow:0 0 20px rgba(29,243,242,.10);
+      color:#fff;
+      text-decoration:none;
+      overflow:hidden;
     }
-    .youtube-placeholder::after {
-      content:"";
+    .creator-video-link img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:brightness(.72);
+      transition:transform .2s ease, filter .2s ease;
+    }
+    .creator-video-link:hover img,
+    .creator-video-link:focus-visible img {
+      transform:scale(1.025);
+      filter:brightness(.56);
+    }
+    .creator-video-play {
       position:absolute;
+      left:50%;
+      top:50%;
+      width:88px;
+      height:62px;
+      transform:translate(-50%,-50%);
+      border-radius:14px;
+      background:rgba(255,0,51,.94);
+      display:grid;
+      place-items:center;
+      box-shadow:0 18px 40px rgba(0,0,0,.45);
+    }
+    .creator-video-play::before {
+      content:"";
       width:0;
       height:0;
-      border-top:12px solid transparent;
-      border-bottom:12px solid transparent;
-      border-left:18px solid #fff;
-      transform:translateX(3px);
+      margin-left:5px;
+      border-top:14px solid transparent;
+      border-bottom:14px solid transparent;
+      border-left:23px solid #fff;
+    }
+    .creator-video-label {
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:10px;
+      background:rgba(0,0,0,.58);
+      color:#fff;
+      font-size:14px;
+      font-weight:900;
     }
     .factor-segment { fill:rgba(255,255,255,.045); stroke:rgba(29,243,242,.72); stroke-width:1.7; }
     .factor-center { fill:#060b0c; stroke:var(--cyan); stroke-width:2.4; filter:drop-shadow(0 0 18px rgba(29,243,242,.28)); }
@@ -939,6 +983,12 @@
       background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.55));
       pointer-events:none;
     }
+    .stats-image-teaser__frame img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
     .stats-image-teaser__placeholder {
       position:absolute;
       inset:0;
@@ -1000,9 +1050,11 @@
         linear-gradient(145deg,#090b10,#030303);
     }
     .stats-carousel-slide img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
+      width:auto;
+      height:auto;
+      max-width:min(100vw,1920px);
+      max-height:min(100vh,1080px);
+      object-fit:contain;
       display:none;
       background:#050505;
     }
@@ -1919,10 +1971,10 @@
           <section id="logicOverview" class="logic-section logic-section-start" aria-labelledby="logicOverviewTitle">
             <button class="stats-image-teaser" type="button" id="statsImageCarouselOpen">
               <div class="stats-image-teaser__frame">
-                <span class="stats-image-teaser__placeholder">Bildstrecke Platzhalter</span>
+                <img src="a.jpg" alt="Überblick Creator Projekt Vorschau" />
               </div>
               <div class="stats-image-teaser__meta">
-                <h3>Platzhalter Kachel</h3>
+                <h3>Überblick Creator Projekt</h3>
               </div>
             </button>
             <div class="logic-eyebrow">Stats · Plattformlogiken</div>
@@ -2456,9 +2508,22 @@
 
   <script>
     const statsImageCarouselSlides = [
-      { src:"", title:"Platzhalter 1" },
-      { src:"", title:"Platzhalter 2" },
-      { src:"", title:"Platzhalter 3" }
+      { src:"a.jpg", title:"Überblick Creator Projekt Bild 1" },
+      { src:"b.jpg", title:"Überblick Creator Projekt Bild 2" },
+      { src:"c.jpg", title:"Überblick Creator Projekt Bild 3" },
+      { src:"d.jpg", title:"Überblick Creator Projekt Bild 4" },
+      { src:"e.jpg", title:"Überblick Creator Projekt Bild 5" },
+      { src:"f.jpg", title:"Überblick Creator Projekt Bild 6" },
+      { src:"g.jpg", title:"Überblick Creator Projekt Bild 7" },
+      { src:"h.jpg", title:"Überblick Creator Projekt Bild 8" },
+      { src:"i.jpg", title:"Überblick Creator Projekt Bild 9" },
+      { src:"j.jpg", title:"Überblick Creator Projekt Bild 10" },
+      { src:"k.jpg", title:"Überblick Creator Projekt Bild 11" },
+      { src:"l.jpg", title:"Überblick Creator Projekt Bild 12" },
+      { src:"m.jpg", title:"Überblick Creator Projekt Bild 13" },
+      { src:"n.jpg", title:"Überblick Creator Projekt Bild 14" },
+      { src:"o.jpg", title:"Überblick Creator Projekt Bild 15" },
+      { src:"p.jpg", title:"Überblick Creator Projekt Bild 16" }
     ];
     const statsImageCarouselOpen = document.getElementById("statsImageCarouselOpen");
     const statsImageCarouselModal = document.getElementById("statsImageCarouselModal");
@@ -2696,7 +2761,13 @@
         </div>
         <div class="creator-factor-learnings">
           <h3>Die größten Learnings der Creator aus dem Haus</h3>
-          <div class="youtube-placeholder" aria-label="YouTube Videoplayer Platzhalter"></div>
+          <div class="creator-video-embed" aria-label="YouTube Video">
+            <a class="creator-video-link" href="https://youtu.be/28myTbiTIqg" target="_blank" rel="noopener noreferrer" aria-label="Learnings aus dem Haus auf YouTube ansehen">
+              <img src="https://i.ytimg.com/vi/28myTbiTIqg/hqdefault.jpg" alt="Learnings aus dem Haus" />
+              <span class="creator-video-play" aria-hidden="true"></span>
+              <span class="creator-video-label"><span>Learnings aus dem Haus</span><span>Auf YouTube ansehen</span></span>
+            </a>
+          </div>
         </div>
       </section>`;
     }
